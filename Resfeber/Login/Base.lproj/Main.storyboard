@@ -49,14 +49,14 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ppi-Nl-GXt"/>
                                 </constraints>
                                 <color key="tintColor" name="ResfeberLight"/>
-                                <state key="normal" title="Sign in with Okta"/>
+                                <state key="normal" title="Sign in"/>
                                 <connections>
                                     <action selector="signIn:" destination="4a7-cC-Xlp" eventType="touchUpInside" id="qez-xn-3z4"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R8l-LV-vJe"/>
-                        <color key="backgroundColor" name="ResfeberLight"/>
+                        <color key="backgroundColor" name="ResfeberBackground"/>
                         <constraints>
                             <constraint firstItem="CQk-Xf-had" firstAttribute="centerX" secondItem="INU-fS-Snd" secondAttribute="centerXWithinMargins" id="5R1-zz-EZZ"/>
                             <constraint firstItem="rtc-zC-FPi" firstAttribute="leading" secondItem="R8l-LV-vJe" secondAttribute="leading" constant="67" id="7WJ-K7-NOJ"/>
@@ -172,6 +172,9 @@
     </scenes>
     <resources>
         <image name="Logo_Combined" width="2538" height="739"/>
+        <namedColor name="ResfeberBackground">
+            <color red="0.9488552213" green="0.94870942830000005" blue="0.96930819749999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ResfeberLight">
             <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
