@@ -18,12 +18,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-        logoImageView.tintColor = UIColor(named: "ResfeberRed")
-        
-        signInButton.layer.cornerRadius = 5
-        signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        setupView()
         
         NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,
                                                object: nil,
@@ -44,6 +39,15 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    fileprivate func setupView() {
+        // Sets logoImageView to render as a template image and sets the color to ResfeberRed
+        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
+        logoImageView.tintColor = UIColor(named: "ResfeberRed")
+        
+        signInButton.layer.cornerRadius = 5
+        signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+    }
     
     private func alertUserOfExpiredCredentials(_ notification: Notification) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
