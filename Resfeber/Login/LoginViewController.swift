@@ -11,10 +11,19 @@ import OktaAuth
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var logoImageView: UIImageView!
+    @IBOutlet weak var signInButton: UIButton!
+    
     let profileController = ProfileController.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
+        logoImageView.tintColor = UIColor(named: "ResfeberRed")
+        
+        signInButton.layer.cornerRadius = 5
+        signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         
         NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,
                                                object: nil,
