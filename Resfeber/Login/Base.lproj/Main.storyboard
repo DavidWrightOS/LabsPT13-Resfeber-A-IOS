@@ -42,14 +42,16 @@
                                     <constraint firstAttribute="height" constant="128" id="8iY-m2-UIc"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQk-Xf-had">
-                                <rect key="frame" x="137" y="690" width="140" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQk-Xf-had">
+                                <rect key="frame" x="67" y="690" width="280" height="50"/>
                                 <color key="backgroundColor" name="ResfeberRed"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ppi-Nl-GXt"/>
+                                    <constraint firstAttribute="width" constant="280" id="JW7-pq-MiA"/>
+                                    <constraint firstAttribute="height" constant="50" id="Oqj-gN-CuX"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="tintColor" name="ResfeberLight"/>
-                                <state key="normal" title="Sign in"/>
+                                <state key="normal" title="Continue with Okta"/>
                                 <connections>
                                     <action selector="signIn:" destination="4a7-cC-Xlp" eventType="touchUpInside" id="qez-xn-3z4"/>
                                 </connections>
@@ -61,9 +63,10 @@
                             <constraint firstItem="CQk-Xf-had" firstAttribute="centerX" secondItem="INU-fS-Snd" secondAttribute="centerXWithinMargins" id="5R1-zz-EZZ"/>
                             <constraint firstItem="rtc-zC-FPi" firstAttribute="leading" secondItem="R8l-LV-vJe" secondAttribute="leading" constant="67" id="7WJ-K7-NOJ"/>
                             <constraint firstItem="rtc-zC-FPi" firstAttribute="top" secondItem="R8l-LV-vJe" secondAttribute="top" id="JsN-TG-Bh6"/>
+                            <constraint firstItem="CQk-Xf-had" firstAttribute="leading" secondItem="R8l-LV-vJe" secondAttribute="leading" constant="67" id="LPm-Rg-Cp3"/>
                             <constraint firstItem="rtc-zC-FPi" firstAttribute="centerX" secondItem="CQk-Xf-had" secondAttribute="centerX" id="MeR-kC-Ls7"/>
                             <constraint firstItem="CQk-Xf-had" firstAttribute="top" secondItem="rtc-zC-FPi" secondAttribute="bottom" constant="422" id="ltA-vG-d5y"/>
-                            <constraint firstItem="CQk-Xf-had" firstAttribute="leading" secondItem="R8l-LV-vJe" secondAttribute="leading" constant="137" id="xDc-n2-RZj"/>
+                            <constraint firstItem="R8l-LV-vJe" firstAttribute="trailing" secondItem="CQk-Xf-had" secondAttribute="trailing" constant="67" id="qe5-Qc-3ch"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fm5-ES-PwH"/>

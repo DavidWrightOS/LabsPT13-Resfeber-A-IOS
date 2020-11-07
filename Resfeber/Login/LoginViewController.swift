@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
         // Sets edge insets for button text
         signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         
-        signInButton.layer.cornerRadius = 5
+        signInButton.layer.cornerRadius = 12
         signInButton.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         signInButton.layer.shadowOpacity = 0.4
         signInButton.layer.shadowRadius = 5
