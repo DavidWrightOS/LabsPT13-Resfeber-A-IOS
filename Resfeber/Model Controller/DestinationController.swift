@@ -6,7 +6,7 @@
 //  Copyright © 2020 Spencer Curtis. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class DestinationController {
     
@@ -15,7 +15,23 @@ class DestinationController {
     }
     
     static func readDestinations() {
-        
+        if Data.destinations.count == 0 {
+            Data.destinations.append(Destination(name: "Cozumel",
+                                                 image: UIImage(named: "Cozumel")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "Seattle",
+                                                 image: UIImage(named: "Seattle")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "Philidelphia",
+                                                 image: UIImage(named: "Philidelphia")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "Bali",
+                                                 image: UIImage(named: "Bali")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "Lisbon",
+                                                 image: UIImage(named: "Lisbon")!,
+                                                 isFavorite: false))
+        }
     }
     
     static func updateDestination(destination: Destination) {
