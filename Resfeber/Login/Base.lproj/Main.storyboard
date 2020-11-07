@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5kU-21-3IP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5kU-21-3IP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,38 +28,55 @@
             </objects>
             <point key="canvasLocation" x="671.01449275362324" y="83.705357142857139"/>
         </scene>
-        <!--ProfileViewer-->
+        <!--Login View Controller-->
         <scene sceneID="6M8-Hn-aJP">
             <objects>
-                <viewController id="4a7-cC-Xlp" customClass="LoginViewController" customModule="labs_ios_starter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4a7-cC-Xlp" customClass="LoginViewController" customModule="Resfeber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="INU-fS-Snd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQk-Xf-had">
-                                <rect key="frame" x="149" y="486" width="116" height="30"/>
-                                <state key="normal" title="Sign in with Okta"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_Combined" translatesAutoresizingMaskIntoConstraints="NO" id="rtc-zC-FPi">
+                                <rect key="frame" x="67" y="140" width="280" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="8iY-m2-UIc"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQk-Xf-had">
+                                <rect key="frame" x="137" y="690" width="140" height="40"/>
+                                <color key="backgroundColor" name="ResfeberRed"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ppi-Nl-GXt"/>
+                                </constraints>
+                                <color key="tintColor" name="ResfeberLight"/>
+                                <state key="normal" title="Sign in"/>
                                 <connections>
                                     <action selector="signIn:" destination="4a7-cC-Xlp" eventType="touchUpInside" id="qez-xn-3z4"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="R8l-LV-vJe"/>
+                        <color key="backgroundColor" name="ResfeberBackground"/>
                         <constraints>
                             <constraint firstItem="CQk-Xf-had" firstAttribute="centerX" secondItem="INU-fS-Snd" secondAttribute="centerXWithinMargins" id="5R1-zz-EZZ"/>
-                            <constraint firstItem="CQk-Xf-had" firstAttribute="centerY" secondItem="INU-fS-Snd" secondAttribute="centerYWithinMargins" id="ADM-g9-0Ut"/>
+                            <constraint firstItem="rtc-zC-FPi" firstAttribute="leading" secondItem="R8l-LV-vJe" secondAttribute="leading" constant="67" id="7WJ-K7-NOJ"/>
+                            <constraint firstItem="rtc-zC-FPi" firstAttribute="top" secondItem="R8l-LV-vJe" secondAttribute="top" id="JsN-TG-Bh6"/>
+                            <constraint firstItem="rtc-zC-FPi" firstAttribute="centerX" secondItem="CQk-Xf-had" secondAttribute="centerX" id="MeR-kC-Ls7"/>
+                            <constraint firstItem="CQk-Xf-had" firstAttribute="top" secondItem="rtc-zC-FPi" secondAttribute="bottom" constant="422" id="ltA-vG-d5y"/>
+                            <constraint firstItem="CQk-Xf-had" firstAttribute="leading" secondItem="R8l-LV-vJe" secondAttribute="leading" constant="137" id="xDc-n2-RZj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="R8l-LV-vJe"/>
                     </view>
-                    <navigationItem key="navigationItem" title="ProfileViewer" id="fm5-ES-PwH"/>
+                    <navigationItem key="navigationItem" id="fm5-ES-PwH"/>
                     <connections>
+                        <outlet property="logoImageView" destination="rtc-zC-FPi" id="k7D-Tw-jM2"/>
+                        <outlet property="signInButton" destination="CQk-Xf-had" id="v9n-JG-gBV"/>
                         <segue destination="o9A-9L-jW8" kind="presentation" identifier="ModalAddProfile" id="vYb-th-yYx"/>
                         <segue destination="aOC-qF-9qB" kind="presentation" identifier="ShowDetailProfileList" modalPresentationStyle="fullScreen" id="Tfb-bT-2YH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcT-Mn-ZnW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1545" y="84"/>
+            <point key="canvasLocation" x="1544.9275362318842" y="83.705357142857139"/>
         </scene>
         <!--Profiles-->
         <scene sceneID="3Na-TO-5aB">
@@ -71,7 +91,7 @@
         <!--Add Profile View Controller-->
         <scene sceneID="Rcb-Kk-CcR">
             <objects>
-                <viewController id="o9A-9L-jW8" customClass="AddProfileViewController" customModule="labs_ios_starter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="o9A-9L-jW8" customClass="AddProfileViewController" customModule="Resfeber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ECQ-R5-khC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,7 +142,8 @@
                                 <rect key="frame" x="188.5" y="285" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Qhm-Qa-x5Q"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="s8x-4x-PO2" firstAttribute="top" secondItem="Qhm-Qa-x5Q" secondAttribute="top" constant="20" id="3Su-8M-ISi"/>
                             <constraint firstItem="Qhm-Qa-x5Q" firstAttribute="trailing" secondItem="C7b-Qv-MEf" secondAttribute="trailing" constant="20" id="7wV-1j-SH3"/>
@@ -136,7 +157,6 @@
                             <constraint firstItem="s8x-4x-PO2" firstAttribute="leading" secondItem="Qhm-Qa-x5Q" secondAttribute="leading" constant="20" id="wDJ-jB-J5T"/>
                             <constraint firstItem="Iny-A2-ZpV" firstAttribute="leading" secondItem="Qhm-Qa-x5Q" secondAttribute="leading" id="zL2-65-RPg"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Qhm-Qa-x5Q"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="yu2-g9-PBg" id="2wk-dL-L7d"/>
@@ -150,4 +170,19 @@
             <point key="canvasLocation" x="2355" y="-376"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo_Combined" width="2538" height="739"/>
+        <namedColor name="ResfeberBackground">
+            <color red="0.9488552213" green="0.94870942830000005" blue="0.96930819749999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ResfeberLight">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ResfeberRed">
+            <color red="0.88400000333786011" green="0.2370000034570694" blue="0.087999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

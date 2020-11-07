@@ -11,10 +11,14 @@ import OktaAuth
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var logoImageView: UIImageView!
+    @IBOutlet weak var signInButton: UIButton!
+    
     let profileController = ProfileController.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         
         NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,
                                                object: nil,
@@ -35,6 +39,32 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    fileprivate func setupView() {
+        view.backgroundColor = UIColor.Resfeber.background
+        
+        // Sets logoImageView to render as a template image and sets the color to ResfeberRed
+        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
+        logoImageView.tintColor = UIColor.Resfeber.red
+        
+        // Sets edge insets for button text
+        signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        
+        signInButton.layer.cornerRadius = 5
+        signInButton.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        signInButton.layer.shadowOpacity = 0.4
+        signInButton.layer.shadowRadius = 5
+        signInButton.layer.shouldRasterize = true
+        signInButton.layer.masksToBounds =  false
+        
+        // Only displays shadow on button in light mode
+        if traitCollection.userInterfaceStyle == .dark {
+            signInButton.layer.shadowColor = nil
+        } else {
+            signInButton.layer.shadowColor = UIColor.Resfeber.dark.cgColor
+        }
+        
+    }
     
     private func alertUserOfExpiredCredentials(_ notification: Notification) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
