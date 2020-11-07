@@ -41,9 +41,11 @@ class LoginViewController: UIViewController {
     // MARK: - Private Methods
     
     fileprivate func setupView() {
+        view.backgroundColor = UIColor.Resfeber.background
+        
         // Sets logoImageView to render as a template image and sets the color to ResfeberRed
         logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-        logoImageView.tintColor = UIColor(named: "ResfeberRed")
+        logoImageView.tintColor = UIColor.Resfeber.red
         
         // Sets edge insets for button text
         signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
@@ -59,7 +61,7 @@ class LoginViewController: UIViewController {
         if traitCollection.userInterfaceStyle == .dark {
             signInButton.layer.shadowColor = nil
         } else {
-            signInButton.layer.shadowColor = UIColor(named: "ResfeberDark")?.cgColor
+            signInButton.layer.shadowColor = UIColor.Resfeber.dark.cgColor
         }
         
     }

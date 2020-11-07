@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIColor {
+    /// UIColor extension for app Color Sets
   struct Resfeber {
     static var red: UIColor  { return UIColor(named: "ResfeberRed")! }
     static var deleteRed: UIColor  { return UIColor(named: "ResfeberDeleteRed")! }
