@@ -45,8 +45,23 @@ class LoginViewController: UIViewController {
         logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
         logoImageView.tintColor = UIColor(named: "ResfeberRed")
         
-        signInButton.layer.cornerRadius = 5
+        // Sets edge insets for button text
         signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        
+        signInButton.layer.cornerRadius = 5
+        signInButton.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        signInButton.layer.shadowOpacity = 0.4
+        signInButton.layer.shadowRadius = 5
+        signInButton.layer.shouldRasterize = true
+        signInButton.layer.masksToBounds =  false
+        
+        // Only displays shadow on button in light mode
+        if traitCollection.userInterfaceStyle == .dark {
+            signInButton.layer.shadowColor = nil
+        } else {
+            signInButton.layer.shadowColor = UIColor(named: "ResfeberDark")?.cgColor
+        }
+        
     }
     
     private func alertUserOfExpiredCredentials(_ notification: Notification) {
