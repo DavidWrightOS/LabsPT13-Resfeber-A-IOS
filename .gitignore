@@ -13,3 +13,4 @@ xcuserdata/
 
 # Podfiles
 Pods/
+*.pbxproj
