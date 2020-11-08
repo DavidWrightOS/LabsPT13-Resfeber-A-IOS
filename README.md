@@ -2,6 +2,8 @@
 
 🧭 Resfeber (RACE-fay-ber). *Origin: Swedish*  - The restless race of the traveler’s heart before the journey begins, when anxiety and anticipation are tangled together.  That is the feeling we want our users to experience when planning their travels. 🧳
 
+[Trello Board](https://trello.com/b/wdLAv0aT/resfeber-carter-team)  
+
 ## Contributors
 
 |                                                      [David Wright](https://github.com/DavidWrightOS)                                                       |                                                       [Josh Rutkowski](https://github.com/joshrutkowski)                        
