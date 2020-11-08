@@ -32,6 +32,23 @@
 - Access the travel calendar
 - Integration with MapKit
 
+# Roadmap
+📉 This describes the current status and the upcoming milestones of the Resfeber app.
+
+*Updated: Sun, 08 Nov 2020 17:52:51 GMT*
+
+| Status | Milestone | Goals | Label | Release Candidate
+| :---: | :--- | :---: | :---: | :---: |
+| ✔ | **Authentication** | 1 / 1 | `Complete`| `Release 1`| 
+| - | **Search Destinations** | 0 / 3 | `In progress`|`Release 1`| 
+| - | **Travel Information/Data** | 0 / 2 | `not yet started`|`Release 2`| 
+| - | **Travel Itinerary** | 0 / 3 | `not yet started`|`Release 2`| 
+| - | **Flight Tracking** | 0 / 2 | `not yet started`|`Release 3`| 
+| - | **Scheduled Travel Details** | 0 / 3 | `not yet started`|`Release 3`| 
+
+
+
+
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
