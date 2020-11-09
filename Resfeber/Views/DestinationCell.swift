@@ -14,15 +14,7 @@ class DestinationCell: UICollectionViewCell {
     
     var destination: Destination? {
         didSet {
-            if let destination = destination {
-                imageView.image = destination.image
-                imageView.contentMode = .scaleAspectFill
-                bookmarkView.isHidden = !destination.isFavorite
-            } else {
-                imageView.image = UIImage(named: "Logo_Combined")
-                imageView.contentMode = .scaleAspectFit
-                bookmarkView.isHidden = true
-            }
+            updateViews()
         }
     }
     
@@ -32,6 +24,14 @@ class DestinationCell: UICollectionViewCell {
         iv.backgroundColor = .systemGray4
         iv.image = UIImage(named: "Logo_Combined")
         return iv
+    }()
+    
+    fileprivate let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Destination Name"
+        label.textColor = .white
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        return label
     }()
     
     fileprivate let bookmarkView: UIImageView = {
@@ -58,9 +58,31 @@ extension DestinationCell {
         clipsToBounds = true
         addSubview(imageView)
         imageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
-        imageView.addSubview(bookmarkView)
-        bookmarkView.anchor(top: imageView.topAnchor, right: imageView.rightAnchor, paddingRight: 16)
+        
+        // Configure Info Label
+        addSubview(infoLabel)
+        infoLabel.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
+                         paddingLeft: 8, paddingBottom: 8, paddingRight: 8)
+        
+        // Configure Bookmark
+        addSubview(bookmarkView)
+        bookmarkView.anchor(top: topAnchor, right: rightAnchor, paddingRight: 16)
         bookmarkView.setDimensions(width: 28)
         bookmarkView.isHidden = true
+        
+        layoutSubviews()
+    }
+    
+    fileprivate func updateViews() {
+        if let destination = destination {
+            imageView.image = destination.image
+            imageView.contentMode = .scaleAspectFill
+            infoLabel.text = destination.name
+            bookmarkView.isHidden = !destination.isFavorite
+        } else {
+            imageView.image = UIImage(named: "Logo_Combined")
+            imageView.contentMode = .scaleAspectFit
+            bookmarkView.isHidden = true
+        }
     }
 }
