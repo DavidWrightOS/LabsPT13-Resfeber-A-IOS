@@ -12,7 +12,9 @@ class ExploreViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let titleLabel: UILabel = {
+    fileprivate var collectionView: UICollectionView!
+    
+    fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = .label
@@ -20,7 +22,7 @@ class ExploreViewController: UIViewController {
         return label
     }()
     
-    private let profileButton: UIButton = {
+    fileprivate let profileButton: UIButton = {
         let button = UIButton(type: .system)
         let buttonDiameter: CGFloat = 32
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
@@ -66,8 +68,8 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = UIColor.Resfeber.background
         navigationController?.navigationBar.isHidden = true
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
-        view.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
+//        view.addGestureRecognizer(tap)
         
         // Configure Title Label
         view.addSubview(titleLabel)
@@ -84,6 +86,18 @@ class ExploreViewController: UIViewController {
         view.addSubview(searchBar)
         searchBar.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                          paddingTop: 12, paddingLeft: 12, paddingRight: 12)
+        
+        // Configure Collection View
+        let layout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.Resfeber.background
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.reuseIdentifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        collectionView.anchor(top: searchBar.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor,
+                              right: view.rightAnchor, paddingTop: 12, paddingLeft: 20, paddingRight: 20)
     }
     
     fileprivate func performQuery(with searchText: String?) {
@@ -91,6 +105,43 @@ class ExploreViewController: UIViewController {
         print("DEBUG: Perform query with text: \(queryText)..")
     }
 }
+
+// MARK: - Collection View Layout
+
+extension ExploreViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfColumns: CGFloat = 2
+        let width = collectionView.frame.size.width
+        let xInsets: CGFloat = 0
+        let cellSpacing: CGFloat = 8
+        let cellWidth = (width / numberOfColumns) - (xInsets + cellSpacing)
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
+}
+
+// MARK: - Collection View Data Source
+
+extension ExploreViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
+        
+        return cell
+    }
+}
+
+// MARK: - Collection View Delegate
+
+extension ExploreViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("DEBUG: Tapped item #\(indexPath.row)..")
+    }
+}
+
+// MARK: - Search Bar Delegate
 
 extension ExploreViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
