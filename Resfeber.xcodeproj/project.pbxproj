@@ -26,6 +26,7 @@
 		63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A5325572F7A00F70F9C /* UIColor+Extension.swift */; };
 		63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
+		63632A9B25591F6900F70F9C /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9A25591F6900F70F9C /* UISearchBar+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		63632A5325572F7A00F70F9C /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		63632A9A25591F6900F70F9C /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +103,9 @@
 		466C4272249A8748007D033E /* Resfeber */ = {
 			isa = PBXGroup;
 			children = (
-				42D1062C25560F1E00A07604 /* View Controllers */,
 				46BEB4EB24C98EB400FE0CD1 /* Model */,
 				46BEB4EC24C98EBB00FE0CD1 /* Model Controller */,
+				42D1062C25560F1E00A07604 /* View Controllers */,
 				46BEB4EF24C98ED900FE0CD1 /* Login */,
 				46BEB4F224C98F1100FE0CD1 /* Profiles */,
 				46BEB4EA24C98EA300FE0CD1 /* Helpers */,
@@ -122,6 +124,7 @@
 				63632A5325572F7A00F70F9C /* UIColor+Extension.swift */,
 				46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */,
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
+				63632A9A25591F6900F70F9C /* UISearchBar+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */,
 				63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
+				63632A9B25591F6900F70F9C /* UISearchBar+Extension.swift in Sources */,
 				46BEB4E924C98DAF00FE0CD1 /* ProfileListViewController.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
