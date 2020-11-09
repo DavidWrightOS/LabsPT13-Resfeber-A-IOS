@@ -35,6 +35,13 @@ class ExploreViewController: UIViewController {
         
         return button
     }()
+    
+    fileprivate let searchBar: UISearchBar = {
+        let sb = UISearchBar(frame: .zero)
+        sb.clearBackgroundColor()
+        sb.placeholder = "Search"
+        return sb
+    }()
         
     // MARK: - Lifecycle
     
@@ -64,5 +71,38 @@ class ExploreViewController: UIViewController {
         view.addSubview(profileButton)
         profileButton.anchor(right: view.rightAnchor, paddingRight: 20)
         profileButton.centerY(inView: titleLabel)
+        
+        // Configure Search Bar
+        searchBar.delegate = self
+        view.addSubview(searchBar)
+        searchBar.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
+                         paddingTop: 12, paddingLeft: 12, paddingRight: 12)
+    }
+    
+    fileprivate func performQuery(with searchText: String?) {
+        let queryText = searchText ?? ""
+        print("DEBUG: Perform query with text: \(queryText)..")
+    }
+}
+
+extension ExploreViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("DEBUG: Search bar text changed: \(searchText)..")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        performQuery(with: searchBar.text)
+    }
+}
+
+extension UISearchBar {
+    func clearBackgroundColor() {
+        guard let UISearchBarBackground: AnyClass = NSClassFromString("UISearchBarBackground") else { return }
+
+        for view in subviews {
+            for subview in view.subviews where subview.isKind(of: UISearchBarBackground) {
+                subview.alpha = 0
+            }
+        }
     }
 }
