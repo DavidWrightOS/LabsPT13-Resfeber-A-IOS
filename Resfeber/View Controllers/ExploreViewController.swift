@@ -44,7 +44,7 @@ class ExploreViewController: UIViewController {
         sb.searchBarStyle = .minimal
         return sb
     }()
-        
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class ExploreViewController: UIViewController {
         configureViews()
         
         if let layout = collectionView?.collectionViewLayout as? WaterfallLayout {
-          layout.delegate = self
+            layout.delegate = self
         }
     }
     
@@ -85,7 +85,6 @@ class ExploreViewController: UIViewController {
                          paddingTop: 12, paddingLeft: 12, paddingRight: 12)
         
         // Configure Collection View
-//        let layout = UICollectionViewFlowLayout()
         // Set layout to custom WaterfallLayout subclass of UICollectionViewLayout
         let layout = WaterfallLayout()
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
