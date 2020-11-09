@@ -47,4 +47,26 @@ extension UIView {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
+    
+    func centerX(inView view: UIView, constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: constant).isActive = true
+    }
+    
+    func centerY(inView view: UIView, constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+    }
+    
+    func setDimensions(height: CGFloat? = nil, width: CGFloat? = nil) {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let height = height {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+        
+        if let width = width {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+    }
 }
