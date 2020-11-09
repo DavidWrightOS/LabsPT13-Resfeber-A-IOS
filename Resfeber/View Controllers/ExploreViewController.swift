@@ -144,8 +144,14 @@ extension ExploreViewController: WaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         let destination = Data.destinations[indexPath.row]
-        return destination.image?.size.height ?? 180
-
+        guard let height = destination.image?.size.height else { return 300 }
+        
+        print("DEBUG: Image height size is: \(height)")
+        if height <= 300 {
+            return height
+        } else {
+            return height / 3
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
