@@ -40,8 +40,8 @@ class ExploreViewController: UIViewController {
     
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
-        sb.clearBackgroundColor()
         sb.placeholder = "Search"
+        sb.searchBarStyle = .minimal
         return sb
     }()
         
@@ -58,18 +58,11 @@ class ExploreViewController: UIViewController {
         print("DEBUG: profileImageTapped..")
     }
     
-    @objc fileprivate func mainViewTapped() {
-        searchBar.resignFirstResponder()
-    }
-    
     // MARK: - Helpers
     
     fileprivate func configureViews() {
         view.backgroundColor = UIColor.Resfeber.background
         navigationController?.navigationBar.isHidden = true
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
-//        view.addGestureRecognizer(tap)
         
         // Configure Title Label
         view.addSubview(titleLabel)
@@ -149,6 +142,19 @@ extension ExploreViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         performQuery(with: searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
     }
 }

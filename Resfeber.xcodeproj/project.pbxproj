@@ -26,7 +26,6 @@
 		63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A5325572F7A00F70F9C /* UIColor+Extension.swift */; };
 		63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
-		63632A9B25591F6900F70F9C /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9A25591F6900F70F9C /* UISearchBar+Extension.swift */; };
 		63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* DestinationCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +51,6 @@
 		63632A5325572F7A00F70F9C /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		63632A9A25591F6900F70F9C /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 		63632A9E2559244200F70F9C /* DestinationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,7 +125,6 @@
 				63632A5325572F7A00F70F9C /* UIColor+Extension.swift */,
 				46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */,
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
-				63632A9A25591F6900F70F9C /* UISearchBar+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -262,7 +259,6 @@
 				63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */,
 				63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
-				63632A9B25591F6900F70F9C /* UISearchBar+Extension.swift in Sources */,
 				46BEB4E924C98DAF00FE0CD1 /* ProfileListViewController.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
