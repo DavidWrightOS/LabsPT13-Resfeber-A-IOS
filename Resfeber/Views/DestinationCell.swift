@@ -17,9 +17,11 @@ class DestinationCell: UICollectionViewCell {
             if let destination = destination {
                 imageView.image = destination.image
                 imageView.contentMode = .scaleAspectFill
+                bookmarkView.isHidden = !destination.isFavorite
             } else {
                 imageView.image = UIImage(named: "Logo_Combined")
                 imageView.contentMode = .scaleAspectFit
+                bookmarkView.isHidden = true
             }
         }
     }
@@ -29,6 +31,14 @@ class DestinationCell: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .systemGray4
         iv.image = UIImage(named: "Logo_Combined")
+        return iv
+    }()
+    
+    fileprivate let bookmarkView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.image = UIImage(systemName: "bookmark.fill")
+        iv.tintColor = UIColor.Resfeber.red
         return iv
     }()
     
@@ -48,5 +58,9 @@ extension DestinationCell {
         clipsToBounds = true
         addSubview(imageView)
         imageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+        imageView.addSubview(bookmarkView)
+        bookmarkView.anchor(top: imageView.topAnchor, right: imageView.rightAnchor, paddingRight: 16)
+        bookmarkView.setDimensions(width: 28)
+        bookmarkView.isHidden = true
     }
 }

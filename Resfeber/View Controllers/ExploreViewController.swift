@@ -137,6 +137,9 @@ extension ExploreViewController: UICollectionViewDataSource {
 extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destination = Data.destinations[indexPath.row]
+        destination.isFavorite.toggle()
+        
+        collectionView.reloadData()
         print("DEBUG: Tapped destination: \(destination.name)..")
     }
 }
