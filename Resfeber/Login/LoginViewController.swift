@@ -40,6 +40,12 @@ class LoginViewController: UIViewController {
     
     // MARK: - Private Methods
     
+    fileprivate func presentController(_ controller: UIViewController) {
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
     fileprivate func setupView() {
         view.backgroundColor = UIColor.Resfeber.background
         
@@ -82,13 +88,12 @@ class LoginViewController: UIViewController {
     }
     
     private func checkForExistingProfile() {
-        profileController.checkForExistingAuthenticatedUserProfile { [weak self] (exists) in
+        profileController.checkForExistingAuthenticatedUserProfile { [weak self] exists in
             
-            guard let self = self,
-                self.presentedViewController == nil else { return }
+            guard let self = self, self.presentedViewController == nil else { return }
             
             if exists {
-                self.performSegue(withIdentifier: "ShowDetailProfileList", sender: nil)
+                self.presentController(ExploreViewController())
             } else {
                 self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
             }
