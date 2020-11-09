@@ -91,6 +91,10 @@ class ExploreViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.anchor(top: searchBar.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor,
                               right: view.rightAnchor, paddingTop: 12, paddingLeft: 20, paddingRight: 20)
+        
+        // Load Data
+        DestinationController.readDestinations()
+        collectionView.reloadData()
     }
     
     fileprivate func performQuery(with searchText: String?) {
@@ -116,11 +120,13 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 
 extension ExploreViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        Data.destinations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
+        
+        cell.destination = Data.destinations[indexPath.row]
         
         return cell
     }
@@ -130,7 +136,8 @@ extension ExploreViewController: UICollectionViewDataSource {
 
 extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("DEBUG: Tapped item #\(indexPath.row)..")
+        let destination = Data.destinations[indexPath.row]
+        print("DEBUG: Tapped destination: \(destination.name)..")
     }
 }
 

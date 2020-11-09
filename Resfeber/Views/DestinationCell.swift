@@ -12,15 +12,21 @@ class DestinationCell: UICollectionViewCell {
     
     static let reuseIdentifier = "destination-cell-reuse-identifier"
     
-    var image: UIImage? {
+    var destination: Destination? {
         didSet {
-            imageView.image = image ?? UIImage(named: "Logo_Combined")
+            if let destination = destination {
+                imageView.image = destination.image
+                imageView.contentMode = .scaleAspectFill
+            } else {
+                imageView.image = UIImage(named: "Logo_Combined")
+                imageView.contentMode = .scaleAspectFit
+            }
         }
     }
     
     fileprivate let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .systemGray4
         iv.image = UIImage(named: "Logo_Combined")
         return iv
