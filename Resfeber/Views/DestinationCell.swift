@@ -28,7 +28,7 @@ class DestinationCell: UICollectionViewCell {
     
     fileprivate let infoView: UIView = {
         let view = UIView()
-        view.setDimensions(height: 60)
+        view.setDimensions(height: 50)
         return view
     }()
     
