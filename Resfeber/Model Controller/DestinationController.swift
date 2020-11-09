@@ -22,7 +22,7 @@ class DestinationController {
             Data.destinations.append(Destination(name: "Seattle",
                                                  image: UIImage(named: "Seattle")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "Philidelphia",
+            Data.destinations.append(Destination(name: "Philadelphia",
                                                  image: UIImage(named: "Philidelphia")!,
                                                  isFavorite: false))
             Data.destinations.append(Destination(name: "Bali",
