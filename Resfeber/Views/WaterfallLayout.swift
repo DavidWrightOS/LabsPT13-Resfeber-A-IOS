@@ -67,7 +67,7 @@ class WaterfallLayout: UICollectionViewLayout {
                 collectionView,
                 heightForPhotoAtIndexPath: indexPath) ?? 180 // 180 is default cell height if no delegate set
             
-            let height = cellPadding * 2 + photoHeight
+            let height = cellPadding * 2 + (photoHeight * 0.40)
             
             let frame = CGRect(x: xOffset[column],
                                y: yOffset[column],
