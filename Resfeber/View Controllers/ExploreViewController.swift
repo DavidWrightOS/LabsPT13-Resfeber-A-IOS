@@ -56,11 +56,18 @@ class ExploreViewController: UIViewController {
         print("DEBUG: profileImageTapped..")
     }
     
+    @objc fileprivate func mainViewTapped() {
+        searchBar.resignFirstResponder()
+    }
+    
     // MARK: - Helpers
     
     fileprivate func configureViews() {
         view.backgroundColor = UIColor.Resfeber.background
         navigationController?.navigationBar.isHidden = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
+        view.addGestureRecognizer(tap)
         
         // Configure Title Label
         view.addSubview(titleLabel)
