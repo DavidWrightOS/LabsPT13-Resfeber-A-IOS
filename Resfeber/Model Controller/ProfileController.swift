@@ -17,6 +17,7 @@ class ProfileController {
                             clientID: "0oalwkxvqtKeHBmLI4x6",
                             redirectURI: "labs://scaffolding/implicit/callback")
     
+    
     private(set) var authenticatedUserProfile: Profile?
     private(set) var profiles: [Profile] = []
     

@@ -44,12 +44,16 @@ class ExploreViewController: UIViewController {
         sb.searchBarStyle = .minimal
         return sb
     }()
-        
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+        
+        if let layout = collectionView?.collectionViewLayout as? WaterfallLayout {
+            layout.delegate = self
+        }
     }
     
     // MARK: - Selectors
@@ -81,7 +85,8 @@ class ExploreViewController: UIViewController {
                          paddingTop: 12, paddingLeft: 12, paddingRight: 12)
         
         // Configure Collection View
-        let layout = UICollectionViewFlowLayout()
+        // Set layout to custom WaterfallLayout subclass of UICollectionViewLayout
+        let layout = WaterfallLayout()
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.Resfeber.background
         collectionView.showsVerticalScrollIndicator = false
@@ -134,7 +139,20 @@ extension ExploreViewController: UICollectionViewDataSource {
 
 // MARK: - Collection View Delegate
 
-extension ExploreViewController: UICollectionViewDelegate {
+extension ExploreViewController: WaterfallLayoutDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let destination = Data.destinations[indexPath.row]
+        guard let height = destination.image?.size.height else { return 300 }
+        
+        print("DEBUG: Image height size is: \(height)")
+        if height <= 300 {
+            return height
+        } else {
+            return height / 3
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destination = Data.destinations[indexPath.row]
         destination.isFavorite.toggle()
@@ -168,3 +186,5 @@ extension ExploreViewController: UISearchBarDelegate {
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }
+
+
