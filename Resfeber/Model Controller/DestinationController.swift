@@ -31,6 +31,36 @@ class DestinationController {
             Data.destinations.append(Destination(name: "Lisbon",
                                                  image: UIImage(named: "Lisbon")!,
                                                  isFavorite: false))
+            Data.destinations.append(Destination(name: "CozumelTwo",
+                                                 image: UIImage(named: "Cozumel")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "SeattleTwo",
+                                                 image: UIImage(named: "Seattle")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "PhiladelphiaTwo",
+                                                 image: UIImage(named: "Philidelphia")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "BaliTwo",
+                                                 image: UIImage(named: "Bali")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "LisbonTwo",
+                                                 image: UIImage(named: "Lisbon")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "CozumelThree",
+                                                 image: UIImage(named: "Cozumel")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "SeattleThree",
+                                                 image: UIImage(named: "Seattle")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "PhiladelphiaThree",
+                                                 image: UIImage(named: "Philidelphia")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "BaliThree",
+                                                 image: UIImage(named: "Bali")!,
+                                                 isFavorite: false))
+            Data.destinations.append(Destination(name: "LisbonThree",
+                                                 image: UIImage(named: "Lisbon")!,
+                                                 isFavorite: false))
         }
     }
     
