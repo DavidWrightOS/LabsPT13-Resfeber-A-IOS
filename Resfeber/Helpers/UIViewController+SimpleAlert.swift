@@ -13,12 +13,13 @@ extension UIViewController {
                             message: String?,
                             preferredStyle: UIAlertController.Style,
                             dismissText: String,
-                            completionUponDismissal: ((UIAlertAction) -> Void)? = nil) {
+                            completionUponDismissal: ((UIAlertAction) -> Void)? = nil)
+    {
         let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
-        
+
         let dismissAction = UIAlertAction(title: dismissText, style: .cancel, handler: completionUponDismissal)
         alert.addAction(dismissAction)
-        
+
         present(alert, animated: true, completion: nil)
     }
 }
