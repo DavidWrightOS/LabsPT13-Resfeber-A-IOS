@@ -9,15 +9,14 @@
 import UIKit
 
 class DestinationCell: UICollectionViewCell {
-    
     static let reuseIdentifier = "destination-cell-reuse-identifier"
-    
+
     var destination: Destination? {
         didSet {
             updateViews()
         }
     }
-    
+
     fileprivate let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -25,13 +24,13 @@ class DestinationCell: UICollectionViewCell {
         iv.image = UIImage(named: "Logo_Combined")
         return iv
     }()
-    
+
     fileprivate let infoView: UIView = {
         let view = UIView()
         view.setDimensions(height: 50)
         return view
     }()
-    
+
     fileprivate let infoLabel: UILabel = {
         let label = UILabel()
         label.text = "Destination Name"
@@ -49,7 +48,7 @@ class DestinationCell: UICollectionViewCell {
         layer.shouldRasterize = true
         return layer
     }()
-    
+
     fileprivate let bookmarkView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -57,24 +56,25 @@ class DestinationCell: UICollectionViewCell {
         iv.tintColor = UIColor.Resfeber.red
         return iv
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureCell()
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension DestinationCell {
-    fileprivate func configureCell() {
+private extension DestinationCell {
+    func configureCell() {
         layer.cornerRadius = 10
         clipsToBounds = true
         addSubview(imageView)
         imageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
-        
+
         // Configure Info View
         infoView.layer.insertSublayer(gradientLayer, at: 0)
         infoView.addSubview(infoLabel)
@@ -83,17 +83,17 @@ extension DestinationCell {
         addSubview(infoView)
         infoView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
         gradientLayer.frame = infoView.bounds
-        
+
         // Configure Bookmark
         addSubview(bookmarkView)
         bookmarkView.anchor(top: topAnchor, right: rightAnchor, paddingRight: 16)
         bookmarkView.setDimensions(width: 28)
         bookmarkView.isHidden = true
-        
+
         layoutSubviews()
     }
-    
-    fileprivate func updateViews() {
+
+    func updateViews() {
         if let destination = destination {
             imageView.image = destination.image
             imageView.contentMode = .scaleAspectFill
