@@ -125,13 +125,13 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 
 extension ExploreViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        Data.destinations.count
+        DestinationData.destinations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
         
-        cell.destination = Data.destinations[indexPath.row]
+        cell.destination = DestinationData.destinations[indexPath.row]
         
         return cell
     }
@@ -142,7 +142,7 @@ extension ExploreViewController: UICollectionViewDataSource {
 extension ExploreViewController: WaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let destination = Data.destinations[indexPath.row]
+        let destination = DestinationData.destinations[indexPath.row]
         guard let height = destination.image?.size.height else { return 300 }
         
         print("DEBUG: Image height size is: \(height)")
@@ -154,7 +154,7 @@ extension ExploreViewController: WaterfallLayoutDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destination = Data.destinations[indexPath.row]
+        let destination = DestinationData.destinations[indexPath.row]
         destination.isFavorite.toggle()
         
         collectionView.reloadData()

@@ -10,64 +10,67 @@ import UIKit
 
 class DestinationController {
     
+    // TODO: Add functionality to create destination or remove method if not necessary
     static func createDestination(destination: Destination) {
         
     }
     
     static func readDestinations() {
-        if Data.destinations.count == 0 {
-            Data.destinations.append(Destination(name: "Cozumel",
+        if DestinationData.destinations.count == 0 {
+            DestinationData.destinations.append(Destination(name: "Cozumel",
                                                  image: UIImage(named: "Cozumel")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "Seattle",
+            DestinationData.destinations.append(Destination(name: "Seattle",
                                                  image: UIImage(named: "Seattle")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "Philadelphia",
+            DestinationData.destinations.append(Destination(name: "Philadelphia",
                                                  image: UIImage(named: "Philidelphia")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "Bali",
+            DestinationData.destinations.append(Destination(name: "Bali",
                                                  image: UIImage(named: "Bali")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "Lisbon",
+            DestinationData.destinations.append(Destination(name: "Lisbon",
                                                  image: UIImage(named: "Lisbon")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "CozumelTwo",
+            DestinationData.destinations.append(Destination(name: "CozumelTwo",
                                                  image: UIImage(named: "Cozumel")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "SeattleTwo",
+            DestinationData.destinations.append(Destination(name: "SeattleTwo",
                                                  image: UIImage(named: "Seattle")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "PhiladelphiaTwo",
+            DestinationData.destinations.append(Destination(name: "PhiladelphiaTwo",
                                                  image: UIImage(named: "Philidelphia")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "BaliTwo",
+            DestinationData.destinations.append(Destination(name: "BaliTwo",
                                                  image: UIImage(named: "Bali")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "LisbonTwo",
+            DestinationData.destinations.append(Destination(name: "LisbonTwo",
                                                  image: UIImage(named: "Lisbon")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "CozumelThree",
+            DestinationData.destinations.append(Destination(name: "CozumelThree",
                                                  image: UIImage(named: "Cozumel")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "SeattleThree",
+            DestinationData.destinations.append(Destination(name: "SeattleThree",
                                                  image: UIImage(named: "Seattle")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "PhiladelphiaThree",
+            DestinationData.destinations.append(Destination(name: "PhiladelphiaThree",
                                                  image: UIImage(named: "Philidelphia")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "BaliThree",
+            DestinationData.destinations.append(Destination(name: "BaliThree",
                                                  image: UIImage(named: "Bali")!,
                                                  isFavorite: false))
-            Data.destinations.append(Destination(name: "LisbonThree",
+            DestinationData.destinations.append(Destination(name: "LisbonThree",
                                                  image: UIImage(named: "Lisbon")!,
                                                  isFavorite: false))
         }
     }
     
+    // TODO: Add functionality to update destination or remove method if not necessary
     static func updateDestination(destination: Destination) {
         
     }
     
+    // TODO: Add functionality to delete destination or remove method if not necessary
     static func deleteDestinatino(destination: Destination) {
         
     }
