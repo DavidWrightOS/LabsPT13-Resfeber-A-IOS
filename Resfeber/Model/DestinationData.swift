@@ -10,5 +10,4 @@ import Foundation
 
 class DestinationData {
     static var destinations = [Destination]()
-
 }
