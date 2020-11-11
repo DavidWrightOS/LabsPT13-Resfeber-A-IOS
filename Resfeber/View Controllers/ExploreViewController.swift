@@ -32,7 +32,7 @@ class ExploreViewController: UIViewController {
         button.backgroundColor = .systemGray3
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
         
-        let image = UIImage(systemName: "person.fill")!.withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "person.fill")?.withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
         button.setImage(image, for: .normal)
         
         return button
@@ -70,8 +70,12 @@ class ExploreViewController: UIViewController {
         
         // Configure Title Label
         view.addSubview(titleLabel)
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
-                          right: view.rightAnchor, paddingTop: 4, paddingLeft: 20, paddingRight: 20)
+        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                          left: view.leftAnchor,
+                          right: view.rightAnchor,
+                          paddingTop: 4,
+                          paddingLeft: 20,
+                          paddingRight: 20)
         
         // Configure Profile Button
         view.addSubview(profileButton)
@@ -81,8 +85,12 @@ class ExploreViewController: UIViewController {
         // Configure Search Bar
         searchBar.delegate = self
         view.addSubview(searchBar)
-        searchBar.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
-                         paddingTop: 12, paddingLeft: 12, paddingRight: 12)
+        searchBar.anchor(top: titleLabel.bottomAnchor,
+                         left: view.leftAnchor,
+                         right: view.rightAnchor,
+                         paddingTop: 12,
+                         paddingLeft: 12,
+                         paddingRight: 12)
         
         // Configure Collection View
         // Set layout to custom WaterfallLayout subclass of UICollectionViewLayout
@@ -94,8 +102,13 @@ class ExploreViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
-        collectionView.anchor(top: searchBar.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor,
-                              right: view.rightAnchor, paddingTop: 12, paddingLeft: 20, paddingRight: 20)
+        collectionView.anchor(top: searchBar.bottomAnchor,
+                              left: view.leftAnchor,
+                              bottom: view.bottomAnchor,
+                              right: view.rightAnchor,
+                              paddingTop: 12,
+                              paddingLeft: 20,
+                              paddingRight: 20)
         
         // Load Data
         DestinationController.readDestinations()
