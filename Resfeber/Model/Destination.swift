@@ -9,18 +9,15 @@
 import UIKit
 
 class Destination {
-    
     var id: String
     var name: String
-    var image: UIImage? = nil
+    var image: UIImage?
     var isFavorite: Bool = false
-    
+
     init(name: String, image: UIImage, isFavorite: Bool) {
         id = UUID().uuidString
         self.name = name
         self.image = image
         self.isFavorite = isFavorite
     }
-    
-    
 }

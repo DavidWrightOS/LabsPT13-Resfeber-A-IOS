@@ -9,11 +9,10 @@
 import UIKit
 
 class ExploreViewController: UIViewController {
-    
     // MARK: - Properties
-    
+
     fileprivate var collectionView: UICollectionView!
-    
+
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -21,7 +20,7 @@ class ExploreViewController: UIViewController {
         label.text = "Explore"
         return label
     }()
-    
+
     fileprivate let profileButton: UIButton = {
         let button = UIButton(type: .system)
         let buttonDiameter: CGFloat = 32
@@ -34,40 +33,40 @@ class ExploreViewController: UIViewController {
         
         let image = UIImage(systemName: "person.fill")?.withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
         button.setImage(image, for: .normal)
-        
+
         return button
     }()
-    
+
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.placeholder = "Search"
         sb.searchBarStyle = .minimal
         return sb
     }()
-    
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        
+
         if let layout = collectionView?.collectionViewLayout as? WaterfallLayout {
             layout.delegate = self
         }
     }
-    
+
     // MARK: - Selectors
-    
+
     @objc fileprivate func profileImageTapped() {
         print("DEBUG: profileImageTapped..")
     }
-    
+
     // MARK: - Helpers
-    
+
     fileprivate func configureViews() {
         view.backgroundColor = UIColor.Resfeber.background
         navigationController?.navigationBar.isHidden = true
-        
+
         // Configure Title Label
         view.addSubview(titleLabel)
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
@@ -81,7 +80,7 @@ class ExploreViewController: UIViewController {
         view.addSubview(profileButton)
         profileButton.anchor(right: view.rightAnchor, paddingRight: 20)
         profileButton.centerY(inView: titleLabel)
-        
+
         // Configure Search Bar
         searchBar.delegate = self
         view.addSubview(searchBar)
@@ -114,7 +113,7 @@ class ExploreViewController: UIViewController {
         DestinationController.readDestinations()
         collectionView.reloadData()
     }
-    
+
     fileprivate func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
         print("DEBUG: Perform query with text: \(queryText)..")
@@ -124,7 +123,7 @@ class ExploreViewController: UIViewController {
 // MARK: - Collection View Layout
 
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let numberOfColumns: CGFloat = 2
         let width = collectionView.frame.size.width
         let xInsets: CGFloat = 0
@@ -137,15 +136,15 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 
 extension ExploreViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        Data.destinations.count
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
+        DestinationData.destinations.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
-        
-        cell.destination = Data.destinations[indexPath.row]
-        
+
+        cell.destination = DestinationData.destinations[indexPath.row]
+
         return cell
     }
 }
@@ -153,11 +152,10 @@ extension ExploreViewController: UICollectionViewDataSource {
 // MARK: - Collection View Delegate
 
 extension ExploreViewController: WaterfallLayoutDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let destination = Data.destinations[indexPath.row]
+    func collectionView(_: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let destination = DestinationData.destinations[indexPath.row]
         guard let height = destination.image?.size.height else { return 300 }
-        
+
         print("DEBUG: Image height size is: \(height)")
         if height <= 300 {
             return height
@@ -165,11 +163,11 @@ extension ExploreViewController: WaterfallLayoutDelegate {
             return height / 3
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destination = Data.destinations[indexPath.row]
+        let destination = DestinationData.destinations[indexPath.row]
         destination.isFavorite.toggle()
-        
+
         collectionView.reloadData()
         print("DEBUG: Tapped destination: \(destination.name)..")
     }
@@ -178,26 +176,24 @@ extension ExploreViewController: WaterfallLayoutDelegate {
 // MARK: - Search Bar Delegate
 
 extension ExploreViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_: UISearchBar, textDidChange searchText: String) {
         print("DEBUG: Search bar text changed: \(searchText)..")
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         performQuery(with: searchBar.text)
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
     }
-    
+
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }
-
-

@@ -66,13 +66,6 @@ class LoginViewController: UIViewController {
         signInButton.layer.shouldRasterize = true
         signInButton.layer.masksToBounds =  false
         
-        // Only displays shadow on button in light mode
-        if traitCollection.userInterfaceStyle == .dark {
-            signInButton.layer.shadowColor = nil
-        } else {
-            signInButton.layer.shadowColor = UIColor.Resfeber.dark.cgColor
-        }
-        
     }
     
     private func alertUserOfExpiredCredentials(_ notification: Notification) {

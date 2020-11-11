@@ -8,7 +8,6 @@
 
 import Foundation
 
-class Data {
+class DestinationData {
     static var destinations = [Destination]()
-
 }
