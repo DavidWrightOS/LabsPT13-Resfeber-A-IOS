@@ -32,7 +32,7 @@ class ExploreViewController: UIViewController {
         button.backgroundColor = .systemGray3
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
         
-        let image = UIImage(systemName: "person.fill")!.withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "person.fill")?.withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
         button.setImage(image, for: .normal)
         
         return button
