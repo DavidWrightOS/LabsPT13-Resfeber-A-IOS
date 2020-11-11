@@ -9,10 +9,8 @@
 import UIKit
 
 protocol WaterfallLayoutDelegate: AnyObject {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        heightForPhotoAtIndexPath indexPath: IndexPath
-    ) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView,
+                        heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat
 }
 
 class WaterfallLayout: UICollectionViewLayout {
@@ -62,10 +60,8 @@ class WaterfallLayout: UICollectionViewLayout {
             // Set indexPath
             let indexPath = IndexPath(item: item, section: 0)
 
-            let photoHeight = delegate?.collectionView(
-                collectionView,
-                heightForPhotoAtIndexPath: indexPath
-            ) ?? 180 // 180 is default cell height if no delegate set
+            let photoHeight = delegate?.collectionView(collectionView,
+                                                       heightForPhotoAtIndexPath: indexPath ) ?? 180
 
             let height = cellPadding * 2 + photoHeight
 
@@ -91,9 +87,7 @@ class WaterfallLayout: UICollectionViewLayout {
         }
     }
 
-    override func layoutAttributesForElements(in rect: CGRect)
-        -> [UICollectionViewLayoutAttributes]?
-    {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
 
         // Loop through the cache and look for items in the rect
@@ -105,9 +99,7 @@ class WaterfallLayout: UICollectionViewLayout {
         return visibleLayoutAttributes
     }
 
-    override func layoutAttributesForItem(at indexPath: IndexPath)
-        -> UICollectionViewLayoutAttributes?
-    {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return cache[indexPath.item]
     }
 }

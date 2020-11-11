@@ -63,9 +63,7 @@ class ProfileController {
                 NSLog("Error getting all profiles: \(error)")
             }
 
-            if let response = response as? HTTPURLResponse,
-               response.statusCode != 200
-            {
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
                 NSLog("Returned status code is not the expected 200. Instead it is \(response.statusCode)")
             }
 
@@ -231,9 +229,7 @@ class ProfileController {
                 return
             }
 
-            if let response = response as? HTTPURLResponse,
-               response.statusCode != 200
-            {
+            if let response = response as? HTTPURLResponse,response.statusCode != 200 {
                 NSLog("Returned status code is not the expected 200. Instead it is \(response.statusCode)")
                 return
             }
@@ -348,11 +344,7 @@ class ProfileController {
                 return
             }
 
-            guard let data = data,
-                  let image = UIImage(data: data)
-            else {
-                return
-            }
+            guard let data = data, let image = UIImage(data: data) else { return }
             fetchedImage = image
         }
         dataTask.resume()
