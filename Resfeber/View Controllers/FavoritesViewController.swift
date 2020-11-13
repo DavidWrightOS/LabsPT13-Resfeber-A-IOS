@@ -21,6 +21,11 @@ class FavoritesViewController: UIViewController {
         configureViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
+
     // MARK: - Helpers
 
     fileprivate func configureViews() {
@@ -43,6 +48,9 @@ class FavoritesViewController: UIViewController {
                               paddingLeft: 20,
                               paddingRight: 20)
         
+        // Load Data
+        DestinationController.readDestinations()
+        collectionView.reloadData()
     }
 }
 
@@ -66,12 +74,25 @@ extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
 
 extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        10
+        DestinationData.favoriteDestinations.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
+        guard indexPath.row < DestinationData.favoriteDestinations.count else { return DestinationCell() }
+
+        cell.destination = DestinationData.favoriteDestinations[indexPath.row]
 
         return cell
+    }
+}
+
+// MARK: - Collection View Delegate
+
+extension FavoritesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.row < DestinationData.favoriteDestinations.count else { return }
+        let destination = DestinationData.favoriteDestinations[indexPath.row]
+        print("DEBUG: Tapped destination: \(destination.name)..")
     }
 }
