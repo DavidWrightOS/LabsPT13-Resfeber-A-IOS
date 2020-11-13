@@ -35,7 +35,7 @@ class RestManager {
     
     // MARK: - Methods
     
-    /// Method to search for a city by name.
+    /// Method to search for a city by name. Returns matching cities and endpoints.
     /// - Parameters:
     ///   - name: Name of city
     ///   - session: URLSession
@@ -49,6 +49,32 @@ class RestManager {
         
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Method that returns information for a given city based on the unique identifier.
+    /// Information includes full name, geoname ID, location, population, and endpoints for related information
+    /// - Parameters:
+    ///   - ID: String for a city ID. Example: "geonameid:1796236"
+    ///   - session: URLSession
+    func getCity(byID ID: String, using session: URLSession = .shared) {
+        session.request(RestManager.Endpoints.citiesByID(ID)) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
                 return
             }
             
