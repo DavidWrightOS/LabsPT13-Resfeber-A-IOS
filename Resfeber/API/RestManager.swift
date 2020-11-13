@@ -18,6 +18,7 @@ class RestManager {
         "Content-Type" : "application/json; charset=utf-8"
     ]
     
+    // MARK: - Endpoints
     /// The endpoints used to connect to the Teleport API
     enum Endpoints {
         case citybyName(String)
@@ -71,5 +72,21 @@ extension URL {
     }
 }
 
+extension URLSession {
+    typealias Handler = (Data?, URLResponse?, Error?) -> Void
+    
+    /// Method that accepts an Endpoint to call and starts a datatask
+    /// - Parameters:
+    ///   - endpoint: an endpoint for API call
+    ///   - handler: a completion handler that returns data, response, and an error
+    /// - Returns: data task
+    @discardableResult
+    func request( _ endpoint: RestManager.Endpoints,
+                  then handler: @escaping Handler) -> URLSessionDataTask {
+        let task = dataTask(with: endpoint.url, completionHandler: handler)
+        task.resume()
+        return task
+    }
+}
 
 
