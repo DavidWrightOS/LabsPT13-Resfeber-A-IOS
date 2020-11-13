@@ -74,14 +74,14 @@ extension ItineraryViewController: UICollectionViewDelegateFlowLayout {
 
 extension ItineraryViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        DestinationData.favoriteDestinations.count
+        DestinationData.itineraryDestinations.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
-        guard indexPath.row < DestinationData.favoriteDestinations.count else { return DestinationCell() }
+        guard indexPath.row < DestinationData.itineraryDestinations.count else { return DestinationCell() }
 
-        cell.destination = DestinationData.favoriteDestinations[indexPath.row]
+        cell.destination = DestinationData.itineraryDestinations[indexPath.row]
 
         return cell
     }
@@ -91,8 +91,8 @@ extension ItineraryViewController: UICollectionViewDataSource {
 
 extension ItineraryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.row < DestinationData.favoriteDestinations.count else { return }
-        let destination = DestinationData.favoriteDestinations[indexPath.row]
+        guard indexPath.row < DestinationData.itineraryDestinations.count else { return }
+        let destination = DestinationData.itineraryDestinations[indexPath.row]
         print("DEBUG: Tapped destination: \(destination.name)..")
     }
 }
