@@ -110,7 +110,7 @@ extension ExploreViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - Collection View Delegate
+// MARK: - Waterfall Layout Delegate
 
 extension ExploreViewController: WaterfallLayoutDelegate {
     func collectionView(_: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
@@ -131,6 +131,46 @@ extension ExploreViewController: WaterfallLayoutDelegate {
 
         collectionView.reloadData()
         print("DEBUG: Tapped destination: \(destination.name)..")
+    }
+}
+
+// MARK: - Collection View Delegate
+
+extension ExploreViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DestinationCell,
+              let destination = cell.destination else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup Favorite menu item
+            
+            let addToFavoritesText = destination.isFavorite ? "Remove Favorite" : "Favorite"
+            
+            let favoriteImage: UIImage?
+            if destination.isFavorite {
+                favoriteImage = UIImage(systemName: "heart.fill")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+            } else {
+                favoriteImage = UIImage(systemName: "heart")
+            }
+            
+            let addToFavorites = UIAction(title: addToFavoritesText, image: favoriteImage) { action in
+                destination.isFavorite.toggle()
+            }
+            
+            // Setup Itinerary menu item
+            
+            let addToItinerary: UIAction
+            if destination.isOnItinerary {
+                addToItinerary = UIAction(title: "Added to Itinerary", image: UIImage(systemName: "briefcase"), attributes: .disabled, handler: {_ in})
+            } else {
+                addToItinerary = UIAction(title: "Add to Itinerary", image: UIImage(systemName: "briefcase")) { action in
+                    destination.isOnItinerary.toggle()
+                }
+            }
+            
+            return UIMenu(title: "", children: [addToFavorites, addToItinerary])
+        }
     }
 }
 
