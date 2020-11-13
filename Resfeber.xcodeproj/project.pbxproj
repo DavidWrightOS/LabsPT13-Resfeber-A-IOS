@@ -38,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4230352E255F04E800046385 /* API_Spec.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = API_Spec.md; sourceTree = "<group>"; };
 		42D1065E2559D05800A07604 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
 		42E5DE76255CD0F8004CF4BA /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		42E5DE79255CD10F004CF4BA /* ItineraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +83,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4230352C255F045800046385 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4230352D255F046000046385 /* Models */,
+				4230352E255F04E800046385 /* API_Spec.md */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		4230352D255F046000046385 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		42D1062C25560F1E00A07604 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +139,7 @@
 		466C4272249A8748007D033E /* Resfeber */ = {
 			isa = PBXGroup;
 			children = (
+				4230352C255F045800046385 /* API */,
 				46BEB4EB24C98EB400FE0CD1 /* Model */,
 				46BEB4EC24C98EBB00FE0CD1 /* Model Controller */,
 				63632A9D2559242D00F70F9C /* Views */,
