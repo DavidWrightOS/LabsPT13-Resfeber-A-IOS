@@ -10,4 +10,8 @@ import Foundation
 
 class DestinationData {
     static var destinations = [Destination]()
+    
+    static var favoriteDestinations: [Destination] {
+        destinations.filter { $0.isFavorite }
+    }
 }
