@@ -8,14 +8,9 @@
 
 import Foundation
 
-/// Protocol used to construct API endpoint paths
-protocol Path {
-    var path : String { get }
-}
-
 class RestManager {
     /// The Base URL for connecting with the Teleport json endpoint
-    let baseURL = URL(string: "https://api.teleport.org/api/")!
+    let baseURL = URL(string: "https://api.teleport.org/api")!
     
     /// The default Headers for connecting with the Teleport json endpoint
     var defaultHeaders = [
@@ -23,8 +18,9 @@ class RestManager {
         "Content-Type" : "application/json; charset=utf-8"
     ]
     
+    /// The endpoints used to connect to the Teleport API
     enum Endpoints {
-        case cities
+        case citybyName(String)
         case citiesByID(String)
         case citiesAlternateNames(String)
         case urbanAreas
@@ -36,31 +32,42 @@ class RestManager {
         case locationsByCoordinates(String)
     }
 }
-/// The endpoints (conforming to Path protocol) which are used to connect to the Teleport API
-extension RestManager.Endpoints : Path {
-    var path: String {
+
+// MARK: - Endpoints
+
+extension RestManager.Endpoints {
+    var url: URL {
         switch self {
-        case .cities:
-            return "/cities/"
+        case .citybyName(let city):
+            return .makeEndpoint("/cities/?search=\(city)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "/cities/?search=\(city)")
         case .citiesByID(let cityID):
-            return "/cities/\(cityID)/"
+            return .makeEndpoint("/cities/\(cityID)/")
         case .citiesAlternateNames(let cityName):
-            return "/cities/\(cityName)/"
+            return .makeEndpoint("/cities/\(cityName)/")
         case .urbanAreas:
-            return "/urban_areas/"
+            return .makeEndpoint("/urban_areas/")
         case .urbanAreasByID(let urbanAreaID):
-            return "/urban_areas/\(urbanAreaID)/"
+            return .makeEndpoint("/urban_areas/\(urbanAreaID)/")
         case .urbanAreasCities(let urbanAreaID):
-            return "/urban_areas/\(urbanAreaID)/cities/"
+            return .makeEndpoint("/urban_areas/\(urbanAreaID)/cities/")
         case .urbanAreasDetails(let urbanAreaID):
-            return "/urban_areas/\(urbanAreaID)/details/"
+            return .makeEndpoint("/urban_areas/\(urbanAreaID)/details/")
         case .urbanAreasImages(let urbanAreaID):
-            return "/urban_areas/\(urbanAreaID)/images/"
+            return .makeEndpoint("/urban_areas/\(urbanAreaID)/images/")
         case .urbanAreasScores(let urbanAreaID):
-            return "/urban_areas/\(urbanAreaID)/scores/"
+            return .makeEndpoint("/urban_areas/\(urbanAreaID)/scores/")
         case .locationsByCoordinates(let coordinates):
-            return "/locations/\(coordinates)/"
+            return .makeEndpoint("/locations/\(coordinates)/")
         }
+    }
+}
+
+extension URL {
+    /// Extension of URL to make endpoint from a specified URL and endpoint
+    /// - Parameter endpoint: An API endpoint
+    /// - Returns: baseURL and endpoint
+    static func makeEndpoint(_ endpoint: String) -> URL {
+        URL(string: "https://api.teleport.org/api/\(endpoint)")!
     }
 }
 
