@@ -13,6 +13,7 @@ class Destination {
     var name: String
     var image: UIImage?
     var isFavorite: Bool = false
+    var isOnItinerary: Bool = false
 
     init(name: String, image: UIImage, isFavorite: Bool) {
         id = UUID().uuidString

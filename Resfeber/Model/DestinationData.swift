@@ -14,4 +14,8 @@ class DestinationData {
     static var favoriteDestinations: [Destination] {
         destinations.filter { $0.isFavorite }
     }
+    
+    static var itineraryDestinations: [Destination] {
+        destinations.filter { $0.isOnItinerary }
+    }
 }
