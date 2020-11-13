@@ -32,9 +32,37 @@ class RestManager {
         case urbanAreasScores(String)
         case locationsByCoordinates(String)
     }
+    
+    // MARK: - Methods
+    
+    /// Method to search for a city by name.
+    /// - Parameters:
+    ///   - name: Name of city
+    ///   - session: URLSession
+    private func searchCity(byName name: String, using session: URLSession = .shared) {
+        session.request(RestManager.Endpoints.citybyName(name)) { data, response, error  in
+            
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
-// MARK: - Endpoints
+//MARK: -  Extensions
 
 extension RestManager.Endpoints {
     var url: URL {
