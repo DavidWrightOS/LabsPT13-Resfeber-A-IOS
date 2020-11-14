@@ -120,25 +120,25 @@ extension RestManager.Endpoints {
     var url: URL {
         switch self {
         case .citybyName(let city):
-            return .makeEndpoint("/cities/?search=\(city)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "/cities/?search=\(city)")
+            return .makeEndpoint("cities/?search=\(city)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "/cities/?search=\(city)")
         case .citiesByID(let cityID):
-            return .makeEndpoint("/cities/\(cityID)/")
+            return .makeEndpoint("cities/\(cityID)/")
         case .citiesAlternateNames(let cityName):
-            return .makeEndpoint("/cities/\(cityName)/")
+            return .makeEndpoint("cities/\(cityName)/")
         case .urbanAreas:
-            return .makeEndpoint("/urban_areas/")
+            return .makeEndpoint("urban_areas/")
         case .urbanAreasByID(let urbanAreaID):
-            return .makeEndpoint("/urban_areas/\(urbanAreaID)/")
+            return .makeEndpoint("urban_areas/\(urbanAreaID)/")
         case .urbanAreasCities(let urbanAreaID):
-            return .makeEndpoint("/urban_areas/\(urbanAreaID)/cities/")
+            return .makeEndpoint("urban_areas/\(urbanAreaID)/cities/")
         case .urbanAreasDetails(let urbanAreaID):
-            return .makeEndpoint("/urban_areas/\(urbanAreaID)/details/")
+            return .makeEndpoint("urban_areas/\(urbanAreaID)/details/")
         case .urbanAreasImages(let urbanAreaID):
-            return .makeEndpoint("/urban_areas/\(urbanAreaID)/images/")
+            return .makeEndpoint("urban_areas/\(urbanAreaID)/images/")
         case .urbanAreasScores(let urbanAreaID):
-            return .makeEndpoint("/urban_areas/\(urbanAreaID)/scores/")
+            return .makeEndpoint("urban_areas/\(urbanAreaID)/scores/")
         case .locationsByCoordinates(let coordinates):
-            return .makeEndpoint("/locations/\(coordinates)/")
+            return .makeEndpoint("locations/\(coordinates)/")
         }
     }
 }
