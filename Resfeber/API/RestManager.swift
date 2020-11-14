@@ -135,6 +135,106 @@ class RestManager {
         }
     }
     
+    /// Method to return information on a specific Urban Area
+    /// - Parameters:
+    ///   - ID: Unique ID for urban aream. Example: "teleport:swbb5"
+    ///   - session: URLSession
+    private func getUrbanArea(byID ID: String, using session: URLSession) {
+        session.request(RestManager.Endpoints.urbanAreasByID(ID)) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Method to return details for a specific Urban Area
+    /// - Parameters:
+    ///   - ID: Unique ID for urban area. Example: "teleport:swbb5"
+    ///   - session: URLSession
+    private func getUrbanAreaDetails(byID ID: String, using session: URLSession) {
+        session.request(RestManager.Endpoints.urbanAreasDetails(ID)) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    /// Method to return images for a specific Urban Area
+    /// - Parameters:
+    ///   - ID: Unique ID for urban area. Example: "teleport:swbb5"
+    ///   - session: URLSession
+    private func getUrbanAreaImages(byID ID: String, using session: URLSession) {
+        session.request(RestManager.Endpoints.urbanAreasImages(ID)) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    /// Method to return scores for a specific Urban Area in areas such as Cost of Living, Outdoors, Leisure.
+    /// - Parameters:
+    ///   - ID: Unique ID for urban area. Example: "teleport:swbb5"
+    ///   - session: URLSession
+    private func getUrbanAreaScores(byID ID: String, using session: URLSession) {
+        session.request(RestManager.Endpoints.urbanAreasScores(ID)) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     
 }
 
