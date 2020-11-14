@@ -111,6 +111,31 @@ class RestManager {
             }
         }
     }
+    
+    /// Method to get return all Urban Area endpoints and names
+    /// - Parameter session: URL Session
+    private func getAllUrbanAreas(using session: URLSession = .shared) {
+        session.request(RestManager.Endpoints.urbanAreas) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
 }
 
 //MARK: -  Extensions
