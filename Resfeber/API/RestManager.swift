@@ -66,8 +66,33 @@ class RestManager {
     /// - Parameters:
     ///   - ID: String for a city ID. Example: "geonameid:1796236"
     ///   - session: URLSession
-    func getCity(byID ID: String, using session: URLSession = .shared) {
+    private func getCity(byID ID: String, using session: URLSession = .shared) {
         session.request(RestManager.Endpoints.citiesByID(ID)) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Client error: \(String(describing: error?.localizedDescription))")
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(json)
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Method that returns alternate names for a given city.
+    /// - Parameters:
+    ///   - ID: String for a city ID. Example: "geonameid:1796236"
+    ///   - session: URLSession
+    private func getCityAlternateName(byID ID: String, using session: URLSession = .shared) {
+        session.request(RestManager.Endpoints.citiesAlternateNames(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -91,6 +116,7 @@ class RestManager {
 //MARK: -  Extensions
 
 extension RestManager.Endpoints {
+    /// Endpoint URL
     var url: URL {
         switch self {
         case .citybyName(let city):
