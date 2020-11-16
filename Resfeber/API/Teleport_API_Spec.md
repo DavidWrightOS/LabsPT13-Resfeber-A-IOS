@@ -1,4 +1,4 @@
-#  API Specifications
+#  Teleport API Specifications
 
 ## Teleport API
 

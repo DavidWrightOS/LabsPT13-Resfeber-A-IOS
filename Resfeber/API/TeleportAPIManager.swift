@@ -1,5 +1,5 @@
 //
-//  RestManager.swift
+//  TeleportAPIManager.swift
 //  Resfeber
 //
 //  Created by Joshua Rutkowski on 11/13/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RestManager {
+class TeleportAPIManager {
     /// The Base URL for connecting with the Teleport json endpoint
     let baseURL = URL(string: "https://api.teleport.org/api")!
     
@@ -40,7 +40,7 @@ class RestManager {
     ///   - name: Name of city
     ///   - session: URLSession
     private func searchCity(byName name: String, using session: URLSession = .shared) {
-        session.request(RestManager.Endpoints.citybyName(name)) { data, response, error  in
+        session.request(TeleportAPIManager.Endpoints.citybyName(name)) { data, response, error  in
             
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
@@ -67,7 +67,7 @@ class RestManager {
     ///   - ID: String for a city ID. Example: "geonameid:1796236"
     ///   - session: URLSession
     private func getCity(byID ID: String, using session: URLSession = .shared) {
-        session.request(RestManager.Endpoints.citiesByID(ID)) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.citiesByID(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -92,7 +92,7 @@ class RestManager {
     ///   - ID: String for a city ID. Example: "geonameid:1796236"
     ///   - session: URLSession
     private func getCityAlternateName(byID ID: String, using session: URLSession = .shared) {
-        session.request(RestManager.Endpoints.citiesAlternateNames(ID)) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.citiesAlternateNames(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -115,7 +115,7 @@ class RestManager {
     /// Method to get return all Urban Area endpoints and names
     /// - Parameter session: URL Session
     private func getAllUrbanAreas(using session: URLSession = .shared) {
-        session.request(RestManager.Endpoints.urbanAreas) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.urbanAreas) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -140,7 +140,7 @@ class RestManager {
     ///   - ID: Unique ID for urban aream. Example: "teleport:swbb5"
     ///   - session: URLSession
     private func getUrbanArea(byID ID: String, using session: URLSession) {
-        session.request(RestManager.Endpoints.urbanAreasByID(ID)) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.urbanAreasByID(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -165,7 +165,7 @@ class RestManager {
     ///   - ID: Unique ID for urban area. Example: "teleport:swbb5"
     ///   - session: URLSession
     private func getUrbanAreaDetails(byID ID: String, using session: URLSession) {
-        session.request(RestManager.Endpoints.urbanAreasDetails(ID)) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.urbanAreasDetails(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -190,7 +190,7 @@ class RestManager {
     ///   - ID: Unique ID for urban area. Example: "teleport:swbb5"
     ///   - session: URLSession
     private func getUrbanAreaImages(byID ID: String, using session: URLSession) {
-        session.request(RestManager.Endpoints.urbanAreasImages(ID)) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.urbanAreasImages(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -215,7 +215,7 @@ class RestManager {
     ///   - ID: Unique ID for urban area. Example: "teleport:swbb5"
     ///   - session: URLSession
     private func getUrbanAreaScores(byID ID: String, using session: URLSession) {
-        session.request(RestManager.Endpoints.urbanAreasScores(ID)) { (data, response, error) in
+        session.request(TeleportAPIManager.Endpoints.urbanAreasScores(ID)) { (data, response, error) in
             if error != nil || data == nil {
                 print("Client error: \(String(describing: error?.localizedDescription))")
                 return
@@ -240,7 +240,7 @@ class RestManager {
 
 //MARK: -  Extensions
 
-extension RestManager.Endpoints {
+extension TeleportAPIManager.Endpoints {
     /// Endpoint URL
     var url: URL {
         switch self {
@@ -286,7 +286,7 @@ extension URLSession {
     ///   - handler: a completion handler that returns data, response, and an error
     /// - Returns: data task
     @discardableResult
-    func request( _ endpoint: RestManager.Endpoints,
+    func request( _ endpoint: TeleportAPIManager.Endpoints,
                   then handler: @escaping Handler) -> URLSessionDataTask {
         let task = dataTask(with: endpoint.url, completionHandler: handler)
         task.resume()
