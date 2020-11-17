@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presentController(ExploreViewController())
+        presentController(MainTabBarController())
         
         setupView()
         
@@ -89,7 +89,7 @@ class LoginViewController: UIViewController {
             guard let self = self, self.presentedViewController == nil else { return }
             
             if exists {
-                self.presentController(ExploreViewController())
+                self.presentController(MainTabBarController())
             } else {
                 self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
             }
