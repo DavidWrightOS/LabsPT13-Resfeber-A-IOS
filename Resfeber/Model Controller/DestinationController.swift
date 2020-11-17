@@ -19,7 +19,7 @@ class DestinationController {
     // MARK: - Methods
     
     // TODO: Add functionality to create destination or remove method if not necessary
-    static func createDestination(destination _: Destination) {}
+    func createDestination(destination _: Destination) {}
 
     func readDestinations() {
         if searchDestinations.count == 0 {
@@ -72,8 +72,8 @@ class DestinationController {
     }
 
     // TODO: Add functionality to update destination or remove method if not necessary
-    static func updateDestination(destination _: Destination) {}
+    func updateDestination(destination _: Destination) {}
 
     // TODO: Add functionality to delete destination or remove method if not necessary
-    static func deleteDestinatino(destination _: Destination) {}
+    func deleteDestinatino(destination _: Destination) {}
 }
