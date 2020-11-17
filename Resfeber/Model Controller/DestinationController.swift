@@ -18,6 +18,26 @@ class DestinationController {
     
     // MARK: - Methods
     
+    func toggleFavoriteStatus(for destination: Destination) {
+        destination.isFavorite.toggle()
+        
+        if destination.isFavorite {
+            favoriteDestinations.append(destination)
+        } else {
+            favoriteDestinations.removeAll { $0.id == destination.id }
+        }
+    }
+    
+    func toggleItineraryStatus(for destination: Destination) {
+        destination.isOnItinerary.toggle()
+        
+        if destination.isOnItinerary {
+            itineraryDestinations.append(destination)
+        } else {
+            itineraryDestinations.removeAll { $0.id == destination.id }
+        }
+    }
+    
     // TODO: Add functionality to create destination or remove method if not necessary
     func createDestination(destination _: Destination) {}
 

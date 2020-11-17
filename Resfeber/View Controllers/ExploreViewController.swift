@@ -164,8 +164,9 @@ extension ExploreViewController: UICollectionViewDelegate {
                 favoriteImage = UIImage(systemName: "heart")
             }
             
-            let addToFavorites = UIAction(title: addToFavoritesText, image: favoriteImage) { action in
-                destination.isFavorite.toggle()
+            let addToFavorites = UIAction(title: addToFavoritesText, image: favoriteImage) { [weak self] action in
+                guard let self = self else { return }
+                self.destinationController.toggleFavoriteStatus(for: destination)
             }
             
             // Setup Itinerary menu item
@@ -174,8 +175,9 @@ extension ExploreViewController: UICollectionViewDelegate {
             if destination.isOnItinerary {
                 addToItinerary = UIAction(title: "Added to Itinerary", image: UIImage(systemName: "briefcase"), attributes: .disabled, handler: {_ in})
             } else {
-                addToItinerary = UIAction(title: "Add to Itinerary", image: UIImage(systemName: "briefcase")) { action in
-                    destination.isOnItinerary.toggle()
+                addToItinerary = UIAction(title: "Add to Itinerary", image: UIImage(systemName: "briefcase")) { [weak self] action in
+                    guard let self = self else { return }
+                    self.destinationController.toggleItineraryStatus(for: destination)
                 }
             }
             
