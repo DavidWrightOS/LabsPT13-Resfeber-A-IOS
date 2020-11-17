@@ -9,6 +9,15 @@
 import UIKit
 
 class DestinationController {
+    
+    // MARK: - Properties
+    
+    private(set) var searchDestinations = [Destination]()
+    private(set) var favoriteDestinations = [Destination]()
+    private(set) var itineraryDestinations = [Destination]()
+    
+    // MARK: - Methods
+    
     // TODO: Add functionality to create destination or remove method if not necessary
     static func createDestination(destination _: Destination) {}
 
