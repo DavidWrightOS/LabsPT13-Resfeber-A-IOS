@@ -21,53 +21,53 @@ class DestinationController {
     // TODO: Add functionality to create destination or remove method if not necessary
     static func createDestination(destination _: Destination) {}
 
-    static func readDestinations() {
-        if DestinationData.destinations.count == 0 {
-            DestinationData.destinations.append(Destination(name: "Cozumel",
-                                                            image: UIImage(named: "Cozumel")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "Seattle",
-                                                            image: UIImage(named: "Seattle")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "Philadelphia",
-                                                            image: UIImage(named: "Philidelphia")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "Bali",
-                                                            image: UIImage(named: "Bali")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "Lisbon",
-                                                            image: UIImage(named: "Lisbon")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "CozumelTwo",
-                                                            image: UIImage(named: "Cozumel")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "SeattleTwo",
-                                                            image: UIImage(named: "Seattle")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "PhiladelphiaTwo",
-                                                            image: UIImage(named: "Philidelphia")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "BaliTwo",
-                                                            image: UIImage(named: "Bali")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "LisbonTwo",
-                                                            image: UIImage(named: "Lisbon")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "CozumelThree",
-                                                            image: UIImage(named: "Cozumel")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "SeattleThree",
-                                                            image: UIImage(named: "Seattle")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "PhiladelphiaThree",
-                                                            image: UIImage(named: "Philidelphia")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "BaliThree",
-                                                            image: UIImage(named: "Bali")!,
-                                                            isFavorite: false))
-            DestinationData.destinations.append(Destination(name: "LisbonThree",
-                                                            image: UIImage(named: "Lisbon")!,
-                                                            isFavorite: false))
+    func readDestinations() {
+        if searchDestinations.count == 0 {
+            searchDestinations.append(Destination(name: "Cozumel",
+                                                  image: UIImage(named: "Cozumel")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "Seattle",
+                                                  image: UIImage(named: "Seattle")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "Philadelphia",
+                                                  image: UIImage(named: "Philidelphia")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "Bali",
+                                                  image: UIImage(named: "Bali")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "Lisbon",
+                                                  image: UIImage(named: "Lisbon")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "CozumelTwo",
+                                                  image: UIImage(named: "Cozumel")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "SeattleTwo",
+                                                  image: UIImage(named: "Seattle")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "PhiladelphiaTwo",
+                                                  image: UIImage(named: "Philidelphia")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "BaliTwo",
+                                                  image: UIImage(named: "Bali")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "LisbonTwo",
+                                                  image: UIImage(named: "Lisbon")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "CozumelThree",
+                                                  image: UIImage(named: "Cozumel")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "SeattleThree",
+                                                  image: UIImage(named: "Seattle")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "PhiladelphiaThree",
+                                                  image: UIImage(named: "Philidelphia")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "BaliThree",
+                                                  image: UIImage(named: "Bali")!,
+                                                  isFavorite: false))
+            searchDestinations.append(Destination(name: "LisbonThree",
+                                                  image: UIImage(named: "Lisbon")!,
+                                                  isFavorite: false))
         }
     }
 
