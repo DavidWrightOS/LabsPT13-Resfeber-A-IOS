@@ -28,6 +28,7 @@
 		46BEB4F124C98F0D00FE0CD1 /* Profiles.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46BEB4F024C98F0D00FE0CD1 /* Profiles.storyboard */; };
 		46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */; };
 		46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C2BC9124D432F90077E49D /* ProfileTabBarViewController.swift */; };
+		634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */; };
 		63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A5325572F7A00F70F9C /* UIColor+Extension.swift */; };
 		63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
@@ -36,6 +37,9 @@
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAD25594CFC00F70F9C /* DestinationController.swift */; };
 		63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68DBA256497E400BFF20B /* ProfileViewController.swift */; };
+		63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E222564A07200BFF20B /* SideMenuCell.swift */; };
+		63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E252564A0A500BFF20B /* ContainerController.swift */; };
+		63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E282564A0CE00BFF20B /* SideMenuController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +67,7 @@
 		46BEB4F024C98F0D00FE0CD1 /* Profiles.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profiles.storyboard; sourceTree = "<group>"; };
 		46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SimpleAlert.swift"; sourceTree = "<group>"; };
 		46C2BC9124D432F90077E49D /* ProfileTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabBarViewController.swift; sourceTree = "<group>"; };
+		634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeader.swift; sourceTree = "<group>"; };
 		63632A5325572F7A00F70F9C /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -71,6 +76,9 @@
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		63632AAD25594CFC00F70F9C /* DestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
 		63D68DBA256497E400BFF20B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		63D68E222564A07200BFF20B /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
+		63D68E252564A0A500BFF20B /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
+		63D68E282564A0CE00BFF20B /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,8 @@
 				42E5DE79255CD10F004CF4BA /* ItineraryViewController.swift */,
 				42E5DE7D255CD131004CF4BA /* MainTabBarController.swift */,
 				63D68DBA256497E400BFF20B /* ProfileViewController.swift */,
+				63D68E252564A0A500BFF20B /* ContainerController.swift */,
+				63D68E282564A0CE00BFF20B /* SideMenuController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -215,6 +225,8 @@
 			children = (
 				63632A9E2559244200F70F9C /* DestinationCell.swift */,
 				42D1065E2559D05800A07604 /* WaterfallLayout.swift */,
+				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
+				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,11 +311,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				46BEB4EE24C98ECC00FE0CD1 /* ProfileController.swift in Sources */,
+				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
 				42E5DE7E255CD131004CF4BA /* MainTabBarController.swift in Sources */,
+				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */,
+				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,
+				63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */,
 				63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */,
 				63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,

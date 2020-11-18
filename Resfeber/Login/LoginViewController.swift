@@ -18,9 +18,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presentController(MainTabBarController())
-        
         setupView()
         
         NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,
@@ -42,12 +39,6 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    
-    fileprivate func presentController(_ controller: UIViewController) {
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true, completion: nil)
-    }
     
     fileprivate func setupView() {
         view.backgroundColor = UIColor.Resfeber.background
@@ -89,7 +80,7 @@ class LoginViewController: UIViewController {
             guard let self = self, self.presentedViewController == nil else { return }
             
             if exists {
-                self.presentController(MainTabBarController())
+                self.present(ContainerController(), animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
             }
