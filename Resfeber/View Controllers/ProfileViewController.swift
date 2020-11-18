@@ -75,6 +75,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if profile == nil {
+            let mockProfile = Profile(id: "1234567890", email: "mock.user@email.com", name: "Mock User", avatarURL: nil)
+            profile = profileController.authenticatedUserProfile ?? mockProfile
+        }
+        
         configureViews()
         updateViews()
     }
