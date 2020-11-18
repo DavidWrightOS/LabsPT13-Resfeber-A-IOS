@@ -41,12 +41,6 @@ class LoginViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    fileprivate func presentController(_ controller: UIViewController) {
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
     fileprivate func setupView() {
         view.backgroundColor = UIColor.Resfeber.background
         
