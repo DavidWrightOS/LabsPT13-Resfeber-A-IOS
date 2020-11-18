@@ -8,6 +8,26 @@
 
 import UIKit
 
+enum MenuOption: Int, CustomStringConvertible {
+    
+    case EditProfile
+    case LogOut
+    
+    var description: String {
+        switch self {
+        case .EditProfile: return "Edit Profile"
+        case .LogOut: return "Log Out"
+        }
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .EditProfile: return UIImage(systemName: "person")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
+        case .LogOut: return UIImage(systemName: "escape")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
+        }
+    }
+}
+
 class SideMenuController: UIViewController {
     
     // MARK: - Properties
