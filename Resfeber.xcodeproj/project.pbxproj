@@ -37,6 +37,7 @@
 		63632AAB25594CD700F70F9C /* DestinationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAA25594CD700F70F9C /* DestinationData.swift */; };
 		63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAD25594CFC00F70F9C /* DestinationController.swift */; };
 		63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68DBA256497E400BFF20B /* ProfileViewController.swift */; };
+		63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E282564A0CE00BFF20B /* SideMenuController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		63632AAA25594CD700F70F9C /* DestinationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationData.swift; sourceTree = "<group>"; };
 		63632AAD25594CFC00F70F9C /* DestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
 		63D68DBA256497E400BFF20B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		63D68E282564A0CE00BFF20B /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				42E5DE79255CD10F004CF4BA /* ItineraryViewController.swift */,
 				42E5DE7D255CD131004CF4BA /* MainTabBarController.swift */,
 				63D68DBA256497E400BFF20B /* ProfileViewController.swift */,
+				63D68E282564A0CE00BFF20B /* SideMenuController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46BEB4EE24C98ECC00FE0CD1 /* ProfileController.swift in Sources */,
+				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
 				42E5DE7E255CD131004CF4BA /* MainTabBarController.swift in Sources */,
 				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
