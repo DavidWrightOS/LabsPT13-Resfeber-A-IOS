@@ -12,6 +12,8 @@ class MainTabBarController: UITabBarController {
     
     // MARK: - Properties
     
+    weak var sideMenuDelegate: SideMenuDelegate?
+    
     fileprivate let profileButton: UIBarButtonItem = {
         let buttonDiameter: CGFloat = 32
         let button = UIButton(type: .system)
@@ -45,7 +47,7 @@ class MainTabBarController: UITabBarController {
     // MARK: - Selectors
 
     @objc fileprivate func profileImageTapped() {
-        print("DEBUG: profileImageTapped..")
+        sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
 
     // MARK: - Helpers

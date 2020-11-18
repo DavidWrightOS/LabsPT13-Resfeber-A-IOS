@@ -30,12 +30,17 @@ enum MenuOption: Int, CustomStringConvertible, CaseIterable {
     }
 }
 
+protocol SideMenuDelegate: class {
+    func toggleSideMenu(withMenuOption menuOption: MenuOption?)
+}
+
 class SideMenuController: UIViewController {
     
     // MARK: - Properties
     
     var profile: Profile = ProfileController.shared.profile
     var tableView: UITableView!
+    weak var delegate: SideMenuDelegate?
     
     private lazy var profileMenuHeader: SideMenuHeader = {
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 80, height: 140)
@@ -87,4 +92,10 @@ extension SideMenuController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let menuOption = MenuOption(rawValue: indexPath.row)
+        delegate?.toggleSideMenu(withMenuOption: menuOption)
+    }
+    
 }

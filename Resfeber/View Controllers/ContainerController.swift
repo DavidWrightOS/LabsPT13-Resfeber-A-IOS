@@ -29,6 +29,8 @@ class ContainerController: UIViewController {
     
     fileprivate func configureMainTabBarController() {
         mainTabBarController = MainTabBarController()
+        mainTabBarController.sideMenuDelegate = self
+        
         view.addSubview(mainTabBarController.view)
         addChild(mainTabBarController)
         mainTabBarController.didMove(toParent: self)
@@ -37,6 +39,7 @@ class ContainerController: UIViewController {
     fileprivate func configureMenuController() {
         if sideMenuController == nil {
             sideMenuController = SideMenuController()
+            sideMenuController.delegate = self
             view.insertSubview(sideMenuController.view, at: 0)
             addChild(sideMenuController)
             sideMenuController.didMove(toParent: self)
@@ -45,3 +48,15 @@ class ContainerController: UIViewController {
     }
 }
 
+// MARK: - MainControllerDelegate
+
+extension ContainerController: SideMenuDelegate {
+    func toggleSideMenu(withMenuOption menuOption: MenuOption?) {
+        if !isExpanded {
+            configureMenuController()
+        }
+        
+        isExpanded = !isExpanded
+        animateSideMenu(shouldExpand: isExpanded, menuOption: menuOption)
+    }
+}
