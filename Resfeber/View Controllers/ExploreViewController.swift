@@ -10,7 +10,8 @@ import UIKit
 
 class ExploreViewController: UIViewController {
     // MARK: - Properties
-
+    
+    fileprivate let destinationController: DestinationController
     fileprivate var collectionView: UICollectionView!
 
     fileprivate let searchBar: UISearchBar = {
@@ -22,6 +23,15 @@ class ExploreViewController: UIViewController {
 
     // MARK: - Lifecycle
 
+    init(destinationController: DestinationController) {
+        self.destinationController = destinationController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
@@ -71,7 +81,7 @@ class ExploreViewController: UIViewController {
                               paddingRight: 20)
         
         // Load Data
-        DestinationController.readDestinations()
+        destinationController.readDestinations()
         collectionView.reloadData()
     }
 
@@ -98,13 +108,13 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 
 extension ExploreViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        DestinationData.destinations.count
+        destinationController.searchDestinations.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
 
-        cell.destination = DestinationData.destinations[indexPath.row]
+        cell.destination = destinationController.searchDestinations[indexPath.row]
 
         return cell
     }
@@ -114,7 +124,7 @@ extension ExploreViewController: UICollectionViewDataSource {
 
 extension ExploreViewController: WaterfallLayoutDelegate {
     func collectionView(_: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let destination = DestinationData.destinations[indexPath.row]
+        let destination = destinationController.searchDestinations[indexPath.row]
         guard let height = destination.image?.size.height else { return 300 }
 
         print("DEBUG: Image height size is: \(height)")
@@ -126,7 +136,7 @@ extension ExploreViewController: WaterfallLayoutDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destination = DestinationData.destinations[indexPath.row]
+        let destination = destinationController.searchDestinations[indexPath.row]
         destination.isFavorite.toggle()
 
         collectionView.reloadData()
@@ -154,8 +164,9 @@ extension ExploreViewController: UICollectionViewDelegate {
                 favoriteImage = UIImage(systemName: "heart")
             }
             
-            let addToFavorites = UIAction(title: addToFavoritesText, image: favoriteImage) { action in
-                destination.isFavorite.toggle()
+            let addToFavorites = UIAction(title: addToFavoritesText, image: favoriteImage) { [weak self] action in
+                guard let self = self else { return }
+                self.destinationController.toggleFavoriteStatus(for: destination)
             }
             
             // Setup Itinerary menu item
@@ -164,8 +175,9 @@ extension ExploreViewController: UICollectionViewDelegate {
             if destination.isOnItinerary {
                 addToItinerary = UIAction(title: "Added to Itinerary", image: UIImage(systemName: "briefcase"), attributes: .disabled, handler: {_ in})
             } else {
-                addToItinerary = UIAction(title: "Add to Itinerary", image: UIImage(systemName: "briefcase")) { action in
-                    destination.isOnItinerary.toggle()
+                addToItinerary = UIAction(title: "Add to Itinerary", image: UIImage(systemName: "briefcase")) { [weak self] action in
+                    guard let self = self else { return }
+                    self.destinationController.toggleItineraryStatus(for: destination)
                 }
             }
             

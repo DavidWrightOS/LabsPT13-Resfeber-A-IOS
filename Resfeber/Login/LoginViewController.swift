@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
         setupView()
         
         NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,

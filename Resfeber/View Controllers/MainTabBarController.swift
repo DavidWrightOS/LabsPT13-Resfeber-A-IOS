@@ -56,21 +56,22 @@ class MainTabBarController: UITabBarController {
     // MARK: - Helpers
     
     private func configureViewControllers() {
+        let destinationController = DestinationController()
         let symbolConfig = UIImage.SymbolConfiguration(weight: .bold)
         
-        let exploreVC = ExploreViewController()
+        let exploreVC = ExploreViewController(destinationController: destinationController)
         let exploreTabImage = UIImage(systemName: "house", withConfiguration: symbolConfig)
         let exploreNav = tabNavigationController(rootViewController: exploreVC,
                                                  tabImage: exploreTabImage,
                                                  navBarTitle: "Explore")
         
-        let favoritesVC = FavoritesViewController()
+        let favoritesVC = FavoritesViewController(destinationController: destinationController)
         let favoritesTabImage = UIImage(systemName: "heart", withConfiguration: symbolConfig)
         let favoritesNav = tabNavigationController(rootViewController: favoritesVC,
                                                    tabImage: favoritesTabImage,
                                                    navBarTitle: "Favorites")
         
-        let itineraryVC = ItineraryViewController()
+        let itineraryVC = ItineraryViewController(destinationController: destinationController)
         let itineraryTabImage = UIImage(systemName: "briefcase", withConfiguration: symbolConfig)
         let itineraryNav = tabNavigationController(rootViewController: itineraryVC,
                                                    tabImage: itineraryTabImage,
