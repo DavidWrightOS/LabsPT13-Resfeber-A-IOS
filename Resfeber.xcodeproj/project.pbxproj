@@ -34,7 +34,6 @@
 		63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* DestinationCell.swift */; };
 		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
-		63632AAB25594CD700F70F9C /* DestinationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAA25594CD700F70F9C /* DestinationData.swift */; };
 		63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAD25594CFC00F70F9C /* DestinationController.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +68,6 @@
 		63632A9E2559244200F70F9C /* DestinationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCell.swift; sourceTree = "<group>"; };
 		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
-		63632AAA25594CD700F70F9C /* DestinationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationData.swift; sourceTree = "<group>"; };
 		63632AAD25594CFC00F70F9C /* DestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +171,6 @@
 		46BEB4EB24C98EB400FE0CD1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				63632AAA25594CD700F70F9C /* DestinationData.swift */,
 				63632AA425594C8D00F70F9C /* Destination.swift */,
 				46BEB4E024C9828800FE0CD1 /* Profile.swift */,
 			);
@@ -315,7 +312,6 @@
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
-				63632AAB25594CD700F70F9C /* DestinationData.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
 				42E5DE77255CD0F8004CF4BA /* FavoritesViewController.swift in Sources */,
