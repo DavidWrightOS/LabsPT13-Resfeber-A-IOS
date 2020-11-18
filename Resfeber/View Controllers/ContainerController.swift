@@ -14,6 +14,7 @@ class ContainerController: UIViewController {
     
     fileprivate var sideMenuController: SideMenuController!
     fileprivate var mainTabBarController: MainTabBarController!
+    fileprivate let darkTintView = UIView()
     fileprivate var isExpanded = false
     
     // MARK: - Lifecycle
@@ -35,6 +36,15 @@ class ContainerController: UIViewController {
         view.addSubview(mainTabBarController.view)
         addChild(mainTabBarController)
         mainTabBarController.didMove(toParent: self)
+        
+        // Configure Dark Tint View
+        darkTintView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        darkTintView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        darkTintView.alpha = 0
+        mainTabBarController.view.addSubview(darkTintView)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
+        darkTintView.addGestureRecognizer(tap)
     }
     
     fileprivate func configureMenuController() {
@@ -79,10 +89,12 @@ class ContainerController: UIViewController {
                            animations: {
                             self.sideMenuController.view.frame.origin.x = 0
                             self.mainTabBarController.view.frame.origin.x = self.view.frame.width - 80
+                            self.darkTintView.alpha = 1
                            }, completion: nil)
             
         } else {
             // Hide side menu
+            self.darkTintView.alpha = 0
             UIView.animate(withDuration: 0.15, delay: 0, animations: {
                 self.sideMenuController.view.frame.origin.x = -self.view.frame.width
                 self.mainTabBarController.view.frame.origin.x = 0
