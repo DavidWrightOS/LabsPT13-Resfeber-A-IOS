@@ -20,14 +20,17 @@ class MainTabBarController: UITabBarController {
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
         button.layer.cornerRadius = buttonDiameter / 2
         button.layer.masksToBounds = true
-        button.layer.borderWidth = 2
+        button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.Resfeber.red.cgColor
         button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemGray3
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
 
-        let image = UIImage(systemName: "person.fill")?.withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
-        button.setImage(image, for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter * 0.6)
+        let placeholderImage = UIImage(systemName: "person.fill")?
+            .withConfiguration(config)
+            .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
+        button.setImage(placeholderImage, for: .normal)
         
         return UIBarButtonItem(customView: button)
     }()
