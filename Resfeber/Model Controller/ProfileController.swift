@@ -11,6 +11,11 @@ import UIKit
 
 class ProfileController {
     static let shared = ProfileController()
+    
+    var profile: Profile {
+        // Returns the current user profile if it exists, otherwise it will return Mock profile data
+        authenticatedUserProfile ?? Profile(id: "1234567890", email: "mock.user@email.com", name: "Mock User", avatarURL: nil)
+    }
 
     let oktaAuth = OktaAuth(baseURL: URL(string: "https://auth.lambdalabs.dev/")!,
                             clientID: "0oalwkxvqtKeHBmLI4x6",
