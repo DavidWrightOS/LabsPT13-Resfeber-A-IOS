@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController {
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
             textFields[i].textColor = UIColor.Resfeber.red
+            textFields[i].addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
             
             let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
             hStack.axis = .horizontal
@@ -66,15 +67,43 @@ class ProfileViewController: UIViewController {
         return stack
     }()
     
+    var profileController: ProfileController = ProfileController.shared
+    var profile: Profile?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureViews()
+        updateViews()
     }
     
     // MARK: - Selectors
+    
+    @objc fileprivate func cancelProfileUpdate() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func updateProfile() {
+        
+        guard let profile = profileController.authenticatedUserProfile,
+            let name = nameTextField.text,
+            let email = emailTextField.text,
+            let avatarURLString = avatarURLTextField.text,
+            let avatarURL = URL(string: avatarURLString) else {
+                presentSimpleAlert(with: "Some information was missing",
+                                   message: "Please enter all information in, and ensure the avatar URL is in the correct format.",
+                                   preferredStyle: .alert,
+                                   dismissText: "Dismiss")
+                return
+        }
+        
+        profileController.updateAuthenticatedUserProfile(profile, with: name, email: email, avatarURL: avatarURL) { [weak self] (updatedProfile) in
+            guard let self = self else { return }
+            self.updateViews(with: updatedProfile)
+        }
+    }
     
     
     // MARK: - Helpers
@@ -83,6 +112,8 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = UIColor.Resfeber.background
         navigationController?.navigationBar.tintColor = UIColor.Resfeber.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelProfileUpdate))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateProfile))
         title = "Edit Profile"
         
         view.addSubview(profileImage)
@@ -96,6 +127,29 @@ class ProfileViewController: UIViewController {
                                     paddingTop: 36)
     }
     
+    private func updateViews() {
+        guard let profile = profile else { return }
+        updateViews(with: profile)
+    }
+    
+    private func updateViews(with profile: Profile) {
+        guard isViewLoaded else { return }
+        
+        if let avatarImage = profile.avatarImage {
+            profileImage.setImage(avatarImage, for: .normal)
+        } else if let avatarURL = profile.avatarURL {
+            profileController.image(for: avatarURL, completion: { [weak self] (avatarImage) in
+                guard let self = self else { return }
+                
+                self.profile?.avatarImage = avatarImage
+                self.profileImage.setImage(avatarImage, for: .normal)
+            })
+        }
+                
+        nameTextField.text = profile.name
+        emailTextField.text = profile.email
+        avatarURLTextField.text = profile.avatarURL?.absoluteString
+    }
     
     fileprivate func seperatorView() -> UIView {
         let seperatorView = UIView()
