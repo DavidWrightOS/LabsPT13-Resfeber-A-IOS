@@ -18,9 +18,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presentController(ExploreViewController())
-        
+                
         setupView()
         
         NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,
@@ -89,7 +87,7 @@ class LoginViewController: UIViewController {
             guard let self = self, self.presentedViewController == nil else { return }
             
             if exists {
-                self.presentController(ExploreViewController())
+                self.present(ContainerController(), animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
             }
