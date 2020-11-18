@@ -37,6 +37,12 @@ class SideMenuController: UIViewController {
     var profile: Profile = ProfileController.shared.profile
     var tableView: UITableView!
     
+    private lazy var profileMenuHeader: SideMenuHeader = {
+        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 80, height: 140)
+        let view = SideMenuHeader(profile: profile, frame: frame)
+        return view
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -57,6 +63,7 @@ class SideMenuController: UIViewController {
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         tableView.rowHeight = 60
+        tableView.tableHeaderView = profileMenuHeader
         
         view.addSubview(tableView)
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
