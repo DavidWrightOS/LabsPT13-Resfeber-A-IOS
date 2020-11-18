@@ -105,6 +105,19 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    @objc func textFieldValueChanged() {
+        guard let profile = profile else { return }
+        
+        let enteredName = nameTextField.text
+        let enteredEmail = emailTextField.text
+        let enteredAvatarURL = avatarURLTextField.text
+        
+        let changeDetectedInProfileInfo = !(enteredName == profile.name &&
+                                            enteredEmail == profile.email &&
+                                            enteredAvatarURL == profile.avatarURL?.absoluteString)
+        
+        navigationItem.rightBarButtonItem?.isEnabled = changeDetectedInProfileInfo
+    }
     
     // MARK: - Helpers
     
@@ -114,6 +127,7 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelProfileUpdate))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateProfile))
+        navigationItem.rightBarButtonItem?.isEnabled = false
         title = "Edit Profile"
         
         view.addSubview(profileImage)
