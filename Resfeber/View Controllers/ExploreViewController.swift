@@ -21,7 +21,7 @@ class ExploreViewController: UIViewController {
         return sb
     }()
     
-    fileprivate let profileButton: UIBarButtonItem = {
+    let profileButton: UIBarButtonItem = {
         let buttonDiameter: CGFloat = 32
         let button = UIButton(type: .system)
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
