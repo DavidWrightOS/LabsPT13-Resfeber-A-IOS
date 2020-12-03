@@ -33,7 +33,6 @@ class DestinationCell: UICollectionViewCell {
 
     fileprivate let infoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Destination Name"
         label.textColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
@@ -48,15 +47,7 @@ class DestinationCell: UICollectionViewCell {
         layer.shouldRasterize = true
         return layer
     }()
-
-    fileprivate let bookmarkView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(systemName: "bookmark.fill")
-        iv.tintColor = UIColor.Resfeber.red
-        return iv
-    }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureCell()
@@ -84,12 +75,6 @@ private extension DestinationCell {
         infoView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
         gradientLayer.frame = infoView.bounds
 
-        // Configure Bookmark
-        addSubview(bookmarkView)
-        bookmarkView.anchor(top: topAnchor, right: rightAnchor, paddingRight: 16)
-        bookmarkView.setDimensions(width: 28)
-        bookmarkView.isHidden = true
-
         layoutSubviews()
     }
 
@@ -98,12 +83,10 @@ private extension DestinationCell {
             imageView.image = destination.image
             imageView.contentMode = .scaleAspectFill
             infoLabel.text = destination.name
-            bookmarkView.isHidden = !destination.isFavorite
             gradientLayer.frame = infoView.bounds
         } else {
             imageView.image = UIImage(named: "Logo_Combined")
             imageView.contentMode = .scaleAspectFit
-            bookmarkView.isHidden = true
         }
     }
 }
