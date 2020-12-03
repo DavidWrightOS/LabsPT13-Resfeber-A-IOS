@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		42303536255F0EA800046385 /* TeleportAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42303535255F0EA800046385 /* TeleportAPIManager.swift */; };
-		4239C1072565B5BE00D8C53E /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239C1062565B5BE00D8C53E /* City.swift */; };
-		4239C10B2565B83200D8C53E /* UrbanArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239C10A2565B83200D8C53E /* UrbanArea.swift */; };
 		4254904C257892EE00463284 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254904B257892EE00463284 /* Trip.swift */; };
 		4254904F2578934000463284 /* EventItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254904E2578934000463284 /* EventItems.swift */; };
 		42D1065F2559D05800A07604 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D1065E2559D05800A07604 /* WaterfallLayout.swift */; };
@@ -48,11 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-
-		4230352E255F04E800046385 /* Teleport_API_Spec.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Teleport_API_Spec.md; sourceTree = "<group>"; };
-		42303535255F0EA800046385 /* TeleportAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleportAPIManager.swift; sourceTree = "<group>"; };
-		4239C1062565B5BE00D8C53E /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
-		4239C10A2565B83200D8C53E /* UrbanArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrbanArea.swift; sourceTree = "<group>"; };
 		4254904B257892EE00463284 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		4254904E2578934000463284 /* EventItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItems.swift; sourceTree = "<group>"; };
 		42D1065E2559D05800A07604 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };

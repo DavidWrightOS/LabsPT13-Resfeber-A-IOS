@@ -13,7 +13,7 @@ class ContainerController: UIViewController {
     // MARK: - Properties
     
     fileprivate var sideMenuController: SideMenuController!
-    fileprivate var mainTabBarController: MainTabBarController!
+    fileprivate var mainNavigationController: UINavigationController!
     fileprivate let darkTintView = UIView()
     fileprivate var isExpanded = false
     
@@ -21,7 +21,7 @@ class ContainerController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureMainTabBarController()
+        configureMainNavigationController()
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { .slide }
@@ -29,19 +29,19 @@ class ContainerController: UIViewController {
     
     // MARK: - Helpers
     
-    fileprivate func configureMainTabBarController() {
-        mainTabBarController = MainTabBarController()
-        mainTabBarController.sideMenuDelegate = self
-        
-        view.addSubview(mainTabBarController.view)
-        addChild(mainTabBarController)
-        mainTabBarController.didMove(toParent: self)
+    fileprivate func configureMainNavigationController() {
+        let exploreViewController = ExploreViewController()
+        exploreViewController.sideMenuDelegate = self
+        mainNavigationController = UINavigationController(rootViewController: exploreViewController)
+        view.addSubview(mainNavigationController.view)
+        addChild(mainNavigationController)
+        mainNavigationController.didMove(toParent: self)
         
         // Configure Dark Tint View
         darkTintView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         darkTintView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         darkTintView.alpha = 0
-        mainTabBarController.view.addSubview(darkTintView)
+        mainNavigationController.view.addSubview(darkTintView)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissMenu))
         darkTintView.addGestureRecognizer(tap)
@@ -75,6 +75,10 @@ class ContainerController: UIViewController {
         animateSideMenu(shouldExpand: isExpanded, menuOption: nil)
     }
     
+    @objc fileprivate func profileImageTapped() {
+        toggleSideMenu(withMenuOption: nil)
+    }
+    
     // MARK: - Animation
     
     fileprivate func animateSideMenu(shouldExpand: Bool, menuOption: MenuOption?) {
@@ -88,7 +92,7 @@ class ContainerController: UIViewController {
                            options: .curveEaseOut,
                            animations: {
                             self.sideMenuController.view.frame.origin.x = 0
-                            self.mainTabBarController.view.frame.origin.x = self.view.frame.width - 80
+                            self.mainNavigationController.view.frame.origin.x = self.view.frame.width - 80
                             self.darkTintView.alpha = 1
                            }, completion: nil)
             
@@ -97,7 +101,7 @@ class ContainerController: UIViewController {
             self.darkTintView.alpha = 0
             UIView.animate(withDuration: 0.15, delay: 0, animations: {
                 self.sideMenuController.view.frame.origin.x = -self.view.frame.width
-                self.mainTabBarController.view.frame.origin.x = 0
+                self.mainNavigationController.view.frame.origin.x = 0
             }) { (_) in
                 guard let menuOption = menuOption else { return }
                 self.didSelectMenuOption(menuOption: menuOption)

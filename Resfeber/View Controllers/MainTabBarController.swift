@@ -59,7 +59,7 @@ class MainTabBarController: UITabBarController {
         let destinationController = DestinationController()
         let symbolConfig = UIImage.SymbolConfiguration(weight: .bold)
         
-        let exploreVC = ExploreViewController(destinationController: destinationController)
+        let exploreVC = ExploreViewController()
         let exploreTabImage = UIImage(systemName: "house", withConfiguration: symbolConfig)
         let exploreNav = tabNavigationController(rootViewController: exploreVC,
                                                  tabImage: exploreTabImage,
