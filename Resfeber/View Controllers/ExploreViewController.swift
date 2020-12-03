@@ -11,7 +11,7 @@ import UIKit
 class ExploreViewController: UIViewController {
     // MARK: - Properties
     
-    fileprivate let destinationController: DestinationController
+    fileprivate let destinationController = DestinationController()
     fileprivate var collectionView: UICollectionView!
 
     fileprivate let searchBar: UISearchBar = {
@@ -20,17 +20,31 @@ class ExploreViewController: UIViewController {
         sb.searchBarStyle = .minimal
         return sb
     }()
+    
+    fileprivate let profileButton: UIBarButtonItem = {
+        let buttonDiameter: CGFloat = 32
+        let button = UIButton(type: .system)
+        button.setDimensions(height: buttonDiameter, width: buttonDiameter)
+        button.layer.cornerRadius = buttonDiameter / 2
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.Resfeber.red.cgColor
+        button.contentMode = .scaleAspectFill
+        button.backgroundColor = .systemGray3
+        button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
+
+        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter * 0.6)
+        let placeholderImage = UIImage(systemName: "person.fill")?
+            .withConfiguration(config)
+            .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
+        button.setImage(placeholderImage, for: .normal)
+
+        return UIBarButtonItem(customView: button)
+    }()
+    
+    weak var sideMenuDelegate: SideMenuDelegate?
 
     // MARK: - Lifecycle
-
-    init(destinationController: DestinationController) {
-        self.destinationController = destinationController
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +58,23 @@ class ExploreViewController: UIViewController {
     // MARK: - Selectors
 
     @objc fileprivate func profileImageTapped() {
-        print("DEBUG: profileImageTapped..")
+        sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
 
     // MARK: - Helpers
 
     fileprivate func configureViews() {
         view.backgroundColor = UIColor.Resfeber.background
+        
+        // Configure Navigation Bar
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        titleLabel.textColor = .label
+        titleLabel.text = "Explore"
+        navigationItem.titleView = titleLabel
+        navigationItem.rightBarButtonItem = profileButton
         
         // Configure Search Bar
         searchBar.delegate = self

@@ -7,16 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		42303536255F0EA800046385 /* TeleportAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42303535255F0EA800046385 /* TeleportAPIManager.swift */; };
-		4239C1072565B5BE00D8C53E /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239C1062565B5BE00D8C53E /* City.swift */; };
-		4239C10B2565B83200D8C53E /* UrbanArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239C10A2565B83200D8C53E /* UrbanArea.swift */; };
 		4254904C257892EE00463284 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254904B257892EE00463284 /* Trip.swift */; };
 		4254904F2578934000463284 /* EventItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254904E2578934000463284 /* EventItems.swift */; };
 		42D1065F2559D05800A07604 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D1065E2559D05800A07604 /* WaterfallLayout.swift */; };
-		42E5DE77255CD0F8004CF4BA /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5DE76255CD0F8004CF4BA /* FavoritesViewController.swift */; };
-		42E5DE7A255CD10F004CF4BA /* ItineraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5DE79255CD10F004CF4BA /* ItineraryViewController.swift */; };
-		42E5DE7E255CD131004CF4BA /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5DE7D255CD131004CF4BA /* MainTabBarController.swift */; };
 		463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */; };
 		463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */; };
 		466C4274249A8748007D033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C4273249A8748007D033E /* AppDelegate.swift */; };
@@ -48,17 +41,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-
-		4230352E255F04E800046385 /* Teleport_API_Spec.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Teleport_API_Spec.md; sourceTree = "<group>"; };
-		42303535255F0EA800046385 /* TeleportAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleportAPIManager.swift; sourceTree = "<group>"; };
-		4239C1062565B5BE00D8C53E /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
-		4239C10A2565B83200D8C53E /* UrbanArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrbanArea.swift; sourceTree = "<group>"; };
 		4254904B257892EE00463284 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		4254904E2578934000463284 /* EventItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItems.swift; sourceTree = "<group>"; };
 		42D1065E2559D05800A07604 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
-		42E5DE76255CD0F8004CF4BA /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
-		42E5DE79255CD10F004CF4BA /* ItineraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryViewController.swift; sourceTree = "<group>"; };
-		42E5DE7D255CD131004CF4BA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileViewController.swift; sourceTree = "<group>"; };
 		466C4270249A8748007D033E /* Resfeber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resfeber.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,10 +91,7 @@
 		42D1062C25560F1E00A07604 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				42E5DE76255CD0F8004CF4BA /* FavoritesViewController.swift */,
 				63632A8C2558DF9C00F70F9C /* ExploreViewController.swift */,
-				42E5DE79255CD10F004CF4BA /* ItineraryViewController.swift */,
-				42E5DE7D255CD131004CF4BA /* MainTabBarController.swift */,
 				63D68DBA256497E400BFF20B /* ProfileViewController.swift */,
 				63D68E252564A0A500BFF20B /* ContainerController.swift */,
 				63D68E282564A0CE00BFF20B /* SideMenuController.swift */,
@@ -308,7 +290,6 @@
 				46BEB4EE24C98ECC00FE0CD1 /* ProfileController.swift in Sources */,
 				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
-				42E5DE7E255CD131004CF4BA /* MainTabBarController.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
@@ -324,13 +305,11 @@
 				42D1065F2559D05800A07604 /* WaterfallLayout.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
-				42E5DE7A255CD10F004CF4BA /* ItineraryViewController.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
-				42E5DE77255CD0F8004CF4BA /* FavoritesViewController.swift in Sources */,
 				466C4276249A8748007D033E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
