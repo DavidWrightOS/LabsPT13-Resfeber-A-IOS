@@ -48,7 +48,7 @@ extension EventItem {
     /// An item in an event's list.
     class ListItem {
         var type: ListItemType
-        /// Description of the event
+        /// Description of the item
         var text: String
         
         enum ListItemType {
