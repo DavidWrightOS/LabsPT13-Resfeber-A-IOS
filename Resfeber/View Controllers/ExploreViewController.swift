@@ -69,7 +69,7 @@ class ExploreViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         titleLabel.textColor = .label
-        titleLabel.text = "Explore"
+        titleLabel.text = "Trips"
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = profileButton
         
@@ -79,7 +79,7 @@ class ExploreViewController: UIViewController {
         searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.leftAnchor,
                          right: view.rightAnchor,
-                         paddingTop: 12,
+                         paddingTop: 8,
                          paddingLeft: 12,
                          paddingRight: 12)
         
