@@ -16,6 +16,7 @@ class ExploreViewController: UIViewController {
 
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
+        sb.tintColor = UIColor.Resfeber.red
         sb.placeholder = "Search"
         sb.searchBarStyle = .minimal
         return sb
