@@ -16,12 +16,13 @@ class ExploreViewController: UIViewController {
 
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
+        sb.tintColor = UIColor.Resfeber.red
         sb.placeholder = "Search"
         sb.searchBarStyle = .minimal
         return sb
     }()
     
-    fileprivate let profileButton: UIBarButtonItem = {
+    let profileButton: UIBarButtonItem = {
         let buttonDiameter: CGFloat = 32
         let button = UIButton(type: .system)
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
@@ -49,10 +50,6 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-
-        if let layout = collectionView?.collectionViewLayout as? WaterfallLayout {
-            layout.delegate = self
-        }
     }
 
     // MARK: - Selectors
@@ -72,9 +69,9 @@ class ExploreViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         titleLabel.textColor = .label
-        titleLabel.text = "Explore"
+        titleLabel.text = "Trips"
         navigationItem.titleView = titleLabel
-        navigationItem.rightBarButtonItem = profileButton
+        navigationItem.leftBarButtonItem = profileButton
         
         // Configure Search Bar
         searchBar.delegate = self
@@ -82,14 +79,12 @@ class ExploreViewController: UIViewController {
         searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.leftAnchor,
                          right: view.rightAnchor,
-                         paddingTop: 12,
+                         paddingTop: 8,
                          paddingLeft: 12,
                          paddingRight: 12)
         
         // Configure Collection View
-        // Set layout to custom WaterfallLayout subclass of UICollectionViewLayout
-        let layout = WaterfallLayout()
-        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor.Resfeber.background
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.reuseIdentifier)
@@ -119,12 +114,17 @@ class ExploreViewController: UIViewController {
 
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        let numberOfColumns: CGFloat = 2
+        let numberOfColumns: CGFloat = 1
         let width = collectionView.frame.size.width
-        let xInsets: CGFloat = 0
-        let cellSpacing: CGFloat = 8
+        let xInsets: CGFloat = 16
+        let cellSpacing: CGFloat = 0
         let cellWidth = (width / numberOfColumns) - (xInsets + cellSpacing)
-        return CGSize(width: cellWidth, height: cellWidth)
+        let cellHeight: CGFloat = cellWidth * 0.64
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        20
     }
 }
 
@@ -144,21 +144,9 @@ extension ExploreViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - Waterfall Layout Delegate
+// MARK: - Collection View Delegate
 
-extension ExploreViewController: WaterfallLayoutDelegate {
-    func collectionView(_: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let destination = destinationController.searchDestinations[indexPath.row]
-        guard let height = destination.image?.size.height else { return 300 }
-
-        print("DEBUG: Image height size is: \(height)")
-        if height <= 300 {
-            return height
-        } else {
-            return height / 3
-        }
-    }
-
+extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destination = destinationController.searchDestinations[indexPath.row]
         destination.isFavorite.toggle()
@@ -166,11 +154,7 @@ extension ExploreViewController: WaterfallLayoutDelegate {
         collectionView.reloadData()
         print("DEBUG: Tapped destination: \(destination.name)..")
     }
-}
-
-// MARK: - Collection View Delegate
-
-extension ExploreViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DestinationCell,
               let destination = cell.destination else { return nil }

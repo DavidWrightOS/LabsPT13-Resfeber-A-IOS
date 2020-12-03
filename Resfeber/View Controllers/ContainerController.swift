@@ -14,6 +14,7 @@ class ContainerController: UIViewController {
     
     fileprivate var sideMenuController: SideMenuController!
     fileprivate var mainNavigationController: UINavigationController!
+    fileprivate var exploreViewController: ExploreViewController!
     fileprivate let darkTintView = UIView()
     fileprivate var isExpanded = false
     
@@ -30,7 +31,7 @@ class ContainerController: UIViewController {
     // MARK: - Helpers
     
     fileprivate func configureMainNavigationController() {
-        let exploreViewController = ExploreViewController()
+        exploreViewController = ExploreViewController()
         exploreViewController.sideMenuDelegate = self
         mainNavigationController = UINavigationController(rootViewController: exploreViewController)
         view.addSubview(mainNavigationController.view)
@@ -94,6 +95,7 @@ class ContainerController: UIViewController {
                             self.sideMenuController.view.frame.origin.x = 0
                             self.mainNavigationController.view.frame.origin.x = self.view.frame.width - 80
                             self.darkTintView.alpha = 1
+                            self.exploreViewController.profileButton.customView?.alpha = 0
                            }, completion: nil)
             
         } else {
@@ -102,6 +104,7 @@ class ContainerController: UIViewController {
             UIView.animate(withDuration: 0.15, delay: 0, animations: {
                 self.sideMenuController.view.frame.origin.x = -self.view.frame.width
                 self.mainNavigationController.view.frame.origin.x = 0
+                self.exploreViewController.profileButton.customView?.alpha = 1
             }) { (_) in
                 guard let menuOption = menuOption else { return }
                 self.didSelectMenuOption(menuOption: menuOption)
@@ -112,15 +115,13 @@ class ContainerController: UIViewController {
     }
     
     fileprivate func animateStatusBar() {
-        UIView.animate(withDuration: 0.5,
+        UIView.animate(withDuration: 0.25,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseInOut,
                        animations: {
-                        
                         self.setNeedsStatusBarAppearanceUpdate()
-                        
                        }, completion: nil)
     }
 }
