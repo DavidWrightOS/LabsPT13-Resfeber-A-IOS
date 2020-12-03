@@ -74,7 +74,7 @@ class ExploreViewController: UIViewController {
         titleLabel.textColor = .label
         titleLabel.text = "Explore"
         navigationItem.titleView = titleLabel
-        navigationItem.rightBarButtonItem = profileButton
+        navigationItem.leftBarButtonItem = profileButton
         
         // Configure Search Bar
         searchBar.delegate = self
