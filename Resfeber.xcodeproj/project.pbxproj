@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+
 		42303536255F0EA800046385 /* TeleportAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42303535255F0EA800046385 /* TeleportAPIManager.swift */; };
 		4239C1072565B5BE00D8C53E /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239C1062565B5BE00D8C53E /* City.swift */; };
 		4239C10B2565B83200D8C53E /* UrbanArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239C10A2565B83200D8C53E /* UrbanArea.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+
 		4230352E255F04E800046385 /* Teleport_API_Spec.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Teleport_API_Spec.md; sourceTree = "<group>"; };
 		42303535255F0EA800046385 /* TeleportAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleportAPIManager.swift; sourceTree = "<group>"; };
 		4239C1062565B5BE00D8C53E /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -101,25 +103,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4230352C255F045800046385 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				4239C1052565B5B000D8C53E /* Model */,
-				4230352E255F04E800046385 /* Teleport_API_Spec.md */,
-				42303535255F0EA800046385 /* TeleportAPIManager.swift */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		4239C1052565B5B000D8C53E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4239C1062565B5BE00D8C53E /* City.swift */,
-				4239C10A2565B83200D8C53E /* UrbanArea.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		42D1062C25560F1E00A07604 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,7 +146,6 @@
 		466C4272249A8748007D033E /* Resfeber */ = {
 			isa = PBXGroup;
 			children = (
-				4230352C255F045800046385 /* API */,
 				46BEB4EB24C98EB400FE0CD1 /* Model */,
 				46BEB4EC24C98EBB00FE0CD1 /* Model Controller */,
 				63632A9D2559242D00F70F9C /* Views */,
@@ -329,12 +311,10 @@
 				42E5DE7E255CD131004CF4BA /* MainTabBarController.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
-				4239C1072565B5BE00D8C53E /* City.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* ExploreViewController.swift in Sources */,
 				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,
 				63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */,
-				4239C10B2565B83200D8C53E /* UrbanArea.swift in Sources */,
 				63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */,
 				63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
@@ -352,7 +332,6 @@
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
 				42E5DE77255CD0F8004CF4BA /* FavoritesViewController.swift in Sources */,
 				466C4276249A8748007D033E /* SceneDelegate.swift in Sources */,
-				42303536255F0EA800046385 /* TeleportAPIManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
