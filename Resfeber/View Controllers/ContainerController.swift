@@ -115,15 +115,13 @@ class ContainerController: UIViewController {
     }
     
     fileprivate func animateStatusBar() {
-        UIView.animate(withDuration: 0.5,
+        UIView.animate(withDuration: 0.25,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseInOut,
                        animations: {
-                        
                         self.setNeedsStatusBarAppearanceUpdate()
-                        
                        }, completion: nil)
     }
 }
