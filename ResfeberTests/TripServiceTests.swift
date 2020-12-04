@@ -66,5 +66,18 @@ class TripServiceTests: XCTestCase {
         }
     }
     
+    func testGetTrips() {
+        let newTrip = tripService.add(name: "Road Trip to California",
+                                      image: nil,
+                                      startDate: nil,
+                                      endDate: nil)
+        
+        let getTrips = tripService.getTrips()
+        
+        XCTAssertNotNil(getTrips)
+        XCTAssertTrue(getTrips?.count == 1)
+        XCTAssertTrue(newTrip.name == getTrips?.first?.name)
+    }
+    
     
 }
