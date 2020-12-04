@@ -46,5 +46,16 @@ extension TripService {
         }
         return nil
     }
+    
+    @discardableResult
+    public func update(_ trip: Trip) -> Trip {
+      coreDataStack.saveContext(managedObjectContext)
+      return trip
+    }
+
+    public func delete(_ trip: Trip) {
+      managedObjectContext.delete(trip)
+      coreDataStack.saveContext(managedObjectContext)
+    }
 }
 
