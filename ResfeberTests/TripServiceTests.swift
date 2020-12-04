@@ -185,4 +185,31 @@ class TripServiceTests: XCTestCase {
         XCTAssertTrue(newEvent.name == updatedEvent.name)
         XCTAssertTrue(updatedEvent.name == "Reception Party")
     }
+    
+    func testDeleteEvent() {
+        let trip = tripService.add(name: "Wedding",
+                                   image: nil,
+                                   startDate: nil,
+                                   endDate: nil)
+
+        let newEvent = tripService.addEvent(name: "Dinner",
+                                         eventDescription: nil,
+                                         category: nil,
+                                         latitude: nil,
+                                         longitude: nil,
+                                         startDate: nil,
+                                         endDate: nil,
+                                         notes: nil,
+                                         trip: trip)
+        
+        var fetchEvents = tripService.getEvents()
+        
+        XCTAssertTrue(fetchEvents?.count == 1)
+        XCTAssertTrue(newEvent.name == fetchEvents?.first?.name)
+        
+        tripService.deleteEvent(newEvent)
+        fetchEvents = tripService.getEvents()
+        
+        XCTAssertTrue(fetchEvents?.isEmpty ?? false)
+    }
 }
