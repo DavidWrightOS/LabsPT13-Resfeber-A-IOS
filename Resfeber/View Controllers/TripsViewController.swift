@@ -1,5 +1,5 @@
 //
-//  ExploreViewController.swift
+//  TripsViewController.swift
 //  Resfeber
 //
 //  Created by David Wright on 11/8/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class TripsViewController: UIViewController {
     // MARK: - Properties
     
     fileprivate let destinationController = DestinationController()
@@ -112,7 +112,7 @@ class ExploreViewController: UIViewController {
 
 // MARK: - Collection View Layout
 
-extension ExploreViewController: UICollectionViewDelegateFlowLayout {
+extension TripsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let numberOfColumns: CGFloat = 1
         let width = collectionView.frame.size.width
@@ -130,7 +130,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Collection View Data Source
 
-extension ExploreViewController: UICollectionViewDataSource {
+extension TripsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         destinationController.searchDestinations.count
     }
@@ -146,7 +146,7 @@ extension ExploreViewController: UICollectionViewDataSource {
 
 // MARK: - Collection View Delegate
 
-extension ExploreViewController: UICollectionViewDelegate {
+extension TripsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destination = destinationController.searchDestinations[indexPath.row]
         destination.isFavorite.toggle()
@@ -196,7 +196,7 @@ extension ExploreViewController: UICollectionViewDelegate {
 
 // MARK: - Search Bar Delegate
 
-extension ExploreViewController: UISearchBarDelegate {
+extension TripsViewController: UISearchBarDelegate {
     func searchBar(_: UISearchBar, textDidChange searchText: String) {
         print("DEBUG: Search bar text changed: \(searchText)..")
     }

@@ -14,7 +14,7 @@ class ContainerController: UIViewController {
     
     fileprivate var sideMenuController: SideMenuController!
     fileprivate var mainNavigationController: UINavigationController!
-    fileprivate var exploreViewController: ExploreViewController!
+    fileprivate var tripsViewController: TripsViewController!
     fileprivate let darkTintView = UIView()
     fileprivate var isExpanded = false
     
@@ -31,9 +31,9 @@ class ContainerController: UIViewController {
     // MARK: - Helpers
     
     fileprivate func configureMainNavigationController() {
-        exploreViewController = ExploreViewController()
-        exploreViewController.sideMenuDelegate = self
-        mainNavigationController = UINavigationController(rootViewController: exploreViewController)
+        tripsViewController = TripsViewController()
+        tripsViewController.sideMenuDelegate = self
+        mainNavigationController = UINavigationController(rootViewController: tripsViewController)
         view.addSubview(mainNavigationController.view)
         addChild(mainNavigationController)
         mainNavigationController.didMove(toParent: self)
@@ -95,7 +95,7 @@ class ContainerController: UIViewController {
                             self.sideMenuController.view.frame.origin.x = 0
                             self.mainNavigationController.view.frame.origin.x = self.view.frame.width - 80
                             self.darkTintView.alpha = 1
-                            self.exploreViewController.profileButton.customView?.alpha = 0
+                            self.tripsViewController.profileButton.customView?.alpha = 0
                            }, completion: nil)
             
         } else {
@@ -104,7 +104,7 @@ class ContainerController: UIViewController {
             UIView.animate(withDuration: 0.15, delay: 0, animations: {
                 self.sideMenuController.view.frame.origin.x = -self.view.frame.width
                 self.mainNavigationController.view.frame.origin.x = 0
-                self.exploreViewController.profileButton.customView?.alpha = 1
+                self.tripsViewController.profileButton.customView?.alpha = 1
             }) { (_) in
                 guard let menuOption = menuOption else { return }
                 self.didSelectMenuOption(menuOption: menuOption)
