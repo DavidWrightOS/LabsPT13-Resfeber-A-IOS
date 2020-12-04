@@ -20,5 +20,51 @@ class TripServiceTests: XCTestCase {
         tripService = TripService(managedObjectContext: coreDataStack.mainContext,
                                   coreDataStack: coreDataStack)
     }
-
+    
+    override func tearDown() {
+        super.tearDown()
+        tripService = nil
+        coreDataStack = nil
+    }
+    
+    func testAddTrip() {
+        let trip = tripService.add(name: "Wedding",
+                                   image: nil,
+                                   startDate: nil,
+                                   endDate: nil)
+        
+        XCTAssertNotNil(trip, "Trip should not be nil")
+        XCTAssert(trip.name == "Wedding")
+    }
+    
+    /// Tests asynchronous saving
+    func testContextIsSavedAfterAddingTrip() {
+        // Creates the background context and new instance of TripService
+        let derivedContext = coreDataStack.newDerivedContext()
+        tripService = TripService(managedObjectContext: derivedContext,
+                                  coreDataStack: coreDataStack)
+        // Creates an expectation that sends a signal to the test case when Core Data stack sends a notification event
+        expectation(
+            forNotification: .NSManagedObjectContextDidSave,
+            object: coreDataStack.mainContext) { _ in
+            return true
+        }
+        
+        // Adds the trip
+        derivedContext.perform {
+            let trip = self.tripService.add(name: "Wedding",
+                                            image: nil,
+                                            startDate: nil,
+                                            endDate: nil)
+            XCTAssertNotNil(trip)
+            XCTAssert(trip.name == "Wedding")
+        }
+        
+        // Waits for the signal that the trip saved.
+        waitForExpectations(timeout: 2.0) { error in
+            XCTAssertNil(error, "Save did not occur")
+        }
+    }
+    
+    
 }
