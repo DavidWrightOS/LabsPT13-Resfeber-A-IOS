@@ -27,6 +27,7 @@ class TripServiceTests: XCTestCase {
         coreDataStack = nil
     }
     
+    //MARK: - Trip CRUD tests
     func testAddTrip() {
         let trip = tripService.add(name: "Wedding",
                                    image: nil,
@@ -108,6 +109,7 @@ class TripServiceTests: XCTestCase {
         XCTAssertTrue(fetchTrips?.isEmpty ?? false)
     }
     
+    //MARK: - Event CRUD tests
     func testAddEventsToTrip() {
         let trip = tripService.add(name: "Wedding",
                                    image: nil,
