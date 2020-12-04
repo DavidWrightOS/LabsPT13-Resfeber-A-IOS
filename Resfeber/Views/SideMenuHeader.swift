@@ -36,7 +36,7 @@ class SideMenuHeader: UIView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor.Resfeber.light
+        label.textColor = RFColor.light
         label.text = profile.name
         return label
     }()
@@ -44,7 +44,7 @@ class SideMenuHeader: UIView {
     private lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor.Resfeber.light.withAlphaComponent(0.85)
+        label.textColor = RFColor.light.withAlphaComponent(0.85)
         label.text = profile.email
         return label
     }()
@@ -65,7 +65,7 @@ class SideMenuHeader: UIView {
     // MARK: - Helper Functions
     
     fileprivate func configureViews() {
-        backgroundColor = UIColor.Resfeber.red
+        backgroundColor = RFColor.red
         
         addSubview(profileImage)
         profileImage.anchor(top: topAnchor, left: leftAnchor, paddingTop: 4, paddingLeft: 12)

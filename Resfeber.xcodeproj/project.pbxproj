@@ -37,6 +37,7 @@
 		63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E222564A07200BFF20B /* SideMenuCell.swift */; };
 		63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E252564A0A500BFF20B /* ContainerController.swift */; };
 		63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E282564A0CE00BFF20B /* SideMenuController.swift */; };
+		63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD02B257A01340000FAE2 /* RFColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		63D68E222564A07200BFF20B /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		63D68E252564A0A500BFF20B /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
 		63D68E282564A0CE00BFF20B /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
+		63EAD02B257A01340000FAE2 /* RFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				63632A5325572F7A00F70F9C /* UIColor+Extension.swift */,
 				46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */,
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
+				63EAD02B257A01340000FAE2 /* RFColor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				63632A5425572F7A00F70F9C /* UIColor+Extension.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
 				46BEB4E924C98DAF00FE0CD1 /* ProfileListViewController.swift in Sources */,
+				63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */,
 				63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */,
 				4254904F2578934000463284 /* EventItems.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,

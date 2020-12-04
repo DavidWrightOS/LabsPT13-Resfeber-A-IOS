@@ -16,7 +16,7 @@ class ExploreViewController: UIViewController {
 
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
-        sb.tintColor = UIColor.Resfeber.red
+        sb.tintColor = RFColor.red
         sb.placeholder = "Search"
         sb.searchBarStyle = .minimal
         return sb
@@ -29,7 +29,7 @@ class ExploreViewController: UIViewController {
         button.layer.cornerRadius = buttonDiameter / 2
         button.layer.masksToBounds = true
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.Resfeber.red.cgColor
+        button.layer.borderColor = RFColor.red.cgColor
         button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemGray3
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
@@ -61,7 +61,7 @@ class ExploreViewController: UIViewController {
     // MARK: - Helpers
 
     fileprivate func configureViews() {
-        view.backgroundColor = UIColor.Resfeber.background
+        view.backgroundColor = RFColor.background
         
         // Configure Navigation Bar
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -85,7 +85,7 @@ class ExploreViewController: UIViewController {
         
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor.Resfeber.background
+        collectionView.backgroundColor = RFColor.background
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.reuseIdentifier)
         collectionView.dataSource = self

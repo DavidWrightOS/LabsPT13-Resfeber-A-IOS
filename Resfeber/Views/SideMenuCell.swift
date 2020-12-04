@@ -21,7 +21,7 @@ class SideMenuCell: UITableViewCell {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.Resfeber.light
+        label.textColor = RFColor.light
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
@@ -31,7 +31,7 @@ class SideMenuCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.Resfeber.red
+        backgroundColor = RFColor.red
         selectionStyle = .none
         
         addSubview(iconImageView)

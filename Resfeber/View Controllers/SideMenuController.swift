@@ -24,8 +24,8 @@ enum MenuOption: Int, CustomStringConvertible, CaseIterable {
     
     var image: UIImage? {
         switch self {
-        case .editProfile: return UIImage(systemName: "person")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
-        case .logOut: return UIImage(systemName: "escape")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
+        case .editProfile: return UIImage(systemName: "person")?.withTintColor(RFColor.light, renderingMode: .alwaysOriginal)
+        case .logOut: return UIImage(systemName: "escape")?.withTintColor(RFColor.light, renderingMode: .alwaysOriginal)
         }
     }
 }
@@ -52,7 +52,7 @@ class SideMenuController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.Resfeber.red
+        view.backgroundColor = RFColor.red
         configureTableView()
     }
     
@@ -64,7 +64,7 @@ class SideMenuController: UIViewController {
         tableView.dataSource = self
         
         tableView.register(SideMenuCell.self, forCellReuseIdentifier: reuseIdentifer)
-        tableView.backgroundColor = UIColor.Resfeber.red
+        tableView.backgroundColor = RFColor.red
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         tableView.rowHeight = 60
