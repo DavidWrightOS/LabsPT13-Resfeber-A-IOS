@@ -109,13 +109,57 @@ class TripServiceTests: XCTestCase {
     }
     
     func testAddEventsToTrip() {
-        let trip = tripService.add(name: "Wedding", image: nil, startDate: nil, endDate: nil)
-        let event = tripService.addEvent(name: "Dinner", eventDescription: nil, category: nil, latitude: nil, longitude: nil, startDate: nil, endDate: nil, notes: nil, trip: trip)
-        
+        let trip = tripService.add(name: "Wedding",
+                                   image: nil,
+                                   startDate: nil,
+                                   endDate: nil)
+
+        let event = tripService.addEvent(name: "Dinner",
+                                         eventDescription: nil,
+                                         category: nil,
+                                         latitude: nil,
+                                         longitude: nil,
+                                         startDate: nil,
+                                         endDate: nil,
+                                         notes: nil,
+                                         trip: trip)
+
         XCTAssertNotNil(trip, "Trip should not be nil")
         XCTAssertNotNil(event, "Event should not be nil")
         XCTAssert(trip.name == "Wedding")
         XCTAssert(event.name == "Dinner")
         XCTAssertTrue(trip.events?.count == 1)
+    }
+    
+    func testGetEvents() {
+        let trip = tripService.add(name: "Wedding",
+                                   image: nil,
+                                   startDate: nil,
+                                   endDate: nil)
+
+        _ = tripService.addEvent(name: "Dinner",
+                                         eventDescription: nil,
+                                         category: nil,
+                                         latitude: nil,
+                                         longitude: nil,
+                                         startDate: nil,
+                                         endDate: nil,
+                                         notes: nil,
+                                         trip: trip)
+        
+        _ = tripService.addEvent(name: "Movies",
+                                         eventDescription: nil,
+                                         category: nil,
+                                         latitude: nil,
+                                         longitude: nil,
+                                         startDate: nil,
+                                         endDate: nil,
+                                         notes: nil,
+                                         trip: trip)
+        
+        
+        let getEvents = tripService.getEvents()
+        XCTAssertNotNil(getEvents)
+        XCTAssertTrue(getEvents?.count == 2)
     }
 }

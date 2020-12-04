@@ -58,7 +58,7 @@ extension TripService {
         coreDataStack.saveContext(managedObjectContext)
     }
     
-    
+    @discardableResult
     public func addEvent(name: String, eventDescription: String?, category: String?, latitude: Double?, longitude: Double?, startDate: Date?, endDate: Date?, notes: String?, trip: Trip) -> Event {
         let event = Event(context: managedObjectContext)
         event.name = name
@@ -73,6 +73,18 @@ extension TripService {
         
         coreDataStack.saveContext(managedObjectContext)
         return event
+    }
+    
+    public func getEvents() -> [Event]? {
+        let eventFetch: NSFetchRequest<Event> = Event.fetchRequest()
+        
+        do {
+            let results = try managedObjectContext.fetch(eventFetch)
+            return results
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+        return nil
     }
 }
 
