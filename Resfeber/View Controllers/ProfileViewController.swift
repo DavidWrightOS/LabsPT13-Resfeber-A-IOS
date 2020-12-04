@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController {
             label.setDimensions(width: 86)
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
-            textFields[i].textColor = UIColor.Resfeber.red
+            textFields[i].textColor = RFColor.red
             textFields[i].addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
             
             let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
@@ -126,8 +126,8 @@ class ProfileViewController: UIViewController {
     // MARK: - Helpers
     
     fileprivate func configureViews() {
-        view.backgroundColor = UIColor.Resfeber.background
-        navigationController?.navigationBar.tintColor = UIColor.Resfeber.red
+        view.backgroundColor = RFColor.background
+        navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelProfileUpdate))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateProfile))

@@ -41,11 +41,11 @@ class LoginViewController: UIViewController {
     // MARK: - Private Methods
     
     fileprivate func setupView() {
-        view.backgroundColor = UIColor.Resfeber.background
+        view.backgroundColor = RFColor.background
         
         // Sets logoImageView to render as a template image and sets the color to ResfeberRed
         logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-        logoImageView.tintColor = UIColor.Resfeber.red
+        logoImageView.tintColor = RFColor.red
         
         // Sets edge insets for button text
         signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
