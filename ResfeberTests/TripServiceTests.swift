@@ -162,4 +162,27 @@ class TripServiceTests: XCTestCase {
         XCTAssertNotNil(getEvents)
         XCTAssertTrue(getEvents?.count == 2)
     }
+    
+    func testUpdateEvent() {
+        let trip = tripService.add(name: "Wedding",
+                                   image: nil,
+                                   startDate: nil,
+                                   endDate: nil)
+
+        let newEvent = tripService.addEvent(name: "Dinner",
+                                         eventDescription: nil,
+                                         category: nil,
+                                         latitude: nil,
+                                         longitude: nil,
+                                         startDate: nil,
+                                         endDate: nil,
+                                         notes: nil,
+                                         trip: trip)
+        
+        newEvent.name = "Reception Party"
+        let updatedEvent = tripService.updateEvent(newEvent)
+        
+        XCTAssertTrue(newEvent.name == updatedEvent.name)
+        XCTAssertTrue(updatedEvent.name == "Reception Party")
+    }
 }

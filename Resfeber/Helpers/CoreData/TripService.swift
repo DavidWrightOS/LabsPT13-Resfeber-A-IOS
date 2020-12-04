@@ -88,12 +88,12 @@ extension TripService {
     }
     
     @discardableResult
-    public func update(_ event: Event) -> Event {
+    public func updateEvent(_ event: Event) -> Event {
         coreDataStack.saveContext(managedObjectContext)
         return event
     }
     
-    public func delete(_ event: Event) {
+    public func deleteEvent(_ event: Event) {
         managedObjectContext.delete(event)
         coreDataStack.saveContext(managedObjectContext)
     }
