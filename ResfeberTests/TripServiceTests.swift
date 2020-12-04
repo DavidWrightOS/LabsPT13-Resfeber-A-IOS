@@ -101,11 +101,21 @@ class TripServiceTests: XCTestCase {
         
         XCTAssertTrue(fetchTrips?.count == 1)
         XCTAssertTrue(newTrip.name == fetchTrips?.first?.name)
-
+        
         tripService.delete(newTrip)
         fetchTrips = tripService.getTrips()
-
+        
         XCTAssertTrue(fetchTrips?.isEmpty ?? false)
-      }
-
+    }
+    
+    func testAddEventsToTrip() {
+        let trip = tripService.add(name: "Wedding", image: nil, startDate: nil, endDate: nil)
+        let event = tripService.addEvent(name: "Dinner", eventDescription: nil, category: nil, latitude: nil, longitude: nil, startDate: nil, endDate: nil, notes: nil, trip: trip)
+        
+        XCTAssertNotNil(trip, "Trip should not be nil")
+        XCTAssertNotNil(event, "Event should not be nil")
+        XCTAssert(trip.name == "Wedding")
+        XCTAssert(event.name == "Dinner")
+        XCTAssertTrue(trip.events?.count == 1)
+    }
 }
