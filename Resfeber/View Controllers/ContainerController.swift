@@ -61,10 +61,10 @@ class ContainerController: UIViewController {
     
     fileprivate func didSelectMenuOption(menuOption: MenuOption) {
         switch menuOption {
-        case .EditProfile:
+        case .editProfile:
             let nav = UINavigationController(rootViewController: ProfileViewController())
             present(nav, animated: true, completion: nil)
-        case .LogOut:
+        case .logOut:
             break //TODO: Log user out
         }
     }

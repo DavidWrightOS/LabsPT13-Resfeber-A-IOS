@@ -12,20 +12,20 @@ private let reuseIdentifer = "MenuOptionCell"
 
 enum MenuOption: Int, CustomStringConvertible, CaseIterable {
     
-    case EditProfile
-    case LogOut
+    case editProfile
+    case logOut
     
     var description: String {
         switch self {
-        case .EditProfile: return "Edit Profile"
-        case .LogOut: return "Log Out"
+        case .editProfile: return "Edit Profile"
+        case .logOut: return "Log Out"
         }
     }
     
     var image: UIImage? {
         switch self {
-        case .EditProfile: return UIImage(systemName: "person")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
-        case .LogOut: return UIImage(systemName: "escape")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
+        case .editProfile: return UIImage(systemName: "person")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
+        case .logOut: return UIImage(systemName: "escape")?.withTintColor(UIColor.Resfeber.light, renderingMode: .alwaysOriginal)
         }
     }
 }
