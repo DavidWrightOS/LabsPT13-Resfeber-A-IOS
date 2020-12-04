@@ -140,24 +140,24 @@ class TripServiceTests: XCTestCase {
                                    endDate: nil)
 
         _ = tripService.addEvent(name: "Dinner",
-                                         eventDescription: nil,
-                                         category: nil,
-                                         latitude: nil,
-                                         longitude: nil,
-                                         startDate: nil,
-                                         endDate: nil,
-                                         notes: nil,
-                                         trip: trip)
+                                 eventDescription: nil,
+                                 category: nil,
+                                 latitude: nil,
+                                 longitude: nil,
+                                 startDate: nil,
+                                 endDate: nil,
+                                 notes: nil,
+                                 trip: trip)
         
         _ = tripService.addEvent(name: "Movies",
-                                         eventDescription: nil,
-                                         category: nil,
-                                         latitude: nil,
-                                         longitude: nil,
-                                         startDate: nil,
-                                         endDate: nil,
-                                         notes: nil,
-                                         trip: trip)
+                                 eventDescription: nil,
+                                 category: nil,
+                                 latitude: nil,
+                                 longitude: nil,
+                                 startDate: nil,
+                                 endDate: nil,
+                                 notes: nil,
+                                 trip: trip)
         
         
         let getEvents = tripService.getEvents()
@@ -172,14 +172,14 @@ class TripServiceTests: XCTestCase {
                                    endDate: nil)
 
         let newEvent = tripService.addEvent(name: "Dinner",
-                                         eventDescription: nil,
-                                         category: nil,
-                                         latitude: nil,
-                                         longitude: nil,
-                                         startDate: nil,
-                                         endDate: nil,
-                                         notes: nil,
-                                         trip: trip)
+                                            eventDescription: nil,
+                                            category: nil,
+                                            latitude: nil,
+                                            longitude: nil,
+                                            startDate: nil,
+                                            endDate: nil,
+                                            notes: nil,
+                                            trip: trip)
         
         newEvent.name = "Reception Party"
         let updatedEvent = tripService.updateEvent(newEvent)
@@ -195,14 +195,14 @@ class TripServiceTests: XCTestCase {
                                    endDate: nil)
 
         let newEvent = tripService.addEvent(name: "Dinner",
-                                         eventDescription: nil,
-                                         category: nil,
-                                         latitude: nil,
-                                         longitude: nil,
-                                         startDate: nil,
-                                         endDate: nil,
-                                         notes: nil,
-                                         trip: trip)
+                                            eventDescription: nil,
+                                            category: nil,
+                                            latitude: nil,
+                                            longitude: nil,
+                                            startDate: nil,
+                                            endDate: nil,
+                                            notes: nil,
+                                            trip: trip)
         
         var fetchEvents = tripService.getEvents()
         
