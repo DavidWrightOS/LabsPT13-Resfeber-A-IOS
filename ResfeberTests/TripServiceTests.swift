@@ -79,5 +79,16 @@ class TripServiceTests: XCTestCase {
         XCTAssertTrue(newTrip.name == getTrips?.first?.name)
     }
     
+    func testUpdateTrip() {
+        let newTrip = tripService.add(name: "Endor",
+                                      image: nil,
+                                      startDate: nil,
+                                      endDate: nil)
+        newTrip.name = "Hoth"
+        let updatedTrip = tripService.update(newTrip)
+        
+        XCTAssertTrue(newTrip.name == updatedTrip.name)
+        XCTAssertTrue(updatedTrip.name == "Hoth")
+    }
     
 }
