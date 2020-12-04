@@ -91,4 +91,21 @@ class TripServiceTests: XCTestCase {
         XCTAssertTrue(updatedTrip.name == "Hoth")
     }
     
+    func testDeleteTrip() {
+        let newTrip = tripService.add(name: "Naboo",
+                                      image: nil,
+                                      startDate: nil,
+                                      endDate: nil)
+        
+        var fetchTrips = tripService.getTrips()
+        
+        XCTAssertTrue(fetchTrips?.count == 1)
+        XCTAssertTrue(newTrip.name == fetchTrips?.first?.name)
+
+        tripService.delete(newTrip)
+        fetchTrips = tripService.getTrips()
+
+        XCTAssertTrue(fetchTrips?.isEmpty ?? false)
+      }
+
 }
