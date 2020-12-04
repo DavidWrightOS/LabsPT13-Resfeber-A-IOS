@@ -24,7 +24,7 @@ public final class TripService {
 // MARK: - Public
 extension TripService {
     @discardableResult
-    public func add(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
+    public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
         let trip = Trip(context: managedObjectContext)
         trip.name = name
         trip.image = image
@@ -48,12 +48,12 @@ extension TripService {
     }
     
     @discardableResult
-    public func update(_ trip: Trip) -> Trip {
+    public func updateTrip(_ trip: Trip) -> Trip {
         coreDataStack.saveContext(managedObjectContext)
         return trip
     }
     
-    public func delete(_ trip: Trip) {
+    public func deleteTrip(_ trip: Trip) {
         managedObjectContext.delete(trip)
         coreDataStack.saveContext(managedObjectContext)
     }

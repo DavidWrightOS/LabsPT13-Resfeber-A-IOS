@@ -29,7 +29,7 @@ class TripServiceTests: XCTestCase {
     
     //MARK: - Trip CRUD tests
     func testAddTrip() {
-        let trip = tripService.add(name: "Wedding",
+        let trip = tripService.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
@@ -53,7 +53,7 @@ class TripServiceTests: XCTestCase {
         
         // Adds the trip
         derivedContext.perform {
-            let trip = self.tripService.add(name: "Wedding",
+            let trip = self.tripService.addTrip(name: "Wedding",
                                             image: nil,
                                             startDate: nil,
                                             endDate: nil)
@@ -68,7 +68,7 @@ class TripServiceTests: XCTestCase {
     }
     
     func testGetTrips() {
-        let newTrip = tripService.add(name: "Road Trip to California",
+        let newTrip = tripService.addTrip(name: "Road Trip to California",
                                       image: nil,
                                       startDate: nil,
                                       endDate: nil)
@@ -81,19 +81,19 @@ class TripServiceTests: XCTestCase {
     }
     
     func testUpdateTrip() {
-        let newTrip = tripService.add(name: "Endor",
+        let newTrip = tripService.addTrip(name: "Endor",
                                       image: nil,
                                       startDate: nil,
                                       endDate: nil)
         newTrip.name = "Hoth"
-        let updatedTrip = tripService.update(newTrip)
+        let updatedTrip = tripService.updateTrip(newTrip)
         
         XCTAssertTrue(newTrip.name == updatedTrip.name)
         XCTAssertTrue(updatedTrip.name == "Hoth")
     }
     
     func testDeleteTrip() {
-        let newTrip = tripService.add(name: "Naboo",
+        let newTrip = tripService.addTrip(name: "Naboo",
                                       image: nil,
                                       startDate: nil,
                                       endDate: nil)
@@ -103,7 +103,7 @@ class TripServiceTests: XCTestCase {
         XCTAssertTrue(fetchTrips?.count == 1)
         XCTAssertTrue(newTrip.name == fetchTrips?.first?.name)
         
-        tripService.delete(newTrip)
+        tripService.deleteTrip(newTrip)
         fetchTrips = tripService.getTrips()
         
         XCTAssertTrue(fetchTrips?.isEmpty ?? false)
@@ -111,7 +111,7 @@ class TripServiceTests: XCTestCase {
     
     //MARK: - Event CRUD tests
     func testAddEventsToTrip() {
-        let trip = tripService.add(name: "Wedding",
+        let trip = tripService.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
@@ -134,7 +134,7 @@ class TripServiceTests: XCTestCase {
     }
     
     func testGetEvents() {
-        let trip = tripService.add(name: "Wedding",
+        let trip = tripService.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
@@ -166,7 +166,7 @@ class TripServiceTests: XCTestCase {
     }
     
     func testUpdateEvent() {
-        let trip = tripService.add(name: "Wedding",
+        let trip = tripService.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
@@ -189,7 +189,7 @@ class TripServiceTests: XCTestCase {
     }
     
     func testDeleteEvent() {
-        let trip = tripService.add(name: "Wedding",
+        let trip = tripService.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
