@@ -1,15 +1,19 @@
 //
-//  ResfeberTests.swift
-//  ResfeberTests
+//  TripServiceTests.swift
+//  TripServiceTests
 //
 //  Created by Joshua Rutkowski on 12/4/20.
 //  Copyright © 2020 Spencer Curtis. All rights reserved.
 //
 
 import XCTest
-import Resfeber
+@testable import Resfeber
+import CoreData
 
-class ResfeberTests: XCTestCase {
+class TripServiceTests: XCTestCase {
+    var tripService: TripService!
+    var coreDataStack: CoreDataStack!
+
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

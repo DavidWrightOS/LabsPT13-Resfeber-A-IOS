@@ -10,7 +10,7 @@
 		42549089257A6C4400463284 /* Trip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42549087257A6C4400463284 /* Trip.xcdatamodeld */; };
 		4254908D257A6CB900463284 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254908B257A6CB900463284 /* Trip+CoreDataClass.swift */; };
 		4254908E257A6CB900463284 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254908C257A6CB900463284 /* Trip+CoreDataProperties.swift */; };
-		425490BD257A72DA00463284 /* ResfeberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490BC257A72DA00463284 /* ResfeberTests.swift */; };
+		425490BD257A72DA00463284 /* TripServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490BC257A72DA00463284 /* TripServiceTests.swift */; };
 		425490C9257A750300463284 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490C8257A750300463284 /* TestCoreDataStack.swift */; };
 		425490CD257A754800463284 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490CC257A754800463284 /* CoreDataStack.swift */; };
 		425490D4257A763B00463284 /* TripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490D3257A763B00463284 /* TripService.swift */; };
@@ -59,7 +59,7 @@
 		4254908B257A6CB900463284 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4254908C257A6CB900463284 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		425490BA257A72DA00463284 /* ResfeberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResfeberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		425490BC257A72DA00463284 /* ResfeberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResfeberTests.swift; sourceTree = "<group>"; };
+		425490BC257A72DA00463284 /* TripServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripServiceTests.swift; sourceTree = "<group>"; };
 		425490BE257A72DA00463284 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		425490C8257A750300463284 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		425490CC257A754800463284 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		425490BB257A72DA00463284 /* ResfeberTests */ = {
 			isa = PBXGroup;
 			children = (
-				425490BC257A72DA00463284 /* ResfeberTests.swift */,
+				425490BC257A72DA00463284 /* TripServiceTests.swift */,
 				425490BE257A72DA00463284 /* Info.plist */,
 				425490C8257A750300463284 /* TestCoreDataStack.swift */,
 			);
@@ -373,7 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				425490BD257A72DA00463284 /* ResfeberTests.swift in Sources */,
+				425490BD257A72DA00463284 /* TripServiceTests.swift in Sources */,
 				425490C9257A750300463284 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
