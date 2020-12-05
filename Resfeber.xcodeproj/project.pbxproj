@@ -16,6 +16,7 @@
 		425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */; };
 		425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E6257AC57500463284 /* Event+CoreDataClass.swift */; };
 		425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E7257AC57500463284 /* Event+CoreDataProperties.swift */; };
+		42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBEFF257BD4000038C75A /* AddTripViewController.swift */; };
 		463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */; };
 		463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */; };
 		466C4274249A8748007D033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C4273249A8748007D033E /* AppDelegate.swift */; };
@@ -69,6 +70,7 @@
 		425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		425490E6257AC57500463284 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		425490E7257AC57500463284 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		42EFBEFF257BD4000038C75A /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
 		463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileViewController.swift; sourceTree = "<group>"; };
 		466C4270249A8748007D033E /* Resfeber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resfeber.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 				63D68DBA256497E400BFF20B /* ProfileViewController.swift */,
 				63D68E252564A0A500BFF20B /* ContainerController.swift */,
 				63D68E282564A0CE00BFF20B /* SideMenuController.swift */,
+				42EFBEFF257BD4000038C75A /* AddTripViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
 				425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
+				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
 				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,

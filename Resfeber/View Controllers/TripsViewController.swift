@@ -63,6 +63,8 @@ class TripsViewController: UIViewController {
     
     @objc func addButtonTapped(sender: UIButton) {
         print("add button tapped")
+        let nav = UINavigationController(rootViewController: AddTripViewController())
+        present(nav, animated: true, completion: nil)
     }
 
     // MARK: - Helpers
