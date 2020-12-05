@@ -16,9 +16,10 @@ extension UITextField {
         datePicker.datePickerMode = .date
         // iOS 14 and above
         if #available(iOS 14, *) {
-          datePicker.preferredDatePickerStyle = .wheels
+            datePicker.preferredDatePickerStyle = .inline
           datePicker.sizeToFit()
         }
+        datePicker.tintColor = RFColor.red
         self.inputView = datePicker
         
         // Create a toolbar and assign it to inputAccessoryView
@@ -26,6 +27,8 @@ extension UITextField {
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(tapCancel))
         let barButton = UIBarButtonItem(title: "Done", style: .plain, target: target, action: selector)
+        cancel.tintColor = RFColor.red
+        barButton.tintColor = RFColor.red
         toolBar.setItems([cancel, flexible, barButton], animated: false) //8
         self.inputAccessoryView = toolBar //9
     }
