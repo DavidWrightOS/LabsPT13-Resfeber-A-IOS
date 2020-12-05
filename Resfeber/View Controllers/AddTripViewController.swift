@@ -52,6 +52,8 @@ class AddTripViewController: UIViewController {
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
             textFields[i].textColor = RFColor.red
+            startDateTextField.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
+            endDateTextField.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
             
             let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
             hStack.axis = .horizontal
@@ -102,7 +104,24 @@ class AddTripViewController: UIViewController {
     
     @objc func newTripWasSaved() {
     }
-
+    
+    @objc func tapStartDateDone() {
+        if let datePicker = self.startDateTextField.inputView as? UIDatePicker {
+            let dateformatter = DateFormatter()
+            dateformatter.dateStyle = .medium
+            self.startDateTextField.text = dateformatter.string(from: datePicker.date)
+        }
+        self.startDateTextField.resignFirstResponder()
+    }
+    
+    @objc func tapEndDateDone() {
+        if let datePicker = self.endDateTextField.inputView as? UIDatePicker {
+            let dateformatter = DateFormatter()
+            dateformatter.dateStyle = .medium
+            self.endDateTextField.text = dateformatter.string(from: datePicker.date)
+        }
+        self.endDateTextField.resignFirstResponder()
+    }
     
     fileprivate func seperatorView() -> UIView {
         let seperatorView = UIView()
