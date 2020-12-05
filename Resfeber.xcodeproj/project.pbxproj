@@ -17,6 +17,7 @@
 		425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E6257AC57500463284 /* Event+CoreDataClass.swift */; };
 		425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E7257AC57500463284 /* Event+CoreDataProperties.swift */; };
 		42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBEFF257BD4000038C75A /* AddTripViewController.swift */; };
+		42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBF03257BE5290038C75A /* UITextField+Extension.swift */; };
 		463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */; };
 		463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */; };
 		466C4274249A8748007D033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C4273249A8748007D033E /* AppDelegate.swift */; };
@@ -71,6 +72,7 @@
 		425490E6257AC57500463284 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		425490E7257AC57500463284 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		42EFBEFF257BD4000038C75A /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
+		42EFBF03257BE5290038C75A /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileViewController.swift; sourceTree = "<group>"; };
 		466C4270249A8748007D033E /* Resfeber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resfeber.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +223,7 @@
 				46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */,
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
 				63EAD02B257A01340000FAE2 /* RFColor.swift */,
+				42EFBF03257BE5290038C75A /* UITextField+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
 				425490CD257A754800463284 /* CoreDataStack.swift in Sources */,
 				425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */,
+				42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */,
 				425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
