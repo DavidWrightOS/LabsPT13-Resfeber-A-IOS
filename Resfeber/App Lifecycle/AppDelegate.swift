@@ -8,6 +8,7 @@
 
 import UIKit
 import OktaAuth
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

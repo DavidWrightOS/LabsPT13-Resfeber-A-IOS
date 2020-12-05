@@ -7,8 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4254904C257892EE00463284 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254904B257892EE00463284 /* Trip.swift */; };
-		4254904F2578934000463284 /* EventItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4254904E2578934000463284 /* EventItems.swift */; };
+		42549089257A6C4400463284 /* Trip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42549087257A6C4400463284 /* Trip.xcdatamodeld */; };
+		425490BD257A72DA00463284 /* TripServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490BC257A72DA00463284 /* TripServiceTests.swift */; };
+		425490C9257A750300463284 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490C8257A750300463284 /* TestCoreDataStack.swift */; };
+		425490CD257A754800463284 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490CC257A754800463284 /* CoreDataStack.swift */; };
+		425490D4257A763B00463284 /* TripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490D3257A763B00463284 /* TripService.swift */; };
+		425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E4257AC57500463284 /* Trip+CoreDataClass.swift */; };
+		425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */; };
+		425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E6257AC57500463284 /* Event+CoreDataClass.swift */; };
+		425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E7257AC57500463284 /* Event+CoreDataProperties.swift */; };
 		463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */; };
 		463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */; };
 		466C4274249A8748007D033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C4273249A8748007D033E /* AppDelegate.swift */; };
@@ -39,9 +46,29 @@
 		63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD02B257A01340000FAE2 /* RFColor.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		425490BF257A72DA00463284 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 466C4268249A8748007D033E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 466C426F249A8748007D033E;
+			remoteInfo = Resfeber;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		4254904B257892EE00463284 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
-		4254904E2578934000463284 /* EventItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItems.swift; sourceTree = "<group>"; };
+		42549088257A6C4400463284 /* Trip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Trip.xcdatamodel; sourceTree = "<group>"; };
+		425490BA257A72DA00463284 /* ResfeberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResfeberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		425490BC257A72DA00463284 /* TripServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripServiceTests.swift; sourceTree = "<group>"; };
+		425490BE257A72DA00463284 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		425490C8257A750300463284 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		425490CC257A754800463284 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		425490D3257A763B00463284 /* TripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripService.swift; sourceTree = "<group>"; };
+		425490E1257AC4DB00463284 /* Tripv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tripv2.xcdatamodel; sourceTree = "<group>"; };
+		425490E4257AC57500463284 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
+		425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		425490E6257AC57500463284 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
+		425490E7257AC57500463284 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileViewController.swift; sourceTree = "<group>"; };
 		466C4270249A8748007D033E /* Resfeber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resfeber.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +102,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		425490B7257A72DA00463284 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		466C426D249A8748007D033E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,6 +120,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		425490BB257A72DA00463284 /* ResfeberTests */ = {
+			isa = PBXGroup;
+			children = (
+				425490BC257A72DA00463284 /* TripServiceTests.swift */,
+				425490BE257A72DA00463284 /* Info.plist */,
+				425490C8257A750300463284 /* TestCoreDataStack.swift */,
+			);
+			path = ResfeberTests;
+			sourceTree = "<group>";
+		};
+		425490D2257A762000463284 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				42587394257ADFB400260340 /* Model */,
+				425490CC257A754800463284 /* CoreDataStack.swift */,
+				425490D3257A763B00463284 /* TripService.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		42587394257ADFB400260340 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				425490E4257AC57500463284 /* Trip+CoreDataClass.swift */,
+				425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */,
+				425490E6257AC57500463284 /* Event+CoreDataClass.swift */,
+				425490E7257AC57500463284 /* Event+CoreDataProperties.swift */,
+				42549087257A6C4400463284 /* Trip.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		42D1062C25560F1E00A07604 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				466C4272249A8748007D033E /* Resfeber */,
+				425490BB257A72DA00463284 /* ResfeberTests */,
 				466C4271249A8748007D033E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				466C4270249A8748007D033E /* Resfeber.app */,
+				425490BA257A72DA00463284 /* ResfeberTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +194,7 @@
 		466C4272249A8748007D033E /* Resfeber */ = {
 			isa = PBXGroup;
 			children = (
+				425490D2257A762000463284 /* CoreData */,
 				46BEB4EB24C98EB400FE0CD1 /* Model */,
 				46BEB4EC24C98EBB00FE0CD1 /* Model Controller */,
 				63632A9D2559242D00F70F9C /* Views */,
@@ -158,8 +227,6 @@
 			children = (
 				63632AA425594C8D00F70F9C /* Destination.swift */,
 				46BEB4E024C9828800FE0CD1 /* Profile.swift */,
-				4254904B257892EE00463284 /* Trip.swift */,
-				4254904E2578934000463284 /* EventItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -207,6 +274,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		425490B9257A72DA00463284 /* ResfeberTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 425490C1257A72DA00463284 /* Build configuration list for PBXNativeTarget "ResfeberTests" */;
+			buildPhases = (
+				425490B6257A72DA00463284 /* Sources */,
+				425490B7257A72DA00463284 /* Frameworks */,
+				425490B8257A72DA00463284 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				425490C0257A72DA00463284 /* PBXTargetDependency */,
+			);
+			name = ResfeberTests;
+			productName = ResfeberTests;
+			productReference = 425490BA257A72DA00463284 /* ResfeberTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		466C426F249A8748007D033E /* Resfeber */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 466C4284249A8749007D033E /* Build configuration list for PBXNativeTarget "Resfeber" */;
@@ -233,10 +318,14 @@
 		466C4268249A8748007D033E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Spencer Curtis";
 				TargetAttributes = {
+					425490B9257A72DA00463284 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 466C426F249A8748007D033E;
+					};
 					466C426F249A8748007D033E = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -259,11 +348,19 @@
 			projectRoot = "";
 			targets = (
 				466C426F249A8748007D033E /* Resfeber */,
+				425490B9257A72DA00463284 /* ResfeberTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		425490B8257A72DA00463284 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		466C426E249A8748007D033E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,29 +376,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		425490B6257A72DA00463284 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425490BD257A72DA00463284 /* TripServiceTests.swift in Sources */,
+				425490C9257A750300463284 /* TestCoreDataStack.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		466C426C249A8748007D033E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4254904C257892EE00463284 /* Trip.swift in Sources */,
 				46BEB4EE24C98ECC00FE0CD1 /* ProfileController.swift in Sources */,
 				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
+				425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
 				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,
 				63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */,
+				425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */,
 				63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */,
+				425490D4257A763B00463284 /* TripService.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
 				46BEB4E924C98DAF00FE0CD1 /* ProfileListViewController.swift in Sources */,
 				63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */,
 				63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */,
-				4254904F2578934000463284 /* EventItems.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,
+				42549089257A6C4400463284 /* Trip.xcdatamodeld in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
+				425490CD257A754800463284 /* CoreDataStack.swift in Sources */,
+				425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */,
+				425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
@@ -311,6 +422,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		425490C0257A72DA00463284 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 466C426F249A8748007D033E /* Resfeber */;
+			targetProxy = 425490BF257A72DA00463284 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		466C4279249A8748007D033E /* Main.storyboard */ = {
@@ -332,6 +451,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		425490C2257A72DA00463284 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T22WQ5292J;
+				INFOPLIST_FILE = ResfeberTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ski.ResfeberTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Resfeber.app/Resfeber";
+			};
+			name = Debug;
+		};
+		425490C3257A72DA00463284 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T22WQ5292J;
+				INFOPLIST_FILE = ResfeberTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ski.ResfeberTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Resfeber.app/Resfeber";
+			};
+			name = Release;
+		};
 		466C4282249A8749007D033E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -491,6 +652,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		425490C1257A72DA00463284 /* Build configuration list for PBXNativeTarget "ResfeberTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425490C2257A72DA00463284 /* Debug */,
+				425490C3257A72DA00463284 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		466C426B249A8748007D033E /* Build configuration list for PBXProject "Resfeber" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -529,6 +699,20 @@
 			productName = OktaAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		42549087257A6C4400463284 /* Trip.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				425490E1257AC4DB00463284 /* Tripv2.xcdatamodel */,
+				42549088257A6C4400463284 /* Trip.xcdatamodel */,
+			);
+			currentVersion = 425490E1257AC4DB00463284 /* Tripv2.xcdatamodel */;
+			path = Trip.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 466C4268249A8748007D033E /* Project object */;
 }
