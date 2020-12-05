@@ -13,6 +13,7 @@ public final class TripService {
     // MARK: - Properties
     let managedObjectContext: NSManagedObjectContext
     let coreDataStack: CoreDataStack
+    private(set) var searchTrips = [Trip]()
     
     // MARK: - Initializers
     public init(managedObjectContext: NSManagedObjectContext, coreDataStack: CoreDataStack) {

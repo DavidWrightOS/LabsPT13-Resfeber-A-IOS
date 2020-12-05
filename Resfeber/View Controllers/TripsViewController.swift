@@ -13,6 +13,8 @@ class TripsViewController: UIViewController {
     
     fileprivate let destinationController = DestinationController()
     fileprivate var collectionView: UICollectionView!
+    fileprivate var coreDataStack = CoreDataStack()
+    fileprivate var tripService: TripService! = nil
 
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
@@ -50,12 +52,17 @@ class TripsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+        tripService = TripService(managedObjectContext: coreDataStack.mainContext, coreDataStack: coreDataStack)
     }
 
     // MARK: - Selectors
 
     @objc fileprivate func profileImageTapped() {
         sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
+    }
+    
+    @objc func addButtonTapped(sender: UIButton) {
+        print("add button tapped")
     }
 
     // MARK: - Helpers
@@ -72,6 +79,9 @@ class TripsViewController: UIViewController {
         titleLabel.text = "Trips"
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = profileButton
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+
+
         
         // Configure Search Bar
         searchBar.delegate = self
@@ -132,13 +142,13 @@ extension TripsViewController: UICollectionViewDelegateFlowLayout {
 
 extension TripsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        destinationController.searchDestinations.count
+        tripService.getTrips()?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
 
-        cell.destination = destinationController.searchDestinations[indexPath.row]
+        cell.trip = tripService.getTrips()?[indexPath.row]
 
         return cell
     }
@@ -153,44 +163,6 @@ extension TripsViewController: UICollectionViewDelegate {
 
         collectionView.reloadData()
         print("DEBUG: Tapped destination: \(destination.name)..")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? DestinationCell,
-              let destination = cell.destination else { return nil }
-        
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
-            
-            // Setup Favorite menu item
-            
-            let addToFavoritesText = destination.isFavorite ? "Remove Favorite" : "Favorite"
-            
-            let favoriteImage: UIImage?
-            if destination.isFavorite {
-                favoriteImage = UIImage(systemName: "heart.fill")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
-            } else {
-                favoriteImage = UIImage(systemName: "heart")
-            }
-            
-            let addToFavorites = UIAction(title: addToFavoritesText, image: favoriteImage) { [weak self] action in
-                guard let self = self else { return }
-                self.destinationController.toggleFavoriteStatus(for: destination)
-            }
-            
-            // Setup Itinerary menu item
-            
-            let addToItinerary: UIAction
-            if destination.isOnItinerary {
-                addToItinerary = UIAction(title: "Added to Itinerary", image: UIImage(systemName: "briefcase"), attributes: .disabled, handler: {_ in})
-            } else {
-                addToItinerary = UIAction(title: "Add to Itinerary", image: UIImage(systemName: "briefcase")) { [weak self] action in
-                    guard let self = self else { return }
-                    self.destinationController.toggleItineraryStatus(for: destination)
-                }
-            }
-            
-            return UIMenu(title: "", children: [addToFavorites, addToItinerary])
-        }
     }
 }
 

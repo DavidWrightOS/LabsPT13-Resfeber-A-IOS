@@ -11,7 +11,7 @@ import UIKit
 class DestinationCell: UICollectionViewCell {
     static let reuseIdentifier = "destination-cell-reuse-identifier"
 
-    var destination: Destination? {
+    var trip: Trip? {
         didSet {
             updateViews()
         }
@@ -79,10 +79,10 @@ private extension DestinationCell {
     }
 
     func updateViews() {
-        if let destination = destination {
-            imageView.image = destination.image
+        if let trip = trip {
+            imageView.image = nil
             imageView.contentMode = .scaleAspectFill
-            infoLabel.text = destination.name
+            infoLabel.text = trip.name
             gradientLayer.frame = infoView.bounds
         } else {
             imageView.image = UIImage(named: "Logo_Combined")
