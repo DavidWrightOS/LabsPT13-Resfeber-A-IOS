@@ -108,7 +108,8 @@ class AddTripViewController: UIViewController {
     @objc func addNewTripWasCancelled() {
         self.dismiss(animated: true, completion: nil)
     }
-    
+    //TODO: Add save image from image picker
+    // Save dates to CoreData
     @objc func newTripWasSaved() {
         let trip = tripService.addTrip(name: nameTextField.text ?? "",
                                    image: nil,
