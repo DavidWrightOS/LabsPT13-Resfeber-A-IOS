@@ -16,7 +16,7 @@ extension UITextField {
         datePicker.datePickerMode = .date
         // iOS 14 and above
         if #available(iOS 14, *) {
-            datePicker.preferredDatePickerStyle = .inline
+            datePicker.preferredDatePickerStyle = .wheels
           datePicker.sizeToFit()
         }
         datePicker.tintColor = RFColor.red
