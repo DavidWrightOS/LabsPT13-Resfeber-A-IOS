@@ -12,7 +12,7 @@ import CoreData
 public final class TripService {
     // MARK: - Properties
     let managedObjectContext: NSManagedObjectContext
-    let coreDataStack: CoreDataStack
+    var coreDataStack = CoreDataStack.sharedCoreDataStack
     private(set) var searchTrips = [Trip]()
     
     // MARK: - Initializers

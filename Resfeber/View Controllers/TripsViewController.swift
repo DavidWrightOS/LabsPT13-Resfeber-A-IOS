@@ -13,9 +13,9 @@ class TripsViewController: UIViewController {
 
     fileprivate let destinationController = DestinationController()
     fileprivate var collectionView: UICollectionView!
-    fileprivate var coreDataStack = CoreDataStack()
-    fileprivate var tripService: TripService! = nil
 
+    fileprivate var tripService: TripService! = nil
+    let coreDataStack = CoreDataStack.sharedCoreDataStack
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red

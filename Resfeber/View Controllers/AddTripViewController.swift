@@ -14,7 +14,7 @@ class AddTripViewController: UIViewController {
     
     // MARK: - Properties
     var tripService: TripService!
-    var coreDataStack = CoreDataStack()
+    let coreDataStack = CoreDataStack.sharedCoreDataStack
     let load = NSNotification.Name("load")
     fileprivate let tripImage: UIButton = {
         let diameter: CGFloat = 150
