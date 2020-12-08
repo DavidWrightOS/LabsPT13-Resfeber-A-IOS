@@ -88,6 +88,7 @@ class TripsViewController: UIViewController {
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = profileButton
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = RFColor.red
 
         // Configure Search Bar
         searchBar.delegate = self
