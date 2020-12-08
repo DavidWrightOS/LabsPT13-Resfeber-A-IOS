@@ -53,10 +53,14 @@ class TripsViewController: UIViewController {
         super.viewDidLoad()
         configureViews()
         tripService = TripService(managedObjectContext: coreDataStack.mainContext, coreDataStack: coreDataStack)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "load"), object: nil)
+
     }
 
     // MARK: - Selectors
-
+    @objc func loadList(notification: NSNotification) {
+      self.collectionView.reloadData()
+    }
     @objc fileprivate func profileImageTapped() {
         sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
@@ -64,6 +68,7 @@ class TripsViewController: UIViewController {
     @objc func addButtonTapped(sender: UIButton) {
         print("add button tapped")
         let nav = UINavigationController(rootViewController: AddTripViewController())
+        nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
 

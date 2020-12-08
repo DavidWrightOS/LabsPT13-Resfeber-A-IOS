@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class AddTripViewController: UIViewController {
     
     // MARK: - Properties
-    fileprivate var tripService: TripService!
+    var tripService: TripService!
+    var coreDataStack = CoreDataStack()
     
     fileprivate let tripImage: UIButton = {
         let diameter: CGFloat = 150
@@ -76,6 +78,9 @@ class AddTripViewController: UIViewController {
         super.viewDidLoad()
         
         configureViews()
+        
+        tripService = TripService(managedObjectContext: coreDataStack.mainContext,
+                                  coreDataStack: coreDataStack)
     }
 
     // MARK: - Helpers
@@ -86,7 +91,7 @@ class AddTripViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewTripWasCancelled))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(newTripWasSaved))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = true
         title = "Add New Trip"
         
         view.addSubview(tripImage)
@@ -105,6 +110,15 @@ class AddTripViewController: UIViewController {
     }
     
     @objc func newTripWasSaved() {
+        let trip = tripService.addTrip(name: nameTextField.text ?? "",
+                                   image: nil,
+                                   startDate: nil,
+                                   endDate: nil)
+        print("Trip was created: \(trip)")
+        
+        NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func tapStartDateDone() {
