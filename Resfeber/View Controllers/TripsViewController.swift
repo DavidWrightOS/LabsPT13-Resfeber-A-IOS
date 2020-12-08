@@ -10,7 +10,7 @@ import UIKit
 
 class TripsViewController: UIViewController {
     // MARK: - Properties
-    
+
     fileprivate let destinationController = DestinationController()
     fileprivate var collectionView: UICollectionView!
     fileprivate var coreDataStack = CoreDataStack()
@@ -23,7 +23,7 @@ class TripsViewController: UIViewController {
         sb.searchBarStyle = .minimal
         return sb
     }()
-    
+
     let profileButton: UIBarButtonItem = {
         let buttonDiameter: CGFloat = 32
         let button = UIButton(type: .system)
@@ -44,11 +44,11 @@ class TripsViewController: UIViewController {
 
         return UIBarButtonItem(customView: button)
     }()
-    
+
     weak var sideMenuDelegate: SideMenuDelegate?
 
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
@@ -61,10 +61,11 @@ class TripsViewController: UIViewController {
     @objc func loadList(notification: NSNotification) {
       self.collectionView.reloadData()
     }
+
     @objc fileprivate func profileImageTapped() {
         sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
-    
+
     @objc func addButtonTapped(sender: UIButton) {
         print("add button tapped")
         let nav = UINavigationController(rootViewController: AddTripViewController())
@@ -76,7 +77,7 @@ class TripsViewController: UIViewController {
 
     fileprivate func configureViews() {
         view.backgroundColor = RFColor.background
-        
+
         // Configure Navigation Bar
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -88,8 +89,6 @@ class TripsViewController: UIViewController {
         navigationItem.leftBarButtonItem = profileButton
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
 
-
-        
         // Configure Search Bar
         searchBar.delegate = self
         view.addSubview(searchBar)
@@ -99,7 +98,7 @@ class TripsViewController: UIViewController {
                          paddingTop: 8,
                          paddingLeft: 12,
                          paddingRight: 12)
-        
+
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = RFColor.background
@@ -128,7 +127,6 @@ class TripsViewController: UIViewController {
 }
 
 // MARK: - Collection View Layout
-
 extension TripsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let numberOfColumns: CGFloat = 1
@@ -139,14 +137,13 @@ extension TripsViewController: UICollectionViewDelegateFlowLayout {
         let cellHeight: CGFloat = cellWidth * 0.64
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         20
     }
 }
 
 // MARK: - Collection View Data Source
-
 extension TripsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         tripService.getTrips()?.count ?? 0
@@ -162,7 +159,6 @@ extension TripsViewController: UICollectionViewDataSource {
 }
 
 // MARK: - Collection View Delegate
-
 extension TripsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destination = destinationController.searchDestinations[indexPath.row]
@@ -174,7 +170,6 @@ extension TripsViewController: UICollectionViewDelegate {
 }
 
 // MARK: - Search Bar Delegate
-
 extension TripsViewController: UISearchBarDelegate {
     func searchBar(_: UISearchBar, textDidChange searchText: String) {
         print("DEBUG: Search bar text changed: \(searchText)..")

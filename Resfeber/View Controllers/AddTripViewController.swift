@@ -34,7 +34,7 @@ class AddTripViewController: UIViewController {
         button.setImage(placeholderImage, for: .normal)
         return button
     }()
-        
+
     fileprivate var nameTextField = UITextField()
     fileprivate var startDateTextField = UITextField()
     fileprivate var endDateTextField = UITextField()
@@ -71,7 +71,7 @@ class AddTripViewController: UIViewController {
         stack.spacing = 10
         return stack
     }()
-    
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -84,7 +84,6 @@ class AddTripViewController: UIViewController {
     }
 
     // MARK: - Helpers
-    
     fileprivate func configureViews() {
         view.backgroundColor = RFColor.background
         navigationController?.navigationBar.tintColor = RFColor.red
@@ -100,11 +99,11 @@ class AddTripViewController: UIViewController {
         
         view.addSubview(tripInfoStackView)
         tripInfoStackView.anchor(top: tripImage.bottomAnchor,
-                                    left: view.leftAnchor,
-                                    right: view.rightAnchor,
-                                    paddingTop: 36)
+                                 left: view.leftAnchor,
+                                 right: view.rightAnchor,
+                                 paddingTop: 36)
     }
-    
+
     @objc func addNewTripWasCancelled() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -112,16 +111,14 @@ class AddTripViewController: UIViewController {
     // Save dates to CoreData
     @objc func newTripWasSaved() {
         let trip = tripService.addTrip(name: nameTextField.text ?? "",
-                                   image: nil,
-                                   startDate: nil,
-                                   endDate: nil)
+                                       image: nil,
+                                       startDate: nil,
+                                       endDate: nil)
         print("Trip was created: \(trip)")
-        
         NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
-        
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func tapStartDateDone() {
         if let datePicker = self.startDateTextField.inputView as? UIDatePicker {
             let dateformatter = DateFormatter()
@@ -130,7 +127,7 @@ class AddTripViewController: UIViewController {
         }
         self.startDateTextField.resignFirstResponder()
     }
-    
+
     @objc func tapEndDateDone() {
         if let datePicker = self.endDateTextField.inputView as? UIDatePicker {
             let dateformatter = DateFormatter()
@@ -139,25 +136,24 @@ class AddTripViewController: UIViewController {
         }
         self.endDateTextField.resignFirstResponder()
     }
-    
+
     fileprivate func seperatorView() -> UIView {
         let seperatorView = UIView()
         seperatorView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
         seperatorView.setDimensions(height: 1, width: view.frame.width)
         return seperatorView
     }
-    
+
     fileprivate func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
         let spacerView = UIView()
-        
+
         if let width = width {
             spacerView.setDimensions(width: width)
         }
-        
+
         if let width = width {
             spacerView.setDimensions(width: width)
         }
-        
         return spacerView
     }
 }
