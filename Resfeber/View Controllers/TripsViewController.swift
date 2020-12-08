@@ -53,7 +53,7 @@ class TripsViewController: UIViewController {
         super.viewDidLoad()
         configureViews()
         tripService = TripService(managedObjectContext: coreDataStack.mainContext, coreDataStack: coreDataStack)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name.loadData, object: nil)
 
     }
 
