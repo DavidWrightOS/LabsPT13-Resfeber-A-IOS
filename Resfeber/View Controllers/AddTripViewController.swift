@@ -15,7 +15,7 @@ class AddTripViewController: UIViewController {
     // MARK: - Properties
     var tripService: TripService!
     var coreDataStack = CoreDataStack()
-    
+    let load = NSNotification.Name("load")
     fileprivate let tripImage: UIButton = {
         let diameter: CGFloat = 150
         let button = UIButton()
@@ -115,7 +115,7 @@ class AddTripViewController: UIViewController {
                                        startDate: nil,
                                        endDate: nil)
         print("Trip was created: \(trip)")
-        NotificationCenter.default.post(name: NSNotification.Name("load"), object: nil)
+        NotificationCenter.default.post(name: load, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
 
