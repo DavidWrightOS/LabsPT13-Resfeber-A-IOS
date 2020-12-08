@@ -12,6 +12,7 @@ import UIKit
 class AddTripViewController: UIViewController {
     
     // MARK: - Properties
+    fileprivate var tripService: TripService!
     
     fileprivate let tripImage: UIButton = {
         let diameter: CGFloat = 150
@@ -100,6 +101,7 @@ class AddTripViewController: UIViewController {
     }
     
     @objc func addNewTripWasCancelled() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func newTripWasSaved() {
