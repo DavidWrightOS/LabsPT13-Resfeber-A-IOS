@@ -14,7 +14,8 @@ class AddTripViewController: UIViewController {
     
     // MARK: - Properties
     var tripService: TripService!
-    let coreDataStack = CoreDataStack.sharedCoreDataStack
+    let context = CoreDataStack.shared.mainContext
+
     fileprivate let tripImage: UIButton = {
         let diameter: CGFloat = 150
         let button = UIButton()
@@ -75,11 +76,8 @@ class AddTripViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureViews()
-        
-        tripService = TripService(managedObjectContext: coreDataStack.mainContext,
-                                  coreDataStack: coreDataStack)
+        tripService = TripService()
     }
 
     // MARK: - Helpers

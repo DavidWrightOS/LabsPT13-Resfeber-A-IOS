@@ -15,7 +15,8 @@ class TripsViewController: UIViewController {
     fileprivate var collectionView: UICollectionView!
 
     fileprivate var tripService: TripService! = nil
-    let coreDataStack = CoreDataStack.sharedCoreDataStack
+    let context = CoreDataStack.shared.mainContext
+
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
@@ -52,7 +53,7 @@ class TripsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        tripService = TripService(managedObjectContext: coreDataStack.mainContext, coreDataStack: coreDataStack)
+        tripService = TripService()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name.loadData, object: nil)
 
     }

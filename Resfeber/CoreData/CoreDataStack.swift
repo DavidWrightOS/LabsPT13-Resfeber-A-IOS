@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-open class CoreDataStack {
+class CoreDataStack {
     public static let modelName = "Trip"
     static let shared = CoreDataStack()
 
@@ -40,34 +40,16 @@ open class CoreDataStack {
         return context
     }
     
-    public func saveContext() {
-        saveContext(mainContext)
-    }
-    
-    public func saveContext(_ context: NSManagedObjectContext) {
-        if context != mainContext {
-            saveDerivedContext(context)
-            return
-        }
+    func saveContext(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) throws {
+        var error: Error?
         
-        context.perform {
+        context.performAndWait {
             do {
                 try context.save()
-            } catch let error as NSError {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+            } catch let saveError {
+                error = saveError
             }
         }
-    }
-    
-    public func saveDerivedContext(_ context: NSManagedObjectContext) {
-        context.perform {
-            do {
-                try context.save()
-            } catch let error as NSError {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-            
-            self.saveContext(self.mainContext)
-        }
+        if let error = error { throw error }
     }
 }
