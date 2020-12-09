@@ -112,7 +112,7 @@ class AddTripViewController: UIViewController {
                                        startDate: nil,
                                        endDate: nil)
         print("Trip was created: \(trip)")
-        NotificationCenter.default.post(name: NSNotification.Name.loadData, object: nil)
+        NotificationCenter.default.post(name: .loadData, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
 
