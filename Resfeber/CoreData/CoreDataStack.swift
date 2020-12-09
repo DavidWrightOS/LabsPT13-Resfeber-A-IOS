@@ -11,7 +11,7 @@ import CoreData
 
 open class CoreDataStack {
     public static let modelName = "Trip"
-    static let sharedCoreDataStack = CoreDataStack()
+    static let shared = CoreDataStack()
 
     public static let model: NSManagedObjectModel = {
         let modelURL = Bundle.main.url(forResource: modelName, withExtension: "momd")!
