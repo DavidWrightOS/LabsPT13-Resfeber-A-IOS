@@ -11,27 +11,26 @@ import CoreData
 
 public final class TripService {
     // MARK: - Properties
-    let managedObjectContext: NSManagedObjectContext
-    let coreDataStack: CoreDataStack
+    let context = CoreDataStack.shared.mainContext
     
-    // MARK: - Initializers
-    public init(managedObjectContext: NSManagedObjectContext, coreDataStack: CoreDataStack) {
-        self.managedObjectContext = managedObjectContext
-        self.coreDataStack = coreDataStack
-    }
+    private(set) var searchTrips = [Trip]()
 }
 
 // MARK: - Public
 extension TripService {
     @discardableResult
     public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
-        let trip = Trip(context: managedObjectContext)
+        let trip = Trip(name: name, image: image, startDate: startDate, endDate: endDate, context: context)
         trip.name = name
         trip.image = image
         trip.startDate = startDate
         trip.endDate = endDate
         
-        coreDataStack.saveContext(managedObjectContext)
+        do {
+            try CoreDataStack.shared.saveContext(context: context)
+        } catch {
+            print("Error adding trip: \(error)")
+        }
         return trip
     }
     
@@ -39,7 +38,7 @@ extension TripService {
         let tripFetch: NSFetchRequest<Trip> = Trip.fetchRequest()
         
         do {
-            let results = try managedObjectContext.fetch(tripFetch)
+            let results = try context.fetch(tripFetch)
             return results
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
@@ -49,18 +48,26 @@ extension TripService {
     
     @discardableResult
     public func updateTrip(_ trip: Trip) -> Trip {
-        coreDataStack.saveContext(managedObjectContext)
+        do {
+            try CoreDataStack.shared.saveContext(context: context)
+        } catch {
+            print("Error adding trip: \(error)")
+        }
         return trip
     }
     
     public func deleteTrip(_ trip: Trip) {
-        managedObjectContext.delete(trip)
-        coreDataStack.saveContext(managedObjectContext)
+        context.delete(trip)
+        do {
+            try CoreDataStack.shared.saveContext(context: context)
+        } catch {
+            print("Error adding trip: \(error)")
+        }
     }
     
     @discardableResult
     public func addEvent(name: String, eventDescription: String?, category: String?, latitude: Double?, longitude: Double?, startDate: Date?, endDate: Date?, notes: String?, trip: Trip) -> Event {
-        let event = Event(context: managedObjectContext)
+        let event = Event(context: context)
         event.name = name
         event.eventDescription = eventDescription
         event.category = category
@@ -71,7 +78,11 @@ extension TripService {
         event.notes = notes
         event.trip = trip
         
-        coreDataStack.saveContext(managedObjectContext)
+        do {
+            try CoreDataStack.shared.saveContext(context: context)
+        } catch {
+            print("Error adding event: \(error)")
+        }
         return event
     }
     
@@ -79,7 +90,7 @@ extension TripService {
         let eventFetch: NSFetchRequest<Event> = Event.fetchRequest()
         
         do {
-            let results = try managedObjectContext.fetch(eventFetch)
+            let results = try context.fetch(eventFetch)
             return results
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
@@ -89,13 +100,21 @@ extension TripService {
     
     @discardableResult
     public func updateEvent(_ event: Event) -> Event {
-        coreDataStack.saveContext(managedObjectContext)
+        do {
+            try CoreDataStack.shared.saveContext(context: context)
+        } catch {
+            print("Error updating event: \(error)")
+        }
         return event
     }
     
     public func deleteEvent(_ event: Event) {
-        managedObjectContext.delete(event)
-        coreDataStack.saveContext(managedObjectContext)
+        context.delete(event)
+        do {
+            try CoreDataStack.shared.saveContext(context: context)
+        } catch {
+            print("Error deleting event: \(error)")
+        }
     }
 }
 

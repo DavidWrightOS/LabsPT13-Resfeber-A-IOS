@@ -1,5 +1,5 @@
 //
-//  DestinationCell.swift
+//  TripCell.swift
 //  Resfeber
 //
 //  Created by David Wright on 11/9/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class DestinationCell: UICollectionViewCell {
+class TripCell: UICollectionViewCell {
     static let reuseIdentifier = "destination-cell-reuse-identifier"
 
-    var destination: Destination? {
+    var trip: Trip? {
         didSet {
             updateViews()
         }
@@ -59,7 +59,7 @@ class DestinationCell: UICollectionViewCell {
     }
 }
 
-private extension DestinationCell {
+private extension TripCell {
     func configureCell() {
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -79,10 +79,10 @@ private extension DestinationCell {
     }
 
     func updateViews() {
-        if let destination = destination {
-            imageView.image = destination.image
+        if let trip = trip {
+            imageView.image = nil
             imageView.contentMode = .scaleAspectFill
-            infoLabel.text = destination.name
+            infoLabel.text = trip.name
             gradientLayer.frame = infoView.bounds
         } else {
             imageView.image = UIImage(named: "Logo_Combined")

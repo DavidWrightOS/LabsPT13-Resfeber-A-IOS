@@ -16,6 +16,8 @@
 		425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */; };
 		425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E6257AC57500463284 /* Event+CoreDataClass.swift */; };
 		425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E7257AC57500463284 /* Event+CoreDataProperties.swift */; };
+		42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBEFF257BD4000038C75A /* AddTripViewController.swift */; };
+		42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBF03257BE5290038C75A /* UITextField+Extension.swift */; };
 		463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */; };
 		463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */; };
 		466C4274249A8748007D033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C4273249A8748007D033E /* AppDelegate.swift */; };
@@ -35,7 +37,7 @@
 		634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */; };
 		63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* TripsViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
-		63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* DestinationCell.swift */; };
+		63632A9F2559244200F70F9C /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* TripCell.swift */; };
 		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAD25594CFC00F70F9C /* DestinationController.swift */; };
@@ -69,6 +71,8 @@
 		425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		425490E6257AC57500463284 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		425490E7257AC57500463284 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		42EFBEFF257BD4000038C75A /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
+		42EFBF03257BE5290038C75A /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		463AD24424CF2CDB00447BB8 /* AddProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileViewController.swift; sourceTree = "<group>"; };
 		466C4270249A8748007D033E /* Resfeber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resfeber.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,7 +94,7 @@
 		634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeader.swift; sourceTree = "<group>"; };
 		63632A8C2558DF9C00F70F9C /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		63632A9E2559244200F70F9C /* DestinationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCell.swift; sourceTree = "<group>"; };
+		63632A9E2559244200F70F9C /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		63632AAD25594CFC00F70F9C /* DestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				63D68DBA256497E400BFF20B /* ProfileViewController.swift */,
 				63D68E252564A0A500BFF20B /* ContainerController.swift */,
 				63D68E282564A0CE00BFF20B /* SideMenuController.swift */,
+				42EFBEFF257BD4000038C75A /* AddTripViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */,
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
 				63EAD02B257A01340000FAE2 /* RFColor.swift */,
+				42EFBF03257BE5290038C75A /* UITextField+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -264,7 +270,7 @@
 		63632A9D2559242D00F70F9C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				63632A9E2559244200F70F9C /* DestinationCell.swift */,
+				63632A9E2559244200F70F9C /* TripCell.swift */,
 				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
 			);
@@ -394,7 +400,8 @@
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
 				425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
-				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
+				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
+				63632A9F2559244200F70F9C /* TripCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
 				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,
@@ -412,6 +419,7 @@
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
 				425490CD257A754800463284 /* CoreDataStack.swift in Sources */,
 				425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */,
+				42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */,
 				425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
@@ -544,7 +552,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -599,7 +607,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -616,7 +624,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Resfeber/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -636,7 +644,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Resfeber/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
