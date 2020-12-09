@@ -20,7 +20,7 @@ public final class TripService {
 extension TripService {
     @discardableResult
     public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
-        let trip = Trip(context: context)
+        let trip = Trip(name: name, image: image, startDate: startDate, endDate: endDate, context: context)
         trip.name = name
         trip.image = image
         trip.startDate = startDate

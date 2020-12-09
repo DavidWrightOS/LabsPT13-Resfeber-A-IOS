@@ -1,5 +1,5 @@
 //
-//  DestinationCell.swift
+//  TripCell.swift
 //  Resfeber
 //
 //  Created by David Wright on 11/9/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DestinationCell: UICollectionViewCell {
+class TripCell: UICollectionViewCell {
     static let reuseIdentifier = "destination-cell-reuse-identifier"
 
     var trip: Trip? {
@@ -59,7 +59,7 @@ class DestinationCell: UICollectionViewCell {
     }
 }
 
-private extension DestinationCell {
+private extension TripCell {
     func configureCell() {
         layer.cornerRadius = 10
         clipsToBounds = true

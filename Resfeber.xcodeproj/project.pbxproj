@@ -37,7 +37,7 @@
 		634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */; };
 		63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* TripsViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
-		63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* DestinationCell.swift */; };
+		63632A9F2559244200F70F9C /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* TripCell.swift */; };
 		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAD25594CFC00F70F9C /* DestinationController.swift */; };
@@ -94,7 +94,7 @@
 		634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeader.swift; sourceTree = "<group>"; };
 		63632A8C2558DF9C00F70F9C /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		63632A9E2559244200F70F9C /* DestinationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCell.swift; sourceTree = "<group>"; };
+		63632A9E2559244200F70F9C /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		63632AAD25594CFC00F70F9C /* DestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
@@ -270,7 +270,7 @@
 		63632A9D2559242D00F70F9C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				63632A9E2559244200F70F9C /* DestinationCell.swift */,
+				63632A9E2559244200F70F9C /* TripCell.swift */,
 				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
 			);
@@ -401,7 +401,7 @@
 				425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
-				63632A9F2559244200F70F9C /* DestinationCell.swift in Sources */,
+				63632A9F2559244200F70F9C /* TripCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
 				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,

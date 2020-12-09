@@ -13,8 +13,7 @@ class TripsViewController: UIViewController {
 
     fileprivate let destinationController = DestinationController()
     fileprivate var collectionView: UICollectionView!
-
-    fileprivate var tripService: TripService! = nil
+    fileprivate let tripService = TripService()
     let context = CoreDataStack.shared.mainContext
 
     fileprivate let searchBar: UISearchBar = {
@@ -53,7 +52,6 @@ class TripsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        tripService = TripService()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name.loadData, object: nil)
 
     }
@@ -104,7 +102,7 @@ class TripsViewController: UIViewController {
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = RFColor.background
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(DestinationCell.self, forCellWithReuseIdentifier: DestinationCell.reuseIdentifier)
+        collectionView.register(TripCell.self, forCellWithReuseIdentifier: TripCell.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
@@ -151,7 +149,7 @@ extension TripsViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DestinationCell.reuseIdentifier, for: indexPath) as! DestinationCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripCell.reuseIdentifier, for: indexPath) as! TripCell
 
         cell.trip = tripService.getTrips()?[indexPath.row]
 
