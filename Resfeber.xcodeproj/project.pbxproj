@@ -46,6 +46,7 @@
 		63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E252564A0A500BFF20B /* ContainerController.swift */; };
 		63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E282564A0CE00BFF20B /* SideMenuController.swift */; };
 		63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD02B257A01340000FAE2 /* RFColor.swift */; };
+		63EAD05A258726B30000FAE2 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD059258726B30000FAE2 /* TripDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		63D68E252564A0A500BFF20B /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
 		63D68E282564A0CE00BFF20B /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		63EAD02B257A01340000FAE2 /* RFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFColor.swift; sourceTree = "<group>"; };
+		63EAD059258726B30000FAE2 /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				63632A8C2558DF9C00F70F9C /* TripsViewController.swift */,
+				63EAD059258726B30000FAE2 /* TripDetailViewController.swift */,
 				63D68DBA256497E400BFF20B /* ProfileViewController.swift */,
 				63D68E252564A0A500BFF20B /* ContainerController.swift */,
 				63D68E282564A0CE00BFF20B /* SideMenuController.swift */,
@@ -405,6 +408,7 @@
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
 				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,
+				63EAD05A258726B30000FAE2 /* TripDetailViewController.swift in Sources */,
 				63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */,
 				425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */,
 				63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */,
