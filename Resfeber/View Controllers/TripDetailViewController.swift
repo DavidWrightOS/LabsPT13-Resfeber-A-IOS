@@ -15,6 +15,8 @@ class TripDetailViewController: UIViewController {
     
     private var trip: Trip
     
+    fileprivate let tripService: TripService
+    
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
@@ -28,8 +30,9 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(_ trip: Trip) {
+    init(_ trip: Trip, tripService: TripService) {
         self.trip = trip
+        self.tripService = tripService
         super.init(nibName: nil, bundle: nil)
     }
     

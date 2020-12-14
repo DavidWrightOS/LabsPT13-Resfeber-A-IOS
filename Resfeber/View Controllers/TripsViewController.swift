@@ -163,7 +163,7 @@ extension TripsViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? TripCell,
               let trip = cell.trip else { return }
         
-        let detailVC = TripDetailViewController(trip)
+        let detailVC = TripDetailViewController(trip, tripService: tripService)
         show(detailVC, sender: self)
     }
 }
