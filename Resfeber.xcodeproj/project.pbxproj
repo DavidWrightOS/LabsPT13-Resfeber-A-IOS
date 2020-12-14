@@ -51,6 +51,7 @@
 		63EAD0802587823F0000FAE2 /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */; };
 		63EAD084258782800000FAE2 /* CLPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */; };
 		63EAD08E2587A4930000FAE2 /* MKMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD08D2587A4930000FAE2 /* MKMapView+Extension.swift */; };
+		63EAD0922587A5740000FAE2 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD0912587A5740000FAE2 /* SearchResultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+Extension.swift"; sourceTree = "<group>"; };
 		63EAD08D2587A4930000FAE2 /* MKMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extension.swift"; sourceTree = "<group>"; };
+		63EAD0912587A5740000FAE2 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,7 @@
 			children = (
 				63632A9E2559244200F70F9C /* TripCell.swift */,
 				63EAD075258747F80000FAE2 /* EventCell.swift */,
+				63EAD0912587A5740000FAE2 /* SearchResultCell.swift */,
 				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
 			);
@@ -416,6 +419,7 @@
 				425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
+				63EAD0922587A5740000FAE2 /* SearchResultCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* TripCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
