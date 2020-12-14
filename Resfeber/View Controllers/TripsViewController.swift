@@ -160,7 +160,10 @@ extension TripsViewController: UICollectionViewDataSource {
 // MARK: - Collection View Delegate
 extension TripsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = TripDetailViewController()
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TripCell,
+              let trip = cell.trip else { return }
+        
+        let detailVC = TripDetailViewController(trip)
         show(detailVC, sender: self)
     }
 }
