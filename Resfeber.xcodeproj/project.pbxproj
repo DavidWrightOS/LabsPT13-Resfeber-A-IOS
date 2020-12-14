@@ -47,6 +47,7 @@
 		63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E282564A0CE00BFF20B /* SideMenuController.swift */; };
 		63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD02B257A01340000FAE2 /* RFColor.swift */; };
 		63EAD05A258726B30000FAE2 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD059258726B30000FAE2 /* TripDetailViewController.swift */; };
+		63EAD076258747F80000FAE2 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD075258747F80000FAE2 /* EventCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		63D68E282564A0CE00BFF20B /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		63EAD02B257A01340000FAE2 /* RFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFColor.swift; sourceTree = "<group>"; };
 		63EAD059258726B30000FAE2 /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		63EAD075258747F80000FAE2 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				63632A9E2559244200F70F9C /* TripCell.swift */,
+				63EAD075258747F80000FAE2 /* EventCell.swift */,
 				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
 			);
@@ -426,6 +429,7 @@
 				42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */,
 				425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
+				63EAD076258747F80000FAE2 /* EventCell.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
