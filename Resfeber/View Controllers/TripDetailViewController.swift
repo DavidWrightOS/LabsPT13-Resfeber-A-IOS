@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class TripDetailViewController: UIViewController {
     
@@ -22,6 +23,9 @@ class TripDetailViewController: UIViewController {
         return sb
     }()
     
+    private let mapView = MKMapView()
+    private let locationManager = CLLocationManager()
+    
     // MARK: - Lifecycle
     
     init(_ trip: Trip) {
@@ -35,6 +39,7 @@ class TripDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableLocationServices()
         configureViews()
     }
     
@@ -58,6 +63,22 @@ class TripDetailViewController: UIViewController {
     fileprivate func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
         print("DEBUG: Perform query with text: \(queryText)..")
+    }
+}
+
+extension TripDetailViewController: CLLocationManagerDelegate {
+    fileprivate func enableLocationServices() {
+        locationManager.delegate = self
+        
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        default:
+            break
+        }
     }
 }
 
