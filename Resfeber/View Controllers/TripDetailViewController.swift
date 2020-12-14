@@ -34,6 +34,8 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    fileprivate var collectionView: UICollectionView!
+    
     // MARK: - Lifecycle
     
     init(_ trip: Trip, tripService: TripService) {
@@ -114,6 +116,38 @@ class TripDetailViewController: UIViewController {
                        paddingLeft: 12,
                        paddingRight: 12,
                        height: view.frame.width * 0.8)
+        
+        // Configure Collection View
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = RFColor.background
+        collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.reuseIdentifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        collectionView.anchor(top: mapView.bottomAnchor,
+                              left: view.leftAnchor,
+                              bottom: view.bottomAnchor,
+                              right: view.rightAnchor,
+                              paddingTop: 12,
+                              paddingLeft: 12,
+                              paddingRight: 12)
+        
+        // Load Data
+        collectionView.reloadData()
+        
+        configureTableView()
+        loadTripAnnotations()
+    }
+    
+    func loadTripAnnotations() {
+        for event in events {
+            let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            self.mapView.addAnnotation(annotation)
+        }
+        
+        let annotations = mapView.annotations
     }
     
     fileprivate func performQuery(with searchText: String?) {
@@ -159,5 +193,29 @@ extension TripDetailViewController: UISearchBarDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+    }
+}
+
+// MARK: - Collection View Layout
+extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        let cellWidth = collectionView.frame.size.width
+        let cellHeight: CGFloat = 70
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+}
+
+// MARK: - Collection View Data Source
+extension TripDetailViewController: UICollectionViewDataSource {
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
+        events.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
+
+        cell.event = events[indexPath.row]
+
+        return cell
     }
 }
