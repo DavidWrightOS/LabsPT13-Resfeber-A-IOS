@@ -48,6 +48,8 @@
 		63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD02B257A01340000FAE2 /* RFColor.swift */; };
 		63EAD05A258726B30000FAE2 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD059258726B30000FAE2 /* TripDetailViewController.swift */; };
 		63EAD076258747F80000FAE2 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD075258747F80000FAE2 /* EventCell.swift */; };
+		63EAD0802587823F0000FAE2 /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */; };
+		63EAD084258782800000FAE2 /* CLPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,8 @@
 		63EAD02B257A01340000FAE2 /* RFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFColor.swift; sourceTree = "<group>"; };
 		63EAD059258726B30000FAE2 /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		63EAD075258747F80000FAE2 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
+		63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +233,8 @@
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
 				63EAD02B257A01340000FAE2 /* RFColor.swift */,
 				42EFBF03257BE5290038C75A /* UITextField+Extension.swift */,
+				63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */,
+				63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,
 				42549089257A6C4400463284 /* Trip.xcdatamodeld in Sources */,
+				63EAD0802587823F0000FAE2 /* CLLocation+Extension.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
 				425490CD257A754800463284 /* CoreDataStack.swift in Sources */,
@@ -434,6 +441,7 @@
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
 				466C4276249A8748007D033E /* SceneDelegate.swift in Sources */,
+				63EAD084258782800000FAE2 /* CLPlacemark+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
