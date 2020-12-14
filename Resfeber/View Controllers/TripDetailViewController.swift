@@ -13,9 +13,15 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var trip: Trip
+    private var trip: Trip {
+        didSet {
+            events = trip.events?.allObjects as? [Event] ?? []
+        }
+    }
     
     fileprivate let tripService: TripService
+    
+    private var events: [Event]
     
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
@@ -32,7 +38,42 @@ class TripDetailViewController: UIViewController {
     
     init(_ trip: Trip, tripService: TripService) {
         self.trip = trip
+        self.events = trip.events?.allObjects as? [Event] ?? []
         self.tripService = tripService
+        
+        // load mock events
+        if events.isEmpty {
+            self.events = [
+                tripService.addEvent(name: "Apple Park Visitor Center",
+                                     eventDescription: nil,
+                                     category: "Other",
+                                     latitude: 37.3326,
+                                     longitude: -122.0055,
+                                     startDate: Date(timeIntervalSinceNow: 86400 * 31),
+                                     endDate: Date(timeIntervalSinceNow: 86400 * 31 + 7200),
+                                     notes: nil,
+                                     trip: trip),
+                tripService.addEvent(name: "Aloft Cupertino",
+                                     eventDescription: nil,
+                                     category: "Accomodation",
+                                     latitude: 37.3255,
+                                     longitude: -122.0329,
+                                     startDate: Date(timeIntervalSinceNow: 86400 * 30),
+                                     endDate: Date(timeIntervalSinceNow: 86400 * 37),
+                                     notes: "No smoking; Pet friendly",
+                                     trip: trip),
+                tripService.addEvent(name: "Lazy Dog Restaurant & Bar",
+                                     eventDescription: nil,
+                                     category: "Restaurant",
+                                     latitude: 37.1924,
+                                     longitude: -122.0031,
+                                     startDate: Date(timeIntervalSinceNow: 86400 * 33),
+                                     endDate: Date(timeIntervalSinceNow: 86400 * 33 + 7200),
+                                     notes: "COVID-19 Restrictions: open for takeout and delivery only",
+                                     trip: trip),
+            ]
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
