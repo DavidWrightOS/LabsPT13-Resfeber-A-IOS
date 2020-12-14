@@ -160,11 +160,8 @@ extension TripsViewController: UICollectionViewDataSource {
 // MARK: - Collection View Delegate
 extension TripsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destination = destinationController.searchDestinations[indexPath.row]
-        destination.isFavorite.toggle()
-
-        collectionView.reloadData()
-        print("DEBUG: Tapped destination: \(destination.name)..")
+        let detailVC = TripDetailViewController()
+        show(detailVC, sender: self)
     }
 }
 
