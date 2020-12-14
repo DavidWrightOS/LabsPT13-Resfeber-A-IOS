@@ -31,6 +31,19 @@ class TripDetailViewController: UIViewController {
         return sb
     }()
     
+    private let searchTableView = UITableView()
+    private var searchResults = [MKPlacemark]() {
+        didSet {
+            for result in searchResults {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = result.coordinate
+                self.mapView.addAnnotation(annotation)
+            }
+            let annotations = self.mapView.annotations
+            self.mapView.zoomToFit(annotations: annotations)
+        }
+    }
+    
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
@@ -139,6 +152,19 @@ class TripDetailViewController: UIViewController {
         loadTripAnnotations()
     }
     
+    private func configureTableView() {
+        searchTableView.backgroundColor = RFColor.background
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+        searchTableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reuseIdentifier)
+        searchTableView.rowHeight = 60
+        searchTableView.tableFooterView = UIView()
+        
+        let height = view.frame.height - view.safeAreaInsets.top
+        searchTableView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: height)
+        view.addSubview(searchTableView)
+    }
+    
     func loadTripAnnotations() {
         for event in events {
             let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
@@ -153,7 +179,31 @@ class TripDetailViewController: UIViewController {
     
     fileprivate func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
-        print("DEBUG: Perform query with text: \(queryText)..")
+        
+        searchBy(naturalLanguageQuery: queryText) { results in
+            self.searchResults = results
+            self.searchTableView.reloadData()
+        }
+    }
+    
+    func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
+        var results = [MKPlacemark]()
+        
+        let request = MKLocalSearch.Request()
+        request.region = mapView.region
+        request.naturalLanguageQuery = naturalLanguageQuery
+        
+        let search = MKLocalSearch(request: request)
+        search.start { response, error in
+            guard let response = response else { return }
+            
+            response.mapItems.forEach { item in
+                results.append(item.placemark)
+            }
+            
+            completion(results)
+        }
+    }
     }
 }
 
@@ -218,5 +268,37 @@ extension TripDetailViewController: UICollectionViewDataSource {
         cell.event = events[indexPath.row]
 
         return cell
+    }
+}
+
+// MARK: - Search Table View DataSource
+
+extension TripDetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        searchResults.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
+        cell.placemark = searchResults[indexPath.row]
+        return cell
+    }
+}
+
+// MARK: - Search Table View Delegate
+
+extension TripDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedPlacemark = searchResults[indexPath.row]
+        
+        dismissSearchTableView { _ in
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = selectedPlacemark.coordinate
+            self.mapView.addAnnotation(annotation)
+            self.mapView.selectAnnotation(annotation, animated: true)
+            
+            let annotations = self.mapView.annotations
+            self.mapView.zoomToFit(annotations: annotations)
+        }
     }
 }
