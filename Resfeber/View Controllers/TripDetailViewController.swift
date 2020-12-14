@@ -18,7 +18,7 @@ class TripDetailViewController: UIViewController {
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
-        sb.placeholder = "Search for a places or address"
+        sb.placeholder = "Search for a place or address"
         sb.searchBarStyle = .minimal
         return sb
     }()
@@ -55,9 +55,8 @@ class TripDetailViewController: UIViewController {
         searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.leftAnchor,
                          right: view.rightAnchor,
-                         paddingTop: 0,
-                         paddingLeft: 12,
-                         paddingRight: 12)
+                         paddingLeft: 8,
+                         paddingRight: 8)
         
         // Configure MapView
         mapView.showsUserLocation = true
