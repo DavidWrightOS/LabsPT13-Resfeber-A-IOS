@@ -148,6 +148,7 @@ class TripDetailViewController: UIViewController {
         }
         
         let annotations = mapView.annotations
+        self.mapView.zoomToFit(annotations: annotations)
     }
     
     fileprivate func performQuery(with searchText: String?) {
