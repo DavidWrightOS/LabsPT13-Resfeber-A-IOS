@@ -58,6 +58,19 @@ class TripDetailViewController: UIViewController {
                          paddingTop: 0,
                          paddingLeft: 12,
                          paddingRight: 12)
+        
+        // Configure MapView
+        mapView.showsUserLocation = true
+        mapView.layer.borderWidth = 1
+        mapView.layer.borderColor = RFColor.red.cgColor
+        view.addSubview(mapView)
+        mapView.anchor(top: searchBar.bottomAnchor,
+                       left: view.leftAnchor,
+                       right: view.rightAnchor,
+                       paddingTop: 4,
+                       paddingLeft: 12,
+                       paddingRight: 12,
+                       height: view.frame.width * 0.8)
     }
     
     fileprivate func performQuery(with searchText: String?) {
