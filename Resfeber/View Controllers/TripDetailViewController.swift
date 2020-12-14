@@ -204,6 +204,17 @@ class TripDetailViewController: UIViewController {
             completion(results)
         }
     }
+    
+    func showSearchTableView() {
+        UIView.animate(withDuration: 0.2) {
+            self.searchTableView.frame.origin.y = self.searchBar.frame.maxY
+        }
+    }
+    
+    func dismissSearchTableView(completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.searchTableView.frame.origin.y = self.view.frame.height
+        }, completion: completion)
     }
 }
 
@@ -236,10 +247,12 @@ extension TripDetailViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        dismissSearchTableView()
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
+        showSearchTableView()
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -270,6 +283,19 @@ extension TripDetailViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+/*
+// MARK: - Collection View Delegate
+extension TripDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
+              let event = cell.event else { return }
+
+        let detailVC = EventDetailViewController(event)
+        show(detailVC, sender: self)
+    }
+}
+*/
 
 // MARK: - Search Table View DataSource
 
