@@ -46,6 +46,19 @@ extension TripService {
         return nil
     }
     
+    public func getTrip(withName name: String) -> Trip? {
+        let tripFetch: NSFetchRequest<Trip> = Trip.fetchRequest()
+        tripFetch.predicate = NSPredicate(format: "(%K = %@)", #keyPath(Trip.name), name)
+        
+        do {
+            let trip = try context.fetch(tripFetch).first
+            return trip
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+        return nil
+    }
+    
     @discardableResult
     public func updateTrip(_ trip: Trip) -> Trip {
         do {
