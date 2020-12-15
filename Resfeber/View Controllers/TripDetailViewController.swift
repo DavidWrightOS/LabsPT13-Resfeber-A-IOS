@@ -345,15 +345,15 @@ extension TripDetailViewController: UITableViewDataSource {
 extension TripDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlacemark = searchResults[indexPath.row]
-        
-        dismissSearchTableView { _ in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = selectedPlacemark.coordinate
-            self.mapView.addAnnotation(annotation)
-            self.mapView.selectAnnotation(annotation, animated: true)
-            
-            let annotations = self.mapView.annotations
-            self.mapView.zoomToFit(annotations: annotations)
-        }
+        addEvent(with: selectedPlacemark)
+        dismissSearchTableView()
+    }
+    
+    fileprivate func addEvent(with placemark: MKPlacemark) {
+        let name = placemark.name
+        let latitude = placemark.location?.coordinate.latitude
+        let longitude = placemark.location?.coordinate.longitude
+        tripService.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        reloadTrip()
     }
 }
