@@ -165,6 +165,10 @@ class TripDetailViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
+    fileprivate func reloadTrip() {
+        
+    }
+    
     func loadTripAnnotations() {
         for event in events {
             let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
@@ -281,6 +285,26 @@ extension TripDetailViewController: UICollectionViewDataSource {
         cell.event = events[indexPath.row]
 
         return cell
+    }
+}
+
+// MARK: - Collection View Delegate
+extension TripDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
+              let event = cell.event else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup Delete Event menu item
+            let deleteEvent = UIAction(title: "Delete Event", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+                guard let self = self else { return }
+                self.tripService.deleteEvent(event)
+                self.reloadTrip()
+            }
+            
+            return UIMenu(title: "", children: [deleteEvent])
+        }
     }
 }
 
