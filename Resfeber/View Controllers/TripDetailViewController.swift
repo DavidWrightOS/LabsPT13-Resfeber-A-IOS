@@ -166,7 +166,12 @@ class TripDetailViewController: UIViewController {
     }
     
     fileprivate func reloadTrip() {
+        guard let tripName = trip.name else { return }
+        guard let trip = tripService.getTrip(withName: tripName) else { return }
         
+        self.trip = trip
+        collectionView.reloadData()
+        loadTripAnnotations()
     }
     
     func loadTripAnnotations() {
