@@ -79,7 +79,7 @@ extension TripService {
     }
     
     @discardableResult
-    public func addEvent(name: String, eventDescription: String?, category: String?, latitude: Double?, longitude: Double?, startDate: Date?, endDate: Date?, notes: String?, trip: Trip) -> Event {
+    public func addEvent(name: String? = nil, eventDescription: String? = nil, category: String? = nil, latitude: Double? = nil, longitude: Double? = nil, startDate: Date? = nil, endDate: Date? = nil, notes: String? = nil, trip: Trip) -> Event {
         let event = Event(context: context)
         event.name = name
         event.eventDescription = eventDescription
