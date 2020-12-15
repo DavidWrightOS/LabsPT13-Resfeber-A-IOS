@@ -141,9 +141,7 @@ class TripDetailViewController: UIViewController {
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 12,
-                              paddingLeft: 12,
-                              paddingRight: 12)
+                              paddingTop: 12)
         
         // Load Data
         collectionView.reloadData()
@@ -272,7 +270,8 @@ extension TripDetailViewController: UISearchBarDelegate {
 // MARK: - Collection View Layout
 extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.size.width
+        let xEdgeInset: CGFloat = 12
+        let cellWidth = collectionView.frame.size.width - 2 * xEdgeInset
         let cellHeight: CGFloat = 70
         return CGSize(width: cellWidth, height: cellHeight)
     }
