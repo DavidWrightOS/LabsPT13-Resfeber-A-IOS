@@ -47,7 +47,7 @@ class TripsControllerTests: XCTestCase {
         // Creates an expectation that sends a signal to the test case when Core Data stack sends a notification event
         expectation(
             forNotification: .NSManagedObjectContextDidSave,
-            object: coreDataStack.mainContext) { _ in
+            object: derivedContext) { _ in
             return true
         }
         
