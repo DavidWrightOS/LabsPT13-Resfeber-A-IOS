@@ -44,6 +44,20 @@ extension Trip {
 
 extension Trip : Identifiable {
     var eventsArray: [Event] {
-        events?.allObjects as? [Event] ?? []
+        let eventsArray = events?.allObjects as? [Event] ?? []
+        
+        /// Events sorted by date; events without a date are positioned at the end
+        return eventsArray.sorted { (x, y) -> Bool in
+            
+            if let xStartDate = x.startDate {
+                if let yStartDate = y.startDate {
+                    return xStartDate < yStartDate
+                } else {
+                    return true
+                }
+            }
+            
+            return y.startDate == nil
+        }
     }
 }
