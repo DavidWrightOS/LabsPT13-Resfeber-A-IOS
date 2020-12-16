@@ -26,17 +26,7 @@ class TripDetailViewController: UIViewController {
     }()
     
     private let searchTableView = UITableView()
-    private var searchResults = [MKPlacemark]() {
-        didSet {
-            for result in searchResults {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = result.coordinate
-                self.mapView.addAnnotation(annotation)
-            }
-            let annotations = self.mapView.annotations
-            self.mapView.zoomToFit(annotations: annotations)
-        }
-    }
+    private var searchResults = [MKPlacemark]()
     
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
