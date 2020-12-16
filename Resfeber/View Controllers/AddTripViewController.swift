@@ -13,8 +13,7 @@ import CoreData
 class AddTripViewController: UIViewController {
     
     // MARK: - Properties
-    var tripsController: TripsController!
-    let context = CoreDataStack.shared.mainContext
+    let tripsController: TripsController
 
     private let tripImage: UIButton = {
         let diameter: CGFloat = 150
@@ -74,10 +73,18 @@ class AddTripViewController: UIViewController {
 
     // MARK: - Lifecycle
     
+    init(tripsController: TripsController) {
+        self.tripsController = tripsController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        tripsController = TripsController()
     }
 
     // MARK: - Helpers

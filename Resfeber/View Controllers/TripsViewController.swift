@@ -66,7 +66,8 @@ class TripsViewController: UIViewController {
     }
 
     @objc func addButtonTapped(sender: UIButton) {
-        let nav = UINavigationController(rootViewController: AddTripViewController())
+        let addTripVC = AddTripViewController(tripsController: tripsController)
+        let nav = UINavigationController(rootViewController: addTripVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
