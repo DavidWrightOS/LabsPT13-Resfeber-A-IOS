@@ -18,7 +18,7 @@ class EventCell: UICollectionViewCell {
         }
     }
 
-    fileprivate let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .systemGray2
@@ -28,25 +28,25 @@ class EventCell: UICollectionViewCell {
         return iv
     }()
 
-    fileprivate let infoView: UIView = {
+    private let infoView: UIView = {
         let view = UIView()
         return view
     }()
 
-    fileprivate let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
     }()
     
-    fileprivate let addressLabel: UILabel = {
+    private let addressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .secondaryLabel
         return label
     }()
     
-    fileprivate let categoryLabel: UILabel = {
+    private let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .secondaryLabel

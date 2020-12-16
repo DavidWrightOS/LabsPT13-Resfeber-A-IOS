@@ -16,7 +16,7 @@ class AddTripViewController: UIViewController {
     var tripsController: TripsController!
     let context = CoreDataStack.shared.mainContext
 
-    fileprivate let tripImage: UIButton = {
+    private let tripImage: UIButton = {
         let diameter: CGFloat = 150
         let button = UIButton()
         button.isUserInteractionEnabled = false
@@ -35,11 +35,11 @@ class AddTripViewController: UIViewController {
         return button
     }()
 
-    fileprivate var nameTextField = UITextField()
-    fileprivate var startDateTextField = UITextField()
-    fileprivate var endDateTextField = UITextField()
+    private var nameTextField = UITextField()
+    private var startDateTextField = UITextField()
+    private var endDateTextField = UITextField()
     
-    fileprivate lazy var tripInfoStackView: UIStackView = {
+    private lazy var tripInfoStackView: UIStackView = {
         
         let sectionTitles = ["Trip Name", "Start Date", "End Date"]
         let textFields = [nameTextField, startDateTextField, endDateTextField]
@@ -81,7 +81,7 @@ class AddTripViewController: UIViewController {
     }
 
     // MARK: - Helpers
-    fileprivate func configureViews() {
+    private func configureViews() {
         view.backgroundColor = RFColor.background
         navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -134,14 +134,14 @@ class AddTripViewController: UIViewController {
         self.endDateTextField.resignFirstResponder()
     }
 
-    fileprivate func seperatorView() -> UIView {
+    private func seperatorView() -> UIView {
         let seperatorView = UIView()
         seperatorView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
         seperatorView.setDimensions(height: 1, width: view.frame.width)
         return seperatorView
     }
 
-    fileprivate func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
+    private func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
         let spacerView = UIView()
 
         if let width = width {

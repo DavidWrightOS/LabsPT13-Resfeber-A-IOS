@@ -15,9 +15,9 @@ class TripDetailViewController: UIViewController {
     
     private var trip: Trip
     
-    fileprivate let tripsController: TripsController
+    private let tripsController: TripsController
     
-    fileprivate let searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
         sb.placeholder = "Search for a place or address"
@@ -31,7 +31,7 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
-    fileprivate var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
     
     // MARK: - Lifecycle
     
@@ -54,7 +54,7 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Helpers
     
-    fileprivate func configureViews() {
+    private func configureViews() {
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
         
@@ -113,7 +113,7 @@ class TripDetailViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
-    fileprivate func reloadTrip() {
+    private func reloadTrip() {
         guard let tripName = trip.name else { return }
         guard let trip = tripsController.getTrip(withName: tripName) else { return }
         
@@ -134,7 +134,7 @@ class TripDetailViewController: UIViewController {
         self.mapView.zoomToFit(annotations: annotations)
     }
     
-    fileprivate func performQuery(with searchText: String?) {
+    private func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
         
         searchBy(naturalLanguageQuery: queryText) { results in
@@ -176,7 +176,7 @@ class TripDetailViewController: UIViewController {
 }
 
 extension TripDetailViewController: CLLocationManagerDelegate {
-    fileprivate func enableLocationServices() {
+    private func enableLocationServices() {
         locationManager.delegate = self
         
         switch locationManager.authorizationStatus {
@@ -298,7 +298,7 @@ extension TripDetailViewController: UITableViewDelegate {
         dismissSearchTableView()
     }
     
-    fileprivate func addEvent(with placemark: MKPlacemark) {
+    private func addEvent(with placemark: MKPlacemark) {
         let name = placemark.name
         let latitude = placemark.location?.coordinate.latitude
         let longitude = placemark.location?.coordinate.longitude

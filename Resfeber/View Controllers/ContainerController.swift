@@ -12,11 +12,11 @@ class ContainerController: UIViewController {
     
     // MARK: - Properties
     
-    fileprivate var sideMenuController: SideMenuController!
-    fileprivate var mainNavigationController: UINavigationController!
-    fileprivate var tripsViewController: TripsViewController!
-    fileprivate let darkTintView = UIView()
-    fileprivate var isExpanded = false
+    private var sideMenuController: SideMenuController!
+    private var mainNavigationController: UINavigationController!
+    private var tripsViewController: TripsViewController!
+    private let darkTintView = UIView()
+    private var isExpanded = false
     
     // MARK: - Lifecycle
     
@@ -30,7 +30,7 @@ class ContainerController: UIViewController {
     
     // MARK: - Helpers
     
-    fileprivate func configureMainNavigationController() {
+    private func configureMainNavigationController() {
         tripsViewController = TripsViewController()
         tripsViewController.sideMenuDelegate = self
         mainNavigationController = UINavigationController(rootViewController: tripsViewController)
@@ -48,7 +48,7 @@ class ContainerController: UIViewController {
         darkTintView.addGestureRecognizer(tap)
     }
     
-    fileprivate func configureMenuController() {
+    private func configureMenuController() {
         if sideMenuController == nil {
             sideMenuController = SideMenuController()
             sideMenuController.delegate = self
@@ -59,7 +59,7 @@ class ContainerController: UIViewController {
         }
     }
     
-    fileprivate func didSelectMenuOption(menuOption: MenuOption) {
+    private func didSelectMenuOption(menuOption: MenuOption) {
         switch menuOption {
         case .editProfile:
             let nav = UINavigationController(rootViewController: ProfileViewController())
@@ -71,18 +71,18 @@ class ContainerController: UIViewController {
     
     // MARK: - Selectors
     
-    @objc fileprivate func dismissMenu() {
+    @objc private func dismissMenu() {
         isExpanded = false
         animateSideMenu(shouldExpand: isExpanded, menuOption: nil)
     }
     
-    @objc fileprivate func profileImageTapped() {
+    @objc private func profileImageTapped() {
         toggleSideMenu(withMenuOption: nil)
     }
     
     // MARK: - Animation
     
-    fileprivate func animateSideMenu(shouldExpand: Bool, menuOption: MenuOption?) {
+    private func animateSideMenu(shouldExpand: Bool, menuOption: MenuOption?) {
         
         if shouldExpand {
             // Show side menu
@@ -114,7 +114,7 @@ class ContainerController: UIViewController {
         animateStatusBar()
     }
     
-    fileprivate func animateStatusBar() {
+    private func animateStatusBar() {
         UIView.animate(withDuration: 0.25,
                        delay: 0,
                        usingSpringWithDamping: 0.8,

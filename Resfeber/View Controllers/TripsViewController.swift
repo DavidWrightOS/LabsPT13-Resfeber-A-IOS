@@ -11,12 +11,12 @@ import UIKit
 class TripsViewController: UIViewController {
     // MARK: - Properties
 
-    fileprivate let destinationController = DestinationController()
-    fileprivate var collectionView: UICollectionView!
-    fileprivate let tripsController = TripsController()
+    private let destinationController = DestinationController()
+    private var collectionView: UICollectionView!
+    private let tripsController = TripsController()
     let context = CoreDataStack.shared.mainContext
 
-    fileprivate let searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
         sb.placeholder = "Search"
@@ -61,7 +61,7 @@ class TripsViewController: UIViewController {
       self.collectionView.reloadData()
     }
 
-    @objc fileprivate func profileImageTapped() {
+    @objc private func profileImageTapped() {
         sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
 
@@ -73,7 +73,7 @@ class TripsViewController: UIViewController {
 
     // MARK: - Helpers
 
-    fileprivate func configureViews() {
+    private func configureViews() {
         view.backgroundColor = RFColor.background
 
         // Configure Navigation Bar
@@ -119,7 +119,7 @@ class TripsViewController: UIViewController {
         collectionView.reloadData()
     }
 
-    fileprivate func performQuery(with searchText: String?) {
+    private func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
         print("DEBUG: Perform query with text: \(queryText)..")
     }

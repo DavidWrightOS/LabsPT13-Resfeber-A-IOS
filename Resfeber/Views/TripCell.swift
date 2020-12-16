@@ -17,7 +17,7 @@ class TripCell: UICollectionViewCell {
         }
     }
 
-    fileprivate let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .systemGray4
@@ -25,20 +25,20 @@ class TripCell: UICollectionViewCell {
         return iv
     }()
 
-    fileprivate let infoView: UIView = {
+    private let infoView: UIView = {
         let view = UIView()
         view.setDimensions(height: 50)
         return view
     }()
 
-    fileprivate let infoLabel: UILabel = {
+    private let infoLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
     }()
 
-    fileprivate let gradientLayer: CAGradientLayer = {
+    private let gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [UIColor.clear.cgColor,
                         UIColor.black.withAlphaComponent(0.4).cgColor,
