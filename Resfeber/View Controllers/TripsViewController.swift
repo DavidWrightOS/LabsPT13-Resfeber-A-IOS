@@ -10,11 +10,8 @@ import UIKit
 
 class TripsViewController: UIViewController {
     // MARK: - Properties
-
-    private let destinationController = DestinationController()
     private var collectionView: UICollectionView!
     private let tripsController = TripsController()
-    let context = CoreDataStack.shared.mainContext
 
     private let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
@@ -116,7 +113,6 @@ class TripsViewController: UIViewController {
                               paddingRight: 20)
         
         // Load Data
-        destinationController.readDestinations()
         collectionView.reloadData()
     }
 
