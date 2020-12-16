@@ -12,8 +12,6 @@ import CoreData
 public final class TripService {
     // MARK: - Properties
     let context = CoreDataStack.shared.mainContext
-    
-    private(set) var searchTrips = [Trip]()
 }
 
 // MARK: - Public
