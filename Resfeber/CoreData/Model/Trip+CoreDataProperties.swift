@@ -43,5 +43,7 @@ extension Trip {
 }
 
 extension Trip : Identifiable {
-
+    var eventsArray: [Event] {
+        events?.allObjects as? [Event] ?? []
+    }
 }
