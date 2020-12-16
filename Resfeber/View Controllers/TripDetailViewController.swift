@@ -15,7 +15,7 @@ class TripDetailViewController: UIViewController {
     
     private var trip: Trip
     
-    fileprivate let tripService: TripService
+    fileprivate let tripsController: TripsController
     
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
@@ -35,9 +35,9 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(_ trip: Trip, tripService: TripService) {
+    init(_ trip: Trip, tripsController: TripsController) {
         self.trip = trip
-        self.tripService = tripService
+        self.tripsController = tripsController
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -115,7 +115,7 @@ class TripDetailViewController: UIViewController {
     
     fileprivate func reloadTrip() {
         guard let tripName = trip.name else { return }
-        guard let trip = tripService.getTrip(withName: tripName) else { return }
+        guard let trip = tripsController.getTrip(withName: tripName) else { return }
         
         self.trip = trip
         collectionView.reloadData()
@@ -253,7 +253,7 @@ extension TripDetailViewController: UICollectionViewDelegate {
             // Setup Delete Event menu item
             let deleteEvent = UIAction(title: "Delete Event", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
                 guard let self = self else { return }
-                self.tripService.deleteEvent(event)
+                self.tripsController.deleteEvent(event)
                 self.reloadTrip()
             }
             
@@ -302,7 +302,7 @@ extension TripDetailViewController: UITableViewDelegate {
         let name = placemark.name
         let latitude = placemark.location?.coordinate.latitude
         let longitude = placemark.location?.coordinate.longitude
-        tripService.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
         reloadTrip()
     }
 }

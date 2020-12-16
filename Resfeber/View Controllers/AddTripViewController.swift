@@ -13,7 +13,7 @@ import CoreData
 class AddTripViewController: UIViewController {
     
     // MARK: - Properties
-    var tripService: TripService!
+    var tripsController: TripsController!
     let context = CoreDataStack.shared.mainContext
 
     fileprivate let tripImage: UIButton = {
@@ -77,7 +77,7 @@ class AddTripViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        tripService = TripService()
+        tripsController = TripsController()
     }
 
     // MARK: - Helpers
@@ -107,7 +107,7 @@ class AddTripViewController: UIViewController {
     //TODO: Add save image from image picker
     // Save dates to CoreData
     @objc func newTripWasSaved() {
-        let trip = tripService.addTrip(name: nameTextField.text ?? "",
+        let trip = tripsController.addTrip(name: nameTextField.text ?? "",
                                        image: nil,
                                        startDate: nil,
                                        endDate: nil)

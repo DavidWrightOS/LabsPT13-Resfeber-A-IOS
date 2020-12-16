@@ -13,7 +13,7 @@ class TripsViewController: UIViewController {
 
     fileprivate let destinationController = DestinationController()
     fileprivate var collectionView: UICollectionView!
-    fileprivate let tripService = TripService()
+    fileprivate let tripsController = TripsController()
     let context = CoreDataStack.shared.mainContext
 
     fileprivate let searchBar: UISearchBar = {
@@ -145,13 +145,13 @@ extension TripsViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 extension TripsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        tripService.getTrips()?.count ?? 0
+        tripsController.getTrips()?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripCell.reuseIdentifier, for: indexPath) as! TripCell
 
-        cell.trip = tripService.getTrips()?[indexPath.row]
+        cell.trip = tripsController.getTrips()?[indexPath.row]
 
         return cell
     }
@@ -163,7 +163,7 @@ extension TripsViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? TripCell,
               let trip = cell.trip else { return }
         
-        let detailVC = TripDetailViewController(trip, tripService: tripService)
+        let detailVC = TripDetailViewController(trip, tripsController: tripsController)
         show(detailVC, sender: self)
     }
 }

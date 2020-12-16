@@ -1,5 +1,5 @@
 //
-//  TripService.swift
+//  TripsController.swift
 //  Resfeber
 //
 //  Created by Joshua Rutkowski on 12/4/20.
@@ -9,13 +9,13 @@
 import Foundation
 import CoreData
 
-public final class TripService {
+public final class TripsController {
     // MARK: - Properties
     let context = CoreDataStack.shared.mainContext
 }
 
 // MARK: - Public
-extension TripService {
+extension TripsController {
     @discardableResult
     public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
         let trip = Trip(name: name, image: image, startDate: startDate, endDate: endDate, context: context)
