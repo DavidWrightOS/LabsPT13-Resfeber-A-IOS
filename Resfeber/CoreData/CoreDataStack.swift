@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class CoreDataStack {
+open class CoreDataStack {
     public static let modelName = "Trip"
     static let shared = CoreDataStack()
 
@@ -18,8 +18,7 @@ class CoreDataStack {
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
-    private init() {
-    }
+    public init() {}
     
     public lazy var mainContext: NSManagedObjectContext = {
         return storeContainer.viewContext

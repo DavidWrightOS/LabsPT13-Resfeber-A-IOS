@@ -11,7 +11,14 @@ import CoreData
 
 public final class TripsController {
     // MARK: - Properties
-    let context = CoreDataStack.shared.mainContext
+    let context: NSManagedObjectContext
+    let coreDataStack: CoreDataStack
+    
+    init(managedObjectContext: NSManagedObjectContext = CoreDataStack.shared.mainContext,
+         coreDataStack: CoreDataStack = CoreDataStack.shared) {
+        self.context = managedObjectContext
+        self.coreDataStack = coreDataStack
+    }
 }
 
 // MARK: - Public
@@ -25,7 +32,7 @@ extension TripsController {
         trip.endDate = endDate
         
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding trip: \(error)")
         }
@@ -60,7 +67,7 @@ extension TripsController {
     @discardableResult
     public func updateTrip(_ trip: Trip) -> Trip {
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding trip: \(error)")
         }
@@ -70,7 +77,7 @@ extension TripsController {
     public func deleteTrip(_ trip: Trip) {
         context.delete(trip)
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding trip: \(error)")
         }
@@ -90,7 +97,7 @@ extension TripsController {
         event.trip = trip
         
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding event: \(error)")
         }
@@ -112,7 +119,7 @@ extension TripsController {
     @discardableResult
     public func updateEvent(_ event: Event) -> Event {
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error updating event: \(error)")
         }
@@ -122,7 +129,7 @@ extension TripsController {
     public func deleteEvent(_ event: Event) {
         context.delete(event)
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error deleting event: \(error)")
         }
