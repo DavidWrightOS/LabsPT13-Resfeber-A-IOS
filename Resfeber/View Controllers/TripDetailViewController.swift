@@ -13,15 +13,9 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var trip: Trip {
-        didSet {
-            events = trip.events?.allObjects as? [Event] ?? []
-        }
-    }
+    private var trip: Trip
     
     fileprivate let tripService: TripService
-    
-    private var events: [Event]
     
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
@@ -53,7 +47,6 @@ class TripDetailViewController: UIViewController {
     
     init(_ trip: Trip, tripService: TripService) {
         self.trip = trip
-        self.events = trip.events?.allObjects as? [Event] ?? []
         self.tripService = tripService
         
         super.init(nibName: nil, bundle: nil)
@@ -140,7 +133,7 @@ class TripDetailViewController: UIViewController {
     }
     
     func loadTripAnnotations() {
-        for event in events {
+        for event in trip.eventsArray {
             let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
@@ -247,13 +240,13 @@ extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 extension TripDetailViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        events.count
+        trip.eventsArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
 
-        cell.event = events[indexPath.row]
+        cell.event = trip.eventsArray[indexPath.row]
 
         return cell
     }
