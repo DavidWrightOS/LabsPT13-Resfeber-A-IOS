@@ -40,6 +40,8 @@ open class CoreDataStack {
     }
     
     func saveContext(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) throws {
+        guard context.hasChanges else { return }
+        
         var error: Error?
         
         context.performAndWait {
