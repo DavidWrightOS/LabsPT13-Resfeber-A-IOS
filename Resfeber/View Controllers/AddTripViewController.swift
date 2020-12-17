@@ -9,22 +9,25 @@
 import Foundation
 import UIKit
 import CoreData
+import PhotosUI
 
-class AddTripViewController: UIViewController {
+class AddTripViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // MARK: - Properties
     var tripService: TripService!
     let context = CoreDataStack.shared.mainContext
+    var imageData: Data?
 
     fileprivate let tripImage: UIButton = {
         let diameter: CGFloat = 150
         let button = UIButton()
-        button.isUserInteractionEnabled = false
         button.setDimensions(height: diameter, width: diameter * 1.5)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemGray3
+        
+        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
 
         let config = UIImage.SymbolConfiguration(pointSize: diameter * 0.8)
         let placeholderImage = UIImage(systemName: "photo.fill")?
@@ -104,11 +107,24 @@ class AddTripViewController: UIViewController {
     @objc func addNewTripWasCancelled() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @objc func presentPhotoPicker() {
+        let accessLevel = PHAccessLevel.readWrite
+        PHPhotoLibrary.requestAuthorization(for: accessLevel) { (status) in
+            if status == .authorized {
+                DispatchQueue.main.async {
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     //TODO: Add save image from image picker
     // Save dates to CoreData
     @objc func newTripWasSaved() {
         let trip = tripService.addTrip(name: nameTextField.text ?? "",
-                                       image: nil,
+                                       image: imageData,
                                        startDate: nil,
                                        endDate: nil)
         print("Trip was created: \(trip)")
@@ -152,5 +168,12 @@ class AddTripViewController: UIViewController {
             spacerView.setDimensions(width: width)
         }
         return spacerView
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as! UIImage
+        self.tripImage.setImage(image, for: .normal)
+        self.imageData = image.pngData()
+        self.dismiss(animated: true, completion: nil)
     }
 }

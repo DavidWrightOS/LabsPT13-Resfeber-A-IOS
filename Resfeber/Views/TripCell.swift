@@ -80,7 +80,10 @@ private extension TripCell {
 
     func updateViews() {
         if let trip = trip {
-            imageView.image = nil
+            if let data = trip.image {
+                let image = UIImage(data: data)
+                imageView.image = image
+            }
             imageView.contentMode = .scaleAspectFill
             infoLabel.text = trip.name
             gradientLayer.frame = infoView.bounds

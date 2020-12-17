@@ -4,6 +4,8 @@
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is used to show your position on the map, get directions, estimate travel times, and improve search results.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add photos to your trip.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
