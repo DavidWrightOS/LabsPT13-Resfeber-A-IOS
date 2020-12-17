@@ -117,7 +117,7 @@ class TripDetailViewController: UIViewController {
     
     fileprivate func reloadTrip() {
         guard let tripName = trip.name,
-                   let trip = tripService.getTrip(withName: tripName) else { return }
+                   let trip = tripsController.getTrip(withName: tripName) else { return }
         
         self.trip = trip
         collectionView.reloadData()
