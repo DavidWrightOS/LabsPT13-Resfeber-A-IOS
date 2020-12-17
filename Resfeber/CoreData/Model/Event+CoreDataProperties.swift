@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 
 extension Event {
@@ -33,4 +34,17 @@ extension Event {
 
 extension Event : Identifiable {
 
+}
+
+extension Event: MKAnnotation {
+    
+    static let annotationReuseIdentifier = "EventAnnotationView"
+    
+    public var eventID: String { id }
+    
+    public var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    public var title: String? { name }
 }

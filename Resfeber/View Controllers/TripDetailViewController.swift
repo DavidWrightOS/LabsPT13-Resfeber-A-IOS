@@ -71,6 +71,7 @@ class TripDetailViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.layer.borderWidth = 1
         mapView.layer.borderColor = RFColor.red.cgColor
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
         view.addSubview(mapView)
         mapView.anchor(top: searchBar.bottomAnchor,
                        left: view.leftAnchor,
@@ -124,10 +125,7 @@ class TripDetailViewController: UIViewController {
     
     func loadTripAnnotations() {
         for event in trip.eventsArray {
-            let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            self.mapView.addAnnotation(annotation)
+            mapView.addAnnotation(event)
         }
         
         let annotations = mapView.annotations
