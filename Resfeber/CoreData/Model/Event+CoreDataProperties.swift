@@ -19,7 +19,7 @@ extension Event {
     }
 
     @NSManaged public var id: String
-    @NSManaged public var category: String?
+    @NSManaged public var categoryRawValue: Int32
     @NSManaged public var address: String?
     @NSManaged public var endDate: Date?
     @NSManaged public var eventDescription: String?
@@ -33,7 +33,9 @@ extension Event {
 }
 
 extension Event : Identifiable {
-
+    var category: EventCategory {
+        EventCategory(rawValue: Int(categoryRawValue)) ?? EventCategory.notSpecified
+    }
 }
 
 extension Event: MKAnnotation {
