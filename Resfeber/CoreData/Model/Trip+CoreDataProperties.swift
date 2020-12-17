@@ -50,7 +50,7 @@ extension Trip : Identifiable {
         /// If an event does not have a start date, the end date is used
         /// If the dates are equal, events sorted by end date appear before events sorted by start date
         /// Events with no start or end date are positioned at the end
-        return events.sorted { (a, b) -> Bool in
+        return eventsArray.sorted { (a, b) -> Bool in
             if let aStartDate = a.startDate {
                 if let bStartDate = b.startDate {
                     return aStartDate < bStartDate
