@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-open class CoreDataStack {
+class CoreDataStack {
     public static let modelName = "Trip"
     static let shared = CoreDataStack()
 
