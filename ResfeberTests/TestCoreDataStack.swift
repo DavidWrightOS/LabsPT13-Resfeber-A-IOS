@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import Resfeber
+@testable import Resfeber
 
 class TestCoreDataStack: CoreDataStack {
   override init() {

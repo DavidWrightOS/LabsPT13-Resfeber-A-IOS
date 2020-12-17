@@ -13,17 +13,11 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var trip: Trip {
-        didSet {
-            events = trip.events?.allObjects as? [Event] ?? []
-        }
-    }
+    private var trip: Trip
     
-    fileprivate let tripService: TripService
+    private let tripsController: TripsController
     
-    private var events: [Event]
-    
-    fileprivate let searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
         sb.placeholder = "Search for a place or address"
@@ -32,62 +26,18 @@ class TripDetailViewController: UIViewController {
     }()
     
     private let searchTableView = UITableView()
-    private var searchResults = [MKPlacemark]() {
-        didSet {
-            for result in searchResults {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = result.coordinate
-                self.mapView.addAnnotation(annotation)
-            }
-            let annotations = self.mapView.annotations
-            self.mapView.zoomToFit(annotations: annotations)
-        }
-    }
+    private var searchResults = [MKPlacemark]()
     
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
-    fileprivate var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
     
     // MARK: - Lifecycle
     
-    init(_ trip: Trip, tripService: TripService) {
+    init(_ trip: Trip, tripsController: TripsController) {
         self.trip = trip
-        self.events = trip.events?.allObjects as? [Event] ?? []
-        self.tripService = tripService
-        
-        // load mock events
-        if events.isEmpty {
-            self.events = [
-                tripService.addEvent(name: "Apple Park Visitor Center",
-                                     eventDescription: nil,
-                                     category: "Other",
-                                     latitude: 37.3326,
-                                     longitude: -122.0055,
-                                     startDate: Date(timeIntervalSinceNow: 86400 * 31),
-                                     endDate: Date(timeIntervalSinceNow: 86400 * 31 + 7200),
-                                     notes: nil,
-                                     trip: trip),
-                tripService.addEvent(name: "Aloft Cupertino",
-                                     eventDescription: nil,
-                                     category: "Accomodation",
-                                     latitude: 37.3255,
-                                     longitude: -122.0329,
-                                     startDate: Date(timeIntervalSinceNow: 86400 * 30),
-                                     endDate: Date(timeIntervalSinceNow: 86400 * 37),
-                                     notes: "No smoking; Pet friendly",
-                                     trip: trip),
-                tripService.addEvent(name: "Lazy Dog Restaurant & Bar",
-                                     eventDescription: nil,
-                                     category: "Restaurant",
-                                     latitude: 37.1924,
-                                     longitude: -122.0031,
-                                     startDate: Date(timeIntervalSinceNow: 86400 * 33),
-                                     endDate: Date(timeIntervalSinceNow: 86400 * 33 + 7200),
-                                     notes: "COVID-19 Restrictions: open for takeout and delivery only",
-                                     trip: trip),
-            ]
-        }
+        self.tripsController = tripsController
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,7 +54,7 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Helpers
     
-    fileprivate func configureViews() {
+    private func configureViews() {
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
         
@@ -141,9 +91,7 @@ class TripDetailViewController: UIViewController {
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 12,
-                              paddingLeft: 12,
-                              paddingRight: 12)
+                              paddingTop: 12)
         
         // Load Data
         collectionView.reloadData()
@@ -165,8 +113,17 @@ class TripDetailViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
+    fileprivate func reloadTrip() {
+        guard let tripName = trip.name,
+                   let trip = tripService.getTrip(withName: tripName) else { return }
+        
+        self.trip = trip
+        collectionView.reloadData()
+        loadTripAnnotations()
+    }
+    
     func loadTripAnnotations() {
-        for event in events {
+        for event in trip.eventsArray {
             let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
@@ -177,7 +134,7 @@ class TripDetailViewController: UIViewController {
         self.mapView.zoomToFit(annotations: annotations)
     }
     
-    fileprivate func performQuery(with searchText: String?) {
+    private func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
         
         searchBy(naturalLanguageQuery: queryText) { results in
@@ -219,7 +176,7 @@ class TripDetailViewController: UIViewController {
 }
 
 extension TripDetailViewController: CLLocationManagerDelegate {
-    fileprivate func enableLocationServices() {
+    private func enableLocationServices() {
         locationManager.delegate = self
         
         switch locationManager.authorizationStatus {
@@ -263,7 +220,8 @@ extension TripDetailViewController: UISearchBarDelegate {
 // MARK: - Collection View Layout
 extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.size.width
+        let xEdgeInset: CGFloat = 12
+        let cellWidth = collectionView.frame.size.width - 2 * xEdgeInset
         let cellHeight: CGFloat = 70
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -272,15 +230,35 @@ extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 extension TripDetailViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        events.count
+        trip.eventsArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
 
-        cell.event = events[indexPath.row]
+        cell.event = trip.eventsArray[indexPath.row]
 
         return cell
+    }
+}
+
+// MARK: - Collection View Delegate
+extension TripDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
+              let event = cell.event else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup Delete Event menu item
+            let deleteEvent = UIAction(title: "Delete Event", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+                guard let self = self else { return }
+                self.tripsController.deleteEvent(event)
+                self.reloadTrip()
+            }
+            
+            return UIMenu(title: "", children: [deleteEvent])
+        }
     }
 }
 
@@ -316,15 +294,15 @@ extension TripDetailViewController: UITableViewDataSource {
 extension TripDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlacemark = searchResults[indexPath.row]
-        
-        dismissSearchTableView { _ in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = selectedPlacemark.coordinate
-            self.mapView.addAnnotation(annotation)
-            self.mapView.selectAnnotation(annotation, animated: true)
-            
-            let annotations = self.mapView.annotations
-            self.mapView.zoomToFit(annotations: annotations)
-        }
+        addEvent(with: selectedPlacemark)
+        dismissSearchTableView()
+    }
+    
+    private func addEvent(with placemark: MKPlacemark) {
+        let name = placemark.name
+        let latitude = placemark.location?.coordinate.latitude
+        let longitude = placemark.location?.coordinate.longitude
+        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        reloadTrip()
     }
 }

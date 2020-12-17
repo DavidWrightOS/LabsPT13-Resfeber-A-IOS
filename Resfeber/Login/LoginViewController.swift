@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    fileprivate func setupView() {
+    private func setupView() {
         view.backgroundColor = RFColor.background
         
         // Sets logoImageView to render as a template image and sets the color to ResfeberRed

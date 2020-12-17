@@ -1,6 +1,6 @@
 //
-//  TripServiceTests.swift
-//  TripServiceTests
+//  TripsControllerTests.swift
+//  TripsControllerTests
 //
 //  Created by Joshua Rutkowski on 12/4/20.
 //  Copyright © 2020 Spencer Curtis. All rights reserved.
@@ -10,26 +10,26 @@ import XCTest
 @testable import Resfeber
 import CoreData
 
-class TripServiceTests: XCTestCase {
-    var tripService: TripService!
+class TripsControllerTests: XCTestCase {
+    var tripsController: TripsController!
     var coreDataStack: CoreDataStack!
     
     override func setUp() {
         super.setUp()
         coreDataStack = TestCoreDataStack()
-        tripService = TripService(managedObjectContext: coreDataStack.mainContext,
+        tripsController = TripsController(managedObjectContext: coreDataStack.mainContext,
                                   coreDataStack: coreDataStack)
     }
     
     override func tearDown() {
         super.tearDown()
-        tripService = nil
+        tripsController = nil
         coreDataStack = nil
     }
     
     //MARK: - Trip CRUD tests
     func testAddTrip() {
-        let trip = tripService.addTrip(name: "Wedding",
+        let trip = tripsController.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
@@ -40,20 +40,20 @@ class TripServiceTests: XCTestCase {
     
     /// Tests asynchronous saving
     func testContextIsSavedAfterAddingTrip() {
-        // Creates the background context and new instance of TripService
+        // Creates the background context and new instance of TripsController
         let derivedContext = coreDataStack.newDerivedContext()
-        tripService = TripService(managedObjectContext: derivedContext,
+        tripsController = TripsController(managedObjectContext: derivedContext,
                                   coreDataStack: coreDataStack)
         // Creates an expectation that sends a signal to the test case when Core Data stack sends a notification event
         expectation(
             forNotification: .NSManagedObjectContextDidSave,
-            object: coreDataStack.mainContext) { _ in
+            object: derivedContext) { _ in
             return true
         }
         
         // Adds the trip
         derivedContext.perform {
-            let trip = self.tripService.addTrip(name: "Wedding",
+            let trip = self.tripsController.addTrip(name: "Wedding",
                                             image: nil,
                                             startDate: nil,
                                             endDate: nil)
@@ -68,12 +68,12 @@ class TripServiceTests: XCTestCase {
     }
     
     func testGetTrips() {
-        let newTrip = tripService.addTrip(name: "Road Trip to California",
+        let newTrip = tripsController.addTrip(name: "Road Trip to California",
                                       image: nil,
                                       startDate: nil,
                                       endDate: nil)
         
-        let getTrips = tripService.getTrips()
+        let getTrips = tripsController.getTrips()
         
         XCTAssertNotNil(getTrips)
         XCTAssertTrue(getTrips?.count == 1)
@@ -81,42 +81,42 @@ class TripServiceTests: XCTestCase {
     }
     
     func testUpdateTrip() {
-        let newTrip = tripService.addTrip(name: "Endor",
+        let newTrip = tripsController.addTrip(name: "Endor",
                                       image: nil,
                                       startDate: nil,
                                       endDate: nil)
         newTrip.name = "Hoth"
-        let updatedTrip = tripService.updateTrip(newTrip)
+        let updatedTrip = tripsController.updateTrip(newTrip)
         
         XCTAssertTrue(newTrip.name == updatedTrip.name)
         XCTAssertTrue(updatedTrip.name == "Hoth")
     }
     
     func testDeleteTrip() {
-        let newTrip = tripService.addTrip(name: "Naboo",
+        let newTrip = tripsController.addTrip(name: "Naboo",
                                       image: nil,
                                       startDate: nil,
                                       endDate: nil)
         
-        var fetchTrips = tripService.getTrips()
+        var fetchTrips = tripsController.getTrips()
         
         XCTAssertTrue(fetchTrips?.count == 1)
         XCTAssertTrue(newTrip.name == fetchTrips?.first?.name)
         
-        tripService.deleteTrip(newTrip)
-        fetchTrips = tripService.getTrips()
+        tripsController.deleteTrip(newTrip)
+        fetchTrips = tripsController.getTrips()
         
         XCTAssertTrue(fetchTrips?.isEmpty ?? false)
     }
     
     //MARK: - Event CRUD tests
     func testAddEventsToTrip() {
-        let trip = tripService.addTrip(name: "Wedding",
+        let trip = tripsController.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
 
-        let event = tripService.addEvent(name: "Dinner",
+        let event = tripsController.addEvent(name: "Dinner",
                                          eventDescription: nil,
                                          category: nil,
                                          latitude: nil,
@@ -134,12 +134,12 @@ class TripServiceTests: XCTestCase {
     }
     
     func testGetEvents() {
-        let trip = tripService.addTrip(name: "Wedding",
+        let trip = tripsController.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
 
-        _ = tripService.addEvent(name: "Dinner",
+        _ = tripsController.addEvent(name: "Dinner",
                                  eventDescription: nil,
                                  category: nil,
                                  latitude: nil,
@@ -149,7 +149,7 @@ class TripServiceTests: XCTestCase {
                                  notes: nil,
                                  trip: trip)
         
-        _ = tripService.addEvent(name: "Movies",
+        _ = tripsController.addEvent(name: "Movies",
                                  eventDescription: nil,
                                  category: nil,
                                  latitude: nil,
@@ -160,18 +160,18 @@ class TripServiceTests: XCTestCase {
                                  trip: trip)
         
         
-        let getEvents = tripService.getEvents()
+        let getEvents = tripsController.getEvents()
         XCTAssertNotNil(getEvents)
         XCTAssertTrue(getEvents?.count == 2)
     }
     
     func testUpdateEvent() {
-        let trip = tripService.addTrip(name: "Wedding",
+        let trip = tripsController.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
 
-        let newEvent = tripService.addEvent(name: "Dinner",
+        let newEvent = tripsController.addEvent(name: "Dinner",
                                             eventDescription: nil,
                                             category: nil,
                                             latitude: nil,
@@ -182,19 +182,19 @@ class TripServiceTests: XCTestCase {
                                             trip: trip)
         
         newEvent.name = "Reception Party"
-        let updatedEvent = tripService.updateEvent(newEvent)
+        let updatedEvent = tripsController.updateEvent(newEvent)
         
         XCTAssertTrue(newEvent.name == updatedEvent.name)
         XCTAssertTrue(updatedEvent.name == "Reception Party")
     }
     
     func testDeleteEvent() {
-        let trip = tripService.addTrip(name: "Wedding",
+        let trip = tripsController.addTrip(name: "Wedding",
                                    image: nil,
                                    startDate: nil,
                                    endDate: nil)
 
-        let newEvent = tripService.addEvent(name: "Dinner",
+        let newEvent = tripsController.addEvent(name: "Dinner",
                                             eventDescription: nil,
                                             category: nil,
                                             latitude: nil,
@@ -204,13 +204,13 @@ class TripServiceTests: XCTestCase {
                                             notes: nil,
                                             trip: trip)
         
-        var fetchEvents = tripService.getEvents()
+        var fetchEvents = tripsController.getEvents()
         
         XCTAssertTrue(fetchEvents?.count == 1)
         XCTAssertTrue(newEvent.name == fetchEvents?.first?.name)
         
-        tripService.deleteEvent(newEvent)
-        fetchEvents = tripService.getEvents()
+        tripsController.deleteEvent(newEvent)
+        fetchEvents = tripsController.getEvents()
         
         XCTAssertTrue(fetchEvents?.isEmpty ?? false)
     }
