@@ -141,9 +141,7 @@ class TripDetailViewController: UIViewController {
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 12,
-                              paddingLeft: 12,
-                              paddingRight: 12)
+                              paddingTop: 12)
         
         // Load Data
         collectionView.reloadData()
@@ -163,6 +161,15 @@ class TripDetailViewController: UIViewController {
         let height = view.frame.height - view.safeAreaInsets.top
         searchTableView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: height)
         view.addSubview(searchTableView)
+    }
+    
+    fileprivate func reloadTrip() {
+        guard let tripName = trip.name,
+                   let trip = tripService.getTrip(withName: tripName) else { return }
+        
+        self.trip = trip
+        collectionView.reloadData()
+        loadTripAnnotations()
     }
     
     func loadTripAnnotations() {
@@ -263,7 +270,8 @@ extension TripDetailViewController: UISearchBarDelegate {
 // MARK: - Collection View Layout
 extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.size.width
+        let xEdgeInset: CGFloat = 12
+        let cellWidth = collectionView.frame.size.width - 2 * xEdgeInset
         let cellHeight: CGFloat = 70
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -281,6 +289,26 @@ extension TripDetailViewController: UICollectionViewDataSource {
         cell.event = events[indexPath.row]
 
         return cell
+    }
+}
+
+// MARK: - Collection View Delegate
+extension TripDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
+              let event = cell.event else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup Delete Event menu item
+            let deleteEvent = UIAction(title: "Delete Event", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+                guard let self = self else { return }
+                self.tripService.deleteEvent(event)
+                self.reloadTrip()
+            }
+            
+            return UIMenu(title: "", children: [deleteEvent])
+        }
     }
 }
 
@@ -316,15 +344,15 @@ extension TripDetailViewController: UITableViewDataSource {
 extension TripDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlacemark = searchResults[indexPath.row]
-        
-        dismissSearchTableView { _ in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = selectedPlacemark.coordinate
-            self.mapView.addAnnotation(annotation)
-            self.mapView.selectAnnotation(annotation, animated: true)
-            
-            let annotations = self.mapView.annotations
-            self.mapView.zoomToFit(annotations: annotations)
-        }
+        addEvent(with: selectedPlacemark)
+        dismissSearchTableView()
+    }
+    
+    fileprivate func addEvent(with placemark: MKPlacemark) {
+        let name = placemark.name
+        let latitude = placemark.location?.coordinate.latitude
+        let longitude = placemark.location?.coordinate.longitude
+        tripService.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        reloadTrip()
     }
 }
