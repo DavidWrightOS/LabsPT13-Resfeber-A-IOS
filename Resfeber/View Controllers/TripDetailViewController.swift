@@ -259,20 +259,31 @@ extension TripDetailViewController: UICollectionViewDelegate {
             return UIMenu(title: "", children: [deleteEvent])
         }
     }
-}
-
-/*
-// MARK: - Collection View Delegate
-extension TripDetailViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
               let event = cell.event else { return }
-
-        let detailVC = EventDetailViewController(event)
-        show(detailVC, sender: self)
+        
+        mapView.selectAnnotation(event, animated: true)
+        
+//        let detailVC = EventDetailViewController(event)
+//        show(detailVC, sender: self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first, selectedIndexPath == indexPath {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            
+            if let cell = collectionView.cellForItem(at: indexPath) as? EventCell, let event = cell.event {
+                mapView.deselectAnnotation(event, animated: true)
+            }
+            
+            return false
+        }
+        
+        return true
     }
 }
-*/
 
 // MARK: - Search Table View DataSource
 
@@ -325,5 +336,28 @@ extension TripDetailViewController: MKMapViewDelegate {
         annotationView.detailCalloutAccessoryView = detailView
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let latitude = view.annotation?.coordinate.latitude,
+              let longitude = view.annotation?.coordinate.longitude,
+              let name = view.annotation?.title,
+              let index = trip.eventsArray.firstIndex(where: { $0.coordinate.latitude == latitude && $0.coordinate.longitude == longitude && $0.name == name }) else { return }
+        
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        deselectAllEventCells()
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        deselectAllEventCells()
+    }
+    
+    private func deselectAllEventCells() {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        
+        for indexPath in selectedIndexPaths {
+            collectionView.deselectItem(at: indexPath, animated: false)
+        }
     }
 }
