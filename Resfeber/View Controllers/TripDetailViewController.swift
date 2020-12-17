@@ -302,7 +302,8 @@ extension TripDetailViewController: UITableViewDelegate {
         let name = placemark.name
         let latitude = placemark.location?.coordinate.latitude
         let longitude = placemark.location?.coordinate.longitude
-        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        let address = placemark.address
+        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, address: address, trip: trip)
         reloadTrip()
     }
 }

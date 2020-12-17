@@ -17,7 +17,9 @@ extension Event {
         return NSFetchRequest<Event>(entityName: "Event")
     }
 
+    @NSManaged public var id: String
     @NSManaged public var category: String?
+    @NSManaged public var address: String?
     @NSManaged public var endDate: Date?
     @NSManaged public var eventDescription: String?
     @NSManaged public var latitude: Double

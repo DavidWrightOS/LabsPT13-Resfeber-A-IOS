@@ -104,20 +104,10 @@ private extension EventCell {
             imageView.contentMode = .scaleAspectFill
             nameLabel.text = event.name
             categoryLabel.text = event.category
-            updateAddressLabel()
+            addressLabel.text = event.address
         } else {
             imageView.image = UIImage(named: "Backpack")
             imageView.contentMode = .scaleAspectFill
-        }
-    }
-    
-    func updateAddressLabel() {
-        guard let event = event else { return }
-        
-        let location = CLLocation(latitude: event.latitude, longitude: event.longitude)
-        
-        location.fetchAddress { address in
-            self.addressLabel.text = address
         }
     }
 }
