@@ -13,10 +13,9 @@ import CoreData
 class AddTripViewController: UIViewController {
     
     // MARK: - Properties
-    var tripService: TripService!
-    let context = CoreDataStack.shared.mainContext
+    let tripsController: TripsController
 
-    fileprivate let tripImage: UIButton = {
+    private let tripImage: UIButton = {
         let diameter: CGFloat = 150
         let button = UIButton()
         button.isUserInteractionEnabled = false
@@ -35,17 +34,17 @@ class AddTripViewController: UIViewController {
         return button
     }()
 
-    fileprivate var nameTextField = UITextField()
-    fileprivate var startDateTextField = UITextField()
-    fileprivate var endDateTextField = UITextField()
+    private var nameTextField = UITextField()
+    private var startDateTextField = UITextField()
+    private var endDateTextField = UITextField()
     
-    fileprivate lazy var tripInfoStackView: UIStackView = {
+    private lazy var tripInfoStackView: UIStackView = {
         
         let sectionTitles = ["Trip Name", "Start Date", "End Date"]
         let textFields = [nameTextField, startDateTextField, endDateTextField]
         
         var verticalStackSubViews = [UIView]()
-        verticalStackSubViews.append(seperatorView())
+        verticalStackSubViews.append(separatorView())
         
         for i in sectionTitles.indices {
             let label = UILabel()
@@ -63,7 +62,7 @@ class AddTripViewController: UIViewController {
             hStack.alignment = .firstBaseline
             hStack.spacing = 4
             verticalStackSubViews.append(hStack)
-            verticalStackSubViews.append(seperatorView())
+            verticalStackSubViews.append(separatorView())
         }
         
         let stack = UIStackView(arrangedSubviews: verticalStackSubViews)
@@ -74,14 +73,22 @@ class AddTripViewController: UIViewController {
 
     // MARK: - Lifecycle
     
+    init(tripsController: TripsController) {
+        self.tripsController = tripsController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        tripService = TripService()
     }
 
     // MARK: - Helpers
-    fileprivate func configureViews() {
+    private func configureViews() {
         view.backgroundColor = RFColor.background
         navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -107,7 +114,7 @@ class AddTripViewController: UIViewController {
     //TODO: Add save image from image picker
     // Save dates to CoreData
     @objc func newTripWasSaved() {
-        let trip = tripService.addTrip(name: nameTextField.text ?? "",
+        let trip = tripsController.addTrip(name: nameTextField.text ?? "",
                                        image: nil,
                                        startDate: nil,
                                        endDate: nil)
@@ -134,14 +141,14 @@ class AddTripViewController: UIViewController {
         self.endDateTextField.resignFirstResponder()
     }
 
-    fileprivate func seperatorView() -> UIView {
-        let seperatorView = UIView()
-        seperatorView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
-        seperatorView.setDimensions(height: 1, width: view.frame.width)
-        return seperatorView
+    private func separatorView() -> UIView {
+        let separatorView = UIView()
+        separatorView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
+        separatorView.setDimensions(height: 1, width: view.frame.width)
+        return separatorView
     }
 
-    fileprivate func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
+    private func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
         let spacerView = UIView()
 
         if let width = width {

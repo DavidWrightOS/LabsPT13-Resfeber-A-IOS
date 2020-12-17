@@ -15,9 +15,9 @@ class TripDetailViewController: UIViewController {
     
     private var trip: Trip
     
-    fileprivate let tripService: TripService
+    private let tripsController: TripsController
     
-    fileprivate let searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
         sb.tintColor = RFColor.red
         sb.placeholder = "Search for a place or address"
@@ -26,28 +26,18 @@ class TripDetailViewController: UIViewController {
     }()
     
     private let searchTableView = UITableView()
-    private var searchResults = [MKPlacemark]() {
-        didSet {
-            for result in searchResults {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = result.coordinate
-                self.mapView.addAnnotation(annotation)
-            }
-            let annotations = self.mapView.annotations
-            self.mapView.zoomToFit(annotations: annotations)
-        }
-    }
+    private var searchResults = [MKPlacemark]()
     
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
-    fileprivate var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
     
     // MARK: - Lifecycle
     
-    init(_ trip: Trip, tripService: TripService) {
+    init(_ trip: Trip, tripsController: TripsController) {
         self.trip = trip
-        self.tripService = tripService
+        self.tripsController = tripsController
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -64,7 +54,7 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Helpers
     
-    fileprivate func configureViews() {
+    private func configureViews() {
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
         
@@ -144,7 +134,7 @@ class TripDetailViewController: UIViewController {
         self.mapView.zoomToFit(annotations: annotations)
     }
     
-    fileprivate func performQuery(with searchText: String?) {
+    private func performQuery(with searchText: String?) {
         let queryText = searchText ?? ""
         
         searchBy(naturalLanguageQuery: queryText) { results in
@@ -186,7 +176,7 @@ class TripDetailViewController: UIViewController {
 }
 
 extension TripDetailViewController: CLLocationManagerDelegate {
-    fileprivate func enableLocationServices() {
+    private func enableLocationServices() {
         locationManager.delegate = self
         
         switch locationManager.authorizationStatus {
@@ -263,7 +253,7 @@ extension TripDetailViewController: UICollectionViewDelegate {
             // Setup Delete Event menu item
             let deleteEvent = UIAction(title: "Delete Event", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
                 guard let self = self else { return }
-                self.tripService.deleteEvent(event)
+                self.tripsController.deleteEvent(event)
                 self.reloadTrip()
             }
             
@@ -308,11 +298,11 @@ extension TripDetailViewController: UITableViewDelegate {
         dismissSearchTableView()
     }
     
-    fileprivate func addEvent(with placemark: MKPlacemark) {
+    private func addEvent(with placemark: MKPlacemark) {
         let name = placemark.name
         let latitude = placemark.location?.coordinate.latitude
         let longitude = placemark.location?.coordinate.longitude
-        tripService.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
         reloadTrip()
     }
 }

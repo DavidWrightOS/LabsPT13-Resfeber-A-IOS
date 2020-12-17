@@ -18,8 +18,7 @@ class CoreDataStack {
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
-    private init() {
-    }
+    public init() {}
     
     public lazy var mainContext: NSManagedObjectContext = {
         return storeContainer.viewContext
@@ -41,6 +40,8 @@ class CoreDataStack {
     }
     
     func saveContext(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) throws {
+        guard context.hasChanges else { return }
+        
         var error: Error?
         
         context.performAndWait {

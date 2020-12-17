@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
-    fileprivate let profileImage: UIButton = {
+    private let profileImage: UIButton = {
         let diameter: CGFloat = 150
         let button = UIButton()
         button.isUserInteractionEnabled = false
@@ -31,17 +31,17 @@ class ProfileViewController: UIViewController {
         return button
     }()
         
-    fileprivate var nameTextField = UITextField()
-    fileprivate var emailTextField = UITextField()
-    fileprivate var avatarURLTextField = UITextField()
+    private var nameTextField = UITextField()
+    private var emailTextField = UITextField()
+    private var avatarURLTextField = UITextField()
     
-    fileprivate lazy var profileInfoStackView: UIStackView = {
+    private lazy var profileInfoStackView: UIStackView = {
         
         let sectionTitles = ["Name", "Email", "Avatar URL"]
         let textFields = [nameTextField, emailTextField, avatarURLTextField]
         
         var verticalStackSubViews = [UIView]()
-        verticalStackSubViews.append(seperatorView())
+        verticalStackSubViews.append(separatorView())
         
         for i in sectionTitles.indices {
             let label = UILabel()
@@ -58,7 +58,7 @@ class ProfileViewController: UIViewController {
             hStack.alignment = .firstBaseline
             hStack.spacing = 4
             verticalStackSubViews.append(hStack)
-            verticalStackSubViews.append(seperatorView())
+            verticalStackSubViews.append(separatorView())
         }
         
         let stack = UIStackView(arrangedSubviews: verticalStackSubViews)
@@ -85,11 +85,11 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Selectors
     
-    @objc fileprivate func cancelProfileUpdate() {
+    @objc private func cancelProfileUpdate() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc fileprivate func updateProfile() {
+    @objc private func updateProfile() {
         
         guard let profile = profileController.authenticatedUserProfile,
             let name = nameTextField.text,
@@ -125,7 +125,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Helpers
     
-    fileprivate func configureViews() {
+    private func configureViews() {
         view.backgroundColor = RFColor.background
         navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -169,14 +169,14 @@ class ProfileViewController: UIViewController {
         avatarURLTextField.text = profile.avatarURL?.absoluteString
     }
     
-    fileprivate func seperatorView() -> UIView {
-        let seperatorView = UIView()
-        seperatorView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
-        seperatorView.setDimensions(height: 1, width: view.frame.width)
-        return seperatorView
+    private func separatorView() -> UIView {
+        let separatorView = UIView()
+        separatorView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
+        separatorView.setDimensions(height: 1, width: view.frame.width)
+        return separatorView
     }
     
-    fileprivate func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
+    private func spacer(height: CGFloat? = nil, width: CGFloat? = nil) -> UIView {
         let spacerView = UIView()
         
         if let width = width {

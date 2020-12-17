@@ -1,5 +1,5 @@
 //
-//  TripService.swift
+//  TripsController.swift
 //  Resfeber
 //
 //  Created by Joshua Rutkowski on 12/4/20.
@@ -9,15 +9,20 @@
 import Foundation
 import CoreData
 
-public final class TripService {
+public final class TripsController {
     // MARK: - Properties
-    let context = CoreDataStack.shared.mainContext
+    let context: NSManagedObjectContext
+    let coreDataStack: CoreDataStack
     
-    private(set) var searchTrips = [Trip]()
+    init(managedObjectContext: NSManagedObjectContext = CoreDataStack.shared.mainContext,
+         coreDataStack: CoreDataStack = CoreDataStack.shared) {
+        self.context = managedObjectContext
+        self.coreDataStack = coreDataStack
+    }
 }
 
 // MARK: - Public
-extension TripService {
+extension TripsController {
     @discardableResult
     public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
         let trip = Trip(name: name, image: image, startDate: startDate, endDate: endDate, context: context)
@@ -27,7 +32,7 @@ extension TripService {
         trip.endDate = endDate
         
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding trip: \(error)")
         }
@@ -62,7 +67,7 @@ extension TripService {
     @discardableResult
     public func updateTrip(_ trip: Trip) -> Trip {
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding trip: \(error)")
         }
@@ -72,7 +77,7 @@ extension TripService {
     public func deleteTrip(_ trip: Trip) {
         context.delete(trip)
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding trip: \(error)")
         }
@@ -92,7 +97,7 @@ extension TripService {
         event.trip = trip
         
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error adding event: \(error)")
         }
@@ -114,7 +119,7 @@ extension TripService {
     @discardableResult
     public func updateEvent(_ event: Event) -> Event {
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error updating event: \(error)")
         }
@@ -124,7 +129,7 @@ extension TripService {
     public func deleteEvent(_ event: Event) {
         context.delete(event)
         do {
-            try CoreDataStack.shared.saveContext(context: context)
+            try coreDataStack.saveContext(context: context)
         } catch {
             print("Error deleting event: \(error)")
         }

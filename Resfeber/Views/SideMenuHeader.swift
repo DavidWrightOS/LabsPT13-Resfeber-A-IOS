@@ -14,7 +14,7 @@ class SideMenuHeader: UIView {
     
     private let profile: Profile
     
-    fileprivate let profileImage: UIButton = {
+    private let profileImage: UIButton = {
         let diameter: CGFloat = 64
         let button = UIButton()
         button.isUserInteractionEnabled = false
@@ -64,7 +64,7 @@ class SideMenuHeader: UIView {
     
     // MARK: - Helper Functions
     
-    fileprivate func configureViews() {
+    private func configureViews() {
         backgroundColor = RFColor.red
         
         addSubview(profileImage)

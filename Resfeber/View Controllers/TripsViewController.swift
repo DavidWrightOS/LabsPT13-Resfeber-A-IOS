@@ -10,19 +10,8 @@ import UIKit
 
 class TripsViewController: UIViewController {
     // MARK: - Properties
-
-    fileprivate let destinationController = DestinationController()
-    fileprivate var collectionView: UICollectionView!
-    fileprivate let tripService = TripService()
-    let context = CoreDataStack.shared.mainContext
-
-    fileprivate let searchBar: UISearchBar = {
-        let sb = UISearchBar(frame: .zero)
-        sb.tintColor = RFColor.red
-        sb.placeholder = "Search"
-        sb.searchBarStyle = .minimal
-        return sb
-    }()
+    private var collectionView: UICollectionView!
+    private let tripsController = TripsController()
 
     let profileButton: UIBarButtonItem = {
         let buttonDiameter: CGFloat = 32
@@ -61,19 +50,20 @@ class TripsViewController: UIViewController {
       self.collectionView.reloadData()
     }
 
-    @objc fileprivate func profileImageTapped() {
+    @objc private func profileImageTapped() {
         sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
 
     @objc func addButtonTapped(sender: UIButton) {
-        let nav = UINavigationController(rootViewController: AddTripViewController())
+        let addTripVC = AddTripViewController(tripsController: tripsController)
+        let nav = UINavigationController(rootViewController: addTripVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
 
     // MARK: - Helpers
 
-    fileprivate func configureViews() {
+    private func configureViews() {
         view.backgroundColor = RFColor.background
 
         // Configure Navigation Bar
@@ -88,16 +78,6 @@ class TripsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = RFColor.red
 
-        // Configure Search Bar
-        searchBar.delegate = self
-        view.addSubview(searchBar)
-        searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                         left: view.leftAnchor,
-                         right: view.rightAnchor,
-                         paddingTop: 8,
-                         paddingLeft: 12,
-                         paddingRight: 12)
-
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = RFColor.background
@@ -106,22 +86,15 @@ class TripsViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
-        collectionView.anchor(top: searchBar.bottomAnchor,
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 12,
+                              paddingTop: 20,
                               paddingLeft: 20,
                               paddingRight: 20)
         
-        // Load Data
-        destinationController.readDestinations()
         collectionView.reloadData()
-    }
-
-    fileprivate func performQuery(with searchText: String?) {
-        let queryText = searchText ?? ""
-        print("DEBUG: Perform query with text: \(queryText)..")
     }
 }
 
@@ -145,13 +118,13 @@ extension TripsViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 extension TripsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        tripService.getTrips()?.count ?? 0
+        tripsController.getTrips()?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripCell.reuseIdentifier, for: indexPath) as! TripCell
 
-        cell.trip = tripService.getTrips()?[indexPath.row]
+        cell.trip = tripsController.getTrips()?[indexPath.row]
 
         return cell
     }
@@ -163,31 +136,7 @@ extension TripsViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? TripCell,
               let trip = cell.trip else { return }
         
-        let detailVC = TripDetailViewController(trip, tripService: tripService)
+        let detailVC = TripDetailViewController(trip, tripsController: tripsController)
         show(detailVC, sender: self)
-    }
-}
-
-// MARK: - Search Bar Delegate
-extension TripsViewController: UISearchBarDelegate {
-    func searchBar(_: UISearchBar, textDidChange searchText: String) {
-        print("DEBUG: Search bar text changed: \(searchText)..")
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-        performQuery(with: searchBar.text)
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-    }
-
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
     }
 }
