@@ -68,6 +68,7 @@ class TripDetailViewController: UIViewController {
                          paddingRight: 8)
         
         // Configure MapView
+        mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.layer.borderWidth = 1
         mapView.layer.borderColor = RFColor.red.cgColor
@@ -303,5 +304,26 @@ extension TripDetailViewController: UITableViewDelegate {
         let address = placemark.address
         tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, address: address, trip: trip)
         reloadTrip()
+    }
+}
+
+extension TripDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let event = annotation as? Event else { return nil }
+        
+        guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView else {
+            NSLog("Missing the registered map annotation view")
+            return nil
+        }
+        
+        annotationView.glyphImage = UIImage(systemName: "mappin")
+        annotationView.markerTintColor = #colorLiteral(red: 1, green: 0.3176634908, blue: 0.1177343801, alpha: 1)
+        
+        annotationView.canShowCallout = true
+        let detailView = EventAnnotationDetailView()
+        detailView.event = event
+        annotationView.detailCalloutAccessoryView = detailView
+        
+        return annotationView
     }
 }
