@@ -113,9 +113,9 @@ class TripDetailViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
-    private func reloadTrip() {
-        guard let tripName = trip.name else { return }
-        guard let trip = tripsController.getTrip(withName: tripName) else { return }
+    fileprivate func reloadTrip() {
+        guard let tripName = trip.name,
+                   let trip = tripService.getTrip(withName: tripName) else { return }
         
         self.trip = trip
         collectionView.reloadData()
