@@ -68,6 +68,14 @@ class EventCell: UICollectionViewCell {
 
 private extension EventCell {
     func configureCell() {
+        
+        let selectedBGView = UIView(frame: bounds)
+        selectedBGView.backgroundColor = .systemGray5
+        selectedBGView.layer.cornerRadius = 10
+        selectedBGView.layer.borderWidth = 1.0
+        selectedBGView.layer.borderColor = RFColor.red.cgColor
+        selectedBackgroundView = selectedBGView
+        
         backgroundColor = .systemGray5
         layer.cornerRadius = 10
         clipsToBounds = true
