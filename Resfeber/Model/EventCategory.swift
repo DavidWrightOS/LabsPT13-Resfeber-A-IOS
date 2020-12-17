@@ -41,7 +41,7 @@ extension EventCategory {
         switch self {
         case .notSpecified: return UIImage(systemName: "mappin")
         case .accomodation: return UIImage(systemName: "bed.double.fill")
-        case .restaurant: return nil // TODO: Add custom `forkandknife` glyph to asset catalog
+        case .restaurant: return UIImage(named: "forkandknife")
         case .entertainment: return UIImage(systemName: "star.fill")
         case .park: return UIImage(systemName: "leaf.fill")
         case .airport: return UIImage(systemName: "airplane")
