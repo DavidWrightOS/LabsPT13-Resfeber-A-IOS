@@ -130,7 +130,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     //TODO: Add save image from image picker
     // Save dates to CoreData
     @objc func newTripWasSaved() {
-        let trip = tripService.addTrip(name: nameTextField.text ?? "",
+        let trip = tripsController.addTrip(name: nameTextField.text ?? "",
                                        image: imageData,
                                        startDate: nil,
                                        endDate: nil)
