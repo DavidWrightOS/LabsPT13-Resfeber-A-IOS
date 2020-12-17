@@ -13,15 +13,9 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var trip: Trip {
-        didSet {
-            events = trip.events?.allObjects as? [Event] ?? []
-        }
-    }
+    private var trip: Trip
     
     fileprivate let tripService: TripService
-    
-    private var events: [Event]
     
     fileprivate let searchBar: UISearchBar = {
         let sb = UISearchBar(frame: .zero)
@@ -53,41 +47,7 @@ class TripDetailViewController: UIViewController {
     
     init(_ trip: Trip, tripService: TripService) {
         self.trip = trip
-        self.events = trip.events?.allObjects as? [Event] ?? []
         self.tripService = tripService
-        
-        // load mock events
-        if events.isEmpty {
-            self.events = [
-                tripService.addEvent(name: "Apple Park Visitor Center",
-                                     eventDescription: nil,
-                                     category: "Other",
-                                     latitude: 37.3326,
-                                     longitude: -122.0055,
-                                     startDate: Date(timeIntervalSinceNow: 86400 * 31),
-                                     endDate: Date(timeIntervalSinceNow: 86400 * 31 + 7200),
-                                     notes: nil,
-                                     trip: trip),
-                tripService.addEvent(name: "Aloft Cupertino",
-                                     eventDescription: nil,
-                                     category: "Accomodation",
-                                     latitude: 37.3255,
-                                     longitude: -122.0329,
-                                     startDate: Date(timeIntervalSinceNow: 86400 * 30),
-                                     endDate: Date(timeIntervalSinceNow: 86400 * 37),
-                                     notes: "No smoking; Pet friendly",
-                                     trip: trip),
-                tripService.addEvent(name: "Lazy Dog Restaurant & Bar",
-                                     eventDescription: nil,
-                                     category: "Restaurant",
-                                     latitude: 37.1924,
-                                     longitude: -122.0031,
-                                     startDate: Date(timeIntervalSinceNow: 86400 * 33),
-                                     endDate: Date(timeIntervalSinceNow: 86400 * 33 + 7200),
-                                     notes: "COVID-19 Restrictions: open for takeout and delivery only",
-                                     trip: trip),
-            ]
-        }
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -173,7 +133,7 @@ class TripDetailViewController: UIViewController {
     }
     
     func loadTripAnnotations() {
-        for event in events {
+        for event in trip.eventsArray {
             let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
@@ -280,13 +240,13 @@ extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 extension TripDetailViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        events.count
+        trip.eventsArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
 
-        cell.event = events[indexPath.row]
+        cell.event = trip.eventsArray[indexPath.row]
 
         return cell
     }
