@@ -327,8 +327,8 @@ extension TripDetailViewController: MKMapViewDelegate {
             return nil
         }
         
-        annotationView.glyphImage = UIImage(systemName: "mappin")
-        annotationView.markerTintColor = #colorLiteral(red: 1, green: 0.3176634908, blue: 0.1177343801, alpha: 1)
+        annotationView.glyphImage = event.category.annotationGlyph
+        annotationView.markerTintColor = event.category.annotationMarkerTintColor
         
         annotationView.canShowCallout = true
         let detailView = EventAnnotationDetailView()

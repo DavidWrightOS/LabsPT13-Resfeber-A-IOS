@@ -111,7 +111,7 @@ private extension EventCell {
         if let event = event {
             imageView.contentMode = .scaleAspectFill
             nameLabel.text = event.name
-            categoryLabel.text = event.category
+            categoryLabel.text = event.category.displayName
             addressLabel.text = event.address
         } else {
             imageView.image = UIImage(named: "Backpack")

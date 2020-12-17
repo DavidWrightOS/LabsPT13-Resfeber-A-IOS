@@ -61,8 +61,6 @@ class EventAnnotationDetailView: UIView {
             self.addressLabel.text = address
         }
         
-        if let category = event.category {
-            categoryLabel.text = category
-        }
+        categoryLabel.text = event.category.displayName
     }
 }
