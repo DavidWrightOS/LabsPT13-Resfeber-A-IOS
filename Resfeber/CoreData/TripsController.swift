@@ -51,9 +51,9 @@ extension TripsController {
         return nil
     }
     
-    public func getTrip(withName name: String) -> Trip? {
+    public func getTrip(_ id: String) -> Trip? {
         let tripFetch: NSFetchRequest<Trip> = Trip.fetchRequest()
-        tripFetch.predicate = NSPredicate(format: "(%K = %@)", #keyPath(Trip.name), name)
+        tripFetch.predicate = NSPredicate(format: "(%K = %@)", #keyPath(Trip.id), id)
         
         do {
             let trip = try context.fetch(tripFetch).first
