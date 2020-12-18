@@ -320,9 +320,8 @@ extension TripDetailViewController: UITableViewDelegate {
 
 extension TripDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let event = annotation as? Event else { return nil }
-        
-        guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView else {
+        guard let event = annotation as? Event,
+              let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView else {
             NSLog("Missing the registered map annotation view")
             return nil
         }
