@@ -63,19 +63,19 @@ extension EventCategory {
     /// Colors selected to match category colors used in Apple Maps
     var annotationMarkerTintColor: UIColor {
         switch self {
-        case .notSpecified: return  #colorLiteral(red: 1, green: 0.3176634908, blue: 0.1177343801, alpha: 1)
-        case .accomodation: return #colorLiteral(red: 0.5999641418, green: 0.5294604897, blue: 0.9998784661, alpha: 1)
-        case .restaurant: return #colorLiteral(red: 0.9725401998, green: 0.5843424201, blue: 0.2509849072, alpha: 1)
-        case .entertainment: return #colorLiteral(red: 0.8980445862, green: 0.4274922609, blue: 0.8391190767, alpha: 1)
-        case .park: return #colorLiteral(red: 0.4233551323, green: 0.7568985224, blue: 0.2234918475, alpha: 1)
-        case .airport: return #colorLiteral(red: 0.3292687535, green: 0.6078915, blue: 0.9998760819, alpha: 1)
-        case .retail, .grocery: return #colorLiteral(red: 0.9999757409, green: 0.701993525, blue: 0.000208069614, alpha: 1)
-        case .bank: return #colorLiteral(red: 0.4352324307, green: 0.5098394752, blue: 0.7018731236, alpha: 1)
-        case .gasStation: return #colorLiteral(red: 0.1132080629, green: 0.627499342, blue: 0.9998752475, alpha: 1)
-        case .chargeStation: return #colorLiteral(red: 0.2034551501, green: 0.7804297805, blue: 0.34896487, alpha: 1)
-        case .home: return #colorLiteral(red: 0, green: 0.6823994517, blue: 0.9371369481, alpha: 1)
-        case .work, .education: return #colorLiteral(red: 0.6509636641, green: 0.4549258351, blue: 0.286247611, alpha: 1)
-        case .medical, .pharmacy, .emergency, .hospital: return #colorLiteral(red: 1, green: 0.3647276163, blue: 0.3529253006, alpha: 1)
+        case .notSpecified: return RFColor.primaryOrange
+        case .accomodation: return RFColor.rgb(r: 153, g: 135, b: 255)
+        case .restaurant: return RFColor.rgb(r: 248, g: 149, b: 64)
+        case .entertainment: return RFColor.rgb(r: 229, g: 109, b: 214)
+        case .park: return RFColor.rgb(r: 108, g: 193, b: 57)
+        case .airport: return RFColor.rgb(r: 84, g: 155, b: 255)
+        case .retail, .grocery: return RFColor.rgb(r: 255, g: 179, b: 0)
+        case .bank: return RFColor.rgb(r: 111, g: 130, b: 179)
+        case .gasStation: return RFColor.rgb(r: 29, g: 160, b: 255)
+        case .chargeStation: return RFColor.rgb(r: 52, g: 199, b: 89)
+        case .home: return RFColor.rgb(r: 0, g: 174, b: 239)
+        case .work, .education: return RFColor.rgb(r: 166, g: 116, b: 73)
+        case .medical, .pharmacy, .emergency, .hospital: return RFColor.rgb(r: 255, g: 93, b: 90)
         }
     }
 }

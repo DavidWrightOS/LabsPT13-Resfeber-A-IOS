@@ -9,6 +9,7 @@
 import UIKit
 
 class RFColor: UIColor {
+    static var primaryOrange: UIColor { return rgb(r: 255, g: 81, b: 30) }
     static override var red: UIColor { return UIColor(named: "ResfeberRed")! }
     static var deleteRed: UIColor { return UIColor(named: "ResfeberDeleteRed")! }
     static override var blue: UIColor { return UIColor(named: "ResfeberBlue")! }
@@ -17,4 +18,10 @@ class RFColor: UIColor {
     static var dark: UIColor { return UIColor(named: "ResfeberDark")! }
     static var light: UIColor { return UIColor(named: "ResfeberLight")! }
     static var background: UIColor { return UIColor(named: "ResfeberBackground")! }
+}
+
+extension UIColor {
+    static func rgb(r: Int, g: Int, b: Int, a: Double = 1.0) -> UIColor {
+        return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(a))
+    }
 }
