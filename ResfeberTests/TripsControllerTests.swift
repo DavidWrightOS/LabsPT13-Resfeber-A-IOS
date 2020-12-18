@@ -18,7 +18,7 @@ class TripsControllerTests: XCTestCase {
         super.setUp()
         coreDataStack = TestCoreDataStack()
         tripsController = TripsController(managedObjectContext: coreDataStack.mainContext,
-                                  coreDataStack: coreDataStack)
+                                          coreDataStack: coreDataStack)
     }
     
     override func tearDown() {
@@ -29,10 +29,7 @@ class TripsControllerTests: XCTestCase {
     
     //MARK: - Trip CRUD tests
     func testAddTrip() {
-        let trip = tripsController.addTrip(name: "Wedding",
-                                   image: nil,
-                                   startDate: nil,
-                                   endDate: nil)
+        let trip = tripsController.addTrip(name: "Wedding")
         
         XCTAssertNotNil(trip, "Trip should not be nil")
         XCTAssert(trip.name == "Wedding")
@@ -43,20 +40,15 @@ class TripsControllerTests: XCTestCase {
         // Creates the background context and new instance of TripsController
         let derivedContext = coreDataStack.newDerivedContext()
         tripsController = TripsController(managedObjectContext: derivedContext,
-                                  coreDataStack: coreDataStack)
+                                          coreDataStack: coreDataStack)
         // Creates an expectation that sends a signal to the test case when Core Data stack sends a notification event
-        expectation(
-            forNotification: .NSManagedObjectContextDidSave,
-            object: derivedContext) { _ in
+        expectation(forNotification: .NSManagedObjectContextDidSave, object: derivedContext) { _ in
             return true
         }
         
         // Adds the trip
         derivedContext.perform {
-            let trip = self.tripsController.addTrip(name: "Wedding",
-                                            image: nil,
-                                            startDate: nil,
-                                            endDate: nil)
+            let trip = self.tripsController.addTrip(name: "Wedding")
             XCTAssertNotNil(trip)
             XCTAssert(trip.name == "Wedding")
         }
@@ -68,10 +60,7 @@ class TripsControllerTests: XCTestCase {
     }
     
     func testGetTrips() {
-        let newTrip = tripsController.addTrip(name: "Road Trip to California",
-                                      image: nil,
-                                      startDate: nil,
-                                      endDate: nil)
+        let newTrip = tripsController.addTrip(name: "Road Trip to California")
         
         let getTrips = tripsController.getTrips()
         
@@ -81,10 +70,7 @@ class TripsControllerTests: XCTestCase {
     }
     
     func testUpdateTrip() {
-        let newTrip = tripsController.addTrip(name: "Endor",
-                                      image: nil,
-                                      startDate: nil,
-                                      endDate: nil)
+        let newTrip = tripsController.addTrip(name: "Endor")
         newTrip.name = "Hoth"
         let updatedTrip = tripsController.updateTrip(newTrip)
         
@@ -93,10 +79,7 @@ class TripsControllerTests: XCTestCase {
     }
     
     func testDeleteTrip() {
-        let newTrip = tripsController.addTrip(name: "Naboo",
-                                      image: nil,
-                                      startDate: nil,
-                                      endDate: nil)
+        let newTrip = tripsController.addTrip(name: "Naboo")
         
         var fetchTrips = tripsController.getTrips()
         
@@ -111,20 +94,9 @@ class TripsControllerTests: XCTestCase {
     
     //MARK: - Event CRUD tests
     func testAddEventsToTrip() {
-        let trip = tripsController.addTrip(name: "Wedding",
-                                   image: nil,
-                                   startDate: nil,
-                                   endDate: nil)
+        let trip = tripsController.addTrip(name: "Wedding")
 
-        let event = tripsController.addEvent(name: "Dinner",
-                                         eventDescription: nil,
-                                         category: nil,
-                                         latitude: nil,
-                                         longitude: nil,
-                                         startDate: nil,
-                                         endDate: nil,
-                                         notes: nil,
-                                         trip: trip)
+        let event = tripsController.addEvent(name: "Dinner", trip: trip)
 
         XCTAssertNotNil(trip, "Trip should not be nil")
         XCTAssertNotNil(event, "Event should not be nil")
@@ -134,31 +106,10 @@ class TripsControllerTests: XCTestCase {
     }
     
     func testGetEvents() {
-        let trip = tripsController.addTrip(name: "Wedding",
-                                   image: nil,
-                                   startDate: nil,
-                                   endDate: nil)
+        let trip = tripsController.addTrip(name: "Wedding")
 
-        _ = tripsController.addEvent(name: "Dinner",
-                                 eventDescription: nil,
-                                 category: nil,
-                                 latitude: nil,
-                                 longitude: nil,
-                                 startDate: nil,
-                                 endDate: nil,
-                                 notes: nil,
-                                 trip: trip)
-        
-        _ = tripsController.addEvent(name: "Movies",
-                                 eventDescription: nil,
-                                 category: nil,
-                                 latitude: nil,
-                                 longitude: nil,
-                                 startDate: nil,
-                                 endDate: nil,
-                                 notes: nil,
-                                 trip: trip)
-        
+        tripsController.addEvent(name: "Dinner", trip: trip)
+        tripsController.addEvent(name: "Movies", trip: trip)
         
         let getEvents = tripsController.getEvents()
         XCTAssertNotNil(getEvents)
@@ -166,20 +117,9 @@ class TripsControllerTests: XCTestCase {
     }
     
     func testUpdateEvent() {
-        let trip = tripsController.addTrip(name: "Wedding",
-                                   image: nil,
-                                   startDate: nil,
-                                   endDate: nil)
+        let trip = tripsController.addTrip(name: "Wedding")
 
-        let newEvent = tripsController.addEvent(name: "Dinner",
-                                            eventDescription: nil,
-                                            category: nil,
-                                            latitude: nil,
-                                            longitude: nil,
-                                            startDate: nil,
-                                            endDate: nil,
-                                            notes: nil,
-                                            trip: trip)
+        let newEvent = tripsController.addEvent(name: "Dinner", trip: trip)
         
         newEvent.name = "Reception Party"
         let updatedEvent = tripsController.updateEvent(newEvent)
@@ -189,20 +129,9 @@ class TripsControllerTests: XCTestCase {
     }
     
     func testDeleteEvent() {
-        let trip = tripsController.addTrip(name: "Wedding",
-                                   image: nil,
-                                   startDate: nil,
-                                   endDate: nil)
+        let trip = tripsController.addTrip(name: "Wedding")
 
-        let newEvent = tripsController.addEvent(name: "Dinner",
-                                            eventDescription: nil,
-                                            category: nil,
-                                            latitude: nil,
-                                            longitude: nil,
-                                            startDate: nil,
-                                            endDate: nil,
-                                            notes: nil,
-                                            trip: trip)
+        let newEvent = tripsController.addEvent(name: "Dinner", trip: trip)
         
         var fetchEvents = tripsController.getEvents()
         
