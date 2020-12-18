@@ -265,9 +265,6 @@ extension TripDetailViewController: UICollectionViewDelegate {
               let event = cell.event else { return }
         
         mapView.selectAnnotation(event, animated: true)
-        
-//        let detailVC = EventDetailViewController(event)
-//        show(detailVC, sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
