@@ -17,8 +17,9 @@ public class Trip: NSManagedObject {
 
 extension Trip {
     @discardableResult
-    convenience init(name: String, image: Data?, startDate: Date?, endDate: Date?, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(name: String, image: Data?, startDate: Date?, endDate: Date?, id: String = UUID().uuidString, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
+        self.id = id
         self.name = name
         self.image = image
         self.startDate = startDate

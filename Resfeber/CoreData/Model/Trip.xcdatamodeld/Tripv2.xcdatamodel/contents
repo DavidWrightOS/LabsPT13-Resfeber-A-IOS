@@ -15,6 +15,7 @@
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -22,6 +23,6 @@
     </entity>
     <elements>
         <element name="Event" positionX="-244.61328125" positionY="67.05859375" width="128" height="194"/>
-        <element name="Trip" positionX="-476.19140625" positionY="36.66015625" width="128" height="118"/>
+        <element name="Trip" positionX="-476.19140625" positionY="36.66015625" width="128" height="119"/>
     </elements>
 </model>

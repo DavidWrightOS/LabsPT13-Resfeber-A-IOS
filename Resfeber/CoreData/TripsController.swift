@@ -24,7 +24,7 @@ public final class TripsController {
 // MARK: - Public
 extension TripsController {
     @discardableResult
-    public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
+    public func addTrip(name: String, image: Data? = nil, startDate: Date? = nil, endDate: Date? = nil) -> Trip {
         let trip = Trip(name: name, image: image, startDate: startDate, endDate: endDate, context: context)
         trip.name = name
         trip.image = image
@@ -51,9 +51,9 @@ extension TripsController {
         return nil
     }
     
-    public func getTrip(withName name: String) -> Trip? {
+    public func getTrip(_ id: String) -> Trip? {
         let tripFetch: NSFetchRequest<Trip> = Trip.fetchRequest()
-        tripFetch.predicate = NSPredicate(format: "(%K = %@)", #keyPath(Trip.name), name)
+        tripFetch.predicate = NSPredicate(format: "(%K = %@)", #keyPath(Trip.id), id)
         
         do {
             let trip = try context.fetch(tripFetch).first
