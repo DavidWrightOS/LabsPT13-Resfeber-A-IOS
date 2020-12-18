@@ -24,7 +24,7 @@ public final class TripsController {
 // MARK: - Public
 extension TripsController {
     @discardableResult
-    public func addTrip(name: String, image: Data?, startDate: Date?, endDate: Date? ) -> Trip {
+    public func addTrip(name: String, image: Data? = nil, startDate: Date? = nil, endDate: Date? = nil) -> Trip {
         let trip = Trip(name: name, image: image, startDate: startDate, endDate: endDate, context: context)
         trip.name = name
         trip.image = image
