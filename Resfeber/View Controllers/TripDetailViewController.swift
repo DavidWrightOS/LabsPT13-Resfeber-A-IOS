@@ -68,9 +68,11 @@ class TripDetailViewController: UIViewController {
                          paddingRight: 8)
         
         // Configure MapView
+        mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.layer.borderWidth = 1
         mapView.layer.borderColor = RFColor.red.cgColor
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
         view.addSubview(mapView)
         mapView.anchor(top: searchBar.bottomAnchor,
                        left: view.leftAnchor,
@@ -124,10 +126,7 @@ class TripDetailViewController: UIViewController {
     
     func loadTripAnnotations() {
         for event in trip.eventsArray {
-            let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            self.mapView.addAnnotation(annotation)
+            mapView.addAnnotation(event)
         }
         
         let annotations = mapView.annotations
@@ -260,20 +259,28 @@ extension TripDetailViewController: UICollectionViewDelegate {
             return UIMenu(title: "", children: [deleteEvent])
         }
     }
-}
-
-/*
-// MARK: - Collection View Delegate
-extension TripDetailViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
               let event = cell.event else { return }
-
-        let detailVC = EventDetailViewController(event)
-        show(detailVC, sender: self)
+        
+        mapView.selectAnnotation(event, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first, selectedIndexPath == indexPath {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            
+            if let cell = collectionView.cellForItem(at: indexPath) as? EventCell, let event = cell.event {
+                mapView.deselectAnnotation(event, animated: true)
+            }
+            
+            return false
+        }
+        
+        return true
     }
 }
-*/
 
 // MARK: - Search Table View DataSource
 
@@ -302,7 +309,51 @@ extension TripDetailViewController: UITableViewDelegate {
         let name = placemark.name
         let latitude = placemark.location?.coordinate.latitude
         let longitude = placemark.location?.coordinate.longitude
-        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, trip: trip)
+        let address = placemark.address
+        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, address: address, trip: trip)
         reloadTrip()
+    }
+}
+
+extension TripDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let event = annotation as? Event,
+              let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView else {
+            NSLog("Missing the registered map annotation view")
+            return nil
+        }
+        
+        annotationView.glyphImage = event.category.annotationGlyph
+        annotationView.markerTintColor = event.category.annotationMarkerTintColor
+        
+        annotationView.canShowCallout = true
+        let detailView = EventAnnotationDetailView()
+        detailView.event = event
+        annotationView.detailCalloutAccessoryView = detailView
+        
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let latitude = view.annotation?.coordinate.latitude,
+              let longitude = view.annotation?.coordinate.longitude,
+              let name = view.annotation?.title,
+              let index = trip.eventsArray.firstIndex(where: { $0.coordinate.latitude == latitude && $0.coordinate.longitude == longitude && $0.name == name }) else { return }
+        
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        deselectAllEventCells()
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        deselectAllEventCells()
+    }
+    
+    private func deselectAllEventCells() {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        
+        for indexPath in selectedIndexPaths {
+            collectionView.deselectItem(at: indexPath, animated: false)
+        }
     }
 }

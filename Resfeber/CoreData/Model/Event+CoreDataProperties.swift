@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 
 extension Event {
@@ -17,7 +18,9 @@ extension Event {
         return NSFetchRequest<Event>(entityName: "Event")
     }
 
-    @NSManaged public var category: String?
+    @NSManaged public var id: String
+    @NSManaged public var categoryRawValue: Int32
+    @NSManaged public var address: String?
     @NSManaged public var endDate: Date?
     @NSManaged public var eventDescription: String?
     @NSManaged public var latitude: Double
@@ -30,5 +33,20 @@ extension Event {
 }
 
 extension Event : Identifiable {
+    var category: EventCategory {
+        EventCategory(rawValue: Int(categoryRawValue)) ?? EventCategory.notSpecified
+    }
+}
 
+extension Event: MKAnnotation {
+    
+    static let annotationReuseIdentifier = "EventAnnotationView"
+    
+    public var eventID: String { id }
+    
+    public var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    public var title: String? { name }
 }

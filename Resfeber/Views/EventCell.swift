@@ -68,6 +68,14 @@ class EventCell: UICollectionViewCell {
 
 private extension EventCell {
     func configureCell() {
+        
+        let selectedBGView = UIView(frame: bounds)
+        selectedBGView.backgroundColor = .systemGray5
+        selectedBGView.layer.cornerRadius = 10
+        selectedBGView.layer.borderWidth = 1.0
+        selectedBGView.layer.borderColor = RFColor.red.cgColor
+        selectedBackgroundView = selectedBGView
+        
         backgroundColor = .systemGray5
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -103,21 +111,11 @@ private extension EventCell {
         if let event = event {
             imageView.contentMode = .scaleAspectFill
             nameLabel.text = event.name
-            categoryLabel.text = event.category
-            updateAddressLabel()
+            categoryLabel.text = event.category.displayName
+            addressLabel.text = event.address
         } else {
             imageView.image = UIImage(named: "Backpack")
             imageView.contentMode = .scaleAspectFill
-        }
-    }
-    
-    func updateAddressLabel() {
-        guard let event = event else { return }
-        
-        let location = CLLocation(latitude: event.latitude, longitude: event.longitude)
-        
-        location.fetchAddress { address in
-            self.addressLabel.text = address
         }
     }
 }
