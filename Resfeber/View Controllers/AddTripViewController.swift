@@ -23,6 +23,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         button.setDimensions(height: height)
         button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemGray3
+        button.imageView?.contentMode = .scaleAspectFit
         
         button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
 
