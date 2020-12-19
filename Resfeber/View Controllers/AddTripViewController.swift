@@ -17,18 +17,16 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     let tripsController: TripsController
     var imageData: Data?
 
-    private let tripImage: UIButton = {
-        let diameter: CGFloat = 150
+    lazy private var tripImage: UIButton = {
         let button = UIButton()
-        button.setDimensions(height: diameter, width: diameter * 1.5)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
+        let height: CGFloat = view.bounds.width * 0.75
+        button.setDimensions(height: height)
         button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemGray3
         
         button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
 
-        let config = UIImage.SymbolConfiguration(pointSize: diameter * 0.8)
+        let config = UIImage.SymbolConfiguration(pointSize: height * 0.8)
         let placeholderImage = UIImage(systemName: "photo.fill")?
             .withConfiguration(config)
             .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
@@ -101,8 +99,9 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         title = "Add New Trip"
         
         view.addSubview(tripImage)
-        tripImage.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 36)
-        tripImage.centerX(inView: view)
+        tripImage.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                         left: view.leftAnchor,
+                         right: view.rightAnchor)
         
         view.addSubview(tripInfoStackView)
         tripInfoStackView.anchor(top: tripImage.bottomAnchor,
