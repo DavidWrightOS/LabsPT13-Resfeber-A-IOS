@@ -35,6 +35,15 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         button.setImage(placeholderImage, for: .normal)
         return button
     }()
+    
+    lazy private var addPhotoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add Photo", for: .normal)
+        button.setTitleColor(RFColor.red, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
+        return button
+    }()
 
     private var nameTextField = UITextField()
     private var startDateTextField = UITextField()
@@ -104,11 +113,16 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
                          left: view.leftAnchor,
                          right: view.rightAnchor)
         
+        view.addSubview(addPhotoButton)
+        addPhotoButton.anchor(top: tripImage.bottomAnchor,
+                              left: view.leftAnchor,
+                              right: view.rightAnchor)
+        
         view.addSubview(tripInfoStackView)
-        tripInfoStackView.anchor(top: tripImage.bottomAnchor,
+        tripInfoStackView.anchor(top: addPhotoButton.bottomAnchor,
                                  left: view.leftAnchor,
                                  right: view.rightAnchor,
-                                 paddingTop: 36)
+                                 paddingTop: 16)
     }
 
     @objc func addNewTripWasCancelled() {
