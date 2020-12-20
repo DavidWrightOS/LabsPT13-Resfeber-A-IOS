@@ -36,7 +36,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         return button
     }()
     
-    lazy private var addPhotoButton: UIButton = {
+    private var addPhotoButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add Photo", for: .normal)
         button.setTitleColor(RFColor.red, for: .normal)
@@ -45,7 +45,12 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         return button
     }()
 
-    private var nameTextField = UITextField()
+    private var nameTextField: UITextField = {
+        let tf = UITextField()
+        tf.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
+        return tf
+    }()
+    
     private var startDateTextField = UITextField()
     private var endDateTextField = UITextField()
     
@@ -104,9 +109,9 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewTripWasCancelled))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(newTripWasSaved))
-        navigationItem.rightBarButtonItem?.isEnabled = true
-        title = "Add New Trip"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newTripWasSaved))
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        title = "New Trip"
         
         view.addSubview(tripImage)
         tripImage.anchor(top: view.safeAreaLayoutGuide.topAnchor,
@@ -195,6 +200,13 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         let image = info[.originalImage] as! UIImage
         self.tripImage.setImage(image, for: .normal)
         self.imageData = image.pngData()
+        self.addPhotoButton.setTitle("Change Photo", for: .normal)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func textFieldValueChanged() {
+        navigationItem.rightBarButtonItem?.isEnabled = !(nameTextField.text?.isEmpty ?? true)
     }
 }
