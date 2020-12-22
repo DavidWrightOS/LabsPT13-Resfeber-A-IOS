@@ -77,9 +77,9 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         
         for i in sectionTitles.indices {
             let label = UILabel()
-            label.font = UIFont.boldSystemFont(ofSize: 14)
+            label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
             label.text = sectionTitles[i]
-            label.setDimensions(width: 86)
+            label.setDimensions(width: 78)
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
             textFields[i].textColor = RFColor.red
