@@ -47,12 +47,25 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
 
     private var nameTextField: UITextField = {
         let tf = UITextField()
+        tf.textContentType = .name
+        tf.placeholder = "Add a trip name"
         tf.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
         return tf
     }()
     
-    private var startDateTextField = UITextField()
-    private var endDateTextField = UITextField()
+    private var startDateTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Add a start date (optional)"
+        tf.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
+        return tf
+    }()
+    
+    private var endDateTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Add an end date (optional)"
+        tf.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
+        return tf
+    }()
     
     private lazy var tripInfoStackView: UIStackView = {
         
@@ -70,8 +83,6 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
             textFields[i].textColor = RFColor.red
-            startDateTextField.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
-            endDateTextField.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
             
             let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
             hStack.axis = .horizontal
