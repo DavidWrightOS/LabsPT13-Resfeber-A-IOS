@@ -53,17 +53,17 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         return tf
     }()
     
-    private var startDateTextField: UITextField = {
+    lazy private var startDateTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Add a start date (optional)"
-        tf.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
+        startDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
         return tf
     }()
     
-    private var endDateTextField: UITextField = {
+    lazy private var endDateTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Add an end date (optional)"
-        tf.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
+        endDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
         return tf
     }()
     
@@ -97,6 +97,9 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         stack.spacing = 10
         return stack
     }()
+    
+    private var startDatePicker = UIDatePicker()
+    private var endDatePicker = UIDatePicker()
 
     // MARK: - Lifecycle
     
@@ -174,6 +177,10 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .medium
             self.startDateTextField.text = dateformatter.string(from: datePicker.date)
+            
+            if endDateTextField.text == nil || endDateTextField.text == "" {
+                endDatePicker.date = datePicker.date
+            }
         }
         self.startDateTextField.resignFirstResponder()
     }
@@ -183,6 +190,10 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .medium
             self.endDateTextField.text = dateformatter.string(from: datePicker.date)
+            
+            if startDateTextField.text == nil || startDateTextField.text == "" {
+                startDatePicker.date = datePicker.date
+            }
         }
         self.endDateTextField.resignFirstResponder()
     }

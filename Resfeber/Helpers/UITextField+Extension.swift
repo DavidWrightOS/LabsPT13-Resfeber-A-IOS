@@ -9,7 +9,8 @@
 import UIKit
 extension UITextField {
     
-    func setInputViewDatePicker(target: Any, selector: Selector) {
+    @discardableResult
+    func setInputViewDatePicker(target: Any, selector: Selector) -> UIDatePicker {
         // Create a UIDatePicker object and assign to inputView
         let screenWidth = UIScreen.main.bounds.width
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))//1
@@ -28,6 +29,8 @@ extension UITextField {
         barButton.tintColor = RFColor.red
         toolBar.setItems([cancel, flexible, barButton], animated: false) //8
         self.inputAccessoryView = toolBar //9
+        
+        return datePicker
     }
     
     @objc func tapCancel() {
