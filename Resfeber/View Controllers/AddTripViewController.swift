@@ -17,18 +17,17 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     let tripsController: TripsController
     var imageData: Data?
 
-    private let tripImage: UIButton = {
-        let diameter: CGFloat = 150
+    lazy private var tripImage: UIButton = {
         let button = UIButton()
-        button.setDimensions(height: diameter, width: diameter * 1.5)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
+        let height: CGFloat = view.bounds.width * 0.75
+        button.setDimensions(height: height)
         button.contentMode = .scaleAspectFill
         button.backgroundColor = .systemGray3
+        button.imageView?.contentMode = .scaleAspectFill
         
         button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
 
-        let config = UIImage.SymbolConfiguration(pointSize: diameter * 0.8)
+        let config = UIImage.SymbolConfiguration(pointSize: height * 0.8)
         let placeholderImage = UIImage(systemName: "photo.fill")?
             .withConfiguration(config)
             .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
@@ -36,10 +35,37 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         button.setImage(placeholderImage, for: .normal)
         return button
     }()
+    
+    private var addPhotoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add Photo", for: .normal)
+        button.setTitleColor(RFColor.red, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
+        return button
+    }()
 
-    private var nameTextField = UITextField()
-    private var startDateTextField = UITextField()
-    private var endDateTextField = UITextField()
+    private var nameTextField: UITextField = {
+        let tf = UITextField()
+        tf.textContentType = .name
+        tf.placeholder = "Add a trip name"
+        tf.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
+        return tf
+    }()
+    
+    lazy private var startDateTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Add a start date (optional)"
+        startDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
+        return tf
+    }()
+    
+    lazy private var endDateTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Add an end date (optional)"
+        endDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
+        return tf
+    }()
     
     private lazy var tripInfoStackView: UIStackView = {
         
@@ -51,14 +77,12 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         
         for i in sectionTitles.indices {
             let label = UILabel()
-            label.font = UIFont.boldSystemFont(ofSize: 14)
+            label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
             label.text = sectionTitles[i]
-            label.setDimensions(width: 86)
+            label.setDimensions(width: 78)
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
             textFields[i].textColor = RFColor.red
-            startDateTextField.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
-            endDateTextField.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
             
             let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
             hStack.axis = .horizontal
@@ -73,6 +97,9 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         stack.spacing = 10
         return stack
     }()
+    
+    private var startDatePicker = UIDatePicker()
+    private var endDatePicker = UIDatePicker()
 
     // MARK: - Lifecycle
     
@@ -96,19 +123,25 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewTripWasCancelled))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(newTripWasSaved))
-        navigationItem.rightBarButtonItem?.isEnabled = true
-        title = "Add New Trip"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newTripWasSaved))
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        title = "New Trip"
         
         view.addSubview(tripImage)
-        tripImage.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 36)
-        tripImage.centerX(inView: view)
+        tripImage.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                         left: view.leftAnchor,
+                         right: view.rightAnchor)
+        
+        view.addSubview(addPhotoButton)
+        addPhotoButton.anchor(top: tripImage.bottomAnchor,
+                              left: view.leftAnchor,
+                              right: view.rightAnchor)
         
         view.addSubview(tripInfoStackView)
-        tripInfoStackView.anchor(top: tripImage.bottomAnchor,
+        tripInfoStackView.anchor(top: addPhotoButton.bottomAnchor,
                                  left: view.leftAnchor,
                                  right: view.rightAnchor,
-                                 paddingTop: 36)
+                                 paddingTop: 16)
     }
 
     @objc func addNewTripWasCancelled() {
@@ -144,6 +177,10 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .medium
             self.startDateTextField.text = dateformatter.string(from: datePicker.date)
+            
+            if endDateTextField.text == nil || endDateTextField.text == "" {
+                endDatePicker.date = datePicker.date
+            }
         }
         self.startDateTextField.resignFirstResponder()
     }
@@ -153,6 +190,10 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .medium
             self.endDateTextField.text = dateformatter.string(from: datePicker.date)
+            
+            if startDateTextField.text == nil || startDateTextField.text == "" {
+                startDatePicker.date = datePicker.date
+            }
         }
         self.endDateTextField.resignFirstResponder()
     }
@@ -181,6 +222,13 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         let image = info[.originalImage] as! UIImage
         self.tripImage.setImage(image, for: .normal)
         self.imageData = image.pngData()
+        self.addPhotoButton.setTitle("Change Photo", for: .normal)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func textFieldValueChanged() {
+        navigationItem.rightBarButtonItem?.isEnabled = !(nameTextField.text?.isEmpty ?? true)
     }
 }
