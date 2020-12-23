@@ -10,20 +10,34 @@ import UIKit
 import CoreData
 import MapKit
 
+protocol AddEventViewControllerDelegate: class {
+    func didAddEvent(_ event: Event)
+}
+
 class AddEventViewController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: AddEventViewControllerDelegate?
     
     private let tripsController: TripsController
     private let trip: Trip
     
     private let mapView = MKMapView()
+    private var selectedPlacemark: MKPlacemark?
 
     private var nameTextField: UITextField = {
         let tf = UITextField()
         tf.textContentType = .name
         tf.placeholder = "Add an event name"
         tf.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
+        return tf
+    }()
+    
+    lazy private var locationTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Add a location"
+        tf.addTarget(self, action: #selector(locationTextFieldTapped), for: .editingDidBegin)
         return tf
     }()
     
@@ -43,8 +57,8 @@ class AddEventViewController: UIViewController {
     
     private lazy var eventInfoStackView: UIStackView = {
         
-        let sectionTitles = ["Event Name", "Start Date", "End Date"]
-        let textFields = [nameTextField, startDateTextField, endDateTextField]
+        let sectionTitles = ["Event Name", "Location", "Start Date", "End Date"]
+        let textFields = [nameTextField, locationTextField, startDateTextField, endDateTextField]
         
         var verticalStackSubViews = [UIView]()
         verticalStackSubViews.append(separatorView())
@@ -180,12 +194,28 @@ class AddEventViewController: UIViewController {
         self.endDateTextField.resignFirstResponder()
     }
     
+    @objc func locationTextFieldTapped() {
+        let locationSearchVC = LocationSearchViewController()
+        locationSearchVC.delegate = self
+        
+        if let region = trip.eventsCoordinateRegion {
+            locationSearchVC.searchRegion = region
+        }
+        
+        present(locationSearchVC, animated: true, completion: nil)
+    }
+    
     @objc func addNewEventWasCancelled() {
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func newEventWasSaved() {
-        guard let name = nameTextField.text else { return }
+        guard let placemark = selectedPlacemark else { return }
+        guard let name = nameTextField.text ?? placemark.name,
+              let latitude = placemark.location?.coordinate.latitude,
+              let longitude = placemark.location?.coordinate.longitude else { return }
+        
+        let address = placemark.address
         
         var startDate: Date?
         if let startDateString = startDateTextField.text {
@@ -197,17 +227,52 @@ class AddEventViewController: UIViewController {
             endDate = dateFormatter.date(from: endDateString)
         }
         
-        tripsController.addEvent(name: name,
-                                 eventDescription: nil,
-                                 category: .notSpecified,
-                                 latitude: nil,
-                                 longitude: nil,
-                                 address: nil,
-                                 startDate: startDate,
-                                 endDate: endDate,
-                                 notes: nil,
-                                 trip: trip)
+        let event = tripsController.addEvent(name: name,
+                                             eventDescription: nil,
+                                             category: .notSpecified,
+                                             latitude: latitude,
+                                             longitude: longitude,
+                                             address: address,
+                                             startDate: startDate,
+                                             endDate: endDate,
+                                             notes: nil,
+                                             trip: trip)
         
+        delegate?.didAddEvent(event)
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Location Search ViewController Delegate
+
+extension AddEventViewController: LocationSearchViewControllerDelegate {
+    func didSelectLocation(with placemark: MKPlacemark) {
+        self.selectedPlacemark = placemark
+        updateLocationDescription(with: placemark)
+        dropPinAndZoomIn(placemark: placemark)
+    }
+    
+    private func updateLocationDescription(with placemark: MKPlacemark) {
+        mapView.removeAnnotations(mapView.annotations)
+        
+        locationTextField.text = placemark.name
+    }
+    
+    private func dropPinAndZoomIn(placemark: MKPlacemark) {
+        mapView.removeAnnotations(mapView.annotations)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        
+        if let address = placemark.address {
+            annotation.subtitle = address
+        }
+        
+        mapView.addAnnotation(annotation)
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }

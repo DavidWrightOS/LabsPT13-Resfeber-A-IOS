@@ -177,6 +177,7 @@ class TripDetailViewController: UIViewController {
     
     @objc private func addEventButtonTapped() {
         let addEventVC = AddEventViewController(trip: trip, tripsController: tripsController)
+        addEventVC.delegate = self
         let nav = UINavigationController(rootViewController: addEventVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
@@ -364,5 +365,11 @@ extension TripDetailViewController: MKMapViewDelegate {
         for indexPath in selectedIndexPaths {
             collectionView.deselectItem(at: indexPath, animated: false)
         }
+    }
+}
+
+extension TripDetailViewController: AddEventViewControllerDelegate {
+    func didAddEvent(_ event: Event) {
+        reloadTrip()
     }
 }
