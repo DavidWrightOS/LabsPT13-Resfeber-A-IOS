@@ -315,7 +315,10 @@ extension AddEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         EventCategory.displayNames.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        EventCategory.displayNames[row] ?? "- none -"
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let categoryName = EventCategory.displayNames[row] ?? "- Select Category -"
+        let textColor = EventCategory.displayNames[row] == nil ? UIColor.placeholderText : UIColor.label
+        let attributes = [NSAttributedString.Key.foregroundColor : textColor]
+        return NSAttributedString(string: categoryName, attributes: attributes)
     }
 }
