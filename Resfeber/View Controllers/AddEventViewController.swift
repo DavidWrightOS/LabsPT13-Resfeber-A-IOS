@@ -63,15 +63,22 @@ class AddEventViewController: UIViewController {
         return tf
     }()
     
+    private var notesTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Add notes"
+        return tf
+    }()
+    
     private lazy var eventInfoStackView: UIStackView = {
         
-        let sectionTitles = ["Event Name", "Location", "Category", "Start Date", "End Date"]
-        let textFields = [nameTextField, locationTextField, categoryTextField, startDateTextField, endDateTextField]
+        let sectionTitles = ["Event Name", "Location", "Category", "Start Date", "End Date", "Notes"]
+        let textFields = [nameTextField, locationTextField, categoryTextField, startDateTextField, endDateTextField, notesTextField]
         
         var verticalStackSubViews = [UIView]()
-        verticalStackSubViews.append(separatorView())
         
         for i in sectionTitles.indices {
+            verticalStackSubViews.append(separatorView())
+            
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
             label.text = sectionTitles[i]
@@ -86,7 +93,6 @@ class AddEventViewController: UIViewController {
             hStack.alignment = .firstBaseline
             hStack.spacing = 4
             verticalStackSubViews.append(hStack)
-            verticalStackSubViews.append(separatorView())
         }
         
         let stack = UIStackView(arrangedSubviews: verticalStackSubViews)
@@ -246,6 +252,8 @@ class AddEventViewController: UIViewController {
             endDate = dateFormatter.date(from: endDateString)
         }
         
+        let notes = notesTextField.text
+        
         let event = tripsController.addEvent(name: name,
                                              eventDescription: nil,
                                              category: category,
@@ -254,7 +262,7 @@ class AddEventViewController: UIViewController {
                                              address: address,
                                              startDate: startDate,
                                              endDate: endDate,
-                                             notes: nil,
+                                             notes: notes,
                                              trip: trip)
         
         delegate?.didAddEvent(event)
