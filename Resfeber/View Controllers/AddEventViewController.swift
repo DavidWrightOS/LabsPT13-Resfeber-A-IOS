@@ -25,6 +25,7 @@ class AddEventViewController: UIViewController {
     
     private let mapView = MKMapView()
     private var selectedPlacemark: MKPlacemark?
+    private var category: EventCategory?
 
     private var nameTextField: UITextField = {
         let tf = UITextField()
@@ -41,24 +42,31 @@ class AddEventViewController: UIViewController {
         return tf
     }()
     
+    lazy private var categoryTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Select category"
+        categoryPicker = tf.setInputViewCategoryPicker(target: self, selector: #selector(tapCategoryPickerDone))
+        return tf
+    }()
+    
     lazy private var startDateTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Add a start date (optional)"
+        tf.placeholder = "Add a start date"
         startDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
         return tf
     }()
     
     lazy private var endDateTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Add an end date (optional)"
+        tf.placeholder = "Add an end date"
         endDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
         return tf
     }()
     
     private lazy var eventInfoStackView: UIStackView = {
         
-        let sectionTitles = ["Event Name", "Location", "Start Date", "End Date"]
-        let textFields = [nameTextField, locationTextField, startDateTextField, endDateTextField]
+        let sectionTitles = ["Event Name", "Location", "Category", "Start Date", "End Date"]
+        let textFields = [nameTextField, locationTextField, categoryTextField, startDateTextField, endDateTextField]
         
         var verticalStackSubViews = [UIView]()
         verticalStackSubViews.append(separatorView())
@@ -71,6 +79,7 @@ class AddEventViewController: UIViewController {
             
             textFields[i].font = UIFont.systemFont(ofSize: 14)
             textFields[i].textColor = RFColor.red
+            textFields[i].tintColor = RFColor.red
             
             let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
             hStack.axis = .horizontal
@@ -86,6 +95,7 @@ class AddEventViewController: UIViewController {
         return stack
     }()
     
+    private var categoryPicker = UIPickerView()
     private var startDatePicker = UIDatePicker()
     private var endDatePicker = UIDatePicker()
     
@@ -174,6 +184,13 @@ class AddEventViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = !(nameTextField.text?.isEmpty ?? true)
     }
     
+    @objc private func tapCategoryPickerDone() {
+        let selectedRow = categoryPicker.selectedRow(inComponent: 0)
+        category = EventCategory(rawValue: selectedRow)
+        categoryTextField.text = category?.displayName
+        self.categoryTextField.resignFirstResponder()
+    }
+    
     @objc func tapStartDateDone() {
         if let datePicker = self.startDateTextField.inputView as? UIDatePicker {
             self.startDateTextField.text = dateFormatter.string(from: datePicker.date)
@@ -231,7 +248,7 @@ class AddEventViewController: UIViewController {
         
         let event = tripsController.addEvent(name: name,
                                              eventDescription: nil,
-                                             category: .notSpecified,
+                                             category: category,
                                              latitude: latitude,
                                              longitude: longitude,
                                              address: address,
@@ -276,5 +293,21 @@ extension AddEventViewController: LocationSearchViewControllerDelegate {
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+    }
+}
+
+// MARK: - UIPickerView Data Source
+
+extension AddEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        EventCategory.displayNames.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        EventCategory.displayNames[row] ?? "- none -"
     }
 }
