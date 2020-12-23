@@ -59,6 +59,7 @@ class TripDetailViewController: UIViewController {
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
+        navigationController?.navigationBar.tintColor = RFColor.red
         
         // Configure Search Bar
         searchBar.delegate = self
