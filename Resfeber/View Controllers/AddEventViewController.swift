@@ -144,6 +144,8 @@ class AddEventViewController: UIViewController {
                                  left: view.leftAnchor,
                                  right: view.rightAnchor,
                                  paddingTop: 16)
+        
+        nameTextField.becomeFirstResponder()
     }
 
     private func separatorView() -> UIView {

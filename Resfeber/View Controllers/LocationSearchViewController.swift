@@ -47,6 +47,7 @@ class LocationSearchViewController: UIViewController {
         
         // Configure Search Bar
         searchBar.delegate = self
+        searchBar.becomeFirstResponder()
         view.addSubview(searchBar)
         searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.leftAnchor,
