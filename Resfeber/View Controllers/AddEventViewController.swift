@@ -29,6 +29,9 @@ class AddEventViewController: UIViewController {
 
     private var nameTextField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.textColor = RFColor.red
+        tf.tintColor = RFColor.red
         tf.textContentType = .name
         tf.placeholder = "Add an event name"
         tf.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
@@ -37,69 +40,150 @@ class AddEventViewController: UIViewController {
     
     lazy private var locationTextField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.textColor = RFColor.red
+        tf.tintColor = .clear
         tf.placeholder = "Add a location"
+        tf.delegate = self
         tf.addTarget(self, action: #selector(locationTextFieldTapped), for: .editingDidBegin)
         return tf
     }()
     
     lazy private var categoryTextField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.textColor = RFColor.red
+        tf.tintColor = .clear
         tf.placeholder = "Select category"
+        tf.delegate = self
         categoryPicker = tf.setInputViewCategoryPicker(target: self, selector: #selector(tapCategoryPickerDone))
         return tf
     }()
     
     lazy private var startDateTextField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.textColor = RFColor.red
+        tf.tintColor = .clear
         tf.placeholder = "Add a start date"
+        tf.delegate = self
         startDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapStartDateDone))
         return tf
     }()
     
     lazy private var endDateTextField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.textColor = RFColor.red
+        tf.tintColor = .clear
         tf.placeholder = "Add an end date"
+        tf.delegate = self
         endDatePicker = tf.setInputViewDatePicker(target: self, selector: #selector(tapEndDateDone))
         return tf
     }()
     
-    private var notesTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Add notes"
-        return tf
+    lazy private var notesTextView: UITextView = {
+        let tv = UITextView()
+        tv.font = UIFont.systemFont(ofSize: 14)
+        tv.textColor = RFColor.red
+        tv.tintColor = RFColor.red
+        tv.delegate = self
+        return tv
     }()
     
+    private var notesPlaceholderLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor.placeholderText
+        label.text = "Add notes"
+        return label
+    }()
+    
+    private enum BorderStyle {
+        case none, top, bottom, topAndBottom
+    }
+    
     private lazy var eventInfoStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            inputRow(rowTitle: "Event Name", inputView: nameTextField, borderStyle: .top),
+            inputRow(rowTitle: "Location", inputView: locationTextField, borderStyle: .top),
+            inputRowSpacer(borderStyle: .top),
+            inputRow(rowTitle: "Category", inputView: categoryTextField, borderStyle: .top),
+            inputRowSpacer(borderStyle: .top),
+            inputRow(rowTitle: "Start Date", inputView: startDateTextField, borderStyle: .top),
+            inputRow(rowTitle: "End Date", inputView: endDateTextField, borderStyle: .top),
+            inputRowSpacer(borderStyle: .top),
+            inputRowWithTextView(rowTitle: "Notes", inputTextView: notesTextView, placeholderLabel: notesPlaceholderLabel, height: 150, borderStyle: .topAndBottom)
+        ])
         
-        let sectionTitles = ["Event Name", "Location", "Category", "Start Date", "End Date", "Notes"]
-        let textFields = [nameTextField, locationTextField, categoryTextField, startDateTextField, endDateTextField, notesTextField]
-        
-        var verticalStackSubViews = [UIView]()
-        
-        for i in sectionTitles.indices {
-            verticalStackSubViews.append(separatorView())
-            
-            let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-            label.text = sectionTitles[i]
-            label.setDimensions(width: 88)
-            
-            textFields[i].font = UIFont.systemFont(ofSize: 14)
-            textFields[i].textColor = RFColor.red
-            textFields[i].tintColor = RFColor.red
-            
-            let hStack = UIStackView(arrangedSubviews: [spacer(width: 20), label, textFields[i], spacer(width: 20)])
-            hStack.axis = .horizontal
-            hStack.alignment = .firstBaseline
-            hStack.spacing = 4
-            verticalStackSubViews.append(hStack)
-        }
-        
-        let stack = UIStackView(arrangedSubviews: verticalStackSubViews)
         stack.axis = .vertical
-        stack.spacing = 10
+        stack.spacing = 0
         return stack
     }()
+    
+    private func inputRow(rowTitle: String?, inputView: UIView, height: CGFloat = 40, borderStyle: BorderStyle) -> UIView {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemGroupedBackground
+        view.setDimensions(height: height)
+        addBorder(to: view, withBorderStyle: borderStyle)
+        
+        let titleLabel = UILabel()
+        view.addSubview(titleLabel)
+        titleLabel.setDimensions(width: 88)
+        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        titleLabel.text = rowTitle
+        titleLabel.anchor(left: view.leftAnchor, paddingLeft: 20)
+        titleLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        
+        view.addSubview(inputView)
+        inputView.anchor(left: titleLabel.rightAnchor, right: view.rightAnchor, paddingLeft: 4, paddingRight: 20)
+        inputView.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor).isActive = true
+        
+        return view
+    }
+    
+    private func inputRowWithTextView(rowTitle: String?, inputTextView: UITextView, placeholderLabel: UILabel, height: CGFloat = 40, borderStyle: BorderStyle) -> UIView {
+        let view = inputRow(rowTitle: rowTitle, inputView: placeholderLabel, height: height, borderStyle: borderStyle)
+        
+        view.addSubview(inputTextView)
+        inputTextView.textContainer.lineFragmentPadding = 0
+        inputTextView.textContainerInset.top = 0
+        inputTextView.textContainerInset.left = 0
+        inputTextView.backgroundColor = .clear
+        inputTextView.centerY(inView: view)
+        inputTextView.anchor(top: placeholderLabel.topAnchor, left: placeholderLabel.leftAnchor, right: placeholderLabel.rightAnchor, paddingTop: -1)
+        
+        return view
+    }
+    
+    private func inputRowSpacer(height: CGFloat = 24, borderStyle: BorderStyle = .none) -> UIView {
+        let view = UIView()
+        view.setDimensions(height: height)
+        addBorder(to: view, withBorderStyle: borderStyle)
+        return view
+    }
+    
+    private func addBorder(to view: UIView, withBorderStyle borderStyle: BorderStyle) {
+        switch borderStyle {
+        case .top:
+            let horizontalLine = separatorView()
+            view.addSubview(horizontalLine)
+            horizontalLine.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
+        case .bottom:
+            let horizontalLine = separatorView()
+            view.addSubview(horizontalLine)
+            horizontalLine.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        case .topAndBottom:
+            let horizontalLineTop = separatorView()
+            view.addSubview(horizontalLineTop)
+            horizontalLineTop.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
+            let horizontalLineBottom = separatorView()
+            view.addSubview(horizontalLineBottom)
+            horizontalLineBottom.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        case .none:
+            break
+        }
+    }
     
     private var categoryPicker = UIPickerView()
     private var startDatePicker = UIDatePicker()
@@ -252,7 +336,7 @@ class AddEventViewController: UIViewController {
             endDate = dateFormatter.date(from: endDateString)
         }
         
-        let notes = notesTextField.text
+        let notes = notesTextView.text
         
         let event = tripsController.addEvent(name: name,
                                              eventDescription: nil,
@@ -320,5 +404,23 @@ extension AddEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         let textColor = EventCategory.displayNames[row] == nil ? UIColor.placeholderText : UIColor.label
         let attributes = [NSAttributedString.Key.foregroundColor : textColor]
         return NSAttributedString(string: categoryName, attributes: attributes)
+    }
+}
+
+// MARK: - UITextField Delegate
+
+extension AddEventViewController: UITextFieldDelegate {
+    /// Only allow the user to manually edit text in textFields that do not have a custom input view set
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.inputView == nil
+    }
+}
+
+// MARK: - UITextView Delegate
+
+extension AddEventViewController: UITextViewDelegate {
+    /// Show "placeholder" label when the text view is empty
+    func textViewDidChange(_ textView: UITextView) {
+        notesPlaceholderLabel.isHidden = !textView.text.isEmpty
     }
 }
