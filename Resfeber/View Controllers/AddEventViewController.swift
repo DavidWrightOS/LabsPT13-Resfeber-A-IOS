@@ -91,99 +91,53 @@ class AddEventViewController: UIViewController {
         return tv
     }()
     
-    private var notesPlaceholderLabel: UILabel = {
+    lazy private var notesPlaceholderLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = notesTextView.font
         label.textColor = UIColor.placeholderText
         label.text = "Add notes"
         return label
     }()
-    
-    private enum BorderStyle {
-        case none, top, bottom, topAndBottom
-    }
-    
-    private lazy var eventInfoStackView: UIStackView = {
+        
+    private lazy var eventInputStackView: UIStackView = {
+        let inputRowTitleLabelWidth: CGFloat = 88
+        
         let stack = UIStackView(arrangedSubviews: [
-            inputRow(rowTitle: "Event Name", inputView: nameTextField, borderStyle: .top),
-            inputRow(rowTitle: "Location", inputView: locationTextField, borderStyle: .top),
-            inputRowSpacer(borderStyle: .top),
-            inputRow(rowTitle: "Category", inputView: categoryTextField, borderStyle: .top),
-            inputRowSpacer(borderStyle: .top),
-            inputRow(rowTitle: "Start Date", inputView: startDateTextField, borderStyle: .top),
-            inputRow(rowTitle: "End Date", inputView: endDateTextField, borderStyle: .top),
-            inputRowSpacer(borderStyle: .top),
-            inputRowWithTextView(rowTitle: "Notes", inputTextView: notesTextView, placeholderLabel: notesPlaceholderLabel, height: 150, borderStyle: .topAndBottom)
+            RFInputRow(rowTitle: "Event Name",
+                       titleLabelWidth: inputRowTitleLabelWidth,
+                       inputView: nameTextField,
+                       borderStyle: .top),
+            RFInputRow(rowTitle: "Location",
+                       titleLabelWidth: inputRowTitleLabelWidth,
+                       inputView: locationTextField,
+                       borderStyle: .top),
+            RFInputRow.spacer(borderStyle: .top),
+            RFInputRow(rowTitle: "Category",
+                       titleLabelWidth: inputRowTitleLabelWidth,
+                       inputView: categoryTextField,
+                       borderStyle: .top),
+            RFInputRow.spacer(borderStyle: .top),
+            RFInputRow(rowTitle: "Start Date",
+                       titleLabelWidth: inputRowTitleLabelWidth,
+                       inputView: startDateTextField,
+                       borderStyle: .top),
+            RFInputRow(rowTitle: "End Date",
+                       titleLabelWidth: inputRowTitleLabelWidth,
+                       inputView: endDateTextField,
+                       borderStyle: .top),
+            RFInputRow.spacer(borderStyle: .top),
+            RFInputRow(rowTitle: "Notes",
+                       titleLabelWidth: inputRowTitleLabelWidth,
+                       inputTextView: notesTextView,
+                       placeholderLabel: notesPlaceholderLabel,
+                       height: 150,
+                       borderStyle: .topAndBottom)
         ])
         
         stack.axis = .vertical
         stack.spacing = 0
         return stack
     }()
-    
-    private func inputRow(rowTitle: String?, inputView: UIView, height: CGFloat = 40, borderStyle: BorderStyle) -> UIView {
-        let view = UIView()
-        view.backgroundColor = UIColor.systemGroupedBackground
-        view.setDimensions(height: height)
-        addBorder(to: view, withBorderStyle: borderStyle)
-        
-        let titleLabel = UILabel()
-        view.addSubview(titleLabel)
-        titleLabel.setDimensions(width: 88)
-        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        titleLabel.text = rowTitle
-        titleLabel.anchor(left: view.leftAnchor, paddingLeft: 20)
-        titleLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        
-        view.addSubview(inputView)
-        inputView.anchor(left: titleLabel.rightAnchor, right: view.rightAnchor, paddingLeft: 4, paddingRight: 20)
-        inputView.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor).isActive = true
-        
-        return view
-    }
-    
-    private func inputRowWithTextView(rowTitle: String?, inputTextView: UITextView, placeholderLabel: UILabel, height: CGFloat = 40, borderStyle: BorderStyle) -> UIView {
-        let view = inputRow(rowTitle: rowTitle, inputView: placeholderLabel, height: height, borderStyle: borderStyle)
-        
-        view.addSubview(inputTextView)
-        inputTextView.textContainer.lineFragmentPadding = 0
-        inputTextView.textContainerInset.top = 0
-        inputTextView.textContainerInset.left = 0
-        inputTextView.backgroundColor = .clear
-        inputTextView.centerY(inView: view)
-        inputTextView.anchor(top: placeholderLabel.topAnchor, left: placeholderLabel.leftAnchor, right: placeholderLabel.rightAnchor, paddingTop: -1)
-        
-        return view
-    }
-    
-    private func inputRowSpacer(height: CGFloat = 24, borderStyle: BorderStyle = .none) -> UIView {
-        let view = UIView()
-        view.setDimensions(height: height)
-        addBorder(to: view, withBorderStyle: borderStyle)
-        return view
-    }
-    
-    private func addBorder(to view: UIView, withBorderStyle borderStyle: BorderStyle) {
-        switch borderStyle {
-        case .top:
-            let horizontalLine = separatorView()
-            view.addSubview(horizontalLine)
-            horizontalLine.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
-        case .bottom:
-            let horizontalLine = separatorView()
-            view.addSubview(horizontalLine)
-            horizontalLine.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-        case .topAndBottom:
-            let horizontalLineTop = separatorView()
-            view.addSubview(horizontalLineTop)
-            horizontalLineTop.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
-            let horizontalLineBottom = separatorView()
-            view.addSubview(horizontalLineBottom)
-            horizontalLineBottom.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-        case .none:
-            break
-        }
-    }
     
     private var categoryPicker = UIPickerView()
     private var startDatePicker = UIDatePicker()
@@ -239,8 +193,8 @@ class AddEventViewController: UIViewController {
                        height: view.frame.width * 0.8)
         
         // Configure Event Info StackView
-        view.addSubview(eventInfoStackView)
-        eventInfoStackView.anchor(top: mapView.bottomAnchor,
+        view.addSubview(eventInputStackView)
+        eventInputStackView.anchor(top: mapView.bottomAnchor,
                                  left: view.leftAnchor,
                                  right: view.rightAnchor,
                                  paddingTop: 16)
