@@ -18,6 +18,7 @@ class RFColor: UIColor {
     static var dark: UIColor { return UIColor(named: "ResfeberDark")! }
     static var light: UIColor { return UIColor(named: "ResfeberLight")! }
     static var background: UIColor { return UIColor(named: "ResfeberBackground")! }
+    static var groupedBackground: UIColor { return UIColor(named: "ResfeberGroupedBackground")! }
 }
 
 extension UIColor {

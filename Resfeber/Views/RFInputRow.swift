@@ -48,6 +48,8 @@ class RFInputRow: UIView {
     // MARK: - Helpers
     
     private func setupRow(rowTitle: String?, inputView: UIView, borderStyle: UIView.BorderStyle) {
+        backgroundColor = RFColor.groupedBackground
+        
         setDimensions(height: rowHeight)
         addBorder(borderStyle)
         
