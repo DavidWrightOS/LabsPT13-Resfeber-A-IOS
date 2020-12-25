@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 
 extension Trip {
@@ -71,5 +72,19 @@ extension Trip {
             }
             return false
         }
+    }
+    
+    var eventsCoordinateRegion: MKCoordinateRegion? {
+        guard !eventsArray.isEmpty else { return nil }
+        
+        var mapRect = MKMapRect.null
+        
+        eventsArray.forEach { event in
+            let annotationPoint = MKMapPoint(event.coordinate)
+            let pointRect = MKMapRect(x: annotationPoint.x, y: annotationPoint.y, width: 0.01, height: 0.01)
+            mapRect = mapRect.union(pointRect)
+        }
+        
+        return MKCoordinateRegion(mapRect)
     }
 }

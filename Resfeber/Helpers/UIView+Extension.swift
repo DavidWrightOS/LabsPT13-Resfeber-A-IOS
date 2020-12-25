@@ -18,8 +18,8 @@ extension UIView {
                 paddingBottom: CGFloat = 0,
                 paddingRight: CGFloat = 0,
                 width: CGFloat? = nil,
-                height: CGFloat? = nil)
-    {
+                height: CGFloat? = nil) {
+        
         translatesAutoresizingMaskIntoConstraints = false
 
         if let top = top {
@@ -66,6 +66,41 @@ extension UIView {
 
         if let width = width {
             widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+    }
+}
+
+extension UIView {
+    
+    enum BorderStyle { case none, top, bottom, topAndBottom }
+    
+    func addBorder(_ borderStyle: BorderStyle) {
+        
+        func horizontalLine() -> UIView {
+            let line = UIView()
+            line.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
+            line.setDimensions(height: 1, width: frame.width)
+            return line
+        }
+                
+        switch borderStyle {
+        case .top:
+            let hLine = horizontalLine()
+            addSubview(hLine)
+            hLine.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor)
+        case .bottom:
+            let hLine = horizontalLine()
+            addSubview(hLine)
+            hLine.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+        case .topAndBottom:
+            let hLineTop = horizontalLine()
+            addSubview(hLineTop)
+            hLineTop.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor)
+            let hLineBottom = horizontalLine()
+            addSubview(hLineBottom)
+            hLineBottom.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+        case .none:
+            break
         }
     }
 }

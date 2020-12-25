@@ -14,6 +14,8 @@ public enum EventCategory: Int, CaseIterable {
 
 extension EventCategory {
     
+    static var displayNames = allCases.map { $0.displayName }
+    
     var displayName: String? {
         switch self {
         case .notSpecified: return nil

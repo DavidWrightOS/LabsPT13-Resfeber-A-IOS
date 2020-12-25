@@ -55,8 +55,11 @@ class TripDetailViewController: UIViewController {
     // MARK: - Helpers
     
     private func configureViews() {
+        // Configure Navigation Bar
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
+        navigationController?.navigationBar.tintColor = RFColor.red
         
         // Configure Search Bar
         searchBar.delegate = self
@@ -170,6 +173,14 @@ class TripDetailViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {
             self.searchTableView.frame.origin.y = self.view.frame.height
         }, completion: completion)
+    }
+    
+    @objc private func addEventButtonTapped() {
+        let addEventVC = AddEventViewController(trip: trip, tripsController: tripsController)
+        addEventVC.delegate = self
+        let nav = UINavigationController(rootViewController: addEventVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
     }
 }
 
@@ -354,5 +365,11 @@ extension TripDetailViewController: MKMapViewDelegate {
         for indexPath in selectedIndexPaths {
             collectionView.deselectItem(at: indexPath, animated: false)
         }
+    }
+}
+
+extension TripDetailViewController: AddEventViewControllerDelegate {
+    func didAddEvent(_ event: Event) {
+        reloadTrip()
     }
 }
