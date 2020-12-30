@@ -47,6 +47,7 @@
 		63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */; };
 		63D22D172594E27D001F594A /* RFInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D162594E27D001F594A /* RFInputRow.swift */; };
 		63D22D262595A8E1001F594A /* AddEventSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D252595A8E1001F594A /* AddEventSection.swift */; };
+		63D22D2A25968FBD001F594A /* AddEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D2925968FBD001F594A /* AddEventCell.swift */; };
 		63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68DBA256497E400BFF20B /* ProfileViewController.swift */; };
 		63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E222564A07200BFF20B /* SideMenuCell.swift */; };
 		63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68E252564A0A500BFF20B /* ContainerController.swift */; };
@@ -116,6 +117,7 @@
 		63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		63D22D162594E27D001F594A /* RFInputRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFInputRow.swift; sourceTree = "<group>"; };
 		63D22D252595A8E1001F594A /* AddEventSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventSection.swift; sourceTree = "<group>"; };
+		63D22D2925968FBD001F594A /* AddEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventCell.swift; sourceTree = "<group>"; };
 		63D68DBA256497E400BFF20B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		63D68E222564A07200BFF20B /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		63D68E252564A0A500BFF20B /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
@@ -299,6 +301,14 @@
 			path = Profiles;
 			sourceTree = "<group>";
 		};
+		631FB916259C84B100B7F93B /* Event Input Form */ = {
+			isa = PBXGroup;
+			children = (
+				63D22D2925968FBD001F594A /* AddEventCell.swift */,
+			);
+			path = "Event Input Form";
+			sourceTree = "<group>";
+		};
 		63632A9D2559242D00F70F9C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +319,7 @@
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
 				63AE51E8258B201700C23D4F /* EventAnnotationDetailView.swift */,
 				63D22D162594E27D001F594A /* RFInputRow.swift */,
+				631FB916259C84B100B7F93B /* Event Input Form */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -459,6 +470,7 @@
 				63EAD0802587823F0000FAE2 /* CLLocation+Extension.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
+				63D22D2A25968FBD001F594A /* AddEventCell.swift in Sources */,
 				425490CD257A754800463284 /* CoreDataStack.swift in Sources */,
 				63EAD08E2587A4930000FAE2 /* MKMapView+Extension.swift in Sources */,
 				425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */,
