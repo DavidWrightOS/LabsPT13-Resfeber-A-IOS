@@ -7,21 +7,13 @@
 //
 
 protocol InputRow {
-    var inputCellType: InputCellType { get }
     var attributeTitle: String? { get }
     var placeholderText: String? { get }
 }
 
-enum InputCellType {
-    case textField
-    case textView
-    case subtitle
-    case detail
-}
+// MARK: - Sections
 
-// MARK: - Add Event Sections
-
-enum AddEventSection: CaseIterable {
+enum AddEventSection: Int, CaseIterable {
     case nameAndLocation
     case category
     case dates
@@ -29,10 +21,10 @@ enum AddEventSection: CaseIterable {
     
     var rows: [InputRow] {
         switch self {
-        case .nameAndLocation: return NameAndLocationRow.allCases
-        case .category: return CategoryRow.allCases
-        case .dates: return DatesRow.allCases
-        case .notes: return NotesRow.allCases
+        case .nameAndLocation: return NameAndLocationInputRow.allCases
+        case .category: return CategoryInputRow.allCases
+        case .dates: return DateInputRow.allCases
+        case .notes: return NotesInputRow.allCases
         }
     }
     
@@ -40,55 +32,49 @@ enum AddEventSection: CaseIterable {
     var footerText: String? { return nil }
 }
 
-// TableView Rows
-// Each enum defined below is its own section, with the cases making up the rows in that section
+// MARK: - Rows By Section
 
-// MARK: - Name and Location Rows
-
-enum NameAndLocationRow: CaseIterable, InputRow {
+// Section 0
+enum NameAndLocationInputRow: Int, CaseIterable {
     case name
     case location
-    
-    var inputCellType: InputCellType {
-        switch self {
-        case .name: return .textField
-        case .location: return .subtitle
-        }
-    }
-    
-    var attributeTitle: String? {
-        switch self {
-        case .name: return "Event Name"
-        case .location: return "Location"
-        }
-    }
+}
+
+// Section 1
+enum CategoryInputRow: Int, CaseIterable {
+    case category
+}
+
+// Section 2
+enum DateInputRow: Int, CaseIterable {
+    case startDate
+    case endDate
+}
+
+// Section 3
+enum NotesInputRow: Int, CaseIterable {
+    case notes
+}
+
+// MARK: - InputRow Conformance
+
+extension NameAndLocationInputRow: InputRow {
+    var attributeTitle: String? { return nil }
     
     var placeholderText: String? {
         switch self {
-        case .name: return "Add an event name"
-        case .location: return "Add a location"
+        case .name: return "Event name"
+        case .location: return "Location (required)"
         }
     }
 }
 
-// MARK: - Category Rows
-
-enum CategoryRow: CaseIterable, InputRow {
-    case category
-    
-    var inputCellType: InputCellType { return .detail }
+extension CategoryInputRow: InputRow {
     var attributeTitle: String? { return "Category" }
-    var placeholderText: String? { return "Select category" }
+    var placeholderText: String? { return "None" }
 }
 
-// MARK: - Dates Rows
-
-enum DatesRow: CaseIterable, InputRow {
-    case startDate
-    case endDate
-    
-    var inputCellType: InputCellType { return .detail }
-    
+extension DateInputRow: InputRow {
     var attributeTitle: String? {
         switch self {
         case .startDate: return "Start Date"
@@ -98,18 +84,13 @@ enum DatesRow: CaseIterable, InputRow {
     
     var placeholderText: String? {
         switch self {
-        case .startDate: return "Add a start date"
-        case .endDate: return "Add an end date"
+        case .startDate: return "None"
+        case .endDate: return "None"
         }
     }
 }
 
-// MARK: - Notes Rows
-
-enum NotesRow: CaseIterable, InputRow {
-    case notes
-    
-    var inputCellType: InputCellType { return .textView }
-    var attributeTitle: String? { return "Notes" }
-    var placeholderText: String? { return "Add notes" }
+extension NotesInputRow: InputRow {
+    var attributeTitle: String? { return nil }
+    var placeholderText: String? { return "Notes" }
 }
