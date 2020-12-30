@@ -34,6 +34,11 @@
 		46BEB4F124C98F0D00FE0CD1 /* Profiles.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46BEB4F024C98F0D00FE0CD1 /* Profiles.storyboard */; };
 		46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */; };
 		46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C2BC9124D432F90077E49D /* ProfileTabBarViewController.swift */; };
+		631FB91B259C86FB00B7F93B /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FB91A259C86FB00B7F93B /* TextInputCell.swift */; };
+		631FB921259C87A100B7F93B /* TextViewInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FB920259C87A100B7F93B /* TextViewInputCell.swift */; };
+		631FB925259C880500B7F93B /* LocationInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FB924259C880500B7F93B /* LocationInputCell.swift */; };
+		631FB929259C887D00B7F93B /* CategoryInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FB928259C887D00B7F93B /* CategoryInputCell.swift */; };
+		631FB92D259C888900B7F93B /* DateInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FB92C259C888900B7F93B /* DateInputCell.swift */; };
 		634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */; };
 		63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* TripsViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
@@ -104,6 +109,11 @@
 		46BEB4F024C98F0D00FE0CD1 /* Profiles.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profiles.storyboard; sourceTree = "<group>"; };
 		46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SimpleAlert.swift"; sourceTree = "<group>"; };
 		46C2BC9124D432F90077E49D /* ProfileTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabBarViewController.swift; sourceTree = "<group>"; };
+		631FB91A259C86FB00B7F93B /* TextInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
+		631FB920259C87A100B7F93B /* TextViewInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewInputCell.swift; sourceTree = "<group>"; };
+		631FB924259C880500B7F93B /* LocationInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputCell.swift; sourceTree = "<group>"; };
+		631FB928259C887D00B7F93B /* CategoryInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInputCell.swift; sourceTree = "<group>"; };
+		631FB92C259C888900B7F93B /* DateInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInputCell.swift; sourceTree = "<group>"; };
 		634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeader.swift; sourceTree = "<group>"; };
 		63632A8C2558DF9C00F70F9C /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -305,6 +315,11 @@
 			isa = PBXGroup;
 			children = (
 				63D22D2925968FBD001F594A /* AddEventCell.swift */,
+				631FB91A259C86FB00B7F93B /* TextInputCell.swift */,
+				631FB920259C87A100B7F93B /* TextViewInputCell.swift */,
+				631FB924259C880500B7F93B /* LocationInputCell.swift */,
+				631FB928259C887D00B7F93B /* CategoryInputCell.swift */,
+				631FB92C259C888900B7F93B /* DateInputCell.swift */,
 			);
 			path = "Event Input Form";
 			sourceTree = "<group>";
@@ -442,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				631FB929259C887D00B7F93B /* CategoryInputCell.swift in Sources */,
 				46BEB4EE24C98ECC00FE0CD1 /* ProfileController.swift in Sources */,
 				63D22D0A2592705D001F594A /* AddEventViewController.swift in Sources */,
 				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
@@ -452,6 +468,7 @@
 				63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */,
 				63EAD0922587A5740000FAE2 /* SearchResultCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* TripCell.swift in Sources */,
+				631FB92D259C888900B7F93B /* DateInputCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63D22D262595A8E1001F594A /* AddEventSection.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
@@ -462,12 +479,15 @@
 				63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */,
 				425490D4257A763B00463284 /* TripsController.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
+				631FB921259C87A100B7F93B /* TextViewInputCell.swift in Sources */,
 				46BEB4E924C98DAF00FE0CD1 /* ProfileListViewController.swift in Sources */,
 				63EAD02C257A01340000FAE2 /* RFColor.swift in Sources */,
 				63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */,
+				631FB91B259C86FB00B7F93B /* TextInputCell.swift in Sources */,
 				463AD24524CF2CDB00447BB8 /* AddProfileViewController.swift in Sources */,
 				42549089257A6C4400463284 /* Trip.xcdatamodeld in Sources */,
 				63EAD0802587823F0000FAE2 /* CLLocation+Extension.swift in Sources */,
+				631FB925259C880500B7F93B /* LocationInputCell.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
 				63D22D2A25968FBD001F594A /* AddEventCell.swift in Sources */,
