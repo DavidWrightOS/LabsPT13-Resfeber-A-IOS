@@ -13,8 +13,9 @@ extension CLPlacemark {
         guard let subThoroughfare = subThoroughfare,
               let thoroughfare = thoroughfare,
               let locality = locality,
-              let adminArea = administrativeArea else { return nil }
+              let adminArea = administrativeArea,
+              let postalCode = postalCode else { return nil }
         
-        return "\(subThoroughfare) \(thoroughfare), \(locality), \(adminArea) "
+        return "\(subThoroughfare) \(thoroughfare), \(locality), \(adminArea) \(postalCode)"
     }
 }
