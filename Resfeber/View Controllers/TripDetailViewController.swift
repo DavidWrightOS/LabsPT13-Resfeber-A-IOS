@@ -73,6 +73,7 @@ class TripDetailViewController: UIViewController {
         // Configure MapView
         mapView.delegate = self
         mapView.showsUserLocation = true
+        mapView.layer.cornerRadius = 10
         mapView.layer.borderWidth = 1
         mapView.layer.borderColor = RFColor.red.cgColor
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
