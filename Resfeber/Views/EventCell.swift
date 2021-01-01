@@ -145,7 +145,7 @@ private extension EventCell {
         guard let event = event else { return nil }
         
         if let startDate = event.startDate {
-            if let endDate = event.endDate {
+            if let endDate = event.endDate, startDate != endDate {
                 return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
             } else {
                 return dateFormatter.string(from: startDate)
