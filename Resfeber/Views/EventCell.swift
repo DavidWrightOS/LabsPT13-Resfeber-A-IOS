@@ -11,7 +11,9 @@ import CoreLocation
 
 class EventCell: UICollectionViewCell {
     static let reuseIdentifier = "event-cell-reuse-identifier"
-
+    
+    // MARK: - Properties
+    
     var event: Event? {
         didSet {
             updateViews()
@@ -23,8 +25,9 @@ class EventCell: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .systemGray2
         iv.image = UIImage(named: "Backpack")
-        iv.setDimensions(height: 50, width: 50)
-        iv.layer.cornerRadius = 10
+        let diameter: CGFloat = 32
+        iv.setDimensions(height: diameter, width: diameter)
+        iv.layer.cornerRadius = diameter / 2
         return iv
     }()
 
@@ -36,6 +39,12 @@ class EventCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        return label
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()
     
@@ -52,6 +61,14 @@ class EventCell: UICollectionViewCell {
         label.textColor = .secondaryLabel
         return label
     }()
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,10 +97,14 @@ private extension EventCell {
         layer.cornerRadius = 10
         clipsToBounds = true
         
+        // Configure Date Label
+        addSubview(dateLabel)
+        dateLabel.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
+        
         // Configure Image View
         addSubview(imageView)
-        imageView.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
-
+        imageView.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 8, paddingRight: 8)
+        
         // Configure Info View
         infoView.addSubview(nameLabel)
         nameLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
@@ -113,9 +134,28 @@ private extension EventCell {
             nameLabel.text = event.name
             categoryLabel.text = event.category.displayName
             addressLabel.text = event.address
+            dateLabel.text = dateString
         } else {
             imageView.image = UIImage(named: "Backpack")
             imageView.contentMode = .scaleAspectFill
         }
+    }
+    
+    private var dateString: String? {
+        guard let event = event else { return nil }
+        
+        if let startDate = event.startDate {
+            if let endDate = event.endDate {
+                return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
+            } else {
+                return dateFormatter.string(from: startDate)
+            }
+        }
+        
+        if let endDate = event.endDate {
+            return dateFormatter.string(from: endDate)
+        }
+        
+        return nil
     }
 }
