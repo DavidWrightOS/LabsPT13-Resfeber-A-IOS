@@ -97,7 +97,6 @@ class EventCell: UICollectionViewCell {
 
 private extension EventCell {
     func configureCell() {
-        
         let selectedBGView = UIView(frame: bounds)
         selectedBGView.backgroundColor = .systemGray5
         selectedBGView.layer.cornerRadius = 10
@@ -138,7 +137,7 @@ private extension EventCell {
         
         infoView.addSubview(categoryIndicatorView)
         categoryIndicatorView.centerY(inView: categoryLabel)
-        categoryIndicatorView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor, multiplier: 0.5).isActive = true
+        categoryIndicatorView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor, multiplier: 0.65).isActive = true
         categoryIndicatorView.anchor(left: infoView.leftAnchor, right: categoryLabel.leftAnchor, paddingRight: 4)
         categoryIndicatorView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         categoryLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
