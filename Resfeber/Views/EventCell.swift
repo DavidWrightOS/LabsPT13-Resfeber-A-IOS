@@ -34,6 +34,15 @@ class EventCell: UICollectionViewCell {
         return view
     }()
     
+    private let categoryIndicatorView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = true
+        iv.heightAnchor.constraint(equalTo: iv.widthAnchor).isActive = true
+        iv.image = UIImage(systemName: "circle.fill")?.withRenderingMode(.alwaysOriginal)
+        return iv
+    }()
+
     private let infoView: UIView = {
         let view = UIView()
         return view
@@ -125,7 +134,14 @@ private extension EventCell {
         addressLabel.anchor(top: nameLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 1)
         
         infoView.addSubview(categoryLabel)
-        categoryLabel.anchor(top: addressLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 1)
+        categoryLabel.anchor(top: addressLabel.bottomAnchor, right: infoView.rightAnchor, paddingTop: 1)
+        
+        infoView.addSubview(categoryIndicatorView)
+        categoryIndicatorView.centerY(inView: categoryLabel)
+        categoryIndicatorView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor, multiplier: 0.5).isActive = true
+        categoryIndicatorView.anchor(left: infoView.leftAnchor, right: categoryLabel.leftAnchor, paddingRight: 4)
+        categoryIndicatorView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        categoryLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         addSubview(infoView)
         infoView.anchor(top: topAnchor,
@@ -144,6 +160,10 @@ private extension EventCell {
         guard let event = event else { return }
         imageView.image = event.category.annotationGlyph?.withTintColor(.white)
         imageBGView.backgroundColor = event.category.annotationMarkerTintColor
+        
+        let image = UIImage(systemName: "circle.fill")
+        let tintColor = event.category.annotationMarkerTintColor
+        categoryIndicatorView.image = image?.withTintColor(tintColor, renderingMode: .alwaysOriginal)
         
         nameLabel.text = event.name
         categoryLabel.text = event.category.displayName
