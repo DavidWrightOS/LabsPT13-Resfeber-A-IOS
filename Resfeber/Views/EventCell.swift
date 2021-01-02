@@ -130,10 +130,10 @@ private extension EventCell {
         nameLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
         
         infoView.addSubview(addressLabel)
-        addressLabel.anchor(top: nameLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 1)
+        addressLabel.anchor(top: nameLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 2)
         
         infoView.addSubview(categoryLabel)
-        categoryLabel.anchor(top: addressLabel.bottomAnchor, right: infoView.rightAnchor, paddingTop: 1)
+        categoryLabel.anchor(top: addressLabel.bottomAnchor, right: infoView.rightAnchor, paddingTop: 2)
         
         infoView.addSubview(categoryIndicatorView)
         categoryIndicatorView.centerY(inView: categoryLabel)
