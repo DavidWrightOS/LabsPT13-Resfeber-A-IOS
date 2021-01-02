@@ -158,7 +158,7 @@ private extension EventCell {
     
     func updateViews() {
         guard let event = event else { return }
-        imageView.image = event.category.annotationGlyph?.withTintColor(.white)
+        imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
         imageBGView.backgroundColor = event.category.annotationMarkerTintColor
         
         let image = UIImage(systemName: "circle.fill")
