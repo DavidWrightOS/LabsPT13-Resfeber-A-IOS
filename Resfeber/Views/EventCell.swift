@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 
 class EventCell: UICollectionViewCell {
+    
     static let reuseIdentifier = "event-cell-reuse-identifier"
     
     // MARK: - Properties
@@ -22,15 +23,17 @@ class EventCell: UICollectionViewCell {
 
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = .systemGray2
-        iv.image = UIImage(named: "Backpack")
-        let diameter: CGFloat = 32
-        iv.setDimensions(height: diameter, width: diameter)
-        iv.layer.cornerRadius = diameter / 2
+        iv.contentMode = .scaleAspectFit
         return iv
     }()
-
+    
+    private let imageBGView: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 32, width: 32)
+        view.layer.cornerRadius = 8
+        return view
+    }()
+    
     private let infoView: UIView = {
         let view = UIView()
         return view
@@ -101,9 +104,18 @@ private extension EventCell {
         addSubview(dateLabel)
         dateLabel.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
         
-        // Configure Image View
-        addSubview(imageView)
-        imageView.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 8, paddingRight: 8)
+        // Configure Category Image
+        addSubview(imageBGView)
+        imageBGView.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 8, paddingRight: 8)
+        imageBGView.addSubview(imageView)
+        imageView.anchor(top: imageBGView.topAnchor,
+                         left: imageBGView.leftAnchor,
+                         bottom: imageBGView.bottomAnchor,
+                         right: imageBGView.rightAnchor,
+                         paddingTop: 4,
+                         paddingLeft: 4,
+                         paddingBottom: 4,
+                         paddingRight: 4)
         
         // Configure Info View
         infoView.addSubview(nameLabel)
@@ -127,18 +139,16 @@ private extension EventCell {
         
         layoutSubviews()
     }
-
+    
     func updateViews() {
-        if let event = event {
-            imageView.contentMode = .scaleAspectFill
-            nameLabel.text = event.name
-            categoryLabel.text = event.category.displayName
-            addressLabel.text = event.address
-            dateLabel.text = dateString
-        } else {
-            imageView.image = UIImage(named: "Backpack")
-            imageView.contentMode = .scaleAspectFill
-        }
+        guard let event = event else { return }
+        imageView.image = event.category.annotationGlyph?.withTintColor(.white)
+        imageBGView.backgroundColor = event.category.annotationMarkerTintColor
+        
+        nameLabel.text = event.name
+        categoryLabel.text = event.category.displayName
+        addressLabel.text = event.address
+        dateLabel.text = dateString
     }
     
     private var dateString: String? {
