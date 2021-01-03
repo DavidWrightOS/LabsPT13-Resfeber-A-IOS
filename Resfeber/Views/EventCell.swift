@@ -126,11 +126,20 @@ private extension EventCell {
                          paddingRight: 4)
         
         // Configure Info View
-        infoView.addSubview(nameLabel)
-        nameLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
+        addSubview(nameLabel)
+        nameLabel.anchor(top: topAnchor,
+                         left: leftAnchor,
+                         right: dateLabel.leftAnchor,
+                         paddingTop: 8,
+                         paddingLeft: 8,
+                         paddingRight: 4)
+        nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        nameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        dateLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         infoView.addSubview(addressLabel)
-        addressLabel.anchor(top: nameLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 2)
+        addressLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
         
         infoView.addSubview(categoryLabel)
         categoryLabel.anchor(top: addressLabel.bottomAnchor, right: infoView.rightAnchor, paddingTop: 2)
@@ -143,11 +152,11 @@ private extension EventCell {
         categoryLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         addSubview(infoView)
-        infoView.anchor(top: topAnchor,
+        infoView.anchor(top: nameLabel.bottomAnchor,
                         left: leftAnchor,
                         bottom: bottomAnchor,
                         right: imageView.leftAnchor,
-                        paddingTop: 8,
+                        paddingTop: 2,
                         paddingLeft: 8,
                         paddingBottom: 8,
                         paddingRight: 4)
