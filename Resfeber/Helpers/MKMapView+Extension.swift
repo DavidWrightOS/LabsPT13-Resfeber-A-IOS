@@ -9,10 +9,17 @@
 import MapKit
 
 extension MKMapView {
-    func zoomToFit(annotations: [MKAnnotation]? = nil, edgePadding: UIEdgeInsets? = nil) {
+    func zoomToFit(annotations: [MKAnnotation]? = nil, edgePadding: UIEdgeInsets? = nil, animated: Bool = true) {
+        let annotations = annotations ?? self.annotations
         let zoomRect = annotationsMapRect(annotations)
-        let edgePadding = edgePadding ?? UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
-        setVisibleMapRect(zoomRect, edgePadding: edgePadding, animated: true)
+        let edgePadding = edgePadding ?? UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        if annotations.count > 1 {
+            setVisibleMapRect(zoomRect, edgePadding: edgePadding, animated: animated)
+        } else if let annotation = annotations.first {
+            let location = CLLocation(latitude: annotation.coordinate.latitude,
+                                      longitude: annotation.coordinate.longitude)
+            centerToLocation(location, regionRadius: 300, animated: animated)
+        }
     }
     
     func annotationsMapRect(_ annotations: [MKAnnotation]? = nil) -> MKMapRect {
@@ -26,5 +33,14 @@ extension MKMapView {
         }
         
         return regionRect
+    }
+}
+
+private extension MKMapView {
+    func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000, animated: Bool = true) {
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+                                                  latitudinalMeters: regionRadius,
+                                                  longitudinalMeters: regionRadius)
+        setRegion(coordinateRegion, animated: animated)
     }
 }
