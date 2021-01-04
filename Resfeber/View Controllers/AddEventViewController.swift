@@ -18,6 +18,8 @@ class AddEventViewController: UIViewController {
     
     // MARK: - Properties
     
+    var event: Event?
+    
     weak var delegate: AddEventViewControllerDelegate?
     
     private let tripsController: TripsController

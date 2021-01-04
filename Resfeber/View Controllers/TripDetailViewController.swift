@@ -265,6 +265,12 @@ extension TripDetailViewController: UICollectionViewDelegate {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
             
+            // Setup Edit Event menu item
+            let editEvent = UIAction(title: "Edit Event", image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis")) { [weak self] action in
+                guard let self = self else { return }
+                self.showEventDetailViewController(with: event)
+            }
+            
             // Setup Delete Event menu item
             let deleteEvent = UIAction(title: "Delete Event", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
                 guard let self = self else { return }
@@ -272,7 +278,7 @@ extension TripDetailViewController: UICollectionViewDelegate {
                 self.reloadTrip()
             }
             
-            return UIMenu(title: "", children: [deleteEvent])
+            return UIMenu(title: "", children: [editEvent, deleteEvent])
         }
     }
     
