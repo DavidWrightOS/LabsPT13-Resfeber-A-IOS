@@ -177,8 +177,13 @@ class TripDetailViewController: UIViewController {
     }
     
     @objc private func addEventButtonTapped() {
+        showEventDetailViewController()
+    }
+    
+    private func showEventDetailViewController(with event: Event? = nil) {
         let addEventVC = AddEventViewController(trip: trip, tripsController: tripsController)
         addEventVC.delegate = self
+        addEventVC.event = event
         let nav = UINavigationController(rootViewController: addEventVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
