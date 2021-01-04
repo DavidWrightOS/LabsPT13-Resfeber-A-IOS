@@ -93,6 +93,11 @@ class EventDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    convenience init(trip: Trip, tripsController: TripsController, placemark: MKPlacemark) {
+        self.init(trip: trip, tripsController: tripsController)
+        self.placemark = placemark
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
