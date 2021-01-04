@@ -10,12 +10,28 @@ import CoreLocation
 
 extension CLPlacemark {
     var address: String? {
-        guard let subThoroughfare = subThoroughfare,
-              let thoroughfare = thoroughfare,
-              let locality = locality,
-              let adminArea = administrativeArea,
-              let postalCode = postalCode else { return nil }
+        var addressString = ""
         
-        return "\(subThoroughfare) \(thoroughfare), \(locality), \(adminArea) \(postalCode)"
+        if let subThoroughfare = subThoroughfare {
+            addressString += subThoroughfare
+        }
+        
+        if let thoroughfare = thoroughfare {
+            addressString += addressString.isEmpty ? thoroughfare : " " + thoroughfare
+        }
+        
+        if let locality = locality {
+            addressString += addressString.isEmpty ? locality : ", " + locality
+        }
+        
+        if let administrativeArea = administrativeArea {
+            addressString += addressString.isEmpty ? administrativeArea : ", " + administrativeArea
+            
+            if let postalCode = postalCode {
+                addressString += " " + postalCode
+            }
+        }
+        
+        return addressString.isEmpty ? nil : addressString
     }
 }
