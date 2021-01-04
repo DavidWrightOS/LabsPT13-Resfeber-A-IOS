@@ -79,7 +79,11 @@ class EventDetailViewController: UIViewController {
     // Trip attributes
     
     private var eventName: String?
-    private var placemark: MKPlacemark?
+    private var placemark: MKPlacemark? {
+        didSet {
+            reloadMapAnnotation()
+        }
+    }
     private var category: EventCategory?
     private var notes: String?
     private var startDate: Date?
@@ -151,6 +155,18 @@ class EventDetailViewController: UIViewController {
         if event == nil, let indexPath = getIndexPath(section: .nameAndLocation, row: NameAndLocationInputRow.name) {
             firstResponder = tableView.cellForRow(at: indexPath)
         }
+        
+        reloadMapAnnotation()
+    }
+    
+    private func reloadMapAnnotation() {
+        mapView.removeAnnotations(mapView.annotations)
+        
+        if let placemark = placemark {
+            mapView.addAnnotation(placemark)
+        }
+        
+        mapView.zoomToFit(animated: false)
     }
     
     private func configureRightBarButton() {
