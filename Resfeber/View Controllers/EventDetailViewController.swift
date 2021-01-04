@@ -146,21 +146,28 @@ class EventDetailViewController: UIViewController {
                          right: view.rightAnchor,
                          paddingTop: -24)
         
-        // Set first responder
+        // If creating a new event, set first responder
         
-        let indexPath = IndexPath(row: NameAndLocationInputRow.name.rawValue, section: AddEventSection.nameAndLocation.rawValue)
-        firstResponder = tableView.cellForRow(at: indexPath)
+        if event == nil, let indexPath = getIndexPath(section: .nameAndLocation, row: NameAndLocationInputRow.name) {
+            firstResponder = tableView.cellForRow(at: indexPath)
+        }
     }
     
     private func configureRightBarButton() {
         if event != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(updateEvent))
-            firstResponder = nil
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save",
+                                                                style: .done,
+                                                                target: self,
+                                                                action: #selector(updateEvent))
+            navigationItem.rightBarButtonItem?.isEnabled = shouldEnableSaveEventButton
+            
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newEventWasSaved))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add",
+                                                                style: .done,
+                                                                target: self,
+                                                                action: #selector(newEventWasSaved))
+            navigationItem.rightBarButtonItem?.isEnabled = shouldEnableAddEventButton
         }
-        
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     private func updateViews() {
