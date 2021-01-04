@@ -40,11 +40,11 @@ class EventDetailViewController: UIViewController {
         guard let event = event else { return false }
         
         return !(eventName == event.name &&
-           placemark?.address == event.address &&
-           category == event.category &&
-           startDate == event.startDate &&
-           endDate == event.endDate &&
-           notes == event.notes)
+                 placemark?.address == event.address &&
+                 category == event.category &&
+                 startDate == event.startDate &&
+                 endDate == event.endDate &&
+                 notes == event.notes)
     }
     
     private let dateFormatter: DateFormatter = {
@@ -79,7 +79,11 @@ class EventDetailViewController: UIViewController {
     // Trip attributes
     
     private var eventName: String?
-    private var placemark: MKPlacemark?
+    private var placemark: MKPlacemark? {
+        didSet {
+            reloadMapAnnotation()
+        }
+    }
     private var category: EventCategory?
     private var notes: String?
     private var startDate: Date?
@@ -91,6 +95,11 @@ class EventDetailViewController: UIViewController {
         self.trip = trip
         self.tripsController = tripsController
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(trip: Trip, tripsController: TripsController, placemark: MKPlacemark) {
+        self.init(trip: trip, tripsController: tripsController)
+        self.placemark = placemark
     }
     
     required init?(coder: NSCoder) {
@@ -141,21 +150,40 @@ class EventDetailViewController: UIViewController {
                          right: view.rightAnchor,
                          paddingTop: -24)
         
-        // Set first responder
+        // If creating a new event, set first responder
         
-        let indexPath = IndexPath(row: NameAndLocationInputRow.name.rawValue, section: AddEventSection.nameAndLocation.rawValue)
-        firstResponder = tableView.cellForRow(at: indexPath)
+        if event == nil, let indexPath = getIndexPath(section: .nameAndLocation, row: NameAndLocationInputRow.name) {
+            firstResponder = tableView.cellForRow(at: indexPath)
+        }
+        
+        reloadMapAnnotation()
+    }
+    
+    private func reloadMapAnnotation() {
+        mapView.removeAnnotations(mapView.annotations)
+        
+        if let placemark = placemark {
+            mapView.addAnnotation(placemark)
+        }
+        
+        mapView.zoomToFit(animated: false)
     }
     
     private func configureRightBarButton() {
         if event != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(updateEvent))
-            firstResponder = nil
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save",
+                                                                style: .done,
+                                                                target: self,
+                                                                action: #selector(updateEvent))
+            navigationItem.rightBarButtonItem?.isEnabled = shouldEnableSaveEventButton
+            
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newEventWasSaved))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add",
+                                                                style: .done,
+                                                                target: self,
+                                                                action: #selector(newEventWasSaved))
+            navigationItem.rightBarButtonItem?.isEnabled = shouldEnableAddEventButton
         }
-        
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     private func updateViews() {
