@@ -393,6 +393,23 @@ extension AddEventViewController: UITableViewDelegate {
     func inputRow(at indexPath: IndexPath) -> InputRow? {
          section(at: indexPath)?.rows[indexPath.row]
     }
+    
+    func getIndexPath(section: AddEventSection, row: InputRow) -> IndexPath? {
+        switch section {
+        case .nameAndLocation:
+            guard let inputRow = row as? NameAndLocationInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        case .category:
+            guard let inputRow = row as? CategoryInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        case .dates:
+            guard let inputRow = row as? DateInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        case .notes:
+            guard let inputRow = row as? NotesInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        }
+    }
 }
 
 extension AddEventViewController: AddEventCellDelegate {
