@@ -18,7 +18,11 @@ class AddEventViewController: UIViewController {
     
     // MARK: - Properties
     
-    var event: Event?
+    var event: Event? {
+        didSet {
+            updateViews()
+        }
+    }
     
     weak var delegate: AddEventViewControllerDelegate?
     
@@ -132,6 +136,34 @@ class AddEventViewController: UIViewController {
         firstResponder = tableView.cellForRow(at: indexPath)
     }
     
+    private func updateViews() {
+        loadLocationFromEvent()
+        
+        eventName = event?.name
+        category = event?.category
+        notes = event?.notes
+        startDate = event?.startDate
+        endDate = event?.endDate
+        
+        tableView.reloadData()
+    }
+    
+    private func loadLocationFromEvent() {
+        guard let lat = event?.latitude, let lon = event?.longitude else { return }
+        
+        let location = CLLocation(latitude: lat, longitude: lon)
+        
+        location.fetchPlacemark { [weak self] placemark in
+            guard let self = self,
+                  let placemark = placemark,
+                  let indexPath = self.getIndexPath(section: AddEventSection.nameAndLocation,
+                                                    row: NameAndLocationInputRow.location) else { return }
+            
+            self.placemark = MKPlacemark(placemark: placemark)
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     // MARK: - Selectors
 
     @objc func didUpdateStartDate() {
@@ -190,7 +222,7 @@ class AddEventViewController: UIViewController {
               let latitude = placemark.location?.coordinate.latitude,
               let longitude = placemark.location?.coordinate.longitude else { return }
         
-        let name = eventName ?? "New Event"
+        let name = eventName ?? placemark.name// ?? "New Event"
         let address = placemark.address
         
         let event = tripsController.addEvent(name: name,
@@ -311,6 +343,7 @@ extension AddEventViewController: UITableViewDataSource {
             case .notes:
                 cell.delegate = self
                 cell.placeholder = row.placeholderText
+                cell.inputText = notes
                 return cell
             }
         }
