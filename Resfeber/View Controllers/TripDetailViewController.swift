@@ -384,4 +384,9 @@ extension TripDetailViewController: AddEventViewControllerDelegate {
     func didAddEvent(_ event: Event) {
         reloadTrip()
     }
+    
+    func didUpdateEvent(_ event: Event) {
+        tripsController.updateEvent(event)
+        reloadTrip()
+    }
 }

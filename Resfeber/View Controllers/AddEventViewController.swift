@@ -12,6 +12,7 @@ import MapKit
 
 protocol AddEventViewControllerDelegate: class {
     func didAddEvent(_ event: Event)
+    func didUpdateEvent(_ event: Event)
 }
 
 class AddEventViewController: UIViewController {
@@ -33,6 +34,17 @@ class AddEventViewController: UIViewController {
     
     private var shouldEnableAddEventButton: Bool {
         placemark != nil
+    }
+    
+    private var shouldEnableSaveEventButton: Bool {
+        guard let event = event else { return false }
+        
+        return !(eventName == event.name &&
+           placemark?.address == event.address &&
+           category == event.category &&
+           startDate == event.startDate &&
+           endDate == event.endDate &&
+           notes == event.notes)
     }
     
     private let dateFormatter: DateFormatter = {
@@ -101,8 +113,7 @@ class AddEventViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewEventWasCancelled))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newEventWasSaved))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        configureRightBarButton()
         title = "New Event"
         
         // Configure MapView
@@ -134,6 +145,17 @@ class AddEventViewController: UIViewController {
         
         let indexPath = IndexPath(row: NameAndLocationInputRow.name.rawValue, section: AddEventSection.nameAndLocation.rawValue)
         firstResponder = tableView.cellForRow(at: indexPath)
+    }
+    
+    private func configureRightBarButton() {
+        if event != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(updateEvent))
+            firstResponder = nil
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newEventWasSaved))
+        }
+        
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     private func updateViews() {
@@ -237,6 +259,33 @@ class AddEventViewController: UIViewController {
                                              trip: trip)
         
         delegate?.didAddEvent(event)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func updateEvent() {
+        guard let event = event,
+              let placemark = placemark,
+              let latitude = placemark.location?.coordinate.latitude,
+              let longitude = placemark.location?.coordinate.longitude else { return }
+        
+        let name = eventName ?? placemark.name
+        let address = placemark.address
+        
+        if let categoryIndex = category?.rawValue {
+            event.categoryRawValue = Int32(categoryIndex)
+        }
+        
+        event.name = name
+        event.latitude = latitude
+        event.longitude = longitude
+        event.address = address
+        event.startDate = startDate
+        event.endDate = endDate
+        event.notes = notes
+        
+        tripsController.updateEvent(event)
+        
+        delegate?.didUpdateEvent(event)
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -489,6 +538,6 @@ extension AddEventViewController: AddEventCellDelegate {
             }
         }
         
-        navigationItem.rightBarButtonItem?.isEnabled = shouldEnableAddEventButton
+        navigationItem.rightBarButtonItem?.isEnabled = event == nil ? shouldEnableAddEventButton : shouldEnableSaveEventButton
     }
 }
