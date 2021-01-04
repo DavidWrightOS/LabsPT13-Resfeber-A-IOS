@@ -38,6 +38,7 @@ class LocationInputCell: AddEventCell {
         
         detailTextLabel?.textColor = RFColor.red
         updateViews()
+        textLabel?.font = UIFont.systemFont(ofSize: 16)
         textLabel?.textColor = UIColor.placeholderText
         textLabel?.text = placeholder
     }
