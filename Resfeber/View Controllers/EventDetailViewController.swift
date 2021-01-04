@@ -1,5 +1,5 @@
 //
-//  AddEventViewController.swift
+//  EventDetailViewController.swift
 //  Resfeber
 //
 //  Created by David Wright on 12/22/20.
@@ -10,12 +10,12 @@ import UIKit
 import CoreData
 import MapKit
 
-protocol AddEventViewControllerDelegate: class {
+protocol EventDetailViewControllerDelegate: class {
     func didAddEvent(_ event: Event)
     func didUpdateEvent(_ event: Event)
 }
 
-class AddEventViewController: UIViewController {
+class EventDetailViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -25,7 +25,7 @@ class AddEventViewController: UIViewController {
         }
     }
     
-    weak var delegate: AddEventViewControllerDelegate?
+    weak var delegate: EventDetailViewControllerDelegate?
     
     private let tripsController: TripsController
     private let trip: Trip
@@ -292,7 +292,7 @@ class AddEventViewController: UIViewController {
 
 // MARK: - Location Search ViewController Delegate
 
-extension AddEventViewController: LocationSearchViewControllerDelegate {
+extension EventDetailViewController: LocationSearchViewControllerDelegate {
     func didSelectLocation(with placemark: MKPlacemark) {
         self.placemark = placemark
         updateLocationDescription(with: placemark)
@@ -327,7 +327,7 @@ extension AddEventViewController: LocationSearchViewControllerDelegate {
 
 // MARK: - UITableView Data Source
 
-extension AddEventViewController: UITableViewDataSource {
+extension EventDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         AddEventSection.allCases.count
     }
@@ -402,7 +402,7 @@ extension AddEventViewController: UITableViewDataSource {
 
 // MARK: - UITableView Delegate
 
-extension AddEventViewController: UITableViewDelegate {
+extension EventDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -494,7 +494,7 @@ extension AddEventViewController: UITableViewDelegate {
     }
 }
 
-extension AddEventViewController: AddEventCellDelegate {
+extension EventDetailViewController: AddEventCellDelegate {
     func didUpdateData(forCell cell: AddEventCell) {
         guard let indexPath = tableView.indexPath(for: cell),
               let section = section(at: indexPath) else { return }

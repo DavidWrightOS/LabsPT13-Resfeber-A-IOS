@@ -181,7 +181,7 @@ class TripDetailViewController: UIViewController {
     }
     
     private func showEventDetailViewController(with event: Event? = nil) {
-        let addEventVC = AddEventViewController(trip: trip, tripsController: tripsController)
+        let addEventVC = EventDetailViewController(trip: trip, tripsController: tripsController)
         addEventVC.delegate = self
         addEventVC.event = event
         let nav = UINavigationController(rootViewController: addEventVC)
@@ -380,7 +380,7 @@ extension TripDetailViewController: MKMapViewDelegate {
     }
 }
 
-extension TripDetailViewController: AddEventViewControllerDelegate {
+extension TripDetailViewController: EventDetailViewControllerDelegate {
     func didAddEvent(_ event: Event) {
         reloadTrip()
     }
