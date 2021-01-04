@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class LocationInputCell: AddEventCell {
+class LocationInputCell: EventDetailCell {
     
     static let reuseIdentifier = "location-input-cell-reuse-identifier"
     

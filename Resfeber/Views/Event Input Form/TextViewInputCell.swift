@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewInputCell: AddEventCell {
+class TextViewInputCell: EventDetailCell {
     
     static let reuseIdentifier = "multi-line-text-input-cell-reuse-identifier"
     

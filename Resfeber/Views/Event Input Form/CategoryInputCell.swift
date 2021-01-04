@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryInputCell: AddEventCell {
+class CategoryInputCell: EventDetailCell {
     
     static let reuseIdentifier = "category-input-cell-reuse-identifier"
     

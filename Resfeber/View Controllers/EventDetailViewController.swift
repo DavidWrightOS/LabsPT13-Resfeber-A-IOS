@@ -494,8 +494,8 @@ extension EventDetailViewController: UITableViewDelegate {
     }
 }
 
-extension EventDetailViewController: AddEventCellDelegate {
-    func didUpdateData(forCell cell: AddEventCell) {
+extension EventDetailViewController: EventDetailCellDelegate {
+    func didUpdateData(forCell cell: EventDetailCell) {
         guard let indexPath = tableView.indexPath(for: cell),
               let section = section(at: indexPath) else { return }
         
