@@ -40,11 +40,11 @@ class EventDetailViewController: UIViewController {
         guard let event = event else { return false }
         
         return !(eventName == event.name &&
-           placemark?.address == event.address &&
-           category == event.category &&
-           startDate == event.startDate &&
-           endDate == event.endDate &&
-           notes == event.notes)
+                 placemark?.address == event.address &&
+                 category == event.category &&
+                 startDate == event.startDate &&
+                 endDate == event.endDate &&
+                 notes == event.notes)
     }
     
     private let dateFormatter: DateFormatter = {
