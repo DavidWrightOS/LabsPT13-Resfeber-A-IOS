@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateInputCell: AddEventCell {
+class DateInputCell: EventDetailCell {
     
     static let reuseIdentifier = "date-input-cell-reuse-identifier"
     

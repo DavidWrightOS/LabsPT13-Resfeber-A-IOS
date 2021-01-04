@@ -1,5 +1,5 @@
 //
-//  AddEventViewController.swift
+//  EventDetailViewController.swift
 //  Resfeber
 //
 //  Created by David Wright on 12/22/20.
@@ -10,15 +10,22 @@ import UIKit
 import CoreData
 import MapKit
 
-protocol AddEventViewControllerDelegate: class {
+protocol EventDetailViewControllerDelegate: class {
     func didAddEvent(_ event: Event)
+    func didUpdateEvent(_ event: Event)
 }
 
-class AddEventViewController: UIViewController {
+class EventDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    weak var delegate: AddEventViewControllerDelegate?
+    var event: Event? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    weak var delegate: EventDetailViewControllerDelegate?
     
     private let tripsController: TripsController
     private let trip: Trip
@@ -27,6 +34,17 @@ class AddEventViewController: UIViewController {
     
     private var shouldEnableAddEventButton: Bool {
         placemark != nil
+    }
+    
+    private var shouldEnableSaveEventButton: Bool {
+        guard let event = event else { return false }
+        
+        return !(eventName == event.name &&
+           placemark?.address == event.address &&
+           category == event.category &&
+           startDate == event.startDate &&
+           endDate == event.endDate &&
+           notes == event.notes)
     }
     
     private let dateFormatter: DateFormatter = {
@@ -95,8 +113,7 @@ class AddEventViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewEventWasCancelled))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newEventWasSaved))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        configureRightBarButton()
         title = "New Event"
         
         // Configure MapView
@@ -128,6 +145,45 @@ class AddEventViewController: UIViewController {
         
         let indexPath = IndexPath(row: NameAndLocationInputRow.name.rawValue, section: AddEventSection.nameAndLocation.rawValue)
         firstResponder = tableView.cellForRow(at: indexPath)
+    }
+    
+    private func configureRightBarButton() {
+        if event != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(updateEvent))
+            firstResponder = nil
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newEventWasSaved))
+        }
+        
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    private func updateViews() {
+        loadLocationFromEvent()
+        
+        eventName = event?.name
+        category = event?.category
+        notes = event?.notes
+        startDate = event?.startDate
+        endDate = event?.endDate
+        
+        tableView.reloadData()
+    }
+    
+    private func loadLocationFromEvent() {
+        guard let lat = event?.latitude, let lon = event?.longitude else { return }
+        
+        let location = CLLocation(latitude: lat, longitude: lon)
+        
+        location.fetchPlacemark { [weak self] placemark in
+            guard let self = self,
+                  let placemark = placemark,
+                  let indexPath = self.getIndexPath(section: AddEventSection.nameAndLocation,
+                                                    row: NameAndLocationInputRow.location) else { return }
+            
+            self.placemark = MKPlacemark(placemark: placemark)
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
     
     // MARK: - Selectors
@@ -188,7 +244,7 @@ class AddEventViewController: UIViewController {
               let latitude = placemark.location?.coordinate.latitude,
               let longitude = placemark.location?.coordinate.longitude else { return }
         
-        let name = eventName ?? "New Event"
+        let name = eventName ?? placemark.name// ?? "New Event"
         let address = placemark.address
         
         let event = tripsController.addEvent(name: name,
@@ -205,11 +261,38 @@ class AddEventViewController: UIViewController {
         delegate?.didAddEvent(event)
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @objc func updateEvent() {
+        guard let event = event,
+              let placemark = placemark,
+              let latitude = placemark.location?.coordinate.latitude,
+              let longitude = placemark.location?.coordinate.longitude else { return }
+        
+        let name = eventName ?? placemark.name
+        let address = placemark.address
+        
+        if let categoryIndex = category?.rawValue {
+            event.categoryRawValue = Int32(categoryIndex)
+        }
+        
+        event.name = name
+        event.latitude = latitude
+        event.longitude = longitude
+        event.address = address
+        event.startDate = startDate
+        event.endDate = endDate
+        event.notes = notes
+        
+        tripsController.updateEvent(event)
+        
+        delegate?.didUpdateEvent(event)
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - Location Search ViewController Delegate
 
-extension AddEventViewController: LocationSearchViewControllerDelegate {
+extension EventDetailViewController: LocationSearchViewControllerDelegate {
     func didSelectLocation(with placemark: MKPlacemark) {
         self.placemark = placemark
         updateLocationDescription(with: placemark)
@@ -244,7 +327,7 @@ extension AddEventViewController: LocationSearchViewControllerDelegate {
 
 // MARK: - UITableView Data Source
 
-extension AddEventViewController: UITableViewDataSource {
+extension EventDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         AddEventSection.allCases.count
     }
@@ -309,6 +392,7 @@ extension AddEventViewController: UITableViewDataSource {
             case .notes:
                 cell.delegate = self
                 cell.placeholder = row.placeholderText
+                cell.inputText = notes
                 return cell
             }
         }
@@ -318,7 +402,7 @@ extension AddEventViewController: UITableViewDataSource {
 
 // MARK: - UITableView Delegate
 
-extension AddEventViewController: UITableViewDelegate {
+extension EventDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -391,10 +475,27 @@ extension AddEventViewController: UITableViewDelegate {
     func inputRow(at indexPath: IndexPath) -> InputRow? {
          section(at: indexPath)?.rows[indexPath.row]
     }
+    
+    func getIndexPath(section: AddEventSection, row: InputRow) -> IndexPath? {
+        switch section {
+        case .nameAndLocation:
+            guard let inputRow = row as? NameAndLocationInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        case .category:
+            guard let inputRow = row as? CategoryInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        case .dates:
+            guard let inputRow = row as? DateInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        case .notes:
+            guard let inputRow = row as? NotesInputRow else { return nil }
+            return IndexPath(row: inputRow.rawValue, section: section.rawValue)
+        }
+    }
 }
 
-extension AddEventViewController: AddEventCellDelegate {
-    func didUpdateData(forCell cell: AddEventCell) {
+extension EventDetailViewController: EventDetailCellDelegate {
+    func didUpdateData(forCell cell: EventDetailCell) {
         guard let indexPath = tableView.indexPath(for: cell),
               let section = section(at: indexPath) else { return }
         
@@ -437,6 +538,6 @@ extension AddEventViewController: AddEventCellDelegate {
             }
         }
         
-        navigationItem.rightBarButtonItem?.isEnabled = shouldEnableAddEventButton
+        navigationItem.rightBarButtonItem?.isEnabled = event == nil ? shouldEnableAddEventButton : shouldEnableSaveEventButton
     }
 }

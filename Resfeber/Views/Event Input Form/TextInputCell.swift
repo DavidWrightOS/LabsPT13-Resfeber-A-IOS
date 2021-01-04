@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextInputCell: AddEventCell {
+class TextInputCell: EventDetailCell {
     
     static let reuseIdentifier = "text-input-cell-reuse-identifier"
     
@@ -22,7 +22,12 @@ class TextInputCell: AddEventCell {
     
     var inputText: String? {
         didSet {
+            if inputText != leftTextField.text {
+                leftTextField.text = inputText
+            }
+            
             guard inputText != oldValue else { return }
+            
             delegate?.didUpdateData(forCell: self)
         }
     }

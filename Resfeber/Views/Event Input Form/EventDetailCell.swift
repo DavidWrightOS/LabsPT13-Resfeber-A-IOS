@@ -1,5 +1,5 @@
 //
-//  AddEventCell.swift
+//  EventDetailCell.swift
 //  Resfeber
 //
 //  Created by David Wright on 12/25/20.
@@ -9,17 +9,17 @@
 import UIKit
 import MapKit
 
-protocol AddEventCellDelegate: class {
-    func didUpdateData(forCell cell: AddEventCell)
+protocol EventDetailCellDelegate: class {
+    func didUpdateData(forCell cell: EventDetailCell)
 }
 
-class AddEventCell: UITableViewCell {
+class EventDetailCell: UITableViewCell {
     static let cellReuseIdentifier = "add-event-cell-reuse-identifier"
     
     // MARK: - Properties
     
     var inputRow: InputRow?
-    weak var delegate: AddEventCellDelegate?
+    weak var delegate: EventDetailCellDelegate?
     
     // MARK: - Initializers
     

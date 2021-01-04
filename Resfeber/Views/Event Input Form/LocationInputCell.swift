@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class LocationInputCell: AddEventCell {
+class LocationInputCell: EventDetailCell {
     
     static let reuseIdentifier = "location-input-cell-reuse-identifier"
     
@@ -38,6 +38,7 @@ class LocationInputCell: AddEventCell {
         
         detailTextLabel?.textColor = RFColor.red
         updateViews()
+        textLabel?.font = UIFont.systemFont(ofSize: 16)
         textLabel?.textColor = UIColor.placeholderText
         textLabel?.text = placeholder
     }
