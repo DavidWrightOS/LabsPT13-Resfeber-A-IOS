@@ -181,10 +181,18 @@ class TripDetailViewController: UIViewController {
     }
     
     private func showEventDetailViewController(with event: Event? = nil) {
-        let addEventVC = EventDetailViewController(trip: trip, tripsController: tripsController)
-        addEventVC.delegate = self
-        addEventVC.event = event
-        let nav = UINavigationController(rootViewController: addEventVC)
+        let eventDetailVC = EventDetailViewController(trip: trip, tripsController: tripsController)
+        eventDetailVC.event = event
+        eventDetailVC.delegate = self
+        let nav = UINavigationController(rootViewController: eventDetailVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    private func showEventDetailViewController(with placemark: MKPlacemark) {
+        let eventDetailVC = EventDetailViewController(trip: trip, tripsController: tripsController, placemark: placemark)
+        eventDetailVC.delegate = self
+        let nav = UINavigationController(rootViewController: eventDetailVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
@@ -323,7 +331,7 @@ extension TripDetailViewController: UITableViewDataSource {
 extension TripDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlacemark = searchResults[indexPath.row]
-        addEvent(with: selectedPlacemark)
+        showEventDetailViewController(with: selectedPlacemark)
         dismissSearchTableView()
     }
     
