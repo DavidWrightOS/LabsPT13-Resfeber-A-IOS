@@ -22,7 +22,12 @@ class TextInputCell: AddEventCell {
     
     var inputText: String? {
         didSet {
+            if inputText != leftTextField.text {
+                leftTextField.text = inputText
+            }
+            
             guard inputText != oldValue else { return }
+            
             delegate?.didUpdateData(forCell: self)
         }
     }

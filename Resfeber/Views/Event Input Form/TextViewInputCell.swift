@@ -22,7 +22,13 @@ class TextViewInputCell: AddEventCell {
     
     var inputText: String? {
         didSet {
+            if inputText != leftTextView.text {
+                leftTextView.text = inputText
+                textViewPlaceholderLabel.isHidden = !leftTextView.text.isEmpty
+            }
+            
             guard inputText != oldValue else { return }
+            
             delegate?.didUpdateData(forCell: self)
         }
     }
