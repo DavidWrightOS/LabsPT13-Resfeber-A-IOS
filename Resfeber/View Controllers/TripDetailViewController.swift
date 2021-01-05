@@ -127,18 +127,14 @@ class TripDetailViewController: UIViewController {
         // Configure MapView
         mapView.delegate = self
         mapView.showsUserLocation = true
-        mapView.layer.cornerRadius = 10
         mapView.showsCompass = false
         mapView.layer.borderWidth = 1
-        mapView.layer.borderColor = RFColor.red.cgColor
+        mapView.layer.borderColor = UIColor.separator.withAlphaComponent(0.15).cgColor
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
         view.addSubview(mapView)
         mapView.anchor(top: searchBar.bottomAnchor,
                        left: view.leftAnchor,
                        right: view.rightAnchor,
-                       paddingTop: 4,
-                       paddingLeft: 12,
-                       paddingRight: 12,
                        height: view.frame.width * 0.8)
         
         mapView.addSubview(mapControlsView)
@@ -159,7 +155,7 @@ class TripDetailViewController: UIViewController {
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 12)
+                              paddingTop: 10)
         
         // Load Data
         collectionView.reloadData()
