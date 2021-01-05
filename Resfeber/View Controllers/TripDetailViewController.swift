@@ -31,6 +31,11 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    lazy private var compassButton: MKCompassButton = {
+        let button = MKCompassButton(mapView: mapView)
+        return button
+    }()
+    
     lazy private var userTrackingButton: MKUserTrackingButton = {
         let button = MKUserTrackingButton(mapView: mapView)
         button.setDimensions(height: 38, width: 38)
@@ -123,6 +128,7 @@ class TripDetailViewController: UIViewController {
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.layer.cornerRadius = 10
+        mapView.showsCompass = false
         mapView.layer.borderWidth = 1
         mapView.layer.borderColor = RFColor.red.cgColor
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
@@ -137,6 +143,10 @@ class TripDetailViewController: UIViewController {
         
         mapView.addSubview(mapControlsView)
         mapControlsView.anchor(top: mapView.topAnchor, right: mapView.rightAnchor, paddingTop: 8, paddingRight: 8)
+        
+        mapView.addSubview(compassButton)
+        compassButton.centerX(inView: mapControlsView)
+        compassButton.anchor(top: mapControlsView.bottomAnchor, paddingTop: 10)
         
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
