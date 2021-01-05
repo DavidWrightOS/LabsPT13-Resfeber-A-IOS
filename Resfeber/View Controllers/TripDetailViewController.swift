@@ -403,6 +403,8 @@ extension TripDetailViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - Map View Delegate
+
 extension TripDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let event = annotation as? Event,
@@ -440,6 +442,8 @@ extension TripDetailViewController: MKMapViewDelegate {
         }
     }
 }
+
+// MARK: - EventDetailViewController Delegate
 
 extension TripDetailViewController: EventDetailViewControllerDelegate {
     func didAddEvent(_ event: Event) {
