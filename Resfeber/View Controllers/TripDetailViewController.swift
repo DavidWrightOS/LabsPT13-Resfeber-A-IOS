@@ -180,12 +180,13 @@ class TripDetailViewController: UIViewController {
     }
     
     func loadTripAnnotations() {
+        mapView.removeAnnotations(mapView.annotations)
+        
         for event in trip.eventsArray {
             mapView.addAnnotation(event)
         }
         
-        let annotations = mapView.annotations
-        self.mapView.zoomToFit(annotations: annotations)
+        zoomToFitAllEventAnnotations()
     }
     
     private func performQuery(with searchText: String?) {
