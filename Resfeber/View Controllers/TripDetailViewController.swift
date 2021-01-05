@@ -31,6 +31,54 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    lazy private var userTrackingButton: MKUserTrackingButton = {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.setDimensions(height: 38, width: 38)
+        button.tintColor = RFColor.red
+        return button
+    }()
+    
+    private let annotationZoomButton: UIButton = {
+        let button = UIButton()
+        button.setDimensions(height: 38, width: 38)
+        let config = UIImage.SymbolConfiguration(scale: .large)
+        button.setImage(UIImage(systemName: "mappin.and.ellipse")?.withConfiguration(config), for: .normal)
+        button.tintColor = RFColor.red
+        return button
+    }()
+    
+    lazy private var mapControlsView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 5
+        view.layer.shadowColor = UIColor.systemGray.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 6
+        
+        let contentView = UIView()
+        contentView.backgroundColor = RFColor.groupedBackground
+        contentView.layer.cornerRadius = 5
+        contentView.layer.masksToBounds = true
+        
+        view.addSubview(contentView)
+        contentView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        
+        let line = UIView()
+        line.setDimensions(height: 1)
+        line.backgroundColor = UIColor.separator.withAlphaComponent(0.15)
+        
+        contentView.addSubview(annotationZoomButton)
+        contentView.addSubview(line)
+        contentView.addSubview(userTrackingButton)
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        annotationZoomButton.anchor(top: contentView.topAnchor, left: contentView.leftAnchor, right: contentView.rightAnchor)
+        line.anchor(top: annotationZoomButton.bottomAnchor, left: contentView.leftAnchor, right: contentView.rightAnchor)
+        userTrackingButton.anchor(top: line.bottomAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: contentView.rightAnchor)
+        
+        return view
+    }()
+    
     private var collectionView: UICollectionView!
     
     // MARK: - Lifecycle
@@ -85,6 +133,9 @@ class TripDetailViewController: UIViewController {
                        paddingLeft: 12,
                        paddingRight: 12,
                        height: view.frame.width * 0.8)
+        
+        mapView.addSubview(mapControlsView)
+        mapControlsView.anchor(top: mapView.topAnchor, right: mapView.rightAnchor, paddingTop: 8, paddingRight: 8)
         
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
