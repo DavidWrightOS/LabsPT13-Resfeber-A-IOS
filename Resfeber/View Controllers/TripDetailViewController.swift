@@ -419,6 +419,7 @@ extension TripDetailViewController: MKMapViewDelegate {
             return nil
         }
         
+        annotationView.displayPriority = .required
         annotationView.glyphImage = event.category.annotationGlyph
         annotationView.markerTintColor = event.category.annotationMarkerTintColor
         
