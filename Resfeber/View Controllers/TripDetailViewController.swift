@@ -44,6 +44,7 @@ class TripDetailViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(scale: .large)
         button.setImage(UIImage(systemName: "mappin.and.ellipse")?.withConfiguration(config), for: .normal)
         button.tintColor = RFColor.red
+        button.addTarget(self, action: #selector(zoomToFitAllEventAnnotations), for: .touchUpInside)
         return button
     }()
     
@@ -229,6 +230,11 @@ class TripDetailViewController: UIViewController {
     
     @objc private func addEventButtonTapped() {
         showEventDetailViewController()
+    }
+    
+    @objc private func zoomToFitAllEventAnnotations() {
+        let annotations = mapView.annotations.filter { $0.isKind(of: Event.self) }
+        mapView.zoomToFit(annotations: annotations, animated: true)
     }
     
     private func showEventDetailViewController(with event: Event? = nil) {
