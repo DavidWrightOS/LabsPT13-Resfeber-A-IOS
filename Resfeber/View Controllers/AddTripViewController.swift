@@ -15,6 +15,12 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     
     private let tripsController: TripsController
     
+    var trip: Trip? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     var imageData: Data? {
         didSet {
             updateImage()
@@ -124,6 +130,16 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     private var photoButtonTitle: String {
         imageData == nil ? "Add Photo" : "Change Photo"
     }
+    
+    private var navBarTitle: String {
+        trip == nil ? "New Trip" : "Edit Trip"
+    }
+    
+    private var rightBarButtonTitle: String {
+        trip == nil ? "Add" : "Save"
+    }
+    
+    
     // MARK: - Lifecycle
     
     init(tripsController: TripsController) {
@@ -139,16 +155,21 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         super.viewDidLoad()
         configureViews()
     }
-
+    
     // MARK: - Helpers
     private func configureViews() {
         view.backgroundColor = RFColor.background
+        title = navBarTitle
         navigationController?.navigationBar.tintColor = RFColor.red
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewTripWasCancelled))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(newTripWasSaved))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                           target: self,
+                                                           action: #selector(cancelButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightBarButtonTitle,
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(rightBarButtonTapped))
         navigationItem.rightBarButtonItem?.isEnabled = false
-        title = "New Trip"
         
         addPhotoButton.setTitle(photoButtonTitle, for: .normal)
         
@@ -175,16 +196,45 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
                                  paddingTop: 16)
     }
     
+    private func updateViews() {
+        guard let trip = trip else { return }
+        
+        title = navBarTitle
+        navigationItem.rightBarButtonItem?.title = rightBarButtonTitle
+        
+        nameTextField.text = trip.name
+        imageData = trip.image
+        
+        if let startDate = trip.startDate {
+            startDateTextField.text = dateFormatter.string(from: startDate)
+            startDatePicker.date = startDate
+            endDatePicker.date = startDate
+        }
+        
+        if let endDate = trip.endDate {
+            endDateTextField.text = dateFormatter.string(from: endDate)
+            endDatePicker.date = endDate
+            
+            if trip.startDate == nil {
+                startDatePicker.date = endDate
+            }
+        }
+    }
+    
     private func updateImage() {
         if let data = imageData {
             imageButton.setImage(UIImage(data: data), for: .normal)
         }
         
         addPhotoButton.setTitle(photoButtonTitle, for: .normal)
+        
+        if let trip = trip {
+            imageMatchesTripImage = imageData == trip.image
+        }
     }
 
-    @objc func addNewTripWasCancelled() {
-        self.dismiss(animated: true, completion: nil)
+    @objc func cancelButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func presentPhotoPicker() {
@@ -199,16 +249,28 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             }
         }
     }
-    //TODO: Add save image from image picker
-    // Save dates to CoreData
-    @objc func newTripWasSaved() {
-        let trip = tripsController.addTrip(name: nameTextField.text ?? "",
-                                       image: imageData,
-                                       startDate: nil,
-                                       endDate: nil)
-        print("Trip was created: \(trip)")
-        NotificationCenter.default.post(name: .loadData, object: nil)
-        self.dismiss(animated: true, completion: nil)
+    
+    @objc private func rightBarButtonTapped() {
+        if let trip = trip {
+            // Update trip
+            trip.name = nameTextField.text ?? ""
+            trip.image = imageData
+            trip.startDate = dateFormatter.date(from: startDateTextField.text ?? "")
+            trip.endDate = dateFormatter.date(from: endDateTextField.text ?? "")
+            
+            tripsController.updateTrip(trip)
+            delegate?.didUpdateTrip(trip)
+            
+        } else {
+            // Create new trip
+            let trip = tripsController.addTrip(name: nameTextField.text ?? "New Trip",
+                                               image: imageData,
+                                               startDate: dateFormatter.date(from: startDateTextField.text ?? ""),
+                                               endDate: dateFormatter.date(from: endDateTextField.text ?? ""))
+            delegate?.didAddNewTrip(trip)
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 
     @objc func tapStartDateDone() {
