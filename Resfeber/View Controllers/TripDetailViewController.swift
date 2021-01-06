@@ -413,15 +413,21 @@ extension TripDetailViewController: UITableViewDelegate {
 
 extension TripDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let event = annotation as? Event,
-              let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView else {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+        
+        guard let event = annotation as? Event else {
             NSLog("Missing the registered map annotation view")
             return nil
         }
         
-        annotationView.displayPriority = .required
-        annotationView.glyphImage = event.category.annotationGlyph
-        annotationView.markerTintColor = event.category.annotationMarkerTintColor
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: event, reuseIdentifier: Event.annotationReuseIdentifier)
+        }
+        
+        annotationView?.displayPriority = .required
+        annotationView?.glyphImage = event.category.annotationGlyph
+        annotationView?.markerTintColor = event.category.annotationMarkerTintColor
         
         return annotationView
     }
