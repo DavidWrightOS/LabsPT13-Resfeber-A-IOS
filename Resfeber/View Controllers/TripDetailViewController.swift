@@ -112,8 +112,20 @@ class TripDetailViewController: UIViewController {
         // Configure Navigation Bar
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
+        
+        let editTripMenu = UIMenu(title: "", options: .displayInline, children: [
+            UIAction(title: "Edit Trip",
+                     image: UIImage(systemName: "square.and.pencil"),
+                     handler: { [weak self] _ in self?.editTripTapped() }),
+            UIAction(title: "Delete Trip",
+                     image: UIImage(systemName: "trash"),
+                     attributes: .destructive,
+                     handler: { [weak self] _ in self?.deleteTripTapped() })
+        ])
+        
+        let editTripButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: editTripMenu)
         let addEventButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
-        let editTripButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(editTripButtonTapped))
+
         navigationItem.rightBarButtonItems = [addEventButton, editTripButton]
         navigationController?.navigationBar.tintColor = RFColor.red
         
@@ -241,8 +253,12 @@ class TripDetailViewController: UIViewController {
         showEventDetailViewController()
     }
     
-    @objc private func editTripButtonTapped() {
-        
+    private func editTripTapped() {
+        // TODO: Present trip detail view controller
+    }
+    
+    private func deleteTripTapped() {
+        // TODO: Popup alert, Delete trip
     }
     
     @objc private func zoomToFitAllEventAnnotations() {
