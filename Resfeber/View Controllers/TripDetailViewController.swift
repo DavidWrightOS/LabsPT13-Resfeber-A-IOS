@@ -117,7 +117,12 @@ class TripDetailViewController: UIViewController {
     
     private func configureViews() {
         // Configure Navigation Bar
-        navigationItem.title = trip.name
+        if let name = trip.name, !name.isEmpty {
+            navigationItem.title = name
+        } else {
+            navigationItem.title = "Trip"
+        }
+        
         view.backgroundColor = RFColor.background
         
         let editTripMenu = UIMenu(title: "", options: .displayInline, children: [
