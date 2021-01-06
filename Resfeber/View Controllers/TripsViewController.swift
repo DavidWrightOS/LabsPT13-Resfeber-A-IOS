@@ -41,21 +41,17 @@ class TripsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name.loadData, object: nil)
-
     }
 
     // MARK: - Selectors
-    @objc func loadList() {
-      self.collectionView.reloadData()
-    }
-
+    
     @objc private func profileImageTapped() {
         sideMenuDelegate?.toggleSideMenu(withMenuOption: nil)
     }
 
     @objc func addButtonTapped(sender: UIButton) {
         let addTripVC = AddTripViewController(tripsController: tripsController)
+        addTripVC.delegate = self
         let nav = UINavigationController(rootViewController: addTripVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
@@ -69,6 +65,7 @@ class TripsViewController: UIViewController {
         // Configure Navigation Bar
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = RFColor.red
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         titleLabel.textColor = .label
@@ -76,7 +73,6 @@ class TripsViewController: UIViewController {
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = profileButton
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        navigationItem.rightBarButtonItem?.tintColor = RFColor.red
 
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
@@ -142,10 +138,20 @@ extension TripsViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - TripDetailViewControllerDelegate
+// MARK: - TripDetailViewController Delegate
 extension TripsViewController: TripDetailViewControllerDelegate {
-    func tripDataDidChange() {
+    func didUpdateTrip(_ trip: Trip) {
+        collectionView.reloadData()
+    }
+    
+    func didDeleteTrip(_ trip: Trip) {
         collectionView.reloadData()
     }
 }
 
+// MARK: - AddTripViewController Delegate
+extension TripsViewController: AddTripViewControllerDelegate {
+    func didAddNewTrip(_ trip: Trip) {
+        collectionView.reloadData()
+    }
+}

@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 
 protocol TripDetailViewControllerDelegate: class {
-    func tripDataDidChange()
+    func didUpdateTrip(_ trip: Trip)
+    func didDeleteTrip(_ trip: Trip)
 }
 
 class TripDetailViewController: UIViewController {
@@ -260,7 +261,13 @@ class TripDetailViewController: UIViewController {
     }
     
     private func editTripTapped() {
-        // TODO: Present trip detail view controller
+        let addTripVC = AddTripViewController(tripsController: tripsController)
+        addTripVC.delegate = self
+        addTripVC.trip = trip
+        let nav = UINavigationController(rootViewController: addTripVC)
+        nav.navigationBar.tintColor = RFColor.red
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
     }
     
     private func deleteTripTapped() {
@@ -276,7 +283,7 @@ class TripDetailViewController: UIViewController {
         presentDeletionAlert(title: title, message: message) { [weak self] _ in
             guard let self = self else { return }
             self.tripsController.deleteTrip(self.trip)
-            self.delegate?.tripDataDidChange()
+            self.delegate?.didDeleteTrip(self.trip)
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -534,5 +541,14 @@ extension TripDetailViewController: EventDetailViewControllerDelegate {
     func didUpdateEvent(_ event: Event) {
         tripsController.updateEvent(event)
         reloadTrip()
+    }
+}
+
+// MARK: - AddTripViewController Delegate
+
+extension TripDetailViewController: AddTripViewControllerDelegate {
+    func didUpdateTrip(_ trip: Trip) {
+        title = trip.name
+        delegate?.didUpdateTrip(trip)
     }
 }
