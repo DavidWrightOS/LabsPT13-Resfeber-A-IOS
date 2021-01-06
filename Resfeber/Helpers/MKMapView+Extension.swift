@@ -12,7 +12,7 @@ extension MKMapView {
     func zoomToFit(annotations: [MKAnnotation]? = nil, edgePadding: UIEdgeInsets? = nil, animated: Bool = true) {
         let annotations = annotations ?? self.annotations
         let zoomRect = annotationsMapRect(annotations)
-        let edgePadding = edgePadding ?? UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        let edgePadding = edgePadding ?? UIEdgeInsets(top: 78, left: 59, bottom: 30, right: 84)
         if annotations.count > 1 {
             setVisibleMapRect(zoomRect, edgePadding: edgePadding, animated: animated)
         } else if let annotation = annotations.first {
