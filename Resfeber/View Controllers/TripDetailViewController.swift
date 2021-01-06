@@ -433,6 +433,8 @@ extension TripDetailViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        recenterMapIfNeededToFitAnnotationView(view)
+        
         guard let latitude = view.annotation?.coordinate.latitude,
               let longitude = view.annotation?.coordinate.longitude,
               let name = view.annotation?.title,
@@ -453,6 +455,30 @@ extension TripDetailViewController: MKMapViewDelegate {
         for indexPath in selectedIndexPaths {
             collectionView.deselectItem(at: indexPath, animated: false)
         }
+    }
+    
+    private func recenterMapIfNeededToFitAnnotationView(_ annotationView: MKAnnotationView,
+                                                        edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 50, left: 45, bottom: 30, right: 70)) {
+        var offsetX: CGFloat = 0
+        var offsetY: CGFloat = 0
+        
+        if annotationView.frame.minX < edgeInsets.left {
+            offsetX = min(annotationView.frame.minX - edgeInsets.left, -8)
+        } else if annotationView.frame.maxX > mapView.bounds.maxX - edgeInsets.right {
+            offsetX = max(annotationView.frame.maxX + edgeInsets.right - mapView.bounds.maxX, 8)
+        }
+        
+        if annotationView.frame.minY < edgeInsets.top {
+            offsetY = min(annotationView.frame.minY - edgeInsets.top, -8)
+        } else if annotationView.frame.maxY > mapView.bounds.maxY - edgeInsets.bottom {
+            offsetY = max(annotationView.frame.maxY + edgeInsets.bottom - mapView.bounds.maxY, 8)
+        }
+        
+        guard offsetX != 0 || offsetY != 0 else { return }
+        
+        let newCenterPoint = CGPoint(x: mapView.bounds.midX + offsetX, y: mapView.bounds.midY + offsetY)
+        let newCenterCoordinate = mapView.convert(newCenterPoint, toCoordinateFrom: mapView)
+        mapView.setCenter(newCenterCoordinate, animated: true)
     }
 }
 
