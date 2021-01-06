@@ -22,4 +22,21 @@ extension UIViewController {
 
         present(alert, animated: true, completion: nil)
     }
+    
+    func presentDeletionAlert(title: String?,
+                              message: String?,
+                              preferredStyle: UIAlertController.Style = .alert,
+                              completionUponDeletion: ((UIAlertAction) -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        alert.view.tintColor = RFColor.red
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: completionUponDeletion)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
