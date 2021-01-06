@@ -360,7 +360,7 @@ extension TripDetailViewController: UICollectionViewDelegate {
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
             
             // Setup Edit Event menu item
-            let editEvent = UIAction(title: "Edit Event", image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis")) { [weak self] action in
+            let editEvent = UIAction(title: "Edit Event", image: UIImage(systemName: "square.and.pencil")) { [weak self] action in
                 guard let self = self else { return }
                 self.showEventDetailViewController(with: event)
             }
