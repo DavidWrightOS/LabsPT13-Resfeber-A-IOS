@@ -9,9 +9,16 @@
 import UIKit
 import PhotosUI
 
+protocol AddTripViewControllerDelegate: class {
+    func didAddNewTrip(_ trip: Trip)
+    func didUpdateTrip(_ trip: Trip)
+}
+
 class AddTripViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // MARK: - Properties
+    
+    weak var delegate: AddTripViewControllerDelegate?
     
     private let tripsController: TripsController
     
