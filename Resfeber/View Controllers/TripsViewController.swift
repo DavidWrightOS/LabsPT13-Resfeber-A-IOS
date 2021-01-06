@@ -137,6 +137,15 @@ extension TripsViewController: UICollectionViewDelegate {
               let trip = cell.trip else { return }
         
         let detailVC = TripDetailViewController(trip, tripsController: tripsController)
+        detailVC.delegate = self
         show(detailVC, sender: self)
     }
 }
+
+// MARK: - TripDetailViewControllerDelegate
+extension TripsViewController: TripDetailViewControllerDelegate {
+    func tripDataDidChange() {
+        collectionView.reloadData()
+    }
+}
+

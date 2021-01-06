@@ -9,9 +9,15 @@
 import UIKit
 import MapKit
 
+protocol TripDetailViewControllerDelegate: class {
+    func tripDataDidChange()
+}
+
 class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: TripDetailViewControllerDelegate?
     
     private var trip: Trip
     
@@ -270,6 +276,7 @@ class TripDetailViewController: UIViewController {
         presentDeletionAlert(title: title, message: message) { [weak self] _ in
             guard let self = self else { return }
             self.tripsController.deleteTrip(self.trip)
+            self.delegate?.tripDataDidChange()
             self.navigationController?.popViewController(animated: true)
         }
     }
