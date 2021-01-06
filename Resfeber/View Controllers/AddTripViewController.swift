@@ -14,6 +14,11 @@ protocol AddTripViewControllerDelegate: class {
     func didUpdateTrip(_ trip: Trip)
 }
 
+extension AddTripViewControllerDelegate {
+    func didAddNewTrip(_ trip: Trip) {}
+    func didUpdateTrip(_ trip: Trip) {}
+}
+
 class AddTripViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // MARK: - Properties
