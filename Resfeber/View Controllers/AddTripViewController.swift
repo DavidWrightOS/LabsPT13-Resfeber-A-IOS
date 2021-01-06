@@ -14,26 +14,42 @@ import PhotosUI
 class AddTripViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // MARK: - Properties
-    let tripsController: TripsController
-    var imageData: Data?
-
-    lazy private var tripImage: UIButton = {
+    
+    private let tripsController: TripsController
+    
+    var imageData: Data? {
+        didSet {
+            updateImage()
+        }
+    }
+    
+    lazy private var imageButton: UIButton = {
         let button = UIButton()
-        let height: CGFloat = view.bounds.width * 0.75
-        button.setDimensions(height: height)
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .systemGray3
         button.imageView?.contentMode = .scaleAspectFill
+        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy private var imageBackgroundView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.backgroundColor = .systemGray3
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75).isActive = true
         
-        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
-
-        let config = UIImage.SymbolConfiguration(pointSize: height * 0.8)
         let placeholderImage = UIImage(systemName: "photo.fill")?
-            .withConfiguration(config)
             .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
         
-        button.setImage(placeholderImage, for: .normal)
-        return button
+        let iv = UIImageView()
+        view.addSubview(iv)
+        iv.image = placeholderImage
+        iv.contentMode = .scaleAspectFit
+        iv.centerX(inView: view)
+        iv.centerY(inView: view)
+        iv.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
+        iv.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8).isActive = true
+        
+        return view
     }()
     
     private var addPhotoButton: UIButton = {
@@ -41,7 +57,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         button.setTitle("Add Photo", for: .normal)
         button.setTitleColor(RFColor.red, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchDown)
+        button.addTarget(self, action: #selector(presentPhotoPicker), for: .touchUpInside)
         return button
     }()
 
@@ -101,6 +117,10 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     private var startDatePicker = UIDatePicker()
     private var endDatePicker = UIDatePicker()
 
+    
+    private var photoButtonTitle: String {
+        imageData == nil ? "Add Photo" : "Change Photo"
+    }
     // MARK: - Lifecycle
     
     init(tripsController: TripsController) {
@@ -127,13 +147,21 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         navigationItem.rightBarButtonItem?.isEnabled = false
         title = "New Trip"
         
-        view.addSubview(tripImage)
-        tripImage.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+        addPhotoButton.setTitle(photoButtonTitle, for: .normal)
+        
+        view.addSubview(imageBackgroundView)
+        imageBackgroundView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          left: view.leftAnchor,
                          right: view.rightAnchor)
         
+        imageBackgroundView.addSubview(imageButton)
+        imageButton.anchor(top: imageBackgroundView.topAnchor,
+                           left: imageBackgroundView.leftAnchor,
+                           bottom: imageBackgroundView.bottomAnchor,
+                           right: imageBackgroundView.rightAnchor)
+        
         view.addSubview(addPhotoButton)
-        addPhotoButton.anchor(top: tripImage.bottomAnchor,
+        addPhotoButton.anchor(top: imageBackgroundView.bottomAnchor,
                               left: view.leftAnchor,
                               right: view.rightAnchor)
         
@@ -142,6 +170,14 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
                                  left: view.leftAnchor,
                                  right: view.rightAnchor,
                                  paddingTop: 16)
+    }
+    
+    private func updateImage() {
+        if let data = imageData {
+            imageButton.setImage(UIImage(data: data), for: .normal)
+        }
+        
+        addPhotoButton.setTitle(photoButtonTitle, for: .normal)
     }
 
     @objc func addNewTripWasCancelled() {
@@ -220,10 +256,8 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
-        self.tripImage.setImage(image, for: .normal)
         self.imageData = image.pngData()
-        self.addPhotoButton.setTitle("Change Photo", for: .normal)
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Selectors
