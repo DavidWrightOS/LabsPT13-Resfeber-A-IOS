@@ -22,6 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc = ContainerController()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+        
+        UINavigationBar.appearance().tintColor = RFColor.red
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
