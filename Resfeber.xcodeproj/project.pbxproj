@@ -46,7 +46,6 @@
 		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		63632AAE25594CFC00F70F9C /* DestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AAD25594CFC00F70F9C /* DestinationController.swift */; };
-		63AE51E9258B201700C23D4F /* EventAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE51E8258B201700C23D4F /* EventAnnotationDetailView.swift */; };
 		63AE51F2258BE8A600C23D4F /* EventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE51F1258BE8A600C23D4F /* EventCategory.swift */; };
 		63D22D0A2592705D001F594A /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D092592705D001F594A /* EventDetailViewController.swift */; };
 		63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */; };
@@ -121,7 +120,6 @@
 		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		63632AAD25594CFC00F70F9C /* DestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationController.swift; sourceTree = "<group>"; };
-		63AE51E8258B201700C23D4F /* EventAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotationDetailView.swift; sourceTree = "<group>"; };
 		63AE51F1258BE8A600C23D4F /* EventCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCategory.swift; sourceTree = "<group>"; };
 		63D22D092592705D001F594A /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 				63EAD0912587A5740000FAE2 /* SearchResultCell.swift */,
 				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
-				63AE51E8258B201700C23D4F /* EventAnnotationDetailView.swift */,
 				63D22D162594E27D001F594A /* RFInputRow.swift */,
 				631FB916259C84B100B7F93B /* Event Input Form */,
 			);
@@ -503,7 +500,6 @@
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
 				63D22D172594E27D001F594A /* RFInputRow.swift in Sources */,
-				63AE51E9258B201700C23D4F /* EventAnnotationDetailView.swift in Sources */,
 				466C4276249A8748007D033E /* SceneDelegate.swift in Sources */,
 				63EAD084258782800000FAE2 /* CLPlacemark+Extension.swift in Sources */,
 			);

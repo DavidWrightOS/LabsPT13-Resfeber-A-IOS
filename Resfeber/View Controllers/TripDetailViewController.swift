@@ -31,6 +31,60 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    lazy private var compassButton: MKCompassButton = {
+        let button = MKCompassButton(mapView: mapView)
+        return button
+    }()
+    
+    lazy private var userTrackingButton: MKUserTrackingButton = {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.setDimensions(height: 38, width: 38)
+        button.tintColor = RFColor.red
+        return button
+    }()
+    
+    private let annotationZoomButton: UIButton = {
+        let button = UIButton()
+        button.setDimensions(height: 38, width: 38)
+        let config = UIImage.SymbolConfiguration(scale: .large)
+        button.setImage(UIImage(systemName: "mappin.and.ellipse")?.withConfiguration(config), for: .normal)
+        button.tintColor = RFColor.red
+        button.addTarget(self, action: #selector(zoomToFitAllEventAnnotations), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy private var mapControlsView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 5
+        view.layer.shadowColor = UIColor.systemGray.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 6
+        
+        let contentView = UIView()
+        contentView.backgroundColor = RFColor.background
+        contentView.layer.cornerRadius = 5
+        contentView.layer.masksToBounds = true
+        
+        view.addSubview(contentView)
+        contentView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        
+        let line = UIView()
+        line.setDimensions(height: 1)
+        line.backgroundColor = UIColor.separator.withAlphaComponent(0.15)
+        
+        contentView.addSubview(annotationZoomButton)
+        contentView.addSubview(line)
+        contentView.addSubview(userTrackingButton)
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        annotationZoomButton.anchor(top: contentView.topAnchor, left: contentView.leftAnchor, right: contentView.rightAnchor)
+        line.anchor(top: annotationZoomButton.bottomAnchor, left: contentView.leftAnchor, right: contentView.rightAnchor)
+        userTrackingButton.anchor(top: line.bottomAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: contentView.rightAnchor)
+        
+        return view
+    }()
+    
     private var collectionView: UICollectionView!
     
     // MARK: - Lifecycle
@@ -73,18 +127,22 @@ class TripDetailViewController: UIViewController {
         // Configure MapView
         mapView.delegate = self
         mapView.showsUserLocation = true
-        mapView.layer.cornerRadius = 10
+        mapView.showsCompass = false
         mapView.layer.borderWidth = 1
-        mapView.layer.borderColor = RFColor.red.cgColor
+        mapView.layer.borderColor = UIColor.separator.withAlphaComponent(0.15).cgColor
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
         view.addSubview(mapView)
         mapView.anchor(top: searchBar.bottomAnchor,
                        left: view.leftAnchor,
                        right: view.rightAnchor,
-                       paddingTop: 4,
-                       paddingLeft: 12,
-                       paddingRight: 12,
                        height: view.frame.width * 0.8)
+        
+        mapView.addSubview(mapControlsView)
+        mapControlsView.anchor(top: mapView.topAnchor, right: mapView.rightAnchor, paddingTop: 8, paddingRight: 8)
+        
+        mapView.addSubview(compassButton)
+        compassButton.centerX(inView: mapControlsView)
+        compassButton.anchor(top: mapControlsView.bottomAnchor, paddingTop: 10)
         
         // Configure Collection View
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
@@ -97,7 +155,7 @@ class TripDetailViewController: UIViewController {
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 12)
+                              paddingTop: 10)
         
         // Load Data
         collectionView.reloadData()
@@ -128,12 +186,13 @@ class TripDetailViewController: UIViewController {
     }
     
     func loadTripAnnotations() {
+        mapView.removeAnnotations(mapView.annotations)
+        
         for event in trip.eventsArray {
             mapView.addAnnotation(event)
         }
         
-        let annotations = mapView.annotations
-        self.mapView.zoomToFit(annotations: annotations)
+        zoomToFitAllEventAnnotations()
     }
     
     private func performQuery(with searchText: String?) {
@@ -178,6 +237,11 @@ class TripDetailViewController: UIViewController {
     
     @objc private func addEventButtonTapped() {
         showEventDetailViewController()
+    }
+    
+    @objc private func zoomToFitAllEventAnnotations() {
+        let annotations = mapView.annotations.filter { $0.isKind(of: Event.self) }
+        mapView.zoomToFit(annotations: annotations, animated: true)
     }
     
     private func showEventDetailViewController(with event: Event? = nil) {
@@ -345,26 +409,32 @@ extension TripDetailViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - Map View Delegate
+
 extension TripDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let event = annotation as? Event,
-              let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView else {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+        
+        guard let event = annotation as? Event else {
             NSLog("Missing the registered map annotation view")
             return nil
         }
         
-        annotationView.glyphImage = event.category.annotationGlyph
-        annotationView.markerTintColor = event.category.annotationMarkerTintColor
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: event) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: event, reuseIdentifier: Event.annotationReuseIdentifier)
+        }
         
-        annotationView.canShowCallout = true
-        let detailView = EventAnnotationDetailView()
-        detailView.event = event
-        annotationView.detailCalloutAccessoryView = detailView
+        annotationView?.displayPriority = .required
+        annotationView?.glyphImage = event.category.annotationGlyph
+        annotationView?.markerTintColor = event.category.annotationMarkerTintColor
         
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        recenterMapIfNeededToFitAnnotationView(view)
+        
         guard let latitude = view.annotation?.coordinate.latitude,
               let longitude = view.annotation?.coordinate.longitude,
               let name = view.annotation?.title,
@@ -386,7 +456,33 @@ extension TripDetailViewController: MKMapViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: false)
         }
     }
+    
+    private func recenterMapIfNeededToFitAnnotationView(_ annotationView: MKAnnotationView,
+                                                        edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 50, left: 45, bottom: 30, right: 70)) {
+        var offsetX: CGFloat = 0
+        var offsetY: CGFloat = 0
+        
+        if annotationView.frame.minX < edgeInsets.left {
+            offsetX = min(annotationView.frame.minX - edgeInsets.left, -8)
+        } else if annotationView.frame.maxX > mapView.bounds.maxX - edgeInsets.right {
+            offsetX = max(annotationView.frame.maxX + edgeInsets.right - mapView.bounds.maxX, 8)
+        }
+        
+        if annotationView.frame.minY < edgeInsets.top {
+            offsetY = min(annotationView.frame.minY - edgeInsets.top, -8)
+        } else if annotationView.frame.maxY > mapView.bounds.maxY - edgeInsets.bottom {
+            offsetY = max(annotationView.frame.maxY + edgeInsets.bottom - mapView.bounds.maxY, 8)
+        }
+        
+        guard offsetX != 0 || offsetY != 0 else { return }
+        
+        let newCenterPoint = CGPoint(x: mapView.bounds.midX + offsetX, y: mapView.bounds.midY + offsetY)
+        let newCenterCoordinate = mapView.convert(newCenterPoint, toCoordinateFrom: mapView)
+        mapView.setCenter(newCenterCoordinate, animated: true)
+    }
 }
+
+// MARK: - EventDetailViewController Delegate
 
 extension TripDetailViewController: EventDetailViewControllerDelegate {
     func didAddEvent(_ event: Event) {
