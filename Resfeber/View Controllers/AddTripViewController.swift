@@ -6,9 +6,7 @@
 //  Copyright © 2020 Spencer Curtis. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import CoreData
 import PhotosUI
 
 class AddTripViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
@@ -116,7 +114,12 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     
     private var startDatePicker = UIDatePicker()
     private var endDatePicker = UIDatePicker()
-
+    
+    private var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
     
     private var photoButtonTitle: String {
         imageData == nil ? "Add Photo" : "Change Photo"
@@ -210,9 +213,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
 
     @objc func tapStartDateDone() {
         if let datePicker = self.startDateTextField.inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.dateStyle = .medium
-            self.startDateTextField.text = dateformatter.string(from: datePicker.date)
+            self.startDateTextField.text = dateFormatter.string(from: datePicker.date)
             
             if endDateTextField.text == nil || endDateTextField.text == "" {
                 endDatePicker.date = datePicker.date
@@ -223,9 +224,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
 
     @objc func tapEndDateDone() {
         if let datePicker = self.endDateTextField.inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.dateStyle = .medium
-            self.endDateTextField.text = dateformatter.string(from: datePicker.date)
+            self.endDateTextField.text = dateFormatter.string(from: datePicker.date)
             
             if startDateTextField.text == nil || startDateTextField.text == "" {
                 startDatePicker.date = datePicker.date
