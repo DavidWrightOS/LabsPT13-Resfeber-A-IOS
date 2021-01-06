@@ -258,7 +258,20 @@ class TripDetailViewController: UIViewController {
     }
     
     private func deleteTripTapped() {
-        // TODO: Popup alert, Delete trip
+        let title = "Delete Trip"
+        let message: String
+        
+        if let tripName = trip.name, !tripName.isEmpty {
+            message = "Are you sure you want to delete trip: \"\(trip.name!)\" and all of its data?"
+        } else {
+            message = "Are you sure you want to delete this trip and all of its data?"
+        }
+        
+        presentDeletionAlert(title: title, message: message) { [weak self] _ in
+            guard let self = self else { return }
+            self.tripsController.deleteTrip(self.trip)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc private func zoomToFitAllEventAnnotations() {
