@@ -112,7 +112,9 @@ class TripDetailViewController: UIViewController {
         // Configure Navigation Bar
         navigationItem.title = trip.name
         view.backgroundColor = RFColor.background
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
+        let addEventButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
+        let editTripButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(editTripButtonTapped))
+        navigationItem.rightBarButtonItems = [addEventButton, editTripButton]
         navigationController?.navigationBar.tintColor = RFColor.red
         
         // Configure Search Bar
@@ -237,6 +239,10 @@ class TripDetailViewController: UIViewController {
     
     @objc private func addEventButtonTapped() {
         showEventDetailViewController()
+    }
+    
+    @objc private func editTripButtonTapped() {
+        
     }
     
     @objc private func zoomToFitAllEventAnnotations() {
