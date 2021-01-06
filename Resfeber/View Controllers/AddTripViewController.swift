@@ -139,6 +139,25 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         return formatter
     }()
     
+    private var nameMatchesTripName: Bool = true
+    private var startDateMatchesTripStartDate: Bool = true
+    private var endDateMatchesTripEndDate: Bool = true
+    private var imageMatchesTripImage: Bool = true
+    
+    private var shouldEnableRightBarButton: Bool {
+        if trip == nil {
+            return imageData != nil ||
+                   !(nameTextField.text?.isEmpty ?? true) ||
+                   !(startDateTextField.text?.isEmpty ?? true) ||
+                   !(endDateTextField.text?.isEmpty ?? true)
+        } else {
+            return !nameMatchesTripName ||
+                   !startDateMatchesTripStartDate ||
+                   !endDateMatchesTripEndDate ||
+                   !imageMatchesTripImage
+        }
+    }
+    
     private var photoButtonTitle: String {
         imageData == nil ? "Add Photo" : "Change Photo"
     }
@@ -243,6 +262,7 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
         if let trip = trip {
             imageMatchesTripImage = imageData == trip.image
         }
+        navigationItem.rightBarButtonItem?.isEnabled = shouldEnableRightBarButton
     }
 
     @objc func cancelButtonTapped() {
@@ -292,6 +312,12 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             if endDateTextField.text == nil || endDateTextField.text == "" {
                 endDatePicker.date = datePicker.date
             }
+            
+            if let trip = trip {
+                startDateMatchesTripStartDate = datePicker.date == trip.startDate
+            }
+            
+            navigationItem.rightBarButtonItem?.isEnabled = shouldEnableRightBarButton
         }
         self.startDateTextField.resignFirstResponder()
     }
@@ -303,6 +329,12 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
             if startDateTextField.text == nil || startDateTextField.text == "" {
                 startDatePicker.date = datePicker.date
             }
+            
+            if let trip = trip {
+                endDateMatchesTripEndDate = datePicker.date == trip.endDate
+            }
+            
+            navigationItem.rightBarButtonItem?.isEnabled = shouldEnableRightBarButton
         }
         self.endDateTextField.resignFirstResponder()
     }
@@ -336,6 +368,9 @@ class AddTripViewController: UIViewController, UIImagePickerControllerDelegate &
     // MARK: - Selectors
     
     @objc private func textFieldValueChanged() {
-        navigationItem.rightBarButtonItem?.isEnabled = !(nameTextField.text?.isEmpty ?? true)
+        if let trip = trip {
+            nameMatchesTripName = nameTextField.text == trip.name
+        }
+        navigationItem.rightBarButtonItem?.isEnabled = shouldEnableRightBarButton
     }
 }
