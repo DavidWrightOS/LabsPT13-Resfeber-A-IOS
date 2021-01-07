@@ -29,15 +29,8 @@ class EventCell: UICollectionViewCell {
     
     var categoryIconIsSelected = false {
         didSet {
-            let color = bgColor
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                self.backgroundColor = color
-            } completion: { _ in }
+            updateViews()
         }
-    }
-    
-    private var bgColor: UIColor {
-        categoryIconIsSelected ? RFColor.primaryOrangeLight : RFColor.groupedBackground
     }
 
     private let imageView: UIImageView = {
@@ -104,7 +97,6 @@ class EventCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        backgroundColor = RFColor.groupedBackground
         categoryIconIsSelected = false
     }
     
@@ -119,23 +111,20 @@ class EventCell: UICollectionViewCell {
 
 private extension EventCell {
     func configureCell() {
-        backgroundColor = categoryIconIsSelected ? RFColor.red.withAlphaComponent(0.25) : RFColor.groupedBackground
-        layer.cornerRadius = 10
-        clipsToBounds = true
         
         // Configure Date Labels
         let dateStackView = UIStackView(arrangedSubviews: [dateLabelTop, dateLabelBottom])
         dateStackView.axis = .vertical
         dateStackView.alignment = .trailing
-        addSubview(dateStackView)
-        dateStackView.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
+        contentView.addSubview(dateStackView)
+        dateStackView.anchor(top: contentView.topAnchor, right: contentView.rightAnchor, paddingTop: 8, paddingRight: 8)
         dateStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         // Configure Category Image
-        addSubview(imageBGView)
-        imageBGView.centerY(inView: self)
-        imageBGView.anchor(left: leftAnchor, paddingLeft: 10)
+        contentView.addSubview(imageBGView)
+        imageBGView.centerY(inView: contentView)
+        imageBGView.anchor(left: contentView.leftAnchor, paddingLeft: 10)
         imageBGView.addSubview(imageView)
         imageView.anchor(top: imageBGView.topAnchor,
                          left: imageBGView.leftAnchor,
@@ -145,44 +134,55 @@ private extension EventCell {
                          paddingLeft: 4,
                          paddingBottom: 4,
                          paddingRight: 4)
-        
+                
         // Configure Info View
         let infoStackView = UIStackView(arrangedSubviews: [nameLabel, addressLabel, categoryLabel])
         infoStackView.axis = .vertical
         infoStackView.alignment = .leading
         infoStackView.spacing = 2
-        addSubview(infoStackView)
-        infoStackView.anchor(top: topAnchor,
+        contentView.addSubview(infoStackView)
+        infoStackView.anchor(top: contentView.topAnchor,
                         left: imageBGView.rightAnchor,
                         right: dateStackView.leftAnchor,
                         paddingTop: 8,
                         paddingLeft: 10,
                         paddingRight: 4)
-        infoStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: 8).isActive = true
+        
+        infoStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: 8).isActive = true
         infoStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         // Add button to make the category icon tappable
         let categoryIconButton = UIButton()
-        addSubview(categoryIconButton)
-        categoryIconButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: infoStackView.leftAnchor)
+        contentView.addSubview(categoryIconButton)
+        categoryIconButton.anchor(top: contentView.topAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: infoStackView.leftAnchor)
         categoryIconButton.addTarget(self, action: #selector(categoryIconTapped), for: .touchUpInside)
     }
     
     func updateViews() {
         guard let event = event else { return }
-        imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        imageBGView.backgroundColor = event.category.annotationMarkerTintColor
         
-        var name: String = ""
         if let eventName = event.name, !eventName.isEmpty {
-            name = eventName
-        } else if let locationName = event.locationName, !locationName.isEmpty {
-            name = locationName
+            nameLabel.text = eventName
+        } else {
+            nameLabel.text = event.locationName
         }
-        nameLabel.text = name
-        categoryLabel.text = event.category.displayName
+        
         addressLabel.text = event.address
+        categoryLabel.text = event.category.displayName
         updateDateLabels()
+        
+        let categoryColor = event.category.annotationMarkerTintColor
+        
+        if categoryIconIsSelected {
+            imageBGView.backgroundColor = categoryColor
+            imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            contentView.backgroundColor = categoryColor.withAlphaComponent(0.15)
+        } else {
+            imageBGView.backgroundColor = nil
+            imageView.image = event.category.annotationGlyph?.withTintColor(categoryColor, renderingMode: .alwaysOriginal)
+            contentView.backgroundColor = RFColor.groupedBackground
+        }
+        
     }
     
     private func updateDateLabels() {
