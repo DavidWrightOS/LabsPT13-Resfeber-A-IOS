@@ -126,7 +126,7 @@ class EventDetailViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewEventWasCancelled))
         configureRightBarButton()
-        title = "New Event"
+        title = event != nil ? "Edit Event" : "New Event"
         
         // Configure MapView
         
@@ -187,15 +187,19 @@ class EventDetailViewController: UIViewController {
     }
     
     private func updateViews() {
+        guard let event = event else { return }
+        
+        title = "Edit Event"
+        
         loadLocationFromEvent()
         
-        eventName = event?.name
-        locationName = event?.locationName
-        address = event?.address
-        category = event?.category
-        notes = event?.notes
-        startDate = event?.startDate
-        endDate = event?.endDate
+        eventName = event.name
+        locationName = event.locationName
+        address = event.address
+        category = event.category
+        notes = event.notes
+        startDate = event.startDate
+        endDate = event.endDate
         
         tableView.reloadData()
     }
