@@ -88,12 +88,28 @@ class EventCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        // Configure cell shadow
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
+        layer.cornerRadius = 10
+        layer.masksToBounds = false
+        layer.shadowRadius = 3.0
+        layer.shadowOpacity = 0.05
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = .zero
+        
         configureCell()
     }
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
     }
     
     override func prepareForReuse() {
