@@ -130,18 +130,13 @@ class EventDetailViewController: UIViewController {
         
         // Configure MapView
         
-        mapView.delegate = self
-        mapView.layer.cornerRadius = 10
         mapView.layer.borderWidth = 1
-        mapView.layer.borderColor = RFColor.red.cgColor
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
+        mapView.layer.borderColor = UIColor.separator.withAlphaComponent(0.15).cgColor
         view.addSubview(mapView)
         mapView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                        left: view.leftAnchor,
                        right: view.rightAnchor,
                        paddingTop: 4,
-                       paddingLeft: 12,
-                       paddingRight: 12,
                        height: view.frame.width * 0.8)
         
         // Configure TableView
@@ -280,6 +275,7 @@ class EventDetailViewController: UIViewController {
               let longitude = placemark.location?.coordinate.longitude else { return }
         
         let locationName = self.locationName ?? placemark.name
+        let address = self.address ?? placemark.address
         
         let event = tripsController.addEvent(name: eventName,
                                              locationName: locationName,
