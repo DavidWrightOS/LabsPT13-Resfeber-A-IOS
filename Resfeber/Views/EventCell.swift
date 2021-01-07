@@ -13,13 +13,6 @@ class EventCell: UICollectionViewCell {
     
     static let reuseIdentifier = "event-cell-reuse-identifier"
     
-    enum DateConfiguration {
-        case noDates
-        case startDate(Date)
-        case endDate(Date)
-        case startAndEndDate(Date, Date)
-    }
-    
     // MARK: - Properties
     
     var event: Event? {
@@ -81,23 +74,9 @@ class EventCell: UICollectionViewCell {
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
+        formatter.dateFormat = "E, MMM d"
         return formatter
     }()
-    
-    private var dateConfiguration: DateConfiguration {
-        if let startDate = event?.startDate, let endDate = event?.endDate {
-            return .startAndEndDate(startDate, endDate)
-            
-        } else if let date = event?.startDate {
-            return .startDate(date)
-            
-        } else if let date = event?.endDate {
-            return .endDate(date)
-        }
-        
-        return .noDates
-    }
     
     // MARK: - Initializers
     
@@ -133,6 +112,7 @@ private extension EventCell {
         dateStackView.alignment = .trailing
         addSubview(dateStackView)
         dateStackView.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
+        dateStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         // Configure Category Image
         addSubview(imageBGView)
@@ -166,9 +146,9 @@ private extension EventCell {
         
         infoView.addSubview(categoryLabel)
         categoryLabel.anchor(top: addressLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 2)
-        categoryLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         addSubview(infoView)
+        infoView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         infoView.anchor(top: nameLabel.bottomAnchor,
                         left: imageBGView.rightAnchor,
                         bottom: bottomAnchor,
@@ -189,24 +169,25 @@ private extension EventCell {
         nameLabel.text = event.name
         categoryLabel.text = event.category.displayName
         addressLabel.text = event.address
-        
         updateDateLabels()
     }
     
     private func updateDateLabels() {
-        switch dateConfiguration {
-        case .noDates:
-            dateLabelTop.text = nil
-            dateLabelBottom.text = nil
-        case .startDate(let date):
-            dateLabelTop.text = dateFormatter.string(from: date)
-            dateLabelBottom.text = nil
-        case .endDate(let date):
-            dateLabelTop.text = "Ends"
-            dateLabelBottom.text = dateFormatter.string(from: date)
-        case .startAndEndDate(let startDate, let endDate):
+        if let startDate = event?.startDate, let endDate = event?.endDate, startDate != endDate {
             dateLabelTop.text = dateFormatter.string(from: startDate)
             dateLabelBottom.text = dateFormatter.string(from: endDate)
+            
+        } else if let date = event?.startDate {
+            dateLabelTop.text = dateFormatter.string(from: date)
+            dateLabelBottom.text = nil
+            
+        } else if let date = event?.endDate {
+            dateLabelTop.text = dateFormatter.string(from: date)
+            dateLabelBottom.text = nil
+            
+        } else {
+            dateLabelTop.text = nil
+            dateLabelBottom.text = nil
         }
     }
 }
