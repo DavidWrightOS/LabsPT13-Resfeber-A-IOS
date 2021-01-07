@@ -38,6 +38,8 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    private var indexPathOfSelectedAnnotation: IndexPath?
+    
     lazy private var compassButton: MKCompassButton = {
         let button = MKCompassButton(mapView: mapView)
         return button
@@ -363,7 +365,7 @@ extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let xEdgeInset: CGFloat = 12
         let cellWidth = collectionView.frame.size.width - 2 * xEdgeInset
-        let cellHeight: CGFloat = 70
+        let cellHeight: CGFloat = 66
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
@@ -378,7 +380,12 @@ extension TripDetailViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
 
         cell.event = trip.eventsArray[indexPath.row]
-
+        cell.delegate = self
+        
+        if let selectedIndexPath = indexPathOfSelectedAnnotation {
+            cell.categoryIconIsSelected = indexPath == selectedIndexPath
+        }
+        
         return cell
     }
 }
@@ -412,21 +419,7 @@ extension TripDetailViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
               let event = cell.event else { return }
         
-        mapView.selectAnnotation(event, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first, selectedIndexPath == indexPath {
-            collectionView.deselectItem(at: indexPath, animated: false)
-            
-            if let cell = collectionView.cellForItem(at: indexPath) as? EventCell, let event = cell.event {
-                mapView.deselectAnnotation(event, animated: true)
-            }
-            
-            return false
-        }
-        
-        return true
+        showEventDetailViewController(with: event)
     }
 }
 
@@ -487,6 +480,7 @@ extension TripDetailViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        deselectPrevioslySelectedEventCell()
         recenterMapIfNeededToFitAnnotationView(view)
         
         guard let latitude = view.annotation?.coordinate.latitude,
@@ -495,20 +489,26 @@ extension TripDetailViewController: MKMapViewDelegate {
               let index = trip.eventsArray.firstIndex(where: { $0.coordinate.latitude == latitude && $0.coordinate.longitude == longitude && $0.name == name }) else { return }
         
         let indexPath = IndexPath(item: Int(index), section: 0)
-        deselectAllEventCells()
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+        selectEventCell(at: indexPath)
+        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        deselectAllEventCells()
+        deselectPrevioslySelectedEventCell()
     }
     
-    private func deselectAllEventCells() {
-        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
-        
-        for indexPath in selectedIndexPaths {
-            collectionView.deselectItem(at: indexPath, animated: false)
-        }
+    private func deselectPrevioslySelectedEventCell() {
+        guard let indexPath = indexPathOfSelectedAnnotation,
+              let cell = collectionView.cellForItem(at: indexPath) as? EventCell else { return }
+        cell.categoryIconIsSelected = false
+        indexPathOfSelectedAnnotation = nil
+    }
+    
+    private func selectEventCell(at indexPath: IndexPath) {
+        indexPathOfSelectedAnnotation = indexPath
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        guard let eventCell = cell as? EventCell else { return }
+        eventCell.categoryIconIsSelected = true
     }
     
     private func recenterMapIfNeededToFitAnnotationView(_ annotationView: MKAnnotationView,
@@ -555,5 +555,30 @@ extension TripDetailViewController: AddTripViewControllerDelegate {
     func didUpdateTrip(_ trip: Trip) {
         title = trip.name
         delegate?.didUpdateTrip(trip)
+    }
+}
+
+// MARK: - EventCell Delegate
+
+extension TripDetailViewController: EventCellDelegate {
+    func categoryIconTapped(for cell: EventCell) {
+        guard let indexPath = collectionView.indexPath(for: cell),
+              let event = cell.event else { return }
+        
+        if let oldIndexPath = indexPathOfSelectedAnnotation,
+           let oldCell = collectionView.cellForItem(at: oldIndexPath) as? EventCell,
+           let oldEvent = oldCell.event {
+            oldCell.categoryIconIsSelected = false
+            mapView.deselectAnnotation(oldEvent, animated: true)
+            
+            guard oldEvent != event else {
+                indexPathOfSelectedAnnotation = nil
+                return
+            }
+        }
+        
+        mapView.selectAnnotation(event, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        selectEventCell(at: indexPath)
     }
 }
