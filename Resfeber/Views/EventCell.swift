@@ -34,11 +34,6 @@ class EventCell: UICollectionViewCell {
         return view
     }()
 
-    private let infoView: UIView = {
-        let view = UIView()
-        return view
-    }()
-
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline).bold
@@ -112,11 +107,12 @@ private extension EventCell {
         addSubview(dateStackView)
         dateStackView.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
         dateStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        dateStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         // Configure Category Image
         addSubview(imageBGView)
         imageBGView.centerY(inView: self)
-        imageBGView.anchor(left: leftAnchor, paddingLeft: 8)
+        imageBGView.anchor(left: leftAnchor, paddingLeft: 10)
         imageBGView.addSubview(imageView)
         imageView.anchor(top: imageBGView.topAnchor,
                          left: imageBGView.leftAnchor,
@@ -128,36 +124,19 @@ private extension EventCell {
                          paddingRight: 4)
         
         // Configure Info View
-        addSubview(nameLabel)
-        nameLabel.anchor(top: topAnchor,
-                         left: imageBGView.rightAnchor,
-                         right: dateStackView.leftAnchor,
-                         paddingTop: 8,
-                         paddingLeft: 8,
-                         paddingRight: 4)
-        nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        nameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        dateStackView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        dateStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
-        infoView.addSubview(addressLabel)
-        addressLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
-        
-        infoView.addSubview(categoryLabel)
-        categoryLabel.anchor(top: addressLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 2)
-        
-        addSubview(infoView)
-        infoView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        infoView.anchor(top: nameLabel.bottomAnchor,
+        let infoStackView = UIStackView(arrangedSubviews: [nameLabel, addressLabel, categoryLabel])
+        infoStackView.axis = .vertical
+        infoStackView.alignment = .leading
+        infoStackView.spacing = 2
+        addSubview(infoStackView)
+        infoStackView.anchor(top: topAnchor,
                         left: imageBGView.rightAnchor,
-                        bottom: bottomAnchor,
                         right: dateStackView.leftAnchor,
-                        paddingTop: 2,
-                        paddingLeft: 8,
-                        paddingBottom: 8,
+                        paddingTop: 8,
+                        paddingLeft: 10,
                         paddingRight: 4)
-        
-        layoutSubviews()
+        infoStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: 8).isActive = true
+        infoStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
     
     func updateViews() {
