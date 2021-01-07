@@ -41,7 +41,7 @@ class EventCell: UICollectionViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline).bold
         return label
     }()
     
@@ -61,7 +61,6 @@ class EventCell: UICollectionViewCell {
     private let addressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
-        label.textColor = .secondaryLabel
         return label
     }()
     
