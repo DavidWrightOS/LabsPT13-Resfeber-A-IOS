@@ -36,8 +36,8 @@ enum AddEventSection: Int, CaseIterable {
 
 // Section 0
 enum NameAndLocationInputRow: Int, CaseIterable {
-    case name
     case location
+    case name
 }
 
 // Section 1
