@@ -336,27 +336,20 @@ extension TripDetailViewController: CLLocationManagerDelegate {
 
 // MARK: - Search Bar Delegate
 extension TripDetailViewController: UISearchBarDelegate {
-    func searchBar(_: UISearchBar, textDidChange searchText: String) {
-        print("DEBUG: Search bar text changed: \(searchText)..")
-    }
-
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
         performQuery(with: searchBar.text)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
         dismissSearchTableView()
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
         showSearchTableView()
-    }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
     }
 }
 
