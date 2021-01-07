@@ -40,15 +40,6 @@ class EventCell: UICollectionViewCell {
         view.layer.cornerRadius = 8
         return view
     }()
-    
-    private let categoryIndicatorView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = true
-        iv.heightAnchor.constraint(equalTo: iv.widthAnchor).isActive = true
-        iv.image = UIImage(systemName: "circle.fill")?.withRenderingMode(.alwaysOriginal)
-        return iv
-    }()
 
     private let infoView: UIView = {
         let view = UIView()
@@ -83,7 +74,7 @@ class EventCell: UICollectionViewCell {
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.font = UIFont.preferredFont(forTextStyle: .caption1).italic
         label.textColor = .secondaryLabel
         return label
     }()
@@ -174,13 +165,7 @@ private extension EventCell {
         addressLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
         
         infoView.addSubview(categoryLabel)
-        categoryLabel.anchor(top: addressLabel.bottomAnchor, right: infoView.rightAnchor, paddingTop: 2)
-        
-        infoView.addSubview(categoryIndicatorView)
-        categoryIndicatorView.centerY(inView: categoryLabel)
-        categoryIndicatorView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor, multiplier: 0.65).isActive = true
-        categoryIndicatorView.anchor(left: infoView.leftAnchor, right: categoryLabel.leftAnchor, paddingRight: 4)
-        categoryIndicatorView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        categoryLabel.anchor(top: addressLabel.bottomAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor, paddingTop: 2)
         categoryLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         addSubview(infoView)
@@ -200,10 +185,6 @@ private extension EventCell {
         guard let event = event else { return }
         imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
         imageBGView.backgroundColor = event.category.annotationMarkerTintColor
-        
-        let image = UIImage(systemName: "circle.fill")
-        let tintColor = event.category.annotationMarkerTintColor
-        categoryIndicatorView.image = image?.withTintColor(tintColor, renderingMode: .alwaysOriginal)
         
         nameLabel.text = event.name
         categoryLabel.text = event.category.displayName
