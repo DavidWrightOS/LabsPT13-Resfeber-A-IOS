@@ -206,7 +206,7 @@ class TripDetailViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
-    fileprivate func reloadTrip() {
+    private func reloadTrip() {
         guard let trip = tripsController.getTrip(trip.id) else { return }
         
         self.trip = trip
@@ -214,7 +214,7 @@ class TripDetailViewController: UIViewController {
         loadTripAnnotations()
     }
     
-    func loadTripAnnotations() {
+    private func loadTripAnnotations() {
         mapView.removeAnnotations(mapView.annotations)
         
         for event in trip.eventsArray {
@@ -233,7 +233,7 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
+    private func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
         var results = [MKPlacemark]()
         
         let request = MKLocalSearch.Request()
@@ -252,13 +252,13 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    func showSearchTableView() {
+    private func showSearchTableView() {
         UIView.animate(withDuration: 0.2) {
             self.searchTableView.frame.origin.y = self.searchBar.frame.maxY
         }
     }
     
-    func dismissSearchTableView(completion: ((Bool) -> Void)? = nil) {
+    private func dismissSearchTableView(completion: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.searchTableView.frame.origin.y = self.view.frame.height
         }, completion: completion)
@@ -336,6 +336,7 @@ extension TripDetailViewController: CLLocationManagerDelegate {
 }
 
 // MARK: - Search Bar Delegate
+
 extension TripDetailViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         performQuery(with: searchBar.text)
@@ -355,6 +356,7 @@ extension TripDetailViewController: UISearchBarDelegate {
 }
 
 // MARK: - Collection View Layout
+
 extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let xEdgeInset: CGFloat = 12
@@ -365,6 +367,7 @@ extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - Collection View Data Source
+
 extension TripDetailViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         trip.eventsArray.count
@@ -390,6 +393,7 @@ extension TripDetailViewController: UICollectionViewDataSource {
 }
 
 // MARK: - Collection View Delegate
+
 extension TripDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
