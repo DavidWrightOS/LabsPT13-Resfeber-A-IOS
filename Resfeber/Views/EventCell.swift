@@ -9,16 +9,35 @@
 import UIKit
 import CoreLocation
 
+protocol EventCellDelegate: class {
+    func categoryIconTapped(for cell: EventCell)
+}
+
 class EventCell: UICollectionViewCell {
     
     static let reuseIdentifier = "event-cell-reuse-identifier"
     
     // MARK: - Properties
     
+    weak var delegate: EventCellDelegate?
+    
     var event: Event? {
         didSet {
             updateViews()
         }
+    }
+    
+    var categoryIconIsSelected = false {
+        didSet {
+            let color = bgColor
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                self.backgroundColor = color
+            } completion: { _ in }
+        }
+    }
+    
+    private var bgColor: UIColor {
+        categoryIconIsSelected ? RFColor.primaryOrangeLight : RFColor.groupedBackground
     }
 
     private let imageView: UIImageView = {
@@ -72,7 +91,7 @@ class EventCell: UICollectionViewCell {
         return formatter
     }()
     
-    // MARK: - Initializers
+    // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,20 +102,24 @@ class EventCell: UICollectionViewCell {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        backgroundColor = RFColor.groupedBackground
+        categoryIconIsSelected = false
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func categoryIconTapped() {
+        delegate?.categoryIconTapped(for: self)
+    }
 }
 
 // MARK: - Helpers
 
 private extension EventCell {
     func configureCell() {
-        let selectedBGView = UIView(frame: bounds)
-        selectedBGView.backgroundColor = RFColor.groupedBackground
-        selectedBGView.layer.cornerRadius = 10
-        selectedBGView.layer.borderWidth = 1.0
-        selectedBGView.layer.borderColor = RFColor.red.cgColor
-        selectedBackgroundView = selectedBGView
-        
-        backgroundColor = RFColor.groupedBackground
+        backgroundColor = categoryIconIsSelected ? RFColor.red.withAlphaComponent(0.25) : RFColor.groupedBackground
         layer.cornerRadius = 10
         clipsToBounds = true
         
@@ -137,6 +160,12 @@ private extension EventCell {
                         paddingRight: 4)
         infoStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: 8).isActive = true
         infoStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
+        // Add button to make the category icon tappable
+        let categoryIconButton = UIButton()
+        addSubview(categoryIconButton)
+        categoryIconButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: infoStackView.leftAnchor)
+        categoryIconButton.addTarget(self, action: #selector(categoryIconTapped), for: .touchUpInside)
     }
     
     func updateViews() {
