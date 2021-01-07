@@ -28,9 +28,24 @@ class EventDetailCell: UITableViewCell {
         
         selectionStyle = .none
         backgroundColor = RFColor.groupedBackground
+        
+        // Configure cell shadow
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
+        layer.cornerRadius = 10
+        layer.masksToBounds = false
+        layer.shadowRadius = 3.0
+        layer.shadowOpacity = 0.05
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = .zero
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
     }
 }

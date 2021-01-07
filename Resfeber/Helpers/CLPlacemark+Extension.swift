@@ -9,29 +9,43 @@
 import CoreLocation
 
 extension CLPlacemark {
+    
     var address: String? {
-        var addressString = ""
-        
-        if let subThoroughfare = subThoroughfare {
-            addressString += subThoroughfare
+        if let line1 = addressLine1 {
+            if let line2 = addressLine2 {
+                return line1 + ", " + line2
+            }
+            return line1
         }
-        
+        return addressLine2
+    }
+    
+    var addressTwoLineFormat: String? {
+        if let line1 = addressLine1 {
+            if let line2 = addressLine2 {
+                return line1 + "\n" + line2
+            }
+            return line1
+        }
+        return addressLine2
+    }
+    
+    var addressLine1: String? {
+        var line1 = subThoroughfare ?? ""
         if let thoroughfare = thoroughfare {
-            addressString += addressString.isEmpty ? thoroughfare : " " + thoroughfare
+            line1 += line1.isEmpty ? thoroughfare : " " + thoroughfare
         }
-        
-        if let locality = locality {
-            addressString += addressString.isEmpty ? locality : ", " + locality
-        }
-        
+        return line1.isEmpty ? nil : line1
+    }
+    
+    var addressLine2: String? {
+        var line2 = locality ?? ""
         if let administrativeArea = administrativeArea {
-            addressString += addressString.isEmpty ? administrativeArea : ", " + administrativeArea
-            
+            line2 += line2.isEmpty ? administrativeArea : ", " + administrativeArea
             if let postalCode = postalCode {
-                addressString += " " + postalCode
+                line2 += " " + postalCode
             }
         }
-        
-        return addressString.isEmpty ? nil : addressString
+        return line2.isEmpty ? nil : line2
     }
 }

@@ -36,8 +36,8 @@ enum AddEventSection: Int, CaseIterable {
 
 // Section 0
 enum NameAndLocationInputRow: Int, CaseIterable {
-    case name
     case location
+    case name
 }
 
 // Section 1
@@ -64,7 +64,7 @@ extension NameAndLocationInputRow: InputRow {
     var placeholderText: String? {
         switch self {
         case .name: return "Event name (optional)"
-        case .location: return "Location (required)"
+        case .location: return "Location"
         }
     }
 }

@@ -126,22 +126,17 @@ class EventDetailViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(addNewEventWasCancelled))
         configureRightBarButton()
-        title = "New Event"
+        title = event != nil ? "Edit Event" : "New Event"
         
         // Configure MapView
         
-        mapView.delegate = self
-        mapView.layer.cornerRadius = 10
         mapView.layer.borderWidth = 1
-        mapView.layer.borderColor = RFColor.red.cgColor
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
+        mapView.layer.borderColor = UIColor.separator.withAlphaComponent(0.15).cgColor
         view.addSubview(mapView)
         mapView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                        left: view.leftAnchor,
                        right: view.rightAnchor,
                        paddingTop: 4,
-                       paddingLeft: 12,
-                       paddingRight: 12,
                        height: view.frame.width * 0.8)
         
         // Configure TableView
@@ -192,15 +187,19 @@ class EventDetailViewController: UIViewController {
     }
     
     private func updateViews() {
+        guard let event = event else { return }
+        
+        title = "Edit Event"
+        
         loadLocationFromEvent()
         
-        eventName = event?.name
-        locationName = event?.locationName
-        address = event?.address
-        category = event?.category
-        notes = event?.notes
-        startDate = event?.startDate
-        endDate = event?.endDate
+        eventName = event.name
+        locationName = event.locationName
+        address = event.address
+        category = event.category
+        notes = event.notes
+        startDate = event.startDate
+        endDate = event.endDate
         
         tableView.reloadData()
     }
@@ -280,6 +279,7 @@ class EventDetailViewController: UIViewController {
               let longitude = placemark.location?.coordinate.longitude else { return }
         
         let locationName = self.locationName ?? placemark.name
+        let address = self.address ?? placemark.address
         
         let event = tripsController.addEvent(name: eventName,
                                              locationName: locationName,
