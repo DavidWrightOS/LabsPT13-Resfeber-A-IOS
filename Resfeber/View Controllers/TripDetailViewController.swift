@@ -9,9 +9,16 @@
 import UIKit
 import MapKit
 
+protocol TripDetailViewControllerDelegate: class {
+    func didUpdateTrip(_ trip: Trip)
+    func didDeleteTrip(_ trip: Trip)
+}
+
 class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: TripDetailViewControllerDelegate?
     
     private var trip: Trip
     
@@ -110,9 +117,28 @@ class TripDetailViewController: UIViewController {
     
     private func configureViews() {
         // Configure Navigation Bar
-        navigationItem.title = trip.name
+        if let name = trip.name, !name.isEmpty {
+            navigationItem.title = name
+        } else {
+            navigationItem.title = "Trip"
+        }
+        
         view.backgroundColor = RFColor.background
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
+        
+        let editTripMenu = UIMenu(title: "", options: .displayInline, children: [
+            UIAction(title: "Edit Trip",
+                     image: UIImage(systemName: "square.and.pencil"),
+                     handler: { [weak self] _ in self?.editTripTapped() }),
+            UIAction(title: "Delete Trip",
+                     image: UIImage(systemName: "trash"),
+                     attributes: .destructive,
+                     handler: { [weak self] _ in self?.deleteTripTapped() })
+        ])
+        
+        let editTripButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: editTripMenu)
+        let addEventButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonTapped))
+
+        navigationItem.rightBarButtonItems = [addEventButton, editTripButton]
         navigationController?.navigationBar.tintColor = RFColor.red
         
         // Configure Search Bar
@@ -239,6 +265,34 @@ class TripDetailViewController: UIViewController {
         showEventDetailViewController()
     }
     
+    private func editTripTapped() {
+        let addTripVC = AddTripViewController(tripsController: tripsController)
+        addTripVC.delegate = self
+        addTripVC.trip = trip
+        let nav = UINavigationController(rootViewController: addTripVC)
+        nav.navigationBar.tintColor = RFColor.red
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    private func deleteTripTapped() {
+        let title = "Delete Trip"
+        let message: String
+        
+        if let tripName = trip.name, !tripName.isEmpty {
+            message = "Are you sure you want to delete trip: \"\(trip.name!)\" and all of its data?"
+        } else {
+            message = "Are you sure you want to delete this trip and all of its data?"
+        }
+        
+        presentDeletionAlert(title: title, message: message) { [weak self] _ in
+            guard let self = self else { return }
+            self.tripsController.deleteTrip(self.trip)
+            self.delegate?.didDeleteTrip(self.trip)
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     @objc private func zoomToFitAllEventAnnotations() {
         let annotations = mapView.annotations.filter { $0.isKind(of: Event.self) }
         mapView.zoomToFit(annotations: annotations, animated: true)
@@ -338,7 +392,7 @@ extension TripDetailViewController: UICollectionViewDelegate {
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
             
             // Setup Edit Event menu item
-            let editEvent = UIAction(title: "Edit Event", image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis")) { [weak self] action in
+            let editEvent = UIAction(title: "Edit Event", image: UIImage(systemName: "square.and.pencil")) { [weak self] action in
                 guard let self = self else { return }
                 self.showEventDetailViewController(with: event)
             }
@@ -492,5 +546,14 @@ extension TripDetailViewController: EventDetailViewControllerDelegate {
     func didUpdateEvent(_ event: Event) {
         tripsController.updateEvent(event)
         reloadTrip()
+    }
+}
+
+// MARK: - AddTripViewController Delegate
+
+extension TripDetailViewController: AddTripViewControllerDelegate {
+    func didUpdateTrip(_ trip: Trip) {
+        title = trip.name
+        delegate?.didUpdateTrip(trip)
     }
 }
