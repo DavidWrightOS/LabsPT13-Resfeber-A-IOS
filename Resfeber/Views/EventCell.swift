@@ -9,13 +9,25 @@
 import UIKit
 import CoreLocation
 
+protocol EventCellDelegate: class {
+    func categoryIconTapped(for event: Event)
+}
+
 class EventCell: UICollectionViewCell {
     
     static let reuseIdentifier = "event-cell-reuse-identifier"
     
     // MARK: - Properties
     
+    weak var delegate: EventCellDelegate?
+    
     var event: Event? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    var categoryIconIsSelected = false {
         didSet {
             updateViews()
         }
@@ -33,57 +45,60 @@ class EventCell: UICollectionViewCell {
         view.layer.cornerRadius = 8
         return view
     }()
-    
-    private let categoryIndicatorView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = true
-        iv.heightAnchor.constraint(equalTo: iv.widthAnchor).isActive = true
-        iv.image = UIImage(systemName: "circle.fill")?.withRenderingMode(.alwaysOriginal)
-        return iv
-    }()
-
-    private let infoView: UIView = {
-        let view = UIView()
-        return view
-    }()
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline).bold
         return label
     }()
     
-    private let dateLabel: UILabel = {
+    private let dateLabelTop: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        return label
+    }()
+    
+    private let dateLabelBottom: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.textColor = .secondaryLabel
         return label
     }()
     
     private let addressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
-        label.textColor = .secondaryLabel
         return label
     }()
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.font = UIFont.preferredFont(forTextStyle: .caption1).italic
         label.textColor = .secondaryLabel
         return label
     }()
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
+        formatter.dateFormat = "E, MMM d"
         return formatter
     }()
     
-    // MARK: - Initializers
+    // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        // Configure cell shadow
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
+        layer.cornerRadius = 10
+        layer.masksToBounds = false
+        layer.shadowRadius = 3.0
+        layer.shadowOpacity = 0.05
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = .zero
+        
         configureCell()
     }
 
@@ -91,30 +106,42 @@ class EventCell: UICollectionViewCell {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
+    }
+    
+    override func prepareForReuse() {
+        categoryIconIsSelected = false
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func categoryIconTapped() {
+        guard let event = event else { return }
+        delegate?.categoryIconTapped(for: event)
+    }
 }
 
 // MARK: - Helpers
 
 private extension EventCell {
     func configureCell() {
-        let selectedBGView = UIView(frame: bounds)
-        selectedBGView.backgroundColor = .systemGray5
-        selectedBGView.layer.cornerRadius = 10
-        selectedBGView.layer.borderWidth = 1.0
-        selectedBGView.layer.borderColor = RFColor.red.cgColor
-        selectedBackgroundView = selectedBGView
         
-        backgroundColor = .systemGray5
-        layer.cornerRadius = 10
-        clipsToBounds = true
-        
-        // Configure Date Label
-        addSubview(dateLabel)
-        dateLabel.anchor(top: topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 8)
+        // Configure Date Labels
+        let dateStackView = UIStackView(arrangedSubviews: [dateLabelTop, dateLabelBottom])
+        dateStackView.axis = .vertical
+        dateStackView.alignment = .trailing
+        contentView.addSubview(dateStackView)
+        dateStackView.anchor(top: contentView.topAnchor, right: contentView.rightAnchor, paddingTop: 8, paddingRight: 8)
+        dateStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        dateStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         // Configure Category Image
-        addSubview(imageBGView)
-        imageBGView.anchor(bottom: bottomAnchor, right: rightAnchor, paddingBottom: 8, paddingRight: 8)
+        contentView.addSubview(imageBGView)
+        imageBGView.centerY(inView: contentView)
+        imageBGView.anchor(left: contentView.leftAnchor, paddingLeft: 10)
         imageBGView.addSubview(imageView)
         imageView.anchor(top: imageBGView.topAnchor,
                          left: imageBGView.leftAnchor,
@@ -124,76 +151,73 @@ private extension EventCell {
                          paddingLeft: 4,
                          paddingBottom: 4,
                          paddingRight: 4)
-        
+                
         // Configure Info View
-        addSubview(nameLabel)
-        nameLabel.anchor(top: topAnchor,
-                         left: leftAnchor,
-                         right: dateLabel.leftAnchor,
-                         paddingTop: 8,
-                         paddingLeft: 8,
-                         paddingRight: 4)
-        nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        nameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        dateLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
-        infoView.addSubview(addressLabel)
-        addressLabel.anchor(top: infoView.topAnchor, left: infoView.leftAnchor, right: infoView.rightAnchor)
-        
-        infoView.addSubview(categoryLabel)
-        categoryLabel.anchor(top: addressLabel.bottomAnchor, right: infoView.rightAnchor, paddingTop: 2)
-        
-        infoView.addSubview(categoryIndicatorView)
-        categoryIndicatorView.centerY(inView: categoryLabel)
-        categoryIndicatorView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor, multiplier: 0.65).isActive = true
-        categoryIndicatorView.anchor(left: infoView.leftAnchor, right: categoryLabel.leftAnchor, paddingRight: 4)
-        categoryIndicatorView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        categoryLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        
-        addSubview(infoView)
-        infoView.anchor(top: nameLabel.bottomAnchor,
-                        left: leftAnchor,
-                        bottom: bottomAnchor,
-                        right: imageView.leftAnchor,
-                        paddingTop: 2,
-                        paddingLeft: 8,
-                        paddingBottom: 8,
+        let infoStackView = UIStackView(arrangedSubviews: [nameLabel, addressLabel, categoryLabel])
+        infoStackView.axis = .vertical
+        infoStackView.alignment = .leading
+        infoStackView.spacing = 2
+        contentView.addSubview(infoStackView)
+        infoStackView.anchor(top: contentView.topAnchor,
+                        left: imageBGView.rightAnchor,
+                        right: dateStackView.leftAnchor,
+                        paddingTop: 8,
+                        paddingLeft: 10,
                         paddingRight: 4)
         
-        layoutSubviews()
+        infoStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: 8).isActive = true
+        infoStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
+        // Add button to make the category icon tappable
+        let categoryIconButton = UIButton()
+        contentView.addSubview(categoryIconButton)
+        categoryIconButton.anchor(top: contentView.topAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: infoStackView.leftAnchor)
+        categoryIconButton.addTarget(self, action: #selector(categoryIconTapped), for: .touchUpInside)
     }
     
     func updateViews() {
         guard let event = event else { return }
-        imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        imageBGView.backgroundColor = event.category.annotationMarkerTintColor
         
-        let image = UIImage(systemName: "circle.fill")
-        let tintColor = event.category.annotationMarkerTintColor
-        categoryIndicatorView.image = image?.withTintColor(tintColor, renderingMode: .alwaysOriginal)
+        if let eventName = event.name, !eventName.isEmpty {
+            nameLabel.text = eventName
+        } else {
+            nameLabel.text = event.locationName
+        }
         
-        nameLabel.text = event.name
-        categoryLabel.text = event.category.displayName
         addressLabel.text = event.address
-        dateLabel.text = dateString
+        categoryLabel.text = event.category.displayName
+        updateDateLabels()
+        
+        let categoryColor = event.category.annotationMarkerTintColor
+        
+        if categoryIconIsSelected {
+            imageBGView.backgroundColor = categoryColor
+            imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            contentView.backgroundColor = categoryColor.withAlphaComponent(0.15)
+        } else {
+            imageBGView.backgroundColor = nil
+            imageView.image = event.category.annotationGlyph?.withTintColor(categoryColor, renderingMode: .alwaysOriginal)
+            contentView.backgroundColor = RFColor.groupedBackground
+        }
+        
     }
     
-    private var dateString: String? {
-        guard let event = event else { return nil }
-        
-        if let startDate = event.startDate {
-            if let endDate = event.endDate, startDate != endDate {
-                return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
-            } else {
-                return dateFormatter.string(from: startDate)
-            }
+    private func updateDateLabels() {
+        if let startDate = event?.startDate, let endDate = event?.endDate, startDate != endDate {
+            dateLabelTop.text = dateFormatter.string(from: startDate)
+            dateLabelBottom.text = dateFormatter.string(from: endDate)
+            
+        } else if let date = event?.startDate {
+            dateLabelTop.text = dateFormatter.string(from: date)
+            dateLabelBottom.text = nil
+            
+        } else if let date = event?.endDate {
+            dateLabelTop.text = dateFormatter.string(from: date)
+            dateLabelBottom.text = nil
+            
+        } else {
+            dateLabelTop.text = nil
+            dateLabelBottom.text = nil
         }
-        
-        if let endDate = event.endDate {
-            return dateFormatter.string(from: endDate)
-        }
-        
-        return nil
     }
 }

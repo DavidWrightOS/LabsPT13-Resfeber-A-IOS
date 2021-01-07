@@ -22,7 +22,7 @@ extension Event {
     @NSManaged public var categoryRawValue: Int32
     @NSManaged public var address: String?
     @NSManaged public var endDate: Date?
-    @NSManaged public var eventDescription: String?
+    @NSManaged public var locationName: String?
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
     @NSManaged public var name: String?
@@ -48,5 +48,5 @@ extension Event: MKAnnotation {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    public var title: String? { name }
+    public var title: String? { locationName }
 }

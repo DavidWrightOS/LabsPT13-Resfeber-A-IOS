@@ -38,6 +38,8 @@ class TripDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    private var selectedEvent: Event?
+    
     lazy private var compassButton: MKCompassButton = {
         let button = MKCompassButton(mapView: mapView)
         return button
@@ -150,6 +152,9 @@ class TripDetailViewController: UIViewController {
                          paddingLeft: 8,
                          paddingRight: 8)
         
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
+        view.addSubview(collectionView)
+        
         // Configure MapView
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -171,17 +176,15 @@ class TripDetailViewController: UIViewController {
         compassButton.anchor(top: mapControlsView.bottomAnchor, paddingTop: 10)
         
         // Configure Collection View
-        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = RFColor.background
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        view.addSubview(collectionView)
         collectionView.anchor(top: mapView.bottomAnchor,
                               left: view.leftAnchor,
                               bottom: view.bottomAnchor,
                               right: view.rightAnchor,
-                              paddingTop: 10)
+                              paddingTop: 12)
         
         // Load Data
         collectionView.reloadData()
@@ -203,7 +206,7 @@ class TripDetailViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
-    fileprivate func reloadTrip() {
+    private func reloadTrip() {
         guard let trip = tripsController.getTrip(trip.id) else { return }
         
         self.trip = trip
@@ -211,7 +214,7 @@ class TripDetailViewController: UIViewController {
         loadTripAnnotations()
     }
     
-    func loadTripAnnotations() {
+    private func loadTripAnnotations() {
         mapView.removeAnnotations(mapView.annotations)
         
         for event in trip.eventsArray {
@@ -230,7 +233,7 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
+    private func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
         var results = [MKPlacemark]()
         
         let request = MKLocalSearch.Request()
@@ -249,13 +252,13 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    func showSearchTableView() {
+    private func showSearchTableView() {
         UIView.animate(withDuration: 0.2) {
             self.searchTableView.frame.origin.y = self.searchBar.frame.maxY
         }
     }
     
-    func dismissSearchTableView(completion: ((Bool) -> Void)? = nil) {
+    private func dismissSearchTableView(completion: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.searchTableView.frame.origin.y = self.view.frame.height
         }, completion: completion)
@@ -333,18 +336,16 @@ extension TripDetailViewController: CLLocationManagerDelegate {
 }
 
 // MARK: - Search Bar Delegate
-extension TripDetailViewController: UISearchBarDelegate {
-    func searchBar(_: UISearchBar, textDidChange searchText: String) {
-        print("DEBUG: Search bar text changed: \(searchText)..")
-    }
 
+extension TripDetailViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
         performQuery(with: searchBar.text)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
         dismissSearchTableView()
     }
 
@@ -352,23 +353,21 @@ extension TripDetailViewController: UISearchBarDelegate {
         searchBar.setShowsCancelButton(true, animated: true)
         showSearchTableView()
     }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
-    }
 }
 
 // MARK: - Collection View Layout
+
 extension TripDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let xEdgeInset: CGFloat = 12
         let cellWidth = collectionView.frame.size.width - 2 * xEdgeInset
-        let cellHeight: CGFloat = 70
+        let cellHeight: CGFloat = 66
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
 
 // MARK: - Collection View Data Source
+
 extension TripDetailViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         trip.eventsArray.count
@@ -378,12 +377,23 @@ extension TripDetailViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
 
         cell.event = trip.eventsArray[indexPath.row]
-
+        cell.delegate = self
+        
+        if let selectedEvent = self.selectedEvent, let indexPathOfSelectedEvent = indexPathFor(selectedEvent) {
+            cell.categoryIconIsSelected = indexPath == indexPathOfSelectedEvent
+        }
+        
         return cell
+    }
+    
+    private func indexPathFor(_ event: Event) -> IndexPath? {
+        guard let index = trip.eventsArray.firstIndex(of: event) else { return nil }
+        return IndexPath(item: index, section: 0)
     }
 }
 
 // MARK: - Collection View Delegate
+
 extension TripDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
@@ -409,24 +419,8 @@ extension TripDetailViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
-              let event = cell.event else { return }
-        
-        mapView.selectAnnotation(event, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first, selectedIndexPath == indexPath {
-            collectionView.deselectItem(at: indexPath, animated: false)
-            
-            if let cell = collectionView.cellForItem(at: indexPath) as? EventCell, let event = cell.event {
-                mapView.deselectAnnotation(event, animated: true)
-            }
-            
-            return false
-        }
-        
-        return true
+        let event = trip.eventsArray[indexPath.item]
+        showEventDetailViewController(with: event)
     }
 }
 
@@ -491,24 +485,35 @@ extension TripDetailViewController: MKMapViewDelegate {
         
         guard let latitude = view.annotation?.coordinate.latitude,
               let longitude = view.annotation?.coordinate.longitude,
-              let name = view.annotation?.title,
-              let index = trip.eventsArray.firstIndex(where: { $0.coordinate.latitude == latitude && $0.coordinate.longitude == longitude && $0.name == name }) else { return }
+              let index = trip.eventsArray.firstIndex(where: { $0.coordinate.latitude == latitude && $0.coordinate.longitude == longitude }) else {
+            NSLog("Error: Could not find matching event in data source for annotation with title: \"\(String(describing: view.annotation?.title ?? ""))")
+            return
+        }
         
-        let indexPath = IndexPath(item: Int(index), section: 0)
-        deselectAllEventCells()
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+        let selectedEvent = trip.eventsArray[index]
+        let selectedIndexPath = IndexPath(item: Int(index), section: 0)
+        
+        var indexPathsToUpdate: [IndexPath] = [selectedIndexPath]
+        
+        if let prevSelectedEvent = self.selectedEvent {
+            if let prevSelectedIndexPath = indexPathFor(prevSelectedEvent) {
+                indexPathsToUpdate.append(prevSelectedIndexPath)
+            }
+            
+            mapView.deselectAnnotation(prevSelectedEvent, animated: true)
+        }
+        
+        self.selectedEvent = selectedEvent
+        collectionView.reloadItems(at: indexPathsToUpdate)
+        collectionView.scrollToItem(at: selectedIndexPath, at: .centeredVertically, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        deselectAllEventCells()
-    }
-    
-    private func deselectAllEventCells() {
-        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        guard let deselectedEvent = selectedEvent,
+              let deselectedIndexPath = indexPathFor(deselectedEvent) else { return }
         
-        for indexPath in selectedIndexPaths {
-            collectionView.deselectItem(at: indexPath, animated: false)
-        }
+        selectedEvent = nil
+        collectionView.reloadItems(at: [deselectedIndexPath])
     }
     
     private func recenterMapIfNeededToFitAnnotationView(_ annotationView: MKAnnotationView,
@@ -555,5 +560,36 @@ extension TripDetailViewController: AddTripViewControllerDelegate {
     func didUpdateTrip(_ trip: Trip) {
         title = trip.name
         delegate?.didUpdateTrip(trip)
+    }
+}
+
+// MARK: - EventCell Delegate
+
+extension TripDetailViewController: EventCellDelegate {
+    func categoryIconTapped(for event: Event) {
+        guard let selectedIndexPath = indexPathFor(event) else {
+            NSLog("Error: Could not find indexPath for event: \(event.name ?? event.locationName ?? event.eventID)")
+            return
+        }
+        
+        var indexPathsToUpdate: [IndexPath] = [selectedIndexPath]
+        
+        if let prevSelectedEvent = selectedEvent {
+            mapView.deselectAnnotation(prevSelectedEvent, animated: true)
+            
+            if event == prevSelectedEvent {
+                selectedEvent = nil
+                collectionView.reloadItems(at: indexPathsToUpdate)
+                return
+                
+            } else if let prevSelectedIndexPath = indexPathFor(prevSelectedEvent) {
+                indexPathsToUpdate.append(prevSelectedIndexPath)
+            }
+        }
+        
+        mapView.selectAnnotation(event, animated: true)
+        selectedEvent = event
+        collectionView.reloadItems(at: indexPathsToUpdate)
+        collectionView.scrollToItem(at: selectedIndexPath, at: .centeredVertically, animated: true)
     }
 }

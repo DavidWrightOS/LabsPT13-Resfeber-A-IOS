@@ -84,11 +84,11 @@ extension TripsController {
     }
     
     @discardableResult
-    public func addEvent(name: String? = nil, eventDescription: String? = nil, category: EventCategory? = nil, latitude: Double? = nil, longitude: Double? = nil, address: String? = nil, startDate: Date? = nil, endDate: Date? = nil, notes: String? = nil, id: String = UUID().uuidString, trip: Trip) -> Event {
+    public func addEvent(name: String? = nil, locationName: String? = nil, category: EventCategory? = nil, latitude: Double? = nil, longitude: Double? = nil, address: String? = nil, startDate: Date? = nil, endDate: Date? = nil, notes: String? = nil, id: String = UUID().uuidString, trip: Trip) -> Event {
         let event = Event(context: context)
         let category = category ?? EventCategory.notSpecified
         event.name = name
-        event.eventDescription = eventDescription
+        event.locationName = locationName
         event.categoryRawValue = Int32(category.rawValue)
         event.latitude = latitude ?? 0.0
         event.longitude = longitude ?? 0.0

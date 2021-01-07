@@ -63,7 +63,7 @@ extension NameAndLocationInputRow: InputRow {
     
     var placeholderText: String? {
         switch self {
-        case .name: return "Event name"
+        case .name: return "Event name (optional)"
         case .location: return "Location (required)"
         }
     }

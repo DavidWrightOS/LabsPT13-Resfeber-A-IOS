@@ -26,8 +26,21 @@ class LocationInputCell: EventDetailCell {
     var placemark: MKPlacemark? {
         didSet {
             guard placemark != oldValue else { return }
-            updateViews()
+            locationName = placemark?.name
+            address = placemark?.address
             delegate?.didUpdateData(forCell: self)
+        }
+    }
+    
+    var locationName: String? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    var address: String? {
+        didSet {
+            updateViews()
         }
     }
     
@@ -50,10 +63,10 @@ class LocationInputCell: EventDetailCell {
     // MARK: - Helpers
     
     private func updateViews() {
-        if let placemark = placemark {
+        if let locationName = locationName {
             textLabel?.textColor = RFColor.red
-            textLabel?.text = placemark.name
-            detailTextLabel?.text = placemark.address
+            textLabel?.text = locationName
+            detailTextLabel?.text = address
         } else {
             textLabel?.textColor = UIColor.placeholderText
             textLabel?.text = placeholder
