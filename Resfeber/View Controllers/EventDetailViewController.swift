@@ -79,6 +79,7 @@ class EventDetailViewController: UIViewController {
     // Trip attributes
     
     private var eventName: String?
+    
     private var placemark: MKPlacemark? {
         didSet {
             reloadMapAnnotation()
@@ -129,9 +130,11 @@ class EventDetailViewController: UIViewController {
         
         // Configure MapView
         
+        mapView.delegate = self
         mapView.layer.cornerRadius = 10
         mapView.layer.borderWidth = 1
         mapView.layer.borderColor = RFColor.red.cgColor
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: Event.annotationReuseIdentifier)
         view.addSubview(mapView)
         mapView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                        left: view.leftAnchor,
@@ -575,5 +578,22 @@ extension EventDetailViewController: EventDetailCellDelegate {
         }
         
         navigationItem.rightBarButtonItem?.isEnabled = event == nil ? shouldEnableAddEventButton : shouldEnableSaveEventButton
+    }
+}
+
+// MARK: - Map View Delegate
+
+extension EventDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: annotation) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: Event.annotationReuseIdentifier)
+        }
+        
+        annotationView?.glyphImage = category?.annotationGlyph
+        annotationView?.markerTintColor = category?.annotationMarkerTintColor
+        annotationView?.animatesWhenAdded = true
+        
+        return annotationView
     }
 }

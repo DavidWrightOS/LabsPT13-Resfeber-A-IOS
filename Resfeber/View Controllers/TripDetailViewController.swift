@@ -71,7 +71,7 @@ class TripDetailViewController: UIViewController {
         view.layer.shadowRadius = 6
         
         let contentView = UIView()
-        contentView.backgroundColor = RFColor.groupedBackground
+        contentView.backgroundColor = RFColor.background
         contentView.layer.cornerRadius = 5
         contentView.layer.masksToBounds = true
         
