@@ -84,6 +84,8 @@ class EventDetailViewController: UIViewController {
             reloadMapAnnotation()
         }
     }
+    private var locationName: String?
+    private var address: String?
     private var category: EventCategory?
     private var notes: String?
     private var startDate: Date?
@@ -190,6 +192,8 @@ class EventDetailViewController: UIViewController {
         loadLocationFromEvent()
         
         eventName = event?.name
+        locationName = event?.locationName
+        address = event?.address
         category = event?.category
         notes = event?.notes
         startDate = event?.startDate
@@ -272,11 +276,10 @@ class EventDetailViewController: UIViewController {
               let latitude = placemark.location?.coordinate.latitude,
               let longitude = placemark.location?.coordinate.longitude else { return }
         
-        let name = eventName ?? placemark.name// ?? "New Event"
-        let address = placemark.address
+        let locationName = self.locationName ?? placemark.name
         
-        let event = tripsController.addEvent(name: name,
-                                             eventDescription: nil,
+        let event = tripsController.addEvent(name: eventName,
+                                             locationName: locationName,
                                              category: category,
                                              latitude: latitude,
                                              longitude: longitude,
@@ -296,17 +299,15 @@ class EventDetailViewController: UIViewController {
               let latitude = placemark.location?.coordinate.latitude,
               let longitude = placemark.location?.coordinate.longitude else { return }
         
-        let name = eventName ?? placemark.name
-        let address = placemark.address
-        
         if let categoryIndex = category?.rawValue {
             event.categoryRawValue = Int32(categoryIndex)
         }
         
-        event.name = name
+        event.name = eventName
+        event.locationName = locationName ?? placemark.name
         event.latitude = latitude
         event.longitude = longitude
-        event.address = address
+        event.address = address ?? placemark.address
         event.startDate = startDate
         event.endDate = endDate
         event.notes = notes
@@ -339,9 +340,9 @@ extension EventDetailViewController: LocationSearchViewControllerDelegate {
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
+        annotation.title = locationName ?? placemark.name
         
-        if let address = placemark.address {
+        if let address = address ?? placemark.address {
             annotation.subtitle = address
         }
         
@@ -383,7 +384,12 @@ extension EventDetailViewController: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: LocationInputCell.reuseIdentifier, for: indexPath) as? LocationInputCell else { return UITableViewCell() }
                 cell.delegate = self
                 cell.placeholder = row.placeholderText
-                cell.placemark = placemark
+                if let event = event {
+                    cell.locationName = event.locationName
+                    cell.address = event.address
+                } else {
+                    cell.placemark = placemark
+                }
                 return cell
             }
             
@@ -536,6 +542,8 @@ extension EventDetailViewController: EventDetailCellDelegate {
                 self.eventName = cell.inputText
             case .location:
                 guard let cell = cell as? LocationInputCell else { return }
+                self.locationName = cell.locationName
+                self.address = cell.address
                 self.placemark = cell.placemark
             }
         

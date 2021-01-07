@@ -173,7 +173,13 @@ private extension EventCell {
         imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
         imageBGView.backgroundColor = event.category.annotationMarkerTintColor
         
-        nameLabel.text = event.name
+        var name: String = ""
+        if let eventName = event.name, !eventName.isEmpty {
+            name = eventName
+        } else if let locationName = event.locationName, !locationName.isEmpty {
+            name = locationName
+        }
+        nameLabel.text = name
         categoryLabel.text = event.category.displayName
         addressLabel.text = event.address
         updateDateLabels()
