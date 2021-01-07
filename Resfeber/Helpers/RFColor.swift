@@ -10,6 +10,7 @@ import UIKit
 
 class RFColor: UIColor {
     static var primaryOrange: UIColor { return rgb(r: 255, g: 81, b: 30) }
+    static var primaryOrangeLight: UIColor { return rgb(r: 255, g: 197, b: 180) }
     static override var red: UIColor { return UIColor(named: "ResfeberRed")! }
     static var deleteRed: UIColor { return UIColor(named: "ResfeberDeleteRed")! }
     static override var blue: UIColor { return UIColor(named: "ResfeberBlue")! }
