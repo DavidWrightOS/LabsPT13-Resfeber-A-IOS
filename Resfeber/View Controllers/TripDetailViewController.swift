@@ -39,6 +39,7 @@ class TripDetailViewController: UIViewController {
     private let locationManager = CLLocationManager()
     
     private var indexPathOfSelectedAnnotation: IndexPath?
+    private var selectedEvent: Event?
     
     lazy private var compassButton: MKCompassButton = {
         let button = MKCompassButton(mapView: mapView)
@@ -381,6 +382,11 @@ extension TripDetailViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    private func indexPathFor(_ event: Event) -> IndexPath? {
+        guard let index = trip.eventsArray.firstIndex(of: event) else { return nil }
+        return IndexPath(item: index, section: 0)
+    }
 }
 
 // MARK: - Collection View Delegate
@@ -554,24 +560,30 @@ extension TripDetailViewController: AddTripViewControllerDelegate {
 // MARK: - EventCell Delegate
 
 extension TripDetailViewController: EventCellDelegate {
-    func categoryIconTapped(for cell: EventCell) {
-        guard let indexPath = collectionView.indexPath(for: cell),
-              let event = cell.event else { return }
+    func categoryIconTapped(for event: Event) {
+        guard let selectedIndexPath = indexPathFor(event) else {
+            NSLog("Error: Could not find indexPath for event: \(event.name ?? event.locationName ?? event.eventID)")
+            return
+        }
         
-        if let oldIndexPath = indexPathOfSelectedAnnotation,
-           let oldCell = collectionView.cellForItem(at: oldIndexPath) as? EventCell,
-           let oldEvent = oldCell.event {
-            oldCell.categoryIconIsSelected = false
-            mapView.deselectAnnotation(oldEvent, animated: true)
+        var indexPathsToUpdate: [IndexPath] = [selectedIndexPath]
+        
+        if let prevSelectedEvent = selectedEvent {
+            mapView.deselectAnnotation(prevSelectedEvent, animated: true)
             
-            guard oldEvent != event else {
-                indexPathOfSelectedAnnotation = nil
+            if event == prevSelectedEvent {
+                selectedEvent = nil
+                collectionView.reloadItems(at: indexPathsToUpdate)
                 return
+                
+            } else if let prevSelectedIndexPath = indexPathFor(prevSelectedEvent) {
+                indexPathsToUpdate.append(prevSelectedIndexPath)
             }
         }
         
         mapView.selectAnnotation(event, animated: true)
-        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        selectEventCell(at: indexPath)
+        selectedEvent = event
+        collectionView.reloadItems(at: indexPathsToUpdate)
+        collectionView.scrollToItem(at: selectedIndexPath, at: .centeredVertically, animated: true)
     }
 }

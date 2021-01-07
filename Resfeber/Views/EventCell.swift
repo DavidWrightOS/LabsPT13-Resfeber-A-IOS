@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 protocol EventCellDelegate: class {
-    func categoryIconTapped(for cell: EventCell)
+    func categoryIconTapped(for event: Event)
 }
 
 class EventCell: UICollectionViewCell {
@@ -119,7 +119,8 @@ class EventCell: UICollectionViewCell {
     // MARK: - Selectors
     
     @objc private func categoryIconTapped() {
-        delegate?.categoryIconTapped(for: self)
+        guard let event = event else { return }
+        delegate?.categoryIconTapped(for: event)
     }
 }
 
