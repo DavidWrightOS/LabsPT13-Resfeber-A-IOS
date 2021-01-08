@@ -80,7 +80,9 @@ class LoginViewController: UIViewController {
             guard let self = self, self.presentedViewController == nil else { return }
             
             if exists {
-                self.present(ContainerController(), animated: true, completion: nil)
+                let vc = ContainerController()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
             }
