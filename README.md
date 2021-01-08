@@ -33,19 +33,18 @@
 - Integration with MapKit
 
 # Roadmap
-📉 This describes the current status and the upcoming milestones of the Resfeber app.
+🗺 This describes the current status and the upcoming milestones of the Resfeber app.
 
-*Updated: Sun, 08 Nov 2020 17:52:51 GMT*
+*Updated: Fri, 08 Jan 2021 21:49:20 GMT*
 
 | Status | Milestone | Goals | Label | Release Candidate
 | :---: | :--- | :---: | :---: | :---: |
 | ✔ | **Authentication** | 1 / 1 | `Complete`| `Release 1`| 
-| - | **Search Destinations** | 0 / 3 | `In progress`|`Release 1`| 
+| ✔ | **Create Trip** | 2 / 2 | `Complete`|`Release 1`| 
+| ✔ | **Travel Itinerary** | 3 / 3 | `Complete`|`Release 1`| 
 | - | **Travel Information/Data** | 0 / 2 | `not yet started`|`Release 2`| 
-| - | **Travel Itinerary** | 0 / 3 | `not yet started`|`Release 2`| 
-| - | **Flight Tracking** | 0 / 2 | `not yet started`|`Release 3`| 
 | - | **Scheduled Travel Details** | 0 / 3 | `not yet started`|`Release 3`| 
-
+| - | **Flight Tracking** | 0 / 2 | `not yet started`|`Release 4`| 
 
 
 
@@ -53,7 +52,8 @@
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
-Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
+Please note we have a [code of conduct
+](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
 ## Issue/Bug Request 🐛
 
