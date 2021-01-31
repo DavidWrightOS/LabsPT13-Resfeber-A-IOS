@@ -48,6 +48,7 @@
 		63BA789025B169F400ACCD95 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */; };
 		63BA789C25B16CA000ACCD95 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA789A25B16CA000ACCD95 /* Event+CoreDataClass.swift */; };
 		63BA789D25B16CA000ACCD95 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA789B25B16CA000ACCD95 /* Event+CoreDataProperties.swift */; };
+		63BA78D225B8A4A000ACCD95 /* RFWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78D125B8A4A000ACCD95 /* RFWebService.swift */; };
 		63BA78DF25B9A13B00ACCD95 /* EventResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78DE25B9A13B00ACCD95 /* EventResult.swift */; };
 		63BA78E525B9A15000ACCD95 /* EventPOSTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78E425B9A15000ACCD95 /* EventPOSTRequest.swift */; };
 		63BA78E925B9A19E00ACCD95 /* TripResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78E825B9A19E00ACCD95 /* TripResult.swift */; };
@@ -131,6 +132,7 @@
 		63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		63BA789A25B16CA000ACCD95 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		63BA789B25B16CA000ACCD95 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		63BA78D125B8A4A000ACCD95 /* RFWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFWebService.swift; sourceTree = "<group>"; };
 		63BA78DE25B9A13B00ACCD95 /* EventResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResult.swift; sourceTree = "<group>"; };
 		63BA78E425B9A15000ACCD95 /* EventPOSTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPOSTRequest.swift; sourceTree = "<group>"; };
 		63BA78E825B9A19E00ACCD95 /* TripResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripResult.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				46BEB4ED24C98ECC00FE0CD1 /* ProfileController.swift */,
+				63BA78D125B8A4A000ACCD95 /* RFWebService.swift */,
 				638DF0C625C20B0F005BB808 /* CoreDataService.swift */,
 			);
 			path = "Model Controller";
@@ -539,6 +542,7 @@
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				63EAD076258747F80000FAE2 /* EventCell.swift in Sources */,
 				63AE51F2258BE8A600C23D4F /* EventCategory.swift in Sources */,
+				63BA78D225B8A4A000ACCD95 /* RFWebService.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
