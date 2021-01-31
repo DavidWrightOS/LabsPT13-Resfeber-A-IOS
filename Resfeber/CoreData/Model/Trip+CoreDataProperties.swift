@@ -2,14 +2,12 @@
 //  Trip+CoreDataProperties.swift
 //  Resfeber
 //
-//  Created by Joshua Rutkowski on 12/4/20.
-//  Copyright © 2020 Spencer Curtis. All rights reserved.
+//  Created by David Wright on 1/15/21.
+//  Copyright © 2021 Spencer Curtis. All rights reserved.
 //
 //
 
-import Foundation
 import CoreData
-import MapKit
 
 
 extension Trip {
@@ -18,12 +16,15 @@ extension Trip {
         return NSFetchRequest<Trip>(entityName: "Trip")
     }
 
-    @NSManaged public var id: String
     @NSManaged public var endDate: Date?
+    @NSManaged public var id: String
     @NSManaged public var image: Data?
     @NSManaged public var name: String?
+    @NSManaged public var imageURLString: String?
     @NSManaged public var startDate: Date?
     @NSManaged public var events: NSSet?
+    
+    @NSManaged public var internal_serverID: NSNumber?
 
 }
 
@@ -44,47 +45,6 @@ extension Trip {
 
 }
 
-extension Trip {
-    var eventsArray: [Event] {
-        let eventsArray = events?.allObjects as? [Event] ?? []
-        
-        /// Events are sorted by start date in ascending order
-        /// If an event does not have a start date, the end date is used
-        /// If the dates are equal, events sorted by end date appear before events sorted by start date
-        /// Events with no start or end date are positioned at the end
-        return eventsArray.sorted { (a, b) -> Bool in
-            if let aStartDate = a.startDate {
-                if let bStartDate = b.startDate {
-                    return aStartDate < bStartDate
-                } else if let bEndDate = b.endDate {
-                    return aStartDate < bEndDate
-                } else {
-                    return true
-                }
-            } else if let aEndDate = a.endDate {
-                if let bStartDate = b.startDate {
-                    return aEndDate <= bStartDate
-                } else if let bEndDate = b.endDate {
-                    return aEndDate < bEndDate
-                } else {
-                    return true
-                }
-            }
-            return false
-        }
-    }
-    
-    var eventsCoordinateRegion: MKCoordinateRegion? {
-        guard !eventsArray.isEmpty else { return nil }
-        
-        var mapRect = MKMapRect.null
-        
-        eventsArray.forEach { event in
-            let annotationPoint = MKMapPoint(event.coordinate)
-            let pointRect = MKMapRect(x: annotationPoint.x, y: annotationPoint.y, width: 0.01, height: 0.01)
-            mapRect = mapRect.union(pointRect)
-        }
-        
-        return MKCoordinateRegion(mapRect)
-    }
+extension Trip : Identifiable {
+
 }
