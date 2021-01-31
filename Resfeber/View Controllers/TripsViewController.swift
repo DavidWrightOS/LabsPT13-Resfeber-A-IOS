@@ -9,8 +9,11 @@
 import UIKit
 
 class TripsViewController: UIViewController {
+    
     // MARK: - Properties
+    
     private var collectionView: UICollectionView!
+    
     private let tripsController = TripsController()
 
     let profileButton: UIBarButtonItem = {
@@ -41,6 +44,8 @@ class TripsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+        tripsController.delegate = self
+        tripsController.loadTrips()
     }
 
     // MARK: - Selectors
@@ -114,13 +119,13 @@ extension TripsViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Collection View Data Source
 extension TripsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        tripsController.getTrips()?.count ?? 0
+        tripsController.trips.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripCell.reuseIdentifier, for: indexPath) as! TripCell
 
-        cell.trip = tripsController.getTrips()?[indexPath.row]
+        cell.trip = tripsController.trips[indexPath.row]
 
         return cell
     }
@@ -133,7 +138,7 @@ extension TripsViewController: UICollectionViewDelegate {
               let trip = cell.trip else { return }
         
         let detailVC = TripDetailViewController(trip, tripsController: tripsController)
-        detailVC.delegate = self
+        detailVC.tripDetailVCDelegate = self
         show(detailVC, sender: self)
     }
 }
@@ -153,5 +158,13 @@ extension TripsViewController: TripDetailViewControllerDelegate {
 extension TripsViewController: AddTripViewControllerDelegate {
     func didAddNewTrip(_ trip: Trip) {
         collectionView.reloadData()
+    }
+}
+
+// MARK: - TripsController Delegate
+extension TripsViewController: TripsControllerDelegate {
+    func didUpdateTrips() {
+        collectionView.reloadData()
+        print("collectionView.reloadData()")
     }
 }
