@@ -6,7 +6,6 @@
 //  Copyright © 2020 Spencer Curtis. All rights reserved.
 //
 
-import UIKit
 import CoreData
 import MapKit
 
@@ -28,6 +27,7 @@ class EventDetailViewController: UIViewController {
     weak var delegate: EventDetailViewControllerDelegate?
     
     private let tripsController: TripsController
+    
     private let trip: Trip
     
     private let mapView = MKMapView()
@@ -281,7 +281,14 @@ class EventDetailViewController: UIViewController {
         let locationName = self.locationName ?? placemark.name
         let address = self.address ?? placemark.address
         
-        let event = tripsController.addEvent(name: eventName,
+        let name: String?
+        if let eventName = eventName, !eventName.isEmpty {
+            name = eventName
+        } else {
+            name = locationName
+        }
+        
+        let event = tripsController.addEvent(name: name,
                                              locationName: locationName,
                                              category: category,
                                              latitude: latitude,
@@ -302,11 +309,13 @@ class EventDetailViewController: UIViewController {
               let latitude = placemark.location?.coordinate.latitude,
               let longitude = placemark.location?.coordinate.longitude else { return }
         
-        if let categoryIndex = category?.rawValue {
-            event.categoryRawValue = Int32(categoryIndex)
+        if let eventName = eventName, !eventName.isEmpty {
+            event.name = eventName
+        } else {
+            event.name = locationName
         }
         
-        event.name = eventName
+        event.category = category ?? .notSpecified
         event.locationName = locationName ?? placemark.name
         event.latitude = latitude
         event.longitude = longitude
@@ -325,6 +334,7 @@ class EventDetailViewController: UIViewController {
 // MARK: - Location Search ViewController Delegate
 
 extension EventDetailViewController: LocationSearchViewControllerDelegate {
+    
     func didSelectLocation(with placemark: MKPlacemark) {
         self.placemark = placemark
         updateLocationDescription(with: placemark)
@@ -360,6 +370,7 @@ extension EventDetailViewController: LocationSearchViewControllerDelegate {
 // MARK: - UITableView Data Source
 
 extension EventDetailViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         AddEventSection.allCases.count
     }
@@ -532,6 +543,7 @@ extension EventDetailViewController: UITableViewDelegate {
 }
 
 extension EventDetailViewController: EventDetailCellDelegate {
+    
     func didUpdateData(forCell cell: EventDetailCell) {
         guard let indexPath = tableView.indexPath(for: cell),
               let section = section(at: indexPath) else { return }
@@ -584,6 +596,7 @@ extension EventDetailViewController: EventDetailCellDelegate {
 // MARK: - Map View Delegate
 
 extension EventDetailViewController: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Event.annotationReuseIdentifier, for: annotation) as? MKMarkerAnnotationView
         if annotationView == nil {
