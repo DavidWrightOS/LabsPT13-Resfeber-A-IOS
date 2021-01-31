@@ -42,6 +42,7 @@
 		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		637E583125A6B919007220FC /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E583025A6B919007220FC /* UIFont+Extension.swift */; };
+		638DF0C725C20B0F005BB808 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DF0C625C20B0F005BB808 /* CoreDataService.swift */; };
 		63AE51F2258BE8A600C23D4F /* EventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE51F1258BE8A600C23D4F /* EventCategory.swift */; };
 		63BA788F25B169F400ACCD95 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA788D25B169F400ACCD95 /* Trip+CoreDataClass.swift */; };
 		63BA789025B169F400ACCD95 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */; };
@@ -124,6 +125,7 @@
 		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		637E583025A6B919007220FC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		638DF0C625C20B0F005BB808 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		63AE51F1258BE8A600C23D4F /* EventCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCategory.swift; sourceTree = "<group>"; };
 		63BA788D25B169F400ACCD95 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
 		63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				46BEB4ED24C98ECC00FE0CD1 /* ProfileController.swift */,
+				638DF0C625C20B0F005BB808 /* CoreDataService.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
+				638DF0C725C20B0F005BB808 /* CoreDataService.swift in Sources */,
 				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
 				63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */,
 				63BA78FD25B9A30D00ACCD95 /* NetworkError.swift in Sources */,
