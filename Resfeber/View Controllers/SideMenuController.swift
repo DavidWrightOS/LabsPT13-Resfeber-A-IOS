@@ -38,7 +38,7 @@ class SideMenuController: UIViewController {
     
     // MARK: - Properties
     
-    var profile: Profile = ProfileController.shared.profile
+    var profile: Profile = ProfileController.shared.authenticatedUserProfile!
     var tableView: UITableView!
     weak var delegate: SideMenuDelegate?
     
@@ -97,5 +97,4 @@ extension SideMenuController: UITableViewDelegate, UITableViewDataSource {
         let menuOption = MenuOption(rawValue: indexPath.row)
         delegate?.toggleSideMenu(withMenuOption: menuOption)
     }
-    
 }
