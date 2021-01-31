@@ -52,6 +52,9 @@
 		63BA78E925B9A19E00ACCD95 /* TripResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78E825B9A19E00ACCD95 /* TripResult.swift */; };
 		63BA78ED25B9A1CA00ACCD95 /* TripPOSTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78EC25B9A1CA00ACCD95 /* TripPOSTRequest.swift */; };
 		63BA78F125B9A21700ACCD95 /* TripResultWithEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78F025B9A21700ACCD95 /* TripResultWithEvents.swift */; };
+		63BA78F525B9A2C800ACCD95 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */; };
+		63BA78F925B9A2F300ACCD95 /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78F825B9A2F300ACCD95 /* Bearer.swift */; };
+		63BA78FD25B9A30D00ACCD95 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */; };
 		63D22D0A2592705D001F594A /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D092592705D001F594A /* EventDetailViewController.swift */; };
 		63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */; };
 		63D22D172594E27D001F594A /* RFInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D162594E27D001F594A /* RFInputRow.swift */; };
@@ -131,6 +134,9 @@
 		63BA78E825B9A19E00ACCD95 /* TripResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripResult.swift; sourceTree = "<group>"; };
 		63BA78EC25B9A1CA00ACCD95 /* TripPOSTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPOSTRequest.swift; sourceTree = "<group>"; };
 		63BA78F025B9A21700ACCD95 /* TripResultWithEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripResultWithEvents.swift; sourceTree = "<group>"; };
+		63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		63BA78F825B9A2F300ACCD95 /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
+		63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		63D22D092592705D001F594A /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		63D22D162594E27D001F594A /* RFInputRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFInputRow.swift; sourceTree = "<group>"; };
@@ -275,6 +281,9 @@
 				63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */,
 				63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */,
 				637E583025A6B919007220FC /* UIFont+Extension.swift */,
+				63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */,
+				63BA78F825B9A2F300ACCD95 /* Bearer.swift */,
+				63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -486,8 +495,10 @@
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
 				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
 				63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */,
+				63BA78FD25B9A30D00ACCD95 /* NetworkError.swift in Sources */,
 				63EAD0922587A5740000FAE2 /* SearchResultCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* TripCell.swift in Sources */,
+				63BA78F925B9A2F300ACCD95 /* Bearer.swift in Sources */,
 				631FB92D259C888900B7F93B /* DateInputCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
 				63BA78DF25B9A13B00ACCD95 /* EventResult.swift in Sources */,
@@ -513,6 +524,7 @@
 				63BA789C25B16CA000ACCD95 /* Event+CoreDataClass.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
+				63BA78F525B9A2C800ACCD95 /* HTTPMethod.swift in Sources */,
 				63BA788F25B169F400ACCD95 /* Trip+CoreDataClass.swift in Sources */,
 				63D22D2A25968FBD001F594A /* EventDetailCell.swift in Sources */,
 				63BA78ED25B9A1CA00ACCD95 /* TripPOSTRequest.swift in Sources */,
