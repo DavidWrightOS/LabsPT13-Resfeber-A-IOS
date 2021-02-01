@@ -59,7 +59,6 @@
 		63BA78FD25B9A30D00ACCD95 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */; };
 		63D22D0A2592705D001F594A /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D092592705D001F594A /* EventDetailViewController.swift */; };
 		63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */; };
-		63D22D172594E27D001F594A /* RFInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D162594E27D001F594A /* RFInputRow.swift */; };
 		63D22D262595A8E1001F594A /* AddEventSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D252595A8E1001F594A /* AddEventSection.swift */; };
 		63D22D2A25968FBD001F594A /* EventDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D2925968FBD001F594A /* EventDetailCell.swift */; };
 		63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D68DBA256497E400BFF20B /* ProfileViewController.swift */; };
@@ -143,7 +142,6 @@
 		63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		63D22D092592705D001F594A /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
-		63D22D162594E27D001F594A /* RFInputRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFInputRow.swift; sourceTree = "<group>"; };
 		63D22D252595A8E1001F594A /* AddEventSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventSection.swift; sourceTree = "<group>"; };
 		63D22D2925968FBD001F594A /* EventDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailCell.swift; sourceTree = "<group>"; };
 		63D68DBA256497E400BFF20B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 				63EAD0912587A5740000FAE2 /* SearchResultCell.swift */,
 				63D68E222564A07200BFF20B /* SideMenuCell.swift */,
 				634A2FFF2564CA8D00C27289 /* SideMenuHeader.swift */,
-				63D22D162594E27D001F594A /* RFInputRow.swift */,
 				631FB916259C84B100B7F93B /* Event Input Form */,
 			);
 			path = Views;
@@ -539,7 +536,6 @@
 				63BA78D225B8A4A000ACCD95 /* RFWebService.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
-				63D22D172594E27D001F594A /* RFInputRow.swift in Sources */,
 				466C4276249A8748007D033E /* SceneDelegate.swift in Sources */,
 				63EAD084258782800000FAE2 /* CLPlacemark+Extension.swift in Sources */,
 			);
