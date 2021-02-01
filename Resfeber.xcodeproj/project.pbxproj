@@ -191,22 +191,14 @@
 		425490D2257A762000463284 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				42587394257ADFB400260340 /* Model */,
-				425490CC257A754800463284 /* CoreDataStack.swift */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		42587394257ADFB400260340 /* Model */ = {
-			isa = PBXGroup;
-			children = (
 				63BA788D25B169F400ACCD95 /* Trip+CoreDataClass.swift */,
 				63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */,
 				63BA789A25B16CA000ACCD95 /* Event+CoreDataClass.swift */,
 				63BA789B25B16CA000ACCD95 /* Event+CoreDataProperties.swift */,
 				42549087257A6C4400463284 /* Trip.xcdatamodeld */,
+				425490CC257A754800463284 /* CoreDataStack.swift */,
 			);
-			path = Model;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		42D1062C25560F1E00A07604 /* View Controllers */ = {
@@ -255,7 +247,6 @@
 		466C4272249A8748007D033E /* Resfeber */ = {
 			isa = PBXGroup;
 			children = (
-				425490D2257A762000463284 /* CoreData */,
 				46BEB4EB24C98EB400FE0CD1 /* Model */,
 				46BEB4EC24C98EBB00FE0CD1 /* Model Controller */,
 				63632A9D2559242D00F70F9C /* Views */,
@@ -295,6 +286,7 @@
 		46BEB4EB24C98EB400FE0CD1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				425490D2257A762000463284 /* CoreData */,
 				63BA78DD25B9A12A00ACCD95 /* Backend API */,
 				46BEB4E024C9828800FE0CD1 /* Profile.swift */,
 				63AE51F1258BE8A600C23D4F /* EventCategory.swift */,
