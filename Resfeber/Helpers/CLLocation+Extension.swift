@@ -14,17 +14,17 @@ extension CLLocation {
         geocoder.reverseGeocodeLocation(self) { placemarks, error in
             if let error = error {
                 NSLog("Error generating address from CLLocation coordinates: \(error)")
-                completion(nil)
+                DispatchQueue.main.async { completion(nil) }
                 return
             }
             
             guard let placemark = placemarks?.first else {
                 NSLog("Error generating address from CLLocation coordinates")
-                completion(nil)
+                DispatchQueue.main.async { completion(nil) }
                 return
             }
             
-            completion(placemark)
+            DispatchQueue.main.async { completion(placemark) }
         }
     }
     
