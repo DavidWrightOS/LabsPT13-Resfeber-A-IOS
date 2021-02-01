@@ -28,7 +28,7 @@ class ProfileListViewController: UIViewController {
     // MARK: - Private Methods
     
     private func refresh() {
-        profileController.getAllProfiles {
+        profileController.getAllProfiles { _ in
             self.tableView.reloadData()
         }
     }
