@@ -38,7 +38,6 @@
 		63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A8C2558DF9C00F70F9C /* TripsViewController.swift */; };
 		63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A912558F8AB00F70F9C /* UIView+Extension.swift */; };
 		63632A9F2559244200F70F9C /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632A9E2559244200F70F9C /* TripCell.swift */; };
-		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		637E583125A6B919007220FC /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E583025A6B919007220FC /* UIFont+Extension.swift */; };
 		638DF0C725C20B0F005BB808 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DF0C625C20B0F005BB808 /* CoreDataService.swift */; };
@@ -123,7 +122,6 @@
 		63632A8C2558DF9C00F70F9C /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		63632A912558F8AB00F70F9C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		63632A9E2559244200F70F9C /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
-		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		637E583025A6B919007220FC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		638DF0C625C20B0F005BB808 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				63BA78DD25B9A12A00ACCD95 /* Backend API */,
-				63632AA425594C8D00F70F9C /* Destination.swift */,
 				46BEB4E024C9828800FE0CD1 /* Profile.swift */,
 				63AE51F1258BE8A600C23D4F /* EventCategory.swift */,
 				63D22D252595A8E1001F594A /* AddEventSection.swift */,
@@ -550,7 +547,6 @@
 				63BA78D225B8A4A000ACCD95 /* RFWebService.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
-				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
 				63D22D172594E27D001F594A /* RFInputRow.swift in Sources */,
 				466C4276249A8748007D033E /* SceneDelegate.swift in Sources */,
 				63EAD084258782800000FAE2 /* CLPlacemark+Extension.swift in Sources */,
