@@ -264,19 +264,16 @@
 		46BEB4EA24C98EA300FE0CD1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				638DF0F225C867BA005BB808 /* Networking */,
+				63EAD02B257A01340000FAE2 /* RFColor.swift */,
 				46BEB4E624C98D8900FE0CD1 /* Notifications.swift */,
 				46BF10BD24D388FF001C6753 /* UIViewController+SimpleAlert.swift */,
 				63632A912558F8AB00F70F9C /* UIView+Extension.swift */,
-				63EAD02B257A01340000FAE2 /* RFColor.swift */,
 				42EFBF03257BE5290038C75A /* UITextField+Extension.swift */,
 				63EAD08D2587A4930000FAE2 /* MKMapView+Extension.swift */,
 				63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */,
 				63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */,
 				637E583025A6B919007220FC /* UIFont+Extension.swift */,
-				638DF0D425C5B8FB005BB808 /* Router.swift */,
-				63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */,
-				63BA78F825B9A2F300ACCD95 /* Bearer.swift */,
-				63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -349,6 +346,17 @@
 				631FB916259C84B100B7F93B /* Event Input Form */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		638DF0F225C867BA005BB808 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				638DF0D425C5B8FB005BB808 /* Router.swift */,
+				63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */,
+				63BA78F825B9A2F300ACCD95 /* Bearer.swift */,
+				63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		63BA78DD25B9A12A00ACCD95 /* Backend API */ = {
