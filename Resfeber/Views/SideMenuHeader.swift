@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SideMenuHeaderDelegate: class {
+    func didTapProfileImage()
+}
+
 class SideMenuHeader: UIView {
     
     // MARK: - Properties
@@ -18,15 +22,17 @@ class SideMenuHeader: UIView {
         }
     }
     
+    weak var delegate: SideMenuHeaderDelegate?
+    
     private let profileImage: UIButton = {
         let diameter: CGFloat = 64
         let button = UIButton()
-        button.isUserInteractionEnabled = false
         button.setDimensions(height: diameter, width: diameter)
         button.layer.cornerRadius = diameter / 2
         button.layer.masksToBounds = true
         button.imageView?.contentMode = .center
         button.backgroundColor = .white
+        button.addTarget(self, action: #selector(didTapProfileImage), for: .touchUpInside)
         return button
     }()
     
@@ -65,6 +71,12 @@ class SideMenuHeader: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Selectors
+    
+    @objc func didTapProfileImage() {
+        delegate?.didTapProfileImage()
     }
     
     // MARK: - Helper Functions
