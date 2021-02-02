@@ -9,7 +9,7 @@
 import UIKit
 
 public enum EventCategory: Int, CaseIterable {
-        case notSpecified, accomodation, restaurant, entertainment, park, airport, retail, grocery, bank, gasStation, chargeStation, home, work, education, medical, pharmacy, emergency, hospital
+        case notSpecified, accommodation, restaurant, entertainment, park, airport, retail, grocery, bank, gasStation, chargeStation, home, work, education, medical, pharmacy, emergency, hospital
 }
 
 extension EventCategory {
@@ -19,7 +19,7 @@ extension EventCategory {
     var displayName: String? {
         switch self {
         case .notSpecified: return nil
-        case .accomodation: return "Accomodation"
+        case .accommodation: return "Accommodation"
         case .restaurant: return "Restaurant"
         case .entertainment: return "Entertainment"
         case .park: return "Park"
@@ -42,7 +42,7 @@ extension EventCategory {
     var annotationGlyph: UIImage? {
         switch self {
         case .notSpecified: return UIImage(systemName: "mappin")
-        case .accomodation: return UIImage(systemName: "bed.double.fill")
+        case .accommodation: return UIImage(systemName: "bed.double.fill")
         case .restaurant: return UIImage(named: "forkandknife")
         case .entertainment: return UIImage(systemName: "star.fill")
         case .park: return UIImage(systemName: "leaf.fill")
@@ -66,7 +66,7 @@ extension EventCategory {
     var annotationMarkerTintColor: UIColor {
         switch self {
         case .notSpecified: return RFColor.primaryOrange
-        case .accomodation: return RFColor.rgb(r: 153, g: 135, b: 255)
+        case .accommodation: return RFColor.rgb(r: 153, g: 135, b: 255)
         case .restaurant: return RFColor.rgb(r: 248, g: 149, b: 64)
         case .entertainment: return RFColor.rgb(r: 229, g: 109, b: 214)
         case .park: return RFColor.rgb(r: 108, g: 193, b: 57)

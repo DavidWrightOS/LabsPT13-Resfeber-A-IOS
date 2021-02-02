@@ -18,7 +18,8 @@ class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    weak var delegate: TripDetailViewControllerDelegate?
+    weak var tripDetailVCDelegate: TripDetailViewControllerDelegate?
+    weak var tripsControllerDelegate: TripsControllerDelegate?
     
     private var trip: Trip
     
@@ -103,6 +104,8 @@ class TripDetailViewController: UIViewController {
         self.tripsController = tripsController
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.tripsControllerDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -207,7 +210,7 @@ class TripDetailViewController: UIViewController {
     }
     
     private func reloadTrip() {
-        guard let trip = tripsController.getTrip(trip.id) else { return }
+        guard let trip = tripsController.trip(id: trip.id) else { return }
         
         self.trip = trip
         collectionView.reloadData()
@@ -291,7 +294,7 @@ class TripDetailViewController: UIViewController {
         presentDeletionAlert(title: title, message: message) { [weak self] _ in
             guard let self = self else { return }
             self.tripsController.deleteTrip(self.trip)
-            self.delegate?.didDeleteTrip(self.trip)
+            self.tripDetailVCDelegate?.didDeleteTrip(self.trip)
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -446,15 +449,6 @@ extension TripDetailViewController: UITableViewDelegate {
         showEventDetailViewController(with: selectedPlacemark)
         dismissSearchTableView()
     }
-    
-    private func addEvent(with placemark: MKPlacemark) {
-        let name = placemark.name
-        let latitude = placemark.location?.coordinate.latitude
-        let longitude = placemark.location?.coordinate.longitude
-        let address = placemark.address
-        tripsController.addEvent(name: name, latitude: latitude, longitude: longitude, address: address, trip: trip)
-        reloadTrip()
-    }
 }
 
 // MARK: - Map View Delegate
@@ -509,8 +503,7 @@ extension TripDetailViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        guard let deselectedEvent = selectedEvent,
-              let deselectedIndexPath = indexPathFor(deselectedEvent) else { return }
+        guard let deselectedEvent = selectedEvent, let deselectedIndexPath = indexPathFor(deselectedEvent) else { return }
         
         selectedEvent = nil
         collectionView.reloadItems(at: [deselectedIndexPath])
@@ -549,7 +542,6 @@ extension TripDetailViewController: EventDetailViewControllerDelegate {
     }
     
     func didUpdateEvent(_ event: Event) {
-        tripsController.updateEvent(event)
         reloadTrip()
     }
 }
@@ -559,7 +551,7 @@ extension TripDetailViewController: EventDetailViewControllerDelegate {
 extension TripDetailViewController: AddTripViewControllerDelegate {
     func didUpdateTrip(_ trip: Trip) {
         title = trip.name
-        delegate?.didUpdateTrip(trip)
+        tripDetailVCDelegate?.didUpdateTrip(trip)
     }
 }
 
@@ -591,5 +583,14 @@ extension TripDetailViewController: EventCellDelegate {
         selectedEvent = event
         collectionView.reloadItems(at: indexPathsToUpdate)
         collectionView.scrollToItem(at: selectedIndexPath, at: .centeredVertically, animated: true)
+    }
+}
+
+
+// MARK: - EventCell Delegate
+
+extension TripDetailViewController: TripsControllerDelegate {
+    func didUpdateTrips() {
+        collectionView.reloadData()
     }
 }

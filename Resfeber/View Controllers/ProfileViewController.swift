@@ -76,7 +76,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         if profile == nil {
-            profile = profileController.profile
+            profile = profileController.authenticatedUserProfile
         }
         
         configureViews()

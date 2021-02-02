@@ -2,13 +2,15 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String"/>
-        <attribute name="categoryRawValue" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="imageURLString" optional="YES" attributeType="String"/>
+        <attribute name="internal_categoryRawValue" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
+        <attribute name="internal_latitude" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
+        <attribute name="internal_longitude" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
+        <attribute name="internal_serverID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
         <attribute name="locationName" optional="YES" attributeType="String"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="trip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="events" inverseEntity="Trip"/>
@@ -17,12 +19,14 @@
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="imageURLString" optional="YES" attributeType="String"/>
+        <attribute name="internal_serverID" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="trip" inverseEntity="Event"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-244.61328125" positionY="67.05859375" width="128" height="194"/>
-        <element name="Trip" positionX="-476.19140625" positionY="36.66015625" width="128" height="119"/>
+        <element name="Event" positionX="-244.61328125" positionY="67.05859375" width="128" height="224"/>
+        <element name="Trip" positionX="-476.19140625" positionY="36.66015625" width="128" height="149"/>
     </elements>
 </model>

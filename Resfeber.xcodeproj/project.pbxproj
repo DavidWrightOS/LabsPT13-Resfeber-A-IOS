@@ -11,11 +11,6 @@
 		425490BD257A72DA00463284 /* TripsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490BC257A72DA00463284 /* TripsControllerTests.swift */; };
 		425490C9257A750300463284 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490C8257A750300463284 /* TestCoreDataStack.swift */; };
 		425490CD257A754800463284 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490CC257A754800463284 /* CoreDataStack.swift */; };
-		425490D4257A763B00463284 /* TripsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490D3257A763B00463284 /* TripsController.swift */; };
-		425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E4257AC57500463284 /* Trip+CoreDataClass.swift */; };
-		425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */; };
-		425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E6257AC57500463284 /* Event+CoreDataClass.swift */; };
-		425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425490E7257AC57500463284 /* Event+CoreDataProperties.swift */; };
 		42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBEFF257BD4000038C75A /* AddTripViewController.swift */; };
 		42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EFBF03257BE5290038C75A /* UITextField+Extension.swift */; };
 		463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */; };
@@ -46,7 +41,23 @@
 		63632AA525594C8D00F70F9C /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63632AA425594C8D00F70F9C /* Destination.swift */; };
 		63632AA825594CB400F70F9C /* MockData.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63632AA725594CB400F70F9C /* MockData.xcassets */; };
 		637E583125A6B919007220FC /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E583025A6B919007220FC /* UIFont+Extension.swift */; };
+		638DF0C725C20B0F005BB808 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DF0C625C20B0F005BB808 /* CoreDataService.swift */; };
+		638DF0D525C5B8FB005BB808 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DF0D425C5B8FB005BB808 /* Router.swift */; };
 		63AE51F2258BE8A600C23D4F /* EventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE51F1258BE8A600C23D4F /* EventCategory.swift */; };
+		63BA788F25B169F400ACCD95 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA788D25B169F400ACCD95 /* Trip+CoreDataClass.swift */; };
+		63BA789025B169F400ACCD95 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */; };
+		63BA789C25B16CA000ACCD95 /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA789A25B16CA000ACCD95 /* Event+CoreDataClass.swift */; };
+		63BA789D25B16CA000ACCD95 /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA789B25B16CA000ACCD95 /* Event+CoreDataProperties.swift */; };
+		63BA78D225B8A4A000ACCD95 /* RFWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78D125B8A4A000ACCD95 /* RFWebService.swift */; };
+		63BA78D625B8ABF600ACCD95 /* TripsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78D525B8ABF600ACCD95 /* TripsController.swift */; };
+		63BA78DF25B9A13B00ACCD95 /* EventResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78DE25B9A13B00ACCD95 /* EventResult.swift */; };
+		63BA78E525B9A15000ACCD95 /* EventPOSTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78E425B9A15000ACCD95 /* EventPOSTRequest.swift */; };
+		63BA78E925B9A19E00ACCD95 /* TripResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78E825B9A19E00ACCD95 /* TripResult.swift */; };
+		63BA78ED25B9A1CA00ACCD95 /* TripPOSTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78EC25B9A1CA00ACCD95 /* TripPOSTRequest.swift */; };
+		63BA78F125B9A21700ACCD95 /* TripResultWithEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78F025B9A21700ACCD95 /* TripResultWithEvents.swift */; };
+		63BA78F525B9A2C800ACCD95 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */; };
+		63BA78F925B9A2F300ACCD95 /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78F825B9A2F300ACCD95 /* Bearer.swift */; };
+		63BA78FD25B9A30D00ACCD95 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */; };
 		63D22D0A2592705D001F594A /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D092592705D001F594A /* EventDetailViewController.swift */; };
 		63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */; };
 		63D22D172594E27D001F594A /* RFInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D22D162594E27D001F594A /* RFInputRow.swift */; };
@@ -82,12 +93,7 @@
 		425490BE257A72DA00463284 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		425490C8257A750300463284 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		425490CC257A754800463284 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		425490D3257A763B00463284 /* TripsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsController.swift; sourceTree = "<group>"; };
 		425490E1257AC4DB00463284 /* Tripv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tripv2.xcdatamodel; sourceTree = "<group>"; };
-		425490E4257AC57500463284 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
-		425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		425490E6257AC57500463284 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
-		425490E7257AC57500463284 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		42EFBEFF257BD4000038C75A /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
 		42EFBF03257BE5290038C75A /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		463AD24224CF275900447BB8 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
@@ -120,7 +126,23 @@
 		63632AA425594C8D00F70F9C /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		63632AA725594CB400F70F9C /* MockData.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockData.xcassets; sourceTree = "<group>"; };
 		637E583025A6B919007220FC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		638DF0C625C20B0F005BB808 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		638DF0D425C5B8FB005BB808 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		63AE51F1258BE8A600C23D4F /* EventCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCategory.swift; sourceTree = "<group>"; };
+		63BA788D25B169F400ACCD95 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
+		63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		63BA789A25B16CA000ACCD95 /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
+		63BA789B25B16CA000ACCD95 /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		63BA78D125B8A4A000ACCD95 /* RFWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFWebService.swift; sourceTree = "<group>"; };
+		63BA78D525B8ABF600ACCD95 /* TripsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsController.swift; sourceTree = "<group>"; };
+		63BA78DE25B9A13B00ACCD95 /* EventResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResult.swift; sourceTree = "<group>"; };
+		63BA78E425B9A15000ACCD95 /* EventPOSTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPOSTRequest.swift; sourceTree = "<group>"; };
+		63BA78E825B9A19E00ACCD95 /* TripResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripResult.swift; sourceTree = "<group>"; };
+		63BA78EC25B9A1CA00ACCD95 /* TripPOSTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPOSTRequest.swift; sourceTree = "<group>"; };
+		63BA78F025B9A21700ACCD95 /* TripResultWithEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripResultWithEvents.swift; sourceTree = "<group>"; };
+		63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		63BA78F825B9A2F300ACCD95 /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
+		63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		63D22D092592705D001F594A /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		63D22D0E2592CEFE001F594A /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		63D22D162594E27D001F594A /* RFInputRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFInputRow.swift; sourceTree = "<group>"; };
@@ -173,7 +195,6 @@
 			children = (
 				42587394257ADFB400260340 /* Model */,
 				425490CC257A754800463284 /* CoreDataStack.swift */,
-				425490D3257A763B00463284 /* TripsController.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -181,10 +202,10 @@
 		42587394257ADFB400260340 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				425490E4257AC57500463284 /* Trip+CoreDataClass.swift */,
-				425490E5257AC57500463284 /* Trip+CoreDataProperties.swift */,
-				425490E6257AC57500463284 /* Event+CoreDataClass.swift */,
-				425490E7257AC57500463284 /* Event+CoreDataProperties.swift */,
+				63BA788D25B169F400ACCD95 /* Trip+CoreDataClass.swift */,
+				63BA788E25B169F400ACCD95 /* Trip+CoreDataProperties.swift */,
+				63BA789A25B16CA000ACCD95 /* Event+CoreDataClass.swift */,
+				63BA789B25B16CA000ACCD95 /* Event+CoreDataProperties.swift */,
 				42549087257A6C4400463284 /* Trip.xcdatamodeld */,
 			);
 			path = Model;
@@ -265,6 +286,10 @@
 				63EAD07F2587823F0000FAE2 /* CLLocation+Extension.swift */,
 				63EAD0832587827F0000FAE2 /* CLPlacemark+Extension.swift */,
 				637E583025A6B919007220FC /* UIFont+Extension.swift */,
+				638DF0D425C5B8FB005BB808 /* Router.swift */,
+				63BA78F425B9A2C800ACCD95 /* HTTPMethod.swift */,
+				63BA78F825B9A2F300ACCD95 /* Bearer.swift */,
+				63BA78FC25B9A30D00ACCD95 /* NetworkError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -272,6 +297,7 @@
 		46BEB4EB24C98EB400FE0CD1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				63BA78DD25B9A12A00ACCD95 /* Backend API */,
 				63632AA425594C8D00F70F9C /* Destination.swift */,
 				46BEB4E024C9828800FE0CD1 /* Profile.swift */,
 				63AE51F1258BE8A600C23D4F /* EventCategory.swift */,
@@ -284,6 +310,9 @@
 			isa = PBXGroup;
 			children = (
 				46BEB4ED24C98ECC00FE0CD1 /* ProfileController.swift */,
+				63BA78D525B8ABF600ACCD95 /* TripsController.swift */,
+				63BA78D125B8A4A000ACCD95 /* RFWebService.swift */,
+				638DF0C625C20B0F005BB808 /* CoreDataService.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -334,6 +363,18 @@
 				631FB916259C84B100B7F93B /* Event Input Form */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		63BA78DD25B9A12A00ACCD95 /* Backend API */ = {
+			isa = PBXGroup;
+			children = (
+				63BA78DE25B9A13B00ACCD95 /* EventResult.swift */,
+				63BA78E425B9A15000ACCD95 /* EventPOSTRequest.swift */,
+				63BA78E825B9A19E00ACCD95 /* TripResult.swift */,
+				63BA78EC25B9A1CA00ACCD95 /* TripPOSTRequest.swift */,
+				63BA78F025B9A21700ACCD95 /* TripResultWithEvents.swift */,
+			);
+			path = "Backend API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,26 +496,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				631FB929259C887D00B7F93B /* CategoryInputCell.swift in Sources */,
+				63BA78E525B9A15000ACCD95 /* EventPOSTRequest.swift in Sources */,
 				46BEB4EE24C98ECC00FE0CD1 /* ProfileController.swift in Sources */,
 				63D22D0A2592705D001F594A /* EventDetailViewController.swift in Sources */,
 				63D68E292564A0CE00BFF20B /* SideMenuController.swift in Sources */,
 				46BF10BE24D388FF001C6753 /* UIViewController+SimpleAlert.swift in Sources */,
-				425490EB257AC57500463284 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E232564A07200BFF20B /* SideMenuCell.swift in Sources */,
+				638DF0C725C20B0F005BB808 /* CoreDataService.swift in Sources */,
 				42EFBF00257BD4010038C75A /* AddTripViewController.swift in Sources */,
+				63BA78D625B8ABF600ACCD95 /* TripsController.swift in Sources */,
 				63D22D0F2592CEFE001F594A /* LocationSearchViewController.swift in Sources */,
+				63BA78FD25B9A30D00ACCD95 /* NetworkError.swift in Sources */,
 				63EAD0922587A5740000FAE2 /* SearchResultCell.swift in Sources */,
 				63632A9F2559244200F70F9C /* TripCell.swift in Sources */,
+				63BA78F925B9A2F300ACCD95 /* Bearer.swift in Sources */,
 				631FB92D259C888900B7F93B /* DateInputCell.swift in Sources */,
 				46BEB4E724C98D8900FE0CD1 /* Notifications.swift in Sources */,
+				63BA78DF25B9A13B00ACCD95 /* EventResult.swift in Sources */,
 				63D22D262595A8E1001F594A /* AddEventSection.swift in Sources */,
 				63632A8D2558DF9C00F70F9C /* TripsViewController.swift in Sources */,
+				63BA789025B169F400ACCD95 /* Trip+CoreDataProperties.swift in Sources */,
 				634A30002564CA8D00C27289 /* SideMenuHeader.swift in Sources */,
 				63EAD05A258726B30000FAE2 /* TripDetailViewController.swift in Sources */,
+				63BA789D25B16CA000ACCD95 /* Event+CoreDataProperties.swift in Sources */,
 				63D68E262564A0A500BFF20B /* ContainerController.swift in Sources */,
-				425490E9257AC57500463284 /* Trip+CoreDataProperties.swift in Sources */,
+				638DF0D525C5B8FB005BB808 /* Router.swift in Sources */,
 				63D68DBB256497E400BFF20B /* ProfileViewController.swift in Sources */,
-				425490D4257A763B00463284 /* TripsController.swift in Sources */,
+				63BA78E925B9A19E00ACCD95 /* TripResult.swift in Sources */,
 				637E583125A6B919007220FC /* UIFont+Extension.swift in Sources */,
 				46BEB4E124C9828800FE0CD1 /* Profile.swift in Sources */,
 				631FB921259C87A100B7F93B /* TextViewInputCell.swift in Sources */,
@@ -485,17 +533,21 @@
 				42549089257A6C4400463284 /* Trip.xcdatamodeld in Sources */,
 				63EAD0802587823F0000FAE2 /* CLLocation+Extension.swift in Sources */,
 				631FB925259C880500B7F93B /* LocationInputCell.swift in Sources */,
+				63BA789C25B16CA000ACCD95 /* Event+CoreDataClass.swift in Sources */,
 				63632A922558F8AB00F70F9C /* UIView+Extension.swift in Sources */,
 				466C4274249A8748007D033E /* AppDelegate.swift in Sources */,
+				63BA78F525B9A2C800ACCD95 /* HTTPMethod.swift in Sources */,
+				63BA788F25B169F400ACCD95 /* Trip+CoreDataClass.swift in Sources */,
 				63D22D2A25968FBD001F594A /* EventDetailCell.swift in Sources */,
+				63BA78ED25B9A1CA00ACCD95 /* TripPOSTRequest.swift in Sources */,
 				425490CD257A754800463284 /* CoreDataStack.swift in Sources */,
 				63EAD08E2587A4930000FAE2 /* MKMapView+Extension.swift in Sources */,
-				425490E8257AC57500463284 /* Trip+CoreDataClass.swift in Sources */,
 				42EFBF04257BE5290038C75A /* UITextField+Extension.swift in Sources */,
-				425490EA257AC57500463284 /* Event+CoreDataClass.swift in Sources */,
+				63BA78F125B9A21700ACCD95 /* TripResultWithEvents.swift in Sources */,
 				46C2BC9224D432F90077E49D /* ProfileTabBarViewController.swift in Sources */,
 				63EAD076258747F80000FAE2 /* EventCell.swift in Sources */,
 				63AE51F2258BE8A600C23D4F /* EventCategory.swift in Sources */,
+				63BA78D225B8A4A000ACCD95 /* RFWebService.swift in Sources */,
 				463AD24324CF275900447BB8 /* ProfileDetailViewController.swift in Sources */,
 				46BEB4E524C98CDC00FE0CD1 /* LoginViewController.swift in Sources */,
 				63632AA525594C8D00F70F9C /* Destination.swift in Sources */,
@@ -698,7 +750,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3BQB6FYF6S;
 				INFOPLIST_FILE = "$(SRCROOT)/Resfeber/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -718,7 +770,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3BQB6FYF6S;
 				INFOPLIST_FILE = "$(SRCROOT)/Resfeber/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
