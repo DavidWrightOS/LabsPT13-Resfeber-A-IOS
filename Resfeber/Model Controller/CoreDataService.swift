@@ -29,6 +29,9 @@ extension CoreDataService {
     
     func fetchTrips() -> [Trip]? {
         let tripFetch: NSFetchRequest<Trip> = Trip.fetchRequest()
+        let sortDescriptors = [NSSortDescriptor(key: #keyPath(Trip.startDate), ascending: false),
+                               NSSortDescriptor(key: #keyPath(Trip.name), ascending: true)]
+        tripFetch.sortDescriptors = sortDescriptors
         
         do {
             let results = try context.fetch(tripFetch)
