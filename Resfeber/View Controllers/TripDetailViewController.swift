@@ -402,7 +402,15 @@ extension TripDetailViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? EventCell,
               let event = cell.event else { return nil }
         
+        let shouldShowGetDirections = event.latitude != nil && event.longitude != nil
+        
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup get directions menu item
+            let getDirections = UIAction(title: "Get Directions", image: UIImage(systemName: "map")) { [weak self] action in
+                guard let self = self else { return }
+                self.openDirectionsInAppleMaps(for: event)
+            }
             
             // Setup Edit Event menu item
             let editEvent = UIAction(title: "Edit Event", image: UIImage(systemName: "square.and.pencil")) { [weak self] action in
@@ -417,13 +425,27 @@ extension TripDetailViewController: UICollectionViewDelegate {
                 self.reloadTrip()
             }
             
-            return UIMenu(title: "", children: [editEvent, deleteEvent])
+            var menuItems = [editEvent, deleteEvent]
+            if shouldShowGetDirections {
+                menuItems.insert(getDirections, at: 0)
+            }
+            
+            return UIMenu(title: "", children: menuItems)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let event = trip.eventsArray[indexPath.item]
         showEventDetailViewController(with: event)
+    }
+    
+    private func openDirectionsInAppleMaps(for event: Event) {
+        guard let latitude = event.latitude, let longitude = event.longitude else { return }
+        
+        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+        mapItem.name = event.locationName ?? event.name
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
 }
 
