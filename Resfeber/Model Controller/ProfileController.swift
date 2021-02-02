@@ -23,12 +23,14 @@ class ProfileController {
                             clientID: "0oalwkxvqtKeHBmLI4x6",
                             redirectURI: "labs://scaffolding/implicit/callback")
 
-    private(set) var authenticatedUserProfile: Profile?
-
-    private(set) var profiles: [Profile] = []
+    private(set) var authenticatedUserProfile: Profile? {
+        didSet {
+            print("didSet authenticatedUserProfile -> \(String(describing: authenticatedUserProfile))")
+        }
+    }
     
     private var oktaCredentials: OktaCredentials? { try? oktaAuth.credentialsIfAvailable() }
-        
+    
     private var bearer: Bearer? {
         guard let credentials = oktaCredentials else { return nil }
         return Bearer(token: credentials.idToken)
@@ -38,25 +40,7 @@ class ProfileController {
     
     // MARK: - Init
     
-    private init() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(refreshProfiles),
-                                               name: .oktaAuthenticationSuccessful,
-                                               object: nil)
-    }
-
-    // MARK: - Selectors
-    
-    @objc func refreshProfiles() {
-        getAllProfiles { result in
-            switch result {
-            case .success(let profiles):
-                self.profiles = profiles
-            case .failure(let error):
-                NSLog("Error fetching user profiles: \(error)")
-            }
-        }
-    }
+    private init() {}
     
     // MARK: - API Requests
     
@@ -150,8 +134,7 @@ class ProfileController {
                 completion()
                 return
             }
-
-            self.profiles.append(profile)
+            
             completion()
         }
     }
