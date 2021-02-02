@@ -16,25 +16,40 @@ class TripsViewController: UIViewController {
     
     private let tripsController = TripsController()
 
-    let profileButton: UIBarButtonItem = {
+    var profile: Profile? {
+        didSet {
+            if profile?.id != oldValue?.id {
+                tripsController.loadTrips()
+            }
+            updateViews()
+        }
+    }
+    
+    lazy var profileButton: UIBarButtonItem = {
+        UIBarButtonItem(customView: profileButtonCustomView)
+    }()
+    
+    let profileButtonCustomView: UIButton = {
         let buttonDiameter: CGFloat = 32
         let button = UIButton(type: .system)
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
         button.layer.cornerRadius = buttonDiameter / 2
         button.layer.masksToBounds = true
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 1.5
         button.layer.borderColor = RFColor.red.cgColor
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .systemGray3
+        button.imageView?.contentMode = .center
+        button.backgroundColor = .white
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
-
-        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter * 0.6)
-        let placeholderImage = UIImage(systemName: "person.fill")?
+        return button
+    }()
+    
+    private let placeholderProfileImage: UIImage? = {
+        let buttonDiameter: CGFloat = 32
+        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter)
+        let image = UIImage(systemName: "person.crop.circle.fill")?
             .withConfiguration(config)
-            .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
-        button.setImage(placeholderImage, for: .normal)
-
-        return UIBarButtonItem(customView: button)
+            .withTintColor(.systemGray, renderingMode: .alwaysOriginal)
+        return image
     }()
 
     weak var sideMenuDelegate: SideMenuDelegate?
@@ -45,7 +60,6 @@ class TripsViewController: UIViewController {
         super.viewDidLoad()
         configureViews()
         tripsController.delegate = self
-        tripsController.loadTrips()
     }
 
     // MARK: - Selectors
@@ -74,7 +88,7 @@ class TripsViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         titleLabel.textColor = .label
-        titleLabel.text = "Trips"
+        titleLabel.text = "My Trips"
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = profileButton
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
@@ -95,6 +109,12 @@ class TripsViewController: UIViewController {
                               paddingLeft: 20,
                               paddingRight: 20)
         
+        updateViews()
+    }
+    
+    func updateViews() {
+        let image = profile?.avatarImage ?? placeholderProfileImage
+        profileButtonCustomView.setImage(image, for: .normal)
         collectionView.reloadData()
     }
 }

@@ -12,7 +12,11 @@ class SideMenuHeader: UIView {
     
     // MARK: - Properties
     
-    private let profile: Profile
+    var profile: Profile? {
+        didSet {
+            updateViews()
+        }
+    }
     
     private let profileImage: UIButton = {
         let diameter: CGFloat = 64
@@ -21,41 +25,42 @@ class SideMenuHeader: UIView {
         button.setDimensions(height: diameter, width: diameter)
         button.layer.cornerRadius = diameter / 2
         button.layer.masksToBounds = true
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .systemGray3
-
-        let config = UIImage.SymbolConfiguration(pointSize: diameter * 0.8)
-        let placeholderImage = UIImage(systemName: "person.fill")?
-            .withConfiguration(config)
-            .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
-        
-        button.setImage(placeholderImage, for: .normal)
+        button.imageView?.contentMode = .center
+        button.backgroundColor = .white
         return button
     }()
     
-    private lazy var nameLabel: UILabel = {
+    private let placeholderProfileImage: UIImage? = {
+        let buttonDiameter: CGFloat = 64
+        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter + 1)
+        let image = UIImage(systemName: "person.crop.circle.fill")?
+            .withConfiguration(config)
+            .withTintColor(.systemGray, renderingMode: .alwaysOriginal)
+        return image
+    }()
+    
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = RFColor.light
-        label.text = profile.name
         return label
     }()
     
-    private lazy var emailLabel: UILabel = {
+    private let emailLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = RFColor.light.withAlphaComponent(0.85)
-        label.text = profile.email
         return label
     }()
     
     // MARK: - Lifecycle
     
-    init(profile: Profile, frame: CGRect) {
+    init(profile: Profile?, frame: CGRect) {
         self.profile = profile
         super.init(frame: frame)
         
         configureViews()
+        updateViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,5 +83,18 @@ class SideMenuHeader: UIView {
         addSubview(stack)
         stack.centerY(inView: profileImage)
         stack.anchor(left: profileImage.rightAnchor, paddingLeft: 12)
+    }
+    
+    private func updateViews() {
+        if let image = profile?.avatarImage {
+            profileImage.setImage(image, for: .normal)
+            profileImage.imageView?.contentMode = .scaleAspectFill
+        } else {
+            profileImage.setImage(placeholderProfileImage, for: .normal)
+            profileImage.imageView?.contentMode = .center
+        }
+        
+        nameLabel.text = profile?.name ?? "Unknown User"
+        emailLabel.text = profile?.email ?? ""
     }
 }

@@ -19,16 +19,18 @@ class ProfileViewController: UIViewController {
         button.setDimensions(height: diameter, width: diameter)
         button.layer.cornerRadius = diameter / 2
         button.layer.masksToBounds = true
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .systemGray3
-
-        let config = UIImage.SymbolConfiguration(pointSize: diameter * 0.8)
-        let placeholderImage = UIImage(systemName: "person.fill")?
-            .withConfiguration(config)
-            .withTintColor(.systemGray6, renderingMode: .alwaysOriginal)
-        
-        button.setImage(placeholderImage, for: .normal)
+        button.imageView?.contentMode = .center
+        button.backgroundColor = .white
         return button
+    }()
+    
+    private let placeholderProfileImage: UIImage? = {
+        let buttonDiameter: CGFloat = 150
+        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter + 1)
+        let image = UIImage(systemName: "person.crop.circle.fill")?
+            .withConfiguration(config)
+            .withTintColor(.systemGray, renderingMode: .alwaysOriginal)
+        return image
     }()
         
     private var nameTextField = UITextField()
@@ -145,7 +147,7 @@ class ProfileViewController: UIViewController {
                                     paddingTop: 36)
     }
     
-    private func updateViews() {
+    func updateViews() {
         guard let profile = profile else { return }
         updateViews(with: profile)
     }
@@ -155,13 +157,20 @@ class ProfileViewController: UIViewController {
         
         if let avatarImage = profile.avatarImage {
             profileImage.setImage(avatarImage, for: .normal)
+            profileImage.imageView?.contentMode = .scaleAspectFill
         } else if let avatarURL = profile.avatarURL {
-            profileController.image(for: avatarURL, completion: { [weak self] (avatarImage) in
-                guard let self = self else { return }
+            profileController.image(for: avatarURL, completion: { [weak self] avatarImage in
+                guard let self = self, let avatarImage = avatarImage else { return }
                 
                 self.profile?.avatarImage = avatarImage
                 self.profileImage.setImage(avatarImage, for: .normal)
+                self.profileImage.imageView?.contentMode = .scaleAspectFill
             })
+        }
+        
+        if profileImage.imageView?.image == nil {
+            profileImage.setImage(placeholderProfileImage, for: .normal)
+            profileImage.imageView?.contentMode = .center
         }
                 
         nameTextField.text = profile.name

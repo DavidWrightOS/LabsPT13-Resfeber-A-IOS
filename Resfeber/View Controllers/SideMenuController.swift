@@ -38,7 +38,12 @@ class SideMenuController: UIViewController {
     
     // MARK: - Properties
     
-    var profile: Profile = ProfileController.shared.authenticatedUserProfile!
+    var profile: Profile? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     var tableView: UITableView!
     weak var delegate: SideMenuDelegate?
     
@@ -72,6 +77,10 @@ class SideMenuController: UIViewController {
         
         view.addSubview(tableView)
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+    }
+    
+    private func updateViews() {
+        profileMenuHeader.profile = profile
     }
 }
 
