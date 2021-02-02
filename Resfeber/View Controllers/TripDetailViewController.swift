@@ -66,8 +66,8 @@ class TripDetailViewController: UIViewController {
     lazy private var mapControlsView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 5
-        view.layer.shadowColor = UIColor.systemGray.cgColor
-        view.layer.shadowOpacity = 0.5
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.15
         view.layer.shadowOffset = .zero
         view.layer.shadowRadius = 6
         
