@@ -113,6 +113,7 @@ class TripsViewController: UIViewController {
     }
     
     func updateViews() {
+        guard collectionView != nil else { return }
         let image = profile?.avatarImage ?? placeholderProfileImage
         profileButtonCustomView.setImage(image, for: .normal)
         collectionView.reloadData()

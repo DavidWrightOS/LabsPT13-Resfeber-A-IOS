@@ -53,7 +53,7 @@ class ContainerController: UIViewController {
                                                queue: .main,
                                                using: alertUserOfExpiredCredentials)
         
-        configureMainNavigationController()
+//        configureMainNavigationController()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,9 +74,18 @@ class ContainerController: UIViewController {
             guard let self = self else { return }
             
             if exists, let profile = self.profileController.authenticatedUserProfile {
+                if self.mainNavigationController == nil {
+                    self.configureMainNavigationController()
+                }
                 self.profile = profile
             } else {
-                self.presentLoginViewController()
+                if self.mainNavigationController == nil {
+                    self.presentLoginViewController(animated: false) {
+                        self.configureMainNavigationController()
+                    }
+                } else {
+                    self.presentLoginViewController()
+                }
             }
         }
     }
@@ -138,11 +147,13 @@ class ContainerController: UIViewController {
         presentLoginViewController()
     }
     
-    private func presentLoginViewController(animated: Bool = true) {
+    private func presentLoginViewController(animated: Bool = true, completion: @escaping () -> Void = {}) {
         let nav = UINavigationController(rootViewController: LoginViewController())
         nav.modalPresentationStyle = .fullScreen
         nav.navigationBar.prefersLargeTitles = true
-        self.present(nav, animated: animated, completion: nil)
+        self.present(nav, animated: animated) {
+            completion()
+        }
     }
     
     // MARK: - Selectors
