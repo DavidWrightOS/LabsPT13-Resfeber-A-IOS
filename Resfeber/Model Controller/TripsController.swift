@@ -88,9 +88,8 @@ extension TripsController {
     
     func deleteTrip(_ trip: Trip) {
         trips.removeAll(where: { $0 == trip })
-        webService.deleteTrip(trip) { [weak self] isDeleted in
-            guard let self = self, isDeleted else { return }
-            self.coreDataService.deleteTrip(trip)
+        webService.deleteTrip(trip) { [weak self] _ in
+            self?.coreDataService.deleteTrip(trip)
         }
         delegate?.didUpdateTrips()
     }
