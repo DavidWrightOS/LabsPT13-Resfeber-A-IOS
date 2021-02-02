@@ -79,9 +79,9 @@ class LoginViewController: UIViewController {
     private func alertUserOfExpiredCredentials(_ notification: Notification) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.presentSimpleAlert(with: "Your Okta credentials have expired",
-                           message: "Please sign in again",
-                           preferredStyle: .alert,
-                           dismissText: "Dimiss")
+                                    message: "Please sign in again",
+                                    preferredStyle: .alert,
+                                    dismissText: "Dismiss")
         }
     }
     
@@ -99,7 +99,10 @@ class LoginViewController: UIViewController {
             if exists {
                 self.navigationController?.dismiss(animated: true, completion: nil)
             } else {
-                self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
+                self.presentSimpleAlert(with: "Something went wrong",
+                                        message: "Please try to sign in again",
+                                        preferredStyle: .alert,
+                                        dismissText: "Dismiss")
             }
         }
     }
