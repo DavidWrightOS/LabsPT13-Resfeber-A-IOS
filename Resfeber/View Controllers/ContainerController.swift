@@ -70,7 +70,6 @@ class ContainerController: UIViewController {
     // MARK: - Helpers
     
     private func checkForExistingProfile() {
-        print("ContainerController.checkForExistingProfile()")
         profileController.checkForExistingAuthenticatedUserProfile { [weak self] exists in
             guard let self = self else { return }
             
@@ -111,7 +110,6 @@ class ContainerController: UIViewController {
     }
     
     private func loadUserData(_ notification: Notification) {
-        print("\tNotificationCenter.oktaAuthenticationSuccessful (ContainerController)")
         if profile == nil {
             checkForExistingProfile()
         } else {
@@ -120,7 +118,6 @@ class ContainerController: UIViewController {
     }
     
     private func loadUserData() {
-        print("\t\tContainerController.loadUserData()")
         tripsViewController.profile = profile
         sideMenuController.profile = profile
     }

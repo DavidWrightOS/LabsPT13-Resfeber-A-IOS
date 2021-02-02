@@ -88,12 +88,10 @@ class LoginViewController: UIViewController {
     // MARK: Notification Handling
     
     private func checkForExistingProfile(with notification: Notification) {
-        print("\tNotificationCenter.oktaAuthenticationSuccessful (LoginViewController)")
         checkForExistingProfile()
     }
     
     private func checkForExistingProfile() {
-        print("LoginViewController.checkForExistingProfile()")
         ProfileController.shared.checkForExistingAuthenticatedUserProfile { [weak self] exists in
             
             guard let self = self, self.presentedViewController == nil else { return }
