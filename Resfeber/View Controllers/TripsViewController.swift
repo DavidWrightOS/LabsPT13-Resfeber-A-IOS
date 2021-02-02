@@ -161,6 +161,37 @@ extension TripsViewController: UICollectionViewDelegate {
         detailVC.tripDetailVCDelegate = self
         show(detailVC, sender: self)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TripCell,
+              let trip = cell.trip else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup Edit Trip menu item
+            let editTrip = UIAction(title: "Edit Trip", image: UIImage(systemName: "square.and.pencil")) { [weak self] action in
+                guard let self = self else { return }
+                self.showEditTripViewController(with: trip)
+            }
+            
+            // Setup Delete Trip menu item
+            let deleteTrip = UIAction(title: "Delete Trip", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+                guard let self = self else { return }
+                self.tripsController.deleteTrip(trip)
+            }
+            
+            return UIMenu(title: "", children: [editTrip, deleteTrip])
+        }
+    }
+    
+    private func showEditTripViewController(with trip: Trip) {
+        let addTripVC = AddTripViewController(tripsController: tripsController)
+        addTripVC.delegate = self
+        addTripVC.trip = trip
+        let nav = UINavigationController(rootViewController: addTripVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
 }
 
 // MARK: - TripDetailViewController Delegate
