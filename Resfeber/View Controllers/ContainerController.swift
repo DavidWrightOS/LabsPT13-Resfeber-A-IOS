@@ -58,7 +58,10 @@ class ContainerController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkForExistingProfile()
+        
+        if profile == nil {
+            checkForExistingProfile()
+        }
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { .slide }
