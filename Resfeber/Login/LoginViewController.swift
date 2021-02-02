@@ -11,10 +11,30 @@ import OktaAuth
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var logoImageView: UIImageView!
-    @IBOutlet weak var signInButton: UIButton!
+    lazy private var logoImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "Logo_Combined")?.withRenderingMode(.alwaysTemplate)
+        iv.contentMode = .scaleAspectFit
+        iv.tintColor = RFColor.red
+        return iv
+    }()
     
-    let profileController = ProfileController.shared
+    private var signInButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.setTitle("Continue with Okta", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = RFColor.red
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        button.layer.cornerRadius = 12
+        button.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        button.layer.shadowOpacity = 0.4
+        button.layer.shadowRadius = 5
+        button.layer.shouldRasterize = true
+        button.layer.masksToBounds =  false
+        button.addTarget(self, action: #selector(signIn), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,21 +62,18 @@ class LoginViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = RFColor.background
+        view.addSubview(logoImageView)
+        logoImageView.setDimensions(height: 128)
+        logoImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                             left: view.safeAreaLayoutGuide.leftAnchor,
+                             right: view.safeAreaLayoutGuide.rightAnchor,
+                             paddingLeft: 67,
+                             paddingRight: 67)
         
-        // Sets logoImageView to render as a template image and sets the color to ResfeberRed
-        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-        logoImageView.tintColor = RFColor.red
-        
-        // Sets edge insets for button text
-        signInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-        
-        signInButton.layer.cornerRadius = 12
-        signInButton.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        signInButton.layer.shadowOpacity = 0.4
-        signInButton.layer.shadowRadius = 5
-        signInButton.layer.shouldRasterize = true
-        signInButton.layer.masksToBounds =  false
-        
+        view.addSubview(signInButton)
+        signInButton.setDimensions(height: 50, width: 280)
+        signInButton.centerX(inView: view)
+        signInButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 120)
     }
     
     private func alertUserOfExpiredCredentials(_ notification: Notification) {
@@ -71,18 +88,18 @@ class LoginViewController: UIViewController {
     // MARK: Notification Handling
     
     private func checkForExistingProfile(with notification: Notification) {
+        print("\tNotificationCenter.oktaAuthenticationSuccessful (LoginViewController)")
         checkForExistingProfile()
     }
     
     private func checkForExistingProfile() {
-        profileController.checkForExistingAuthenticatedUserProfile { [weak self] exists in
+        print("LoginViewController.checkForExistingProfile()")
+        ProfileController.shared.checkForExistingAuthenticatedUserProfile { [weak self] exists in
             
             guard let self = self, self.presentedViewController == nil else { return }
             
             if exists {
-                let vc = ContainerController()
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.dismiss(animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
             }
