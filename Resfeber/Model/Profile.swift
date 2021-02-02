@@ -25,6 +25,16 @@ struct Profile: Codable {
     }
 }
 
+extension Profile: Equatable {
+    static func ==(lhs: Profile, rhs: Profile) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.email == rhs.email &&
+        lhs.name == rhs.name &&
+        lhs.avatarURL == rhs.avatarURL &&
+        lhs.avatarImage == rhs.avatarImage
+    }
+}
+
 struct ProfileWithMessage: Codable {
     let profile: Profile
     let message: String?
