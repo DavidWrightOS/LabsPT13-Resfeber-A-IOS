@@ -45,9 +45,10 @@ extension TripsController {
     
     func loadTrips() {
         webService.getTripsAndItems { tripResultsWithEventResults in
-            
             let tripResultsWithEvents = tripResultsWithEventResults ?? []
+            
             let trips = self.coreDataService.fetchTrips() ?? []
+            self.trips = trips
             
             self.sync(tripResultsWithEvents: tripResultsWithEvents, with: trips)
         }
@@ -87,8 +88,10 @@ extension TripsController {
     
     func deleteTrip(_ trip: Trip) {
         trips.removeAll(where: { $0 == trip })
-        webService.deleteTrip(trip)
-        coreDataService.deleteTrip(trip)
+        webService.deleteTrip(trip) { [weak self] isDeleted in
+            guard let self = self, isDeleted else { return }
+            self.coreDataService.deleteTrip(trip)
+        }
         delegate?.didUpdateTrips()
     }
 }
@@ -203,7 +206,6 @@ extension TripsController {
                 /// Check for differences between client-side and server-side trips, and update trip data accordingly
                 /// This implementation always uses the server-side trip as the source of truth
                 updateTrip(trip, with: tripResult)
-                self.trips.append(trip)
             } else {
                 
                 // Sync Trips that exist only on the server

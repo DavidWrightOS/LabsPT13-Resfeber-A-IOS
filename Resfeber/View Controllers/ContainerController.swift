@@ -12,7 +12,25 @@ class ContainerController: UIViewController {
     
     // MARK: - Properties
     
-    private var sideMenuController: SideMenuController!
+    let profileController = ProfileController.shared
+    
+    private var profile: Profile? {
+        didSet {
+            guard profile != oldValue else { return }
+            loadUserData()
+        }
+    }
+    
+    private lazy var sideMenuController: SideMenuController = {
+        let sideMenuController = SideMenuController()
+        sideMenuController.delegate = self
+        view.insertSubview(sideMenuController.view, at: 0)
+        addChild(sideMenuController)
+        sideMenuController.didMove(toParent: self)
+        sideMenuController.view.frame.origin.x = -view.frame.width
+        return sideMenuController
+    }()
+    
     private var mainNavigationController: UINavigationController!
     private var tripsViewController: TripsViewController!
     private let darkTintView = UIView()
@@ -22,13 +40,44 @@ class ContainerController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = RFColor.background
+        
+        NotificationCenter.default.addObserver(forName: .oktaAuthenticationSuccessful,
+                                               object: nil,
+                                               queue: .main,
+                                               using: loadUserData)
+        
+        NotificationCenter.default.addObserver(forName: .oktaAuthenticationExpired,
+                                               object: nil,
+                                               queue: .main,
+                                               using: alertUserOfExpiredCredentials)
+        
         configureMainNavigationController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkForExistingProfile()
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { .slide }
     override var prefersStatusBarHidden: Bool { isExpanded }
     
     // MARK: - Helpers
+    
+    private func checkForExistingProfile() {
+        print("ContainerController.checkForExistingProfile()")
+        profileController.checkForExistingAuthenticatedUserProfile { [weak self] exists in
+            guard let self = self else { return }
+            
+            if exists, let profile = self.profileController.authenticatedUserProfile {
+                self.profile = profile
+            } else {
+                self.presentLoginViewController()
+            }
+        }
+    }
     
     private func configureMainNavigationController() {
         tripsViewController = TripsViewController()
@@ -48,25 +97,52 @@ class ContainerController: UIViewController {
         darkTintView.addGestureRecognizer(tap)
     }
     
-    private func configureMenuController() {
-        if sideMenuController == nil {
-            sideMenuController = SideMenuController()
-            sideMenuController.delegate = self
-            view.insertSubview(sideMenuController.view, at: 0)
-            addChild(sideMenuController)
-            sideMenuController.didMove(toParent: self)
-            sideMenuController.view.frame.origin.x = -view.frame.width
-        }
-    }
-    
     private func didSelectMenuOption(menuOption: MenuOption) {
         switch menuOption {
         case .editProfile:
             let nav = UINavigationController(rootViewController: ProfileViewController())
             present(nav, animated: true, completion: nil)
         case .logOut:
-            break //TODO: Log user out
+            logoutUser()
         }
+    }
+    
+    private func loadUserData(_ notification: Notification) {
+        print("\tNotificationCenter.oktaAuthenticationSuccessful (ContainerController)")
+        if profile == nil {
+            checkForExistingProfile()
+        } else {
+            loadUserData()
+        }
+    }
+    
+    private func loadUserData() {
+        print("\t\tContainerController.loadUserData()")
+        tripsViewController.profile = profile
+        sideMenuController.profile = profile
+    }
+    
+    private func alertUserOfExpiredCredentials(_ notification: Notification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.presentSimpleAlert(with: "Your Okta credentials have expired",
+                                    message: "Please sign in again",
+                                    preferredStyle: .alert,
+                                    dismissText: "Dimiss") { [weak self] _ in
+                guard let self = self else { return }
+                self.logoutUser()
+            }
+        }
+    }
+    
+    private func logoutUser() {
+        presentLoginViewController()
+    }
+    
+    private func presentLoginViewController(animated: Bool = true) {
+        let nav = UINavigationController(rootViewController: LoginViewController())
+        nav.modalPresentationStyle = .fullScreen
+        nav.navigationBar.prefersLargeTitles = true
+        self.present(nav, animated: animated, completion: nil)
     }
     
     // MARK: - Selectors
@@ -130,10 +206,6 @@ class ContainerController: UIViewController {
 
 extension ContainerController: SideMenuDelegate {
     func toggleSideMenu(withMenuOption menuOption: MenuOption?) {
-        if !isExpanded {
-            configureMenuController()
-        }
-        
         isExpanded = !isExpanded
         animateSideMenu(shouldExpand: isExpanded, menuOption: menuOption)
     }

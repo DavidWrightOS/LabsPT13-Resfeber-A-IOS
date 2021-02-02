@@ -19,7 +19,7 @@ class TripCell: UICollectionViewCell {
 
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
         iv.backgroundColor = .systemGray4
         iv.image = UIImage(named: "Logo_Combined")
         return iv
@@ -57,6 +57,10 @@ class TripCell: UICollectionViewCell {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        imageView.image = UIImage(named: "Logo_Combined")
+    }
 }
 
 private extension TripCell {
@@ -83,8 +87,10 @@ private extension TripCell {
             if let data = trip.image {
                 let image = UIImage(data: data)
                 imageView.image = image
+                imageView.contentMode = .scaleAspectFill
+            } else {
+                imageView.contentMode = .scaleAspectFit
             }
-            imageView.contentMode = .scaleAspectFill
             infoLabel.text = trip.name
             gradientLayer.frame = infoView.bounds
         } else {

@@ -85,7 +85,7 @@ extension RFWebService {
             switch result {
             
             case .success(let tripWithEventsResult):
-                let tripsDescription = tripWithEventsResult.isEmpty ? "[]" : "[\"\(tripWithEventsResult.map { $0.name }.joined(separator: "\", \""))]\""
+                let tripsDescription = tripWithEventsResult.isEmpty ? "[]" : "[\"\(tripWithEventsResult.map { "\($0.name), id: \($0.serverID ?? -1)" }.joined(separator: "\", \""))\"]"
                 let eventCount = tripWithEventsResult.compactMap {$0.events?.count}.reduce(0,+)
                 print("Successful GET request of all trips and events from server: tripCount = \(tripWithEventsResult.count), eventCount = \(eventCount), \(tripsDescription)")
                 completion(tripWithEventsResult)
@@ -192,7 +192,7 @@ extension RFWebService {
                 return
             }
             
-            self.router.self.send(request) { error in
+            self.router.send(request) { error in
                 if let error = error {
                     NSLog("Error DELETEing trip \"\(trip.name ?? "")\" from server: \(error)")
                     completion(false)

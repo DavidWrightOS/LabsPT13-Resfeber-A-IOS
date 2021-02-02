@@ -38,14 +38,21 @@ class SideMenuController: UIViewController {
     
     // MARK: - Properties
     
-    var profile: Profile = ProfileController.shared.authenticatedUserProfile!
+    var profile: Profile? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     var tableView: UITableView!
+    
     weak var delegate: SideMenuDelegate?
     
     private lazy var profileMenuHeader: SideMenuHeader = {
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 80, height: 140)
-        let view = SideMenuHeader(profile: profile, frame: frame)
-        return view
+        let header = SideMenuHeader(profile: profile, frame: frame)
+        header.delegate = self
+        return header
     }()
     
     // MARK: - Lifecycle
@@ -73,10 +80,14 @@ class SideMenuController: UIViewController {
         view.addSubview(tableView)
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
     }
+    
+    private func updateViews() {
+        profileMenuHeader.profile = profile
+    }
 }
 
-// MARK: - Table View Delegate & DataSource
 
+// MARK: - Table View Delegate & DataSource
 
 extension SideMenuController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -96,5 +107,14 @@ extension SideMenuController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let menuOption = MenuOption(rawValue: indexPath.row)
         delegate?.toggleSideMenu(withMenuOption: menuOption)
+    }
+}
+
+
+// MARK: - SideMenuHeaderDelegate
+
+extension SideMenuController: SideMenuHeaderDelegate {
+    func didTapProfileImage() {
+        delegate?.toggleSideMenu(withMenuOption: .editProfile)
     }
 }
