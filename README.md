@@ -1,6 +1,6 @@
 # Resfeber
 
-🧭 Resfeber (RACE-fay-ber). *Origin: Swedish*  - The restless race of the traveler’s heart before the journey begins, when anxiety and anticipation are tangled together.  That is the feeling we want our users to experience when planning their travels. 🧳
+🧭 Resfeber (RACE-fay-ber). *Origin: Swedish*  - The restless race of the traveler’s heart before the journey begins, when anxiety and anticipation are tangled together.  That is the feeling we want our users to experience when planning their travels with this app. 🧳
 
 [Trello Board](https://trello.com/b/wdLAv0aT/resfeber-carter-team)  
 
@@ -24,18 +24,21 @@
 👉 Resfeber is a travel research product, allowing the user to:
 
 - Create a wish list of places to travel
-- Search POI and have it create a profile for pinned destinations.
-    - Historical weather data on the destination
-- Create an travel Itinerary
-    - Pin POI and add to Itinerary
-    - Ability to add restaurants, excursions, reservation data, etc...
-- Access the travel calendar
+- Search points of interest (POI) near a travel destination.
+    - Show historical weather data on the destination
+- Create a travel Itinerary
+    - Save multiple POI to a particular Trip's Itinerary
+    - Ability to categorize POI as restaurants, excursions, accommodations, etc...
+    - Ability to add start and end dates to each POI
+    - Display POI in a list sorted by date
 - Integration with MapKit
+    - Show all of the saved POI for a particular trip on a map
+    - Get directions to a POI from the users current location using Apple Maps
 
 # Roadmap
 🗺 This describes the current status and the upcoming milestones of the Resfeber app.
 
-*Updated: Fri, 08 Jan 2021 21:49:20 GMT*
+*Updated: Tue, 02 Jan 2021 05:02:21 GMT*
 
 | Status | Milestone | Goals | Label | Release Candidate
 | :---: | :--- | :---: | :---: | :---: |
