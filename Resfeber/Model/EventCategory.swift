@@ -9,7 +9,7 @@
 import UIKit
 
 public enum EventCategory: Int, CaseIterable {
-        case notSpecified, accommodation, restaurant, entertainment, park, airport, retail, grocery, bank, gasStation, chargeStation, home, work, education, medical, pharmacy, emergency, hospital
+        case notSpecified, accommodation, restaurant, entertainment, park, airport, retail, grocery, bank, gasStation, chargeStation, home, work, education, medical, pharmacy, emergency, hospital, sportingEvent
 }
 
 extension EventCategory {
@@ -36,6 +36,7 @@ extension EventCategory {
         case .pharmacy: return "Pharmacy"
         case .emergency: return "Emergency"
         case .hospital: return "Hospital"
+        case .sportingEvent: return "Sporting Event"
         }
     }
     
@@ -59,6 +60,7 @@ extension EventCategory {
         case .pharmacy: return UIImage(systemName: "pills.fill")
         case .emergency: return UIImage(systemName: "staroflife.fill")
         case .hospital: return UIImage(systemName: "cross.fill")
+        case .sportingEvent: return UIImage(named: "stadium")
         }
     }
     
@@ -78,6 +80,7 @@ extension EventCategory {
         case .home: return RFColor.rgb(r: 0, g: 174, b: 239)
         case .work, .education: return RFColor.rgb(r: 166, g: 116, b: 73)
         case .medical, .pharmacy, .emergency, .hospital: return RFColor.rgb(r: 255, g: 93, b: 90)
+        case .sportingEvent: return RFColor.rgb(r: 6, g: 186, b: 38)
         }
     }
 }
