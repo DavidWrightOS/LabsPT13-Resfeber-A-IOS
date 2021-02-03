@@ -30,7 +30,6 @@ class LoginViewController: UIViewController {
         button.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 5
-        button.layer.shouldRasterize = true
         button.layer.masksToBounds =  false
         button.addTarget(self, action: #selector(signIn), for: .touchUpInside)
         return button
