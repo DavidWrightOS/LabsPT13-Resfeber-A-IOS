@@ -31,24 +31,20 @@ class TripsViewController: UIViewController {
     
     let profileButtonCustomView: UIButton = {
         let buttonDiameter: CGFloat = 32
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
         button.layer.cornerRadius = buttonDiameter / 2
         button.layer.masksToBounds = true
-        button.layer.borderWidth = 1.5
-        button.layer.borderColor = RFColor.red.cgColor
-        button.imageView?.contentMode = .center
         button.backgroundColor = .white
+        button.tintColor = .systemGray
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
         return button
     }()
     
     private let placeholderProfileImage: UIImage? = {
-        let buttonDiameter: CGFloat = 32
-        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter)
+        let config = UIImage.SymbolConfiguration(pointSize: 25.5)
         let image = UIImage(systemName: "person.crop.circle.fill")?
             .withConfiguration(config)
-            .withTintColor(.systemGray, renderingMode: .alwaysOriginal)
         return image
     }()
 
@@ -114,8 +110,15 @@ class TripsViewController: UIViewController {
     
     func updateViews() {
         guard collectionView != nil else { return }
-        let image = profile?.avatarImage ?? placeholderProfileImage
-        profileButtonCustomView.setImage(image, for: .normal)
+        
+        if let image = profile?.avatarImage {
+            profileButtonCustomView.imageView?.contentMode = .scaleAspectFill
+            profileButtonCustomView.setImage(image, for: .normal)
+        } else {
+            profileButtonCustomView.imageView?.contentMode = .center
+            profileButtonCustomView.setImage(placeholderProfileImage, for: .normal)
+        }
+        
         collectionView.reloadData()
     }
 }

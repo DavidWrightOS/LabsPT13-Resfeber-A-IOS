@@ -52,8 +52,6 @@ class ContainerController: UIViewController {
                                                object: nil,
                                                queue: .main,
                                                using: alertUserOfExpiredCredentials)
-        
-//        configureMainNavigationController()
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -26,12 +26,12 @@ class SideMenuHeader: UIView {
     
     private let profileImage: UIButton = {
         let diameter: CGFloat = 64
-        let button = UIButton()
+        let button = UIButton(type: .custom)
         button.setDimensions(height: diameter, width: diameter)
         button.layer.cornerRadius = diameter / 2
         button.layer.masksToBounds = true
-        button.imageView?.contentMode = .center
         button.backgroundColor = .white
+        button.tintColor = .systemGray
         button.addTarget(self, action: #selector(didTapProfileImage), for: .touchUpInside)
         return button
     }()
@@ -39,9 +39,7 @@ class SideMenuHeader: UIView {
     private let placeholderProfileImage: UIImage? = {
         let buttonDiameter: CGFloat = 64
         let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter + 1)
-        let image = UIImage(systemName: "person.crop.circle.fill")?
-            .withConfiguration(config)
-            .withTintColor(.systemGray, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "person.crop.circle.fill")?.withConfiguration(config)
         return image
     }()
     
@@ -99,11 +97,11 @@ class SideMenuHeader: UIView {
     
     private func updateViews() {
         if let image = profile?.avatarImage {
-            profileImage.setImage(image, for: .normal)
             profileImage.imageView?.contentMode = .scaleAspectFill
+            profileImage.setImage(image, for: .normal)
         } else {
-            profileImage.setImage(placeholderProfileImage, for: .normal)
             profileImage.imageView?.contentMode = .center
+            profileImage.setImage(placeholderProfileImage, for: .normal)
         }
         
         nameLabel.text = profile?.name ?? "Unknown User"
