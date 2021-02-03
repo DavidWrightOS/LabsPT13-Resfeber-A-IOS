@@ -128,6 +128,7 @@ class EventCell: UICollectionViewCell {
 
 private extension EventCell {
     func configureCell() {
+        backgroundColor = RFColor.groupedBackground
         
         // Configure Date Labels
         let dateStackView = UIStackView(arrangedSubviews: [dateLabelTop, dateLabelBottom])
@@ -193,7 +194,7 @@ private extension EventCell {
         if categoryIconIsSelected {
             imageBGView.backgroundColor = categoryColor
             imageView.image = event.category.annotationGlyph?.withTintColor(.white, renderingMode: .alwaysOriginal)
-            contentView.backgroundColor = categoryColor.withAlphaComponent(0.15)
+            contentView.backgroundColor = categoryColor.withAlphaComponent(0.4)
         } else {
             imageBGView.backgroundColor = nil
             imageView.image = event.category.annotationGlyph?.withTintColor(categoryColor, renderingMode: .alwaysOriginal)
