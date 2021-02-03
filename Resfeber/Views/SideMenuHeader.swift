@@ -80,7 +80,7 @@ class SideMenuHeader: UIView {
     // MARK: - Helper Functions
     
     private func configureViews() {
-        backgroundColor = RFColor.red
+        backgroundColor = RFColor.sideMenuBackground
         
         addSubview(profileImage)
         profileImage.anchor(top: topAnchor, left: leftAnchor, paddingTop: 4, paddingLeft: 12)
