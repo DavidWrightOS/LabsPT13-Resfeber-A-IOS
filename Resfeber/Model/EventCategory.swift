@@ -44,9 +44,9 @@ extension EventCategory {
         switch self {
         case .notSpecified: return UIImage(systemName: "mappin")
         case .accommodation: return UIImage(systemName: "bed.double.fill")
-        case .restaurant: return UIImage(named: "forkandknife")
+        case .restaurant: return UIImage(named: "forkAndKnife")
         case .entertainment: return UIImage(systemName: "star.fill")
-        case .park: return UIImage(systemName: "leaf.fill")
+        case .park: return UIImage(named: "tree")
         case .airport: return UIImage(systemName: "airplane")
         case .retail: return UIImage(systemName: "bag.fill")
         case .grocery: return UIImage(systemName: "cart.fill")
