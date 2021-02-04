@@ -1,10 +1,63 @@
-# Resfeber
+# <img src="Resources/Logo.png" height="90">
 
 🧭 Resfeber (RACE-fay-ber). *Origin: Swedish*  - The restless race of the traveler’s heart before the journey begins, when anxiety and anticipation are tangled together.  That is the feeling we want our users to experience when planning their travels with this app. 🧳
 
-[Trello Board](https://trello.com/b/wdLAv0aT/resfeber-carter-team)  
 
-## Contributors
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+[![swift-version](https://img.shields.io/badge/swift-5.1-brightgreen.svg)](https://github.com/apple/swift)
+[![xcode-version](https://img.shields.io/badge/xcode-12%20-brightgreen)](https://developer.apple.com/xcode/)
+
+# Plan your upcoming trips with the Resfeber app! &nbsp;<img src="Resources/AppIcon.png" height="40">
+**Note:** This app is still under development and is not yet available on the App Store.
+
+<br>
+
+## Create a trip and search for locations to save to your trip
+
+<img src="Resources/TripsScreen.png" width="250">&nbsp;&nbsp;
+<img src="Resources/SearchLocations.png" width="250">&nbsp;&nbsp;
+<img src="Resources/EventDetail.png" width="250">
+
+- You can save other important information about a location such as dates and notes
+- You can also select a category to help keep all the locations saved to your trip organized
+
+<br><br>
+
+## View all your saved locations on a map (light and dark mode support)
+
+<img src="Resources/TripDetail-light.png" width="373">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Resources/TripDetail-dark.png" width="373">
+
+<br><br>
+
+## Uses Okta authentication for quick and secure log in
+
+<img src="Resources/SignInScreen.png" width="250">&nbsp;&nbsp;
+<img src="Resources/SideMenu.png" width="250">
+
+- Your saved trips are synced to the cloud so you can access and update your trip data from multiple devices
+- All trip data is also stored locally on the device, so you can still access and update your trips with airplane mode activated
+
+<br><br>
+
+# Roadmap
+🗺 This describes the current status and the upcoming milestones of the Resfeber app.
+
+*Updated: Thu, 04 Feb 2021 07:43:21 GMT*
+
+| Status | Milestone | Goals | Label | Release Candidate
+| :---: | :--- | :---: | :---: | :---: |
+| ✔ | **Authentication** | 1 / 1 | `Complete`| `Release 1`| 
+| ✔ | **Create Trip** | 2 / 2 | `Complete`|`Release 1`| 
+| ✔ | **Travel Itinerary** | 3 / 3 | `Complete`|`Release 1`| 
+| ✔ | **MapKit Integration** | 2 / 2 | `Complete`|`Release 1`| 
+| - | **Travel Information/Data** | 0 / 2 | `not yet started`|`Release 2`| 
+| - | **Scheduled Travel Details** | 0 / 3 | `not yet started`|`Release 3`| 
+| - | **Flight Tracking** | 0 / 2 | `not yet started`|`Release 4`| 
+
+<br>
+
+# Contributors
 
 |                                                      [David Wright](https://github.com/DavidWrightOS)                                                       |                                                       [Josh Rutkowski](https://github.com/joshrutkowski)                        
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | 
@@ -13,43 +66,10 @@
 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/joshuarutkowski/)                 | 
 
 <br>
-<br>
 
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-[![swift-version](https://img.shields.io/badge/swift-5.1-brightgreen.svg)](https://github.com/apple/swift)
-[![xcode-version](https://img.shields.io/badge/xcode-12%20-brightgreen)](https://developer.apple.com/xcode/)
+## [Trello Board](https://trello.com/b/wdLAv0aT/resfeber-carter-team)  
 
-### Key Features
-
-👉 Resfeber is a travel research product, allowing the user to:
-
-- Create a wish list of places to travel
-- Search points of interest (POI) near a travel destination.
-    - Show historical weather data on the destination
-- Create a travel Itinerary
-    - Save multiple POI to a particular Trip's Itinerary
-    - Ability to categorize POI as restaurants, excursions, accommodations, etc...
-    - Ability to add start and end dates to each POI
-    - Display POI in a list sorted by date
-- Integration with MapKit
-    - Show all of the saved POI for a particular trip on a map
-    - Get directions to a POI from the users current location using Apple Maps
-
-# Roadmap
-🗺 This describes the current status and the upcoming milestones of the Resfeber app.
-
-*Updated: Tue, 02 Jan 2021 05:02:21 GMT*
-
-| Status | Milestone | Goals | Label | Release Candidate
-| :---: | :--- | :---: | :---: | :---: |
-| ✔ | **Authentication** | 1 / 1 | `Complete`| `Release 1`| 
-| ✔ | **Create Trip** | 2 / 2 | `Complete`|`Release 1`| 
-| ✔ | **Travel Itinerary** | 3 / 3 | `Complete`|`Release 1`| 
-| - | **Travel Information/Data** | 0 / 2 | `not yet started`|`Release 2`| 
-| - | **Scheduled Travel Details** | 0 / 3 | `not yet started`|`Release 3`| 
-| - | **Flight Tracking** | 0 / 2 | `not yet started`|`Release 4`| 
-
-
+<br><br>
 
 # Contributing
 
