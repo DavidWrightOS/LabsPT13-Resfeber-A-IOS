@@ -10,7 +10,7 @@
 # Plan your upcoming trips with the Resfeber app! &nbsp;<img src="Resources/AppIcon.png" height="40">
 **Note:** This app is still under development and is not yet available on the App Store.
 
-<br><br>
+<br>
 
 ## Create a trip and search for locations to save to your trip
 
@@ -30,13 +30,13 @@
 
 <br><br>
 
-## Uses Okta authentication to make logging in quick and easy while keeping your personal information safe
+## Uses Okta authentication for quick and secure log in
 
 <img src="Resources/SignInScreen.png" width="300">&nbsp;&nbsp;
 <img src="Resources/SideMenu.png" width="300">
 
-- Your saved trips are synced to the cloud so you can access and update your data using multiple devices
-- Trip data is also stored locally on the device, so if you need to activate airplane mode you can still view and make changes to your trips
+- Your saved trips are synced to the cloud so you can access and update your trip data from multiple devices
+- All trip data is also stored locally on the device, so you can still access and update your trips with airplane mode activated
 
 <br><br>
 
