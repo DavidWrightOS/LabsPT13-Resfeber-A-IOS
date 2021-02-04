@@ -14,9 +14,9 @@
 
 ## Create a trip and search for locations to save to your trip
 
-<img src="Resources/TripsScreen.png" width="300">&nbsp;&nbsp;
-<img src="Resources/SearchLocations.png" width="300">&nbsp;&nbsp;
-<img src="Resources/EventDetail.png" width="300">
+<img src="Resources/TripsScreen.png" width="250">&nbsp;&nbsp;
+<img src="Resources/SearchLocations.png" width="250">&nbsp;&nbsp;
+<img src="Resources/EventDetail.png" width="250">
 
 - You can save other important information about a location such as dates and notes
 - You can also select a category to help keep all the locations saved to your trip organized
@@ -25,15 +25,15 @@
 
 ## View all your saved locations on a map (light and dark mode support)
 
-<img src="Resources/TripDetail-light.png" width="450">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Resources/TripDetail-dark.png" width="450">
+<img src="Resources/TripDetail-light.png" width="373">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Resources/TripDetail-dark.png" width="373">
 
 <br><br>
 
 ## Uses Okta authentication for quick and secure log in
 
-<img src="Resources/SignInScreen.png" width="300">&nbsp;&nbsp;
-<img src="Resources/SideMenu.png" width="300">
+<img src="Resources/SignInScreen.png" width="250">&nbsp;&nbsp;
+<img src="Resources/SideMenu.png" width="250">
 
 - Your saved trips are synced to the cloud so you can access and update your trip data from multiple devices
 - All trip data is also stored locally on the device, so you can still access and update your trips with airplane mode activated
