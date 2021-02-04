@@ -9,7 +9,7 @@
 import UIKit
 
 public enum EventCategory: Int, CaseIterable {
-        case notSpecified, accommodation, restaurant, entertainment, park, airport, retail, grocery, bank, gasStation, chargeStation, home, work, education, medical, pharmacy, emergency, hospital
+        case notSpecified, accommodation, restaurant, entertainment, park, airport, shopping, grocery, bank, gasStation, chargeStation, home, work, education, medical, pharmacy, emergency, hospital, sportingEvent, bar
 }
 
 extension EventCategory {
@@ -24,7 +24,7 @@ extension EventCategory {
         case .entertainment: return "Entertainment"
         case .park: return "Park"
         case .airport: return "Airport"
-        case .retail: return "Retail"
+        case .shopping: return "Shopping"
         case .grocery: return "Grocery"
         case .bank: return "Bank"
         case .gasStation: return "Gas Station"
@@ -36,6 +36,8 @@ extension EventCategory {
         case .pharmacy: return "Pharmacy"
         case .emergency: return "Emergency"
         case .hospital: return "Hospital"
+        case .sportingEvent: return "Sporting Event"
+        case .bar: return "Bar"
         }
     }
     
@@ -43,11 +45,11 @@ extension EventCategory {
         switch self {
         case .notSpecified: return UIImage(systemName: "mappin")
         case .accommodation: return UIImage(systemName: "bed.double.fill")
-        case .restaurant: return UIImage(named: "forkandknife")
+        case .restaurant: return UIImage(named: "forkAndKnife")
         case .entertainment: return UIImage(systemName: "star.fill")
-        case .park: return UIImage(systemName: "leaf.fill")
+        case .park: return UIImage(named: "tree")
         case .airport: return UIImage(systemName: "airplane")
-        case .retail: return UIImage(systemName: "bag.fill")
+        case .shopping: return UIImage(systemName: "bag.fill")
         case .grocery: return UIImage(systemName: "cart.fill")
         case .bank: return UIImage(systemName: "building.columns")
         case .gasStation: return UIImage(systemName: "car.fill")
@@ -59,6 +61,8 @@ extension EventCategory {
         case .pharmacy: return UIImage(systemName: "pills.fill")
         case .emergency: return UIImage(systemName: "staroflife.fill")
         case .hospital: return UIImage(systemName: "cross.fill")
+        case .sportingEvent: return UIImage(named: "stadium")
+        case .bar: return UIImage(named: "martini")
         }
     }
     
@@ -68,16 +72,17 @@ extension EventCategory {
         case .notSpecified: return RFColor.primaryOrange
         case .accommodation: return RFColor.rgb(r: 153, g: 135, b: 255)
         case .restaurant: return RFColor.rgb(r: 248, g: 149, b: 64)
-        case .entertainment: return RFColor.rgb(r: 229, g: 109, b: 214)
+        case .entertainment, .bar: return RFColor.rgb(r: 229, g: 109, b: 214)
         case .park: return RFColor.rgb(r: 108, g: 193, b: 57)
         case .airport: return RFColor.rgb(r: 84, g: 155, b: 255)
-        case .retail, .grocery: return RFColor.rgb(r: 255, g: 179, b: 0)
+        case .shopping, .grocery: return RFColor.rgb(r: 255, g: 179, b: 0)
         case .bank: return RFColor.rgb(r: 111, g: 130, b: 179)
         case .gasStation: return RFColor.rgb(r: 29, g: 160, b: 255)
         case .chargeStation: return RFColor.rgb(r: 52, g: 199, b: 89)
         case .home: return RFColor.rgb(r: 0, g: 174, b: 239)
         case .work, .education: return RFColor.rgb(r: 166, g: 116, b: 73)
         case .medical, .pharmacy, .emergency, .hospital: return RFColor.rgb(r: 255, g: 93, b: 90)
+        case .sportingEvent: return RFColor.rgb(r: 6, g: 186, b: 38)
         }
     }
 }

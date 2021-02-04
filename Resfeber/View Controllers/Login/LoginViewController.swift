@@ -30,7 +30,6 @@ class LoginViewController: UIViewController {
         button.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 5
-        button.layer.shouldRasterize = true
         button.layer.masksToBounds =  false
         button.addTarget(self, action: #selector(signIn), for: .touchUpInside)
         return button
@@ -79,21 +78,19 @@ class LoginViewController: UIViewController {
     private func alertUserOfExpiredCredentials(_ notification: Notification) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.presentSimpleAlert(with: "Your Okta credentials have expired",
-                           message: "Please sign in again",
-                           preferredStyle: .alert,
-                           dismissText: "Dimiss")
+                                    message: "Please sign in again",
+                                    preferredStyle: .alert,
+                                    dismissText: "Dismiss")
         }
     }
     
     // MARK: Notification Handling
     
     private func checkForExistingProfile(with notification: Notification) {
-        print("\tNotificationCenter.oktaAuthenticationSuccessful (LoginViewController)")
         checkForExistingProfile()
     }
     
     private func checkForExistingProfile() {
-        print("LoginViewController.checkForExistingProfile()")
         ProfileController.shared.checkForExistingAuthenticatedUserProfile { [weak self] exists in
             
             guard let self = self, self.presentedViewController == nil else { return }
@@ -101,25 +98,11 @@ class LoginViewController: UIViewController {
             if exists {
                 self.navigationController?.dismiss(animated: true, completion: nil)
             } else {
-                self.performSegue(withIdentifier: "ModalAddProfile", sender: nil)
+                self.presentSimpleAlert(with: "Something went wrong",
+                                        message: "Please try to sign in again",
+                                        preferredStyle: .alert,
+                                        dismissText: "Dismiss")
             }
         }
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ModalAddProfile" {
-            guard let addProfileVC = segue.destination as? AddProfileViewController else { return }
-            addProfileVC.delegate = self
-        }
-    }
-}
-
-// MARK: - Add Profile Delegate
-
-extension LoginViewController: AddProfileDelegate {
-    func profileWasAdded() {
-        checkForExistingProfile()
     }
 }

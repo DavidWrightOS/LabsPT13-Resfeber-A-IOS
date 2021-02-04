@@ -52,13 +52,14 @@ class ContainerController: UIViewController {
                                                object: nil,
                                                queue: .main,
                                                using: alertUserOfExpiredCredentials)
-        
-        configureMainNavigationController()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkForExistingProfile()
+        
+        if profile == nil {
+            checkForExistingProfile()
+        }
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { .slide }
@@ -67,14 +68,22 @@ class ContainerController: UIViewController {
     // MARK: - Helpers
     
     private func checkForExistingProfile() {
-        print("ContainerController.checkForExistingProfile()")
         profileController.checkForExistingAuthenticatedUserProfile { [weak self] exists in
             guard let self = self else { return }
             
             if exists, let profile = self.profileController.authenticatedUserProfile {
+                if self.mainNavigationController == nil {
+                    self.configureMainNavigationController()
+                }
                 self.profile = profile
             } else {
-                self.presentLoginViewController()
+                if self.mainNavigationController == nil {
+                    self.presentLoginViewController(animated: false) {
+                        self.configureMainNavigationController()
+                    }
+                } else {
+                    self.presentLoginViewController()
+                }
             }
         }
     }
@@ -108,7 +117,6 @@ class ContainerController: UIViewController {
     }
     
     private func loadUserData(_ notification: Notification) {
-        print("\tNotificationCenter.oktaAuthenticationSuccessful (ContainerController)")
         if profile == nil {
             checkForExistingProfile()
         } else {
@@ -117,7 +125,6 @@ class ContainerController: UIViewController {
     }
     
     private func loadUserData() {
-        print("\t\tContainerController.loadUserData()")
         tripsViewController.profile = profile
         sideMenuController.profile = profile
     }
@@ -138,11 +145,13 @@ class ContainerController: UIViewController {
         presentLoginViewController()
     }
     
-    private func presentLoginViewController(animated: Bool = true) {
+    private func presentLoginViewController(animated: Bool = true, completion: @escaping () -> Void = {}) {
         let nav = UINavigationController(rootViewController: LoginViewController())
         nav.modalPresentationStyle = .fullScreen
         nav.navigationBar.prefersLargeTitles = true
-        self.present(nav, animated: animated, completion: nil)
+        self.present(nav, animated: animated) {
+            completion()
+        }
     }
     
     // MARK: - Selectors

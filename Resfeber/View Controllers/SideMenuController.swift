@@ -59,7 +59,7 @@ class SideMenuController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = RFColor.red
+        view.backgroundColor = RFColor.sideMenuBackground
         configureTableView()
     }
     
@@ -71,7 +71,7 @@ class SideMenuController: UIViewController {
         tableView.dataSource = self
         
         tableView.register(SideMenuCell.self, forCellReuseIdentifier: reuseIdentifer)
-        tableView.backgroundColor = RFColor.red
+        tableView.backgroundColor = RFColor.sideMenuBackground
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         tableView.rowHeight = 60

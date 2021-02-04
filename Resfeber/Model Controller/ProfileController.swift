@@ -23,11 +23,7 @@ class ProfileController {
                             clientID: "0oalwkxvqtKeHBmLI4x6",
                             redirectURI: "labs://scaffolding/implicit/callback")
 
-    private(set) var authenticatedUserProfile: Profile? {
-        didSet {
-            print("didSet authenticatedUserProfile -> \(String(describing: authenticatedUserProfile))")
-        }
-    }
+    private(set) var authenticatedUserProfile: Profile?
     
     private var oktaCredentials: OktaCredentials? { try? oktaAuth.credentialsIfAvailable() }
     

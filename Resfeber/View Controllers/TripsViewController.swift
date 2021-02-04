@@ -31,24 +31,20 @@ class TripsViewController: UIViewController {
     
     let profileButtonCustomView: UIButton = {
         let buttonDiameter: CGFloat = 32
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setDimensions(height: buttonDiameter, width: buttonDiameter)
         button.layer.cornerRadius = buttonDiameter / 2
         button.layer.masksToBounds = true
-        button.layer.borderWidth = 1.5
-        button.layer.borderColor = RFColor.red.cgColor
-        button.imageView?.contentMode = .center
         button.backgroundColor = .white
+        button.tintColor = .systemGray
         button.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
         return button
     }()
     
     private let placeholderProfileImage: UIImage? = {
-        let buttonDiameter: CGFloat = 32
-        let config = UIImage.SymbolConfiguration(pointSize: buttonDiameter)
+        let config = UIImage.SymbolConfiguration(pointSize: 25.5)
         let image = UIImage(systemName: "person.crop.circle.fill")?
             .withConfiguration(config)
-            .withTintColor(.systemGray, renderingMode: .alwaysOriginal)
         return image
     }()
 
@@ -113,8 +109,16 @@ class TripsViewController: UIViewController {
     }
     
     func updateViews() {
-        let image = profile?.avatarImage ?? placeholderProfileImage
-        profileButtonCustomView.setImage(image, for: .normal)
+        guard collectionView != nil else { return }
+        
+        if let image = profile?.avatarImage {
+            profileButtonCustomView.imageView?.contentMode = .scaleAspectFill
+            profileButtonCustomView.setImage(image, for: .normal)
+        } else {
+            profileButtonCustomView.imageView?.contentMode = .center
+            profileButtonCustomView.setImage(placeholderProfileImage, for: .normal)
+        }
+        
         collectionView.reloadData()
     }
 }
@@ -160,6 +164,37 @@ extension TripsViewController: UICollectionViewDelegate {
         let detailVC = TripDetailViewController(trip, tripsController: tripsController)
         detailVC.tripDetailVCDelegate = self
         show(detailVC, sender: self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TripCell,
+              let trip = cell.trip else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Setup Edit Trip menu item
+            let editTrip = UIAction(title: "Edit Trip", image: UIImage(systemName: "square.and.pencil")) { [weak self] action in
+                guard let self = self else { return }
+                self.showEditTripViewController(with: trip)
+            }
+            
+            // Setup Delete Trip menu item
+            let deleteTrip = UIAction(title: "Delete Trip", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+                guard let self = self else { return }
+                self.tripsController.deleteTrip(trip)
+            }
+            
+            return UIMenu(title: "", children: [editTrip, deleteTrip])
+        }
+    }
+    
+    private func showEditTripViewController(with trip: Trip) {
+        let addTripVC = AddTripViewController(tripsController: tripsController)
+        addTripVC.delegate = self
+        addTripVC.trip = trip
+        let nav = UINavigationController(rootViewController: addTripVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
     }
 }
 
