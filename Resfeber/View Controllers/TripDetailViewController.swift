@@ -56,8 +56,8 @@ class TripDetailViewController: UIViewController {
     private let annotationZoomButton: UIButton = {
         let button = UIButton()
         button.setDimensions(height: 38, width: 38)
-        let config = UIImage.SymbolConfiguration(scale: .large)
-        button.setImage(UIImage(systemName: "mappin.and.ellipse")?.withConfiguration(config), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        button.setImage(UIImage(named: "annotationZoom"), for: .normal)
         button.tintColor = RFColor.red
         button.addTarget(self, action: #selector(zoomToFitAllEventAnnotations), for: .touchUpInside)
         return button
