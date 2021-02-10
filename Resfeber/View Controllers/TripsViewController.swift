@@ -42,7 +42,7 @@ class TripsViewController: UIViewController {
     }()
     
     private let placeholderProfileImage: UIImage? = {
-        let config = UIImage.SymbolConfiguration(pointSize: 25.5)
+        let config = UIImage.SymbolConfiguration(pointSize: 32)
         let image = UIImage(systemName: "person.crop.circle.fill")?
             .withConfiguration(config)
         return image
