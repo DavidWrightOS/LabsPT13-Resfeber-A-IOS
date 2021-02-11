@@ -23,6 +23,24 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func presentCancellableAlert(title: String? = nil,
+                                 message: String? = nil,
+                                 preferredStyle: UIAlertController.Style = .alert,
+                                 actionButtonTitle: String,
+                                 actionCompletion: ((UIAlertAction) -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        alert.view.tintColor = RFColor.red
+        
+        let primaryAction = UIAlertAction(title: actionButtonTitle, style: .default, handler: actionCompletion)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(cancelAction)
+        alert.addAction(primaryAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     func presentDeletionAlert(title: String?,
                               message: String?,
                               preferredStyle: UIAlertController.Style = .alert,
