@@ -112,7 +112,7 @@ class ContainerController: UIViewController {
             let nav = UINavigationController(rootViewController: ProfileViewController())
             present(nav, animated: true, completion: nil)
         case .logOut:
-            logoutUser()
+            presentLogoutAlert()
         }
     }
     
@@ -138,6 +138,12 @@ class ContainerController: UIViewController {
                 guard let self = self else { return }
                 self.logoutUser()
             }
+        }
+    }
+    
+    private func presentLogoutAlert() {
+        presentCancellableAlert(title: "Are you sure you want to log out?", actionButtonTitle: "Log Out") { [weak self] _ in
+            self?.logoutUser()
         }
     }
     
