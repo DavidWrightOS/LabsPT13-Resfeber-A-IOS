@@ -3,7 +3,6 @@
 🧭 Resfeber (RACE-fay-ber). *Origin: Swedish*  - The restless race of the traveler’s heart before the journey begins, when anxiety and anticipation are tangled together.  That is the feeling we want our users to experience when planning their travels with this app. 🧳
 
 
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 [![swift-version](https://img.shields.io/badge/swift-5.1-brightgreen.svg)](https://github.com/apple/swift)
 [![xcode-version](https://img.shields.io/badge/xcode-12%20-brightgreen)](https://developer.apple.com/xcode/)
 
